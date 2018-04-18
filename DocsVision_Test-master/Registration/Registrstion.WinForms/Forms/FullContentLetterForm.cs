@@ -19,8 +19,6 @@ namespace Registration.WinForms.Forms
         private List<Control> _baseControls;
         private Point _baseSizeHeight;
 
-
-
         public FullContentLetterForm(IServiceProvider provider)
         {
             _serviceProvider = provider;
@@ -101,7 +99,7 @@ namespace Registration.WinForms.Forms
 
             this.Controls.Clear();
             ((Control)newControl).Location = new Point(0, locationY);
-
+          
             this.Size = new Size(((Control)newControl).Size.Width, ((Control)newControl).Size.Height + heightSize);
 
             this.Controls.Add(((Control)newControl));

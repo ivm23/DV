@@ -99,14 +99,9 @@ namespace Registration.WinForms.Controlers
             }
         }
 
-        private void importanceDegreeEditorControl1_Load(object sender, EventArgs e)
+        private void ImportantLetterControl_Load(object sender, EventArgs e)
         {
-
+            Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top);
         }
-
-        private void fullContentLetterControl1_Load(object sender, EventArgs e)
-        {
-        }
-
     }
 }

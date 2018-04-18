@@ -91,5 +91,10 @@ namespace Registration.WinForms.Controlers
                 return fullContentLetterControl1.ReadOnly;
             }
         }
+
+        private void LetterWithResponseTimeControl_Load(object sender, EventArgs e)
+        {
+            Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top);
+        }
     }
 }

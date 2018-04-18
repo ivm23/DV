@@ -28,15 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Model.LetterProperties letterProperties1 = new Model.LetterProperties();
+            Model.LetterView letterView1 = new Model.LetterView();
             this.labelDate = new System.Windows.Forms.Label();
             this.dateTimePickerResponseRequired = new System.Windows.Forms.DateTimePicker();
-            this.fullContentLetterControl1 = new Controlers.FullContentLetterControl();
+            this.fullContentLetterControl1 = new FullContentLetterControl();
             this.SuspendLayout();
             // 
             // labelDate
             // 
+            this.labelDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(383, 50);
+            this.labelDate.Location = new System.Drawing.Point(391, 54);
             this.labelDate.Name = "labelDate";
             this.labelDate.Size = new System.Drawing.Size(132, 13);
             this.labelDate.TabIndex = 0;
@@ -44,17 +47,34 @@
             // 
             // dateTimePickerResponseRequired
             // 
-            this.dateTimePickerResponseRequired.Location = new System.Drawing.Point(386, 66);
+            this.dateTimePickerResponseRequired.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePickerResponseRequired.Location = new System.Drawing.Point(394, 70);
             this.dateTimePickerResponseRequired.Name = "dateTimePickerResponseRequired";
             this.dateTimePickerResponseRequired.Size = new System.Drawing.Size(122, 20);
             this.dateTimePickerResponseRequired.TabIndex = 1;
             // 
             // fullContentLetterControl1
             // 
-            this.fullContentLetterControl1.Location = new System.Drawing.Point(-8, -4);
+            this.fullContentLetterControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            letterProperties1.ExtendedProperty = "";
+            this.fullContentLetterControl1.LetterExtendedProperties = letterProperties1;
+            letterView1.Date = new System.DateTime(((long)(0)));
+            letterView1.ExtendedData = null;
+            letterView1.IdFolder = new System.Guid("00000000-0000-0000-0000-000000000000");
+            letterView1.IdSender = new System.Guid("00000000-0000-0000-0000-000000000000");
+            letterView1.IsRead = false;
+            letterView1.Name = "";
+            letterView1.SenderName = "";
+            letterView1.Text = "";
+            letterView1.Type = 0;
+            this.fullContentLetterControl1.LetterView = letterView1;
+            this.fullContentLetterControl1.Location = new System.Drawing.Point(0, 0);
             this.fullContentLetterControl1.Name = "fullContentLetterControl1";
             this.fullContentLetterControl1.ReadOnly = true;
             this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 457);
+            this.fullContentLetterControl1.StandartLetter = letterView1;
             this.fullContentLetterControl1.TabIndex = 2;
             // 
             // LetterWithResponseTimeControl
@@ -65,7 +85,8 @@
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.fullContentLetterControl1);
             this.Name = "LetterWithResponseTimeControl";
-            this.Size = new System.Drawing.Size(538, 481);
+            this.Size = new System.Drawing.Size(561, 509);
+            this.Load += new System.EventHandler(this.LetterWithResponseTimeControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

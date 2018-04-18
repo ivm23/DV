@@ -95,10 +95,10 @@ namespace Registration.WinForms.Controlers
                 textLetterTB.ReadOnly = value;
                 dateLetterTB.Visible = value;
                 labelDate.Visible = value;
-                nameReceiversCB.Visible = !value;
+           //     nameReceiversCB.Visible = !value;
                 workersEditorControl2.ReadOnly = value;
                 addReceiversB.Visible = !value;
-                nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
+          //      nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
             }
             get
             {
@@ -131,6 +131,12 @@ namespace Registration.WinForms.Controlers
 
         private void FullContentLetterControl_Load(object sender, EventArgs e)
         {
+            Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top);
+        }
+
+        private void workersEditorControl2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

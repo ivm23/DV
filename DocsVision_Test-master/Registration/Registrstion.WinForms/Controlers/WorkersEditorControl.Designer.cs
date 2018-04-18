@@ -37,7 +37,7 @@
             this.txtWorkers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtWorkers.Location = new System.Drawing.Point(3, 3);
+            this.txtWorkers.Location = new System.Drawing.Point(2, 2);
             this.txtWorkers.Name = "txtWorkers";
             this.txtWorkers.Size = new System.Drawing.Size(205, 20);
             this.txtWorkers.TabIndex = 0;
@@ -48,7 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboWorkers.FormattingEnabled = true;
-            this.comboWorkers.Location = new System.Drawing.Point(4, 3);
+            this.comboWorkers.Location = new System.Drawing.Point(3, 3);
             this.comboWorkers.Name = "comboWorkers";
             this.comboWorkers.Size = new System.Drawing.Size(204, 21);
             this.comboWorkers.TabIndex = 1;

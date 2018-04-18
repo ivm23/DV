@@ -37,10 +37,9 @@
             this.labelReceivers = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
             this.textLetterTB = new System.Windows.Forms.TextBox();
-            this.nameReceiversCB = new System.Windows.Forms.ComboBox();
             this.addReceiversB = new System.Windows.Forms.Button();
-            this.workersEditorControl1 = new WorkersEditorControl();
             this.workersEditorControl2 = new WorkersEditorControl();
+            this.workersEditorControl1 = new WorkersEditorControl();
             this.SuspendLayout();
             // 
             // labelName
@@ -132,18 +131,6 @@
             this.textLetterTB.Size = new System.Drawing.Size(330, 296);
             this.textLetterTB.TabIndex = 9;
             // 
-            // nameReceiversCB
-            // 
-            this.nameReceiversCB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nameReceiversCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.nameReceiversCB.FormattingEnabled = true;
-            this.nameReceiversCB.Location = new System.Drawing.Point(19, 110);
-            this.nameReceiversCB.Name = "nameReceiversCB";
-            this.nameReceiversCB.Size = new System.Drawing.Size(330, 21);
-            this.nameReceiversCB.TabIndex = 10;
-            this.nameReceiversCB.Visible = false;
-            // 
             // addReceiversB
             // 
             this.addReceiversB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -155,6 +142,16 @@
             this.addReceiversB.UseVisualStyleBackColor = true;
             this.addReceiversB.Click += new System.EventHandler(this.addReceiversB_Click_1);
             // 
+            // workersEditorControl2
+            // 
+            this.workersEditorControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.workersEditorControl2.Location = new System.Drawing.Point(15, 109);
+            this.workersEditorControl2.Name = "workersEditorControl2";
+            this.workersEditorControl2.ReadOnly = true;
+            this.workersEditorControl2.Size = new System.Drawing.Size(336, 28);
+            this.workersEditorControl2.TabIndex = 13;
+            // 
             // workersEditorControl1
             // 
             this.workersEditorControl1.Location = new System.Drawing.Point(16, 110);
@@ -163,21 +160,12 @@
             this.workersEditorControl1.Size = new System.Drawing.Size(336, 28);
             this.workersEditorControl1.TabIndex = 13;
             // 
-            // workersEditorControl2
-            // 
-            this.workersEditorControl2.Location = new System.Drawing.Point(14, 110);
-            this.workersEditorControl2.Name = "workersEditorControl2";
-            this.workersEditorControl2.ReadOnly = true;
-            this.workersEditorControl2.Size = new System.Drawing.Size(336, 28);
-            this.workersEditorControl2.TabIndex = 13;
-            // 
             // FullContentLetterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.workersEditorControl2);
             this.Controls.Add(this.addReceiversB);
-            this.Controls.Add(this.nameReceiversCB);
             this.Controls.Add(this.textLetterTB);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.labelReceivers);
@@ -206,7 +194,6 @@
         private System.Windows.Forms.Label labelReceivers;
         private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.TextBox textLetterTB;
-        private System.Windows.Forms.ComboBox nameReceiversCB;
         private System.Windows.Forms.Button addReceiversB;
         private WorkersEditorControl workersEditorControl1;
         private WorkersEditorControl workersEditorControl2;
