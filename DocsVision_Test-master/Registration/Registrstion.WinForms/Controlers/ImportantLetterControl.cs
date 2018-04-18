@@ -19,7 +19,6 @@ namespace Registration.WinForms.Controlers
     {
         public event EventHandler AddedReceiver;
 
-        private LetterProperties _letterProperties = new LetterProperties();
         private LetterView _letterView = new LetterView();
 
         // private  DataSerialization.IDataSerializationService<ImportantLetterData> _dataSerializer = DataSerialization.DataSerializationServiceFactory<ImportantLetterData>.InitializeDataSerializationService();
@@ -36,52 +35,29 @@ namespace Registration.WinForms.Controlers
             fullContentLetterControl1.OnLoad(serviceProvider);
         }
 
-        public LetterProperties LetterExtendedProperties
-        {
-            set
-            {
-                _letterProperties = value;
-                Model.ImportantLetterData importantLetterData = _dataSerializer.DeserializeData(value.ExtendedProperty);
-
-                importanceDegreeEditorControl1.ImportanceDegree = importantLetterData.DegreeImportance;
-            }
-            get
-            {
-                var importantLetterData = new ImportantLetterData();
-
-                importantLetterData.DegreeImportance = importanceDegreeEditorControl1.ImportanceDegree;
-
-                _letterProperties.ExtendedProperty = _dataSerializer.SerializeData(importantLetterData);
-
-                return _letterProperties;
-            }    
-        }
-
-
-        public LetterView StandartLetter
-        {
-            set
-            {
-                fullContentLetterControl1.StandartLetter = value;
-            }
-            get
-            {
-                return fullContentLetterControl1.StandartLetter;
-            }
-        }
 
         public LetterView LetterView
         {
             set
             {
-                StandartLetter = value;
-                _letterProperties.ExtendedProperty = value.ExtendedData;
-                LetterExtendedProperties = _letterProperties;
+                fullContentLetterControl1.LetterView = value;
+
+                _letterView.ExtendedData = value.ExtendedData;
+
+                Model.ImportantLetterData importantLetterData = _dataSerializer.DeserializeData(_letterView.ExtendedData);
+
+                importanceDegreeEditorControl1.ImportanceDegree = importantLetterData.DegreeImportance;
             }
             get
             {
-                _letterView = StandartLetter;
-                _letterView.ExtendedData = LetterExtendedProperties.ExtendedProperty;
+                _letterView = fullContentLetterControl1.LetterView;
+
+                var importantLetterData = new ImportantLetterData();
+
+                importantLetterData.DegreeImportance = importanceDegreeEditorControl1.ImportanceDegree;
+
+                _letterView.ExtendedData = _dataSerializer.SerializeData(importantLetterData);
+
                 return _letterView;
             }
         }

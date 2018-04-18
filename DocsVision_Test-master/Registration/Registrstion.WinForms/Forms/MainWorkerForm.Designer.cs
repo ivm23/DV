@@ -80,6 +80,7 @@
             // 
             // deleteLetterToolStripMenuItem
             // 
+            this.deleteLetterToolStripMenuItem.Enabled = false;
             this.deleteLetterToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteLetterToolStripMenuItem.Image")));
             this.deleteLetterToolStripMenuItem.Name = "deleteLetterToolStripMenuItem";
             this.deleteLetterToolStripMenuItem.Size = new System.Drawing.Size(101, 20);

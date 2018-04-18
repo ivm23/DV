@@ -17,7 +17,6 @@ namespace Registration.WinForms.Controlers
     internal partial class FullContentLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
         public event EventHandler AddedReceiver;
-        private LetterProperties _letterProperties = new LetterProperties();
         private LetterView _letterView = new LetterView();
         private IServiceProvider _serviceProvider;
 
@@ -42,26 +41,16 @@ namespace Registration.WinForms.Controlers
             InitializeSender();
         }
 
-        public LetterProperties LetterExtendedProperties
-        {
-            set
-            {
-                _letterProperties = value;
-            }
-            get
-            {
-                return _letterProperties;
-            }
-        }
-
-        public LetterView StandartLetter
+        public LetterView LetterView
         {
             set
             {
                 nameLetterTB.Text = value.Name;
                 nameSenderTB.Text = value.SenderName;
                 dateLetterTB.Text = value.Date.ToString();
+                textLetterTB.Text = value.Text;
                 workersEditorControl2.SetWorkers(value.ReceiversName);
+                _letterView.ExtendedData = value.ExtendedData;
             }
             get
             {
@@ -69,20 +58,6 @@ namespace Registration.WinForms.Controlers
                 _letterView.SenderName = nameSenderTB.Text;
                 _letterView.Text = textLetterTB.Text;
                 _letterView.ReceiversName.AddRange(ReadOnly ? workersEditorControl1.GetWorkers() : _namesAndLoginsReceivers);
-
-                return _letterView;
-            }
-        }
-
-        public LetterView LetterView
-        {
-            set
-            {
-                StandartLetter = value;
-            }
-            get
-            {
-                _letterView = StandartLetter;
                 return _letterView;
             }
         }
@@ -95,10 +70,8 @@ namespace Registration.WinForms.Controlers
                 textLetterTB.ReadOnly = value;
                 dateLetterTB.Visible = value;
                 labelDate.Visible = value;
-           //     nameReceiversCB.Visible = !value;
                 workersEditorControl2.ReadOnly = value;
                 addReceiversB.Visible = !value;
-          //      nameReceiversCB.DropDownStyle = (value ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown);
             }
             get
             {
@@ -132,11 +105,6 @@ namespace Registration.WinForms.Controlers
         private void FullContentLetterControl_Load(object sender, EventArgs e)
         {
             Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top);
-        }
-
-        private void workersEditorControl2_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -241,6 +241,8 @@ namespace Registration.WinForms.Forms
 
         private void briefContentLetterDGV_MouseClick(object sender, MouseEventArgs e)
         {
+            deleteLetterToolStripMenuItem.Enabled = true;
+
             Folder folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
             Guid folderId = folder.Id;
             if (0 < briefContentLetterDGV.Rows.Count)

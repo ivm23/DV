@@ -29,7 +29,7 @@ namespace Registration.DataInterface.Sql
         const string IsReadColumn = "@isRead";
 
         const string IdColumn = "@id";
-
+        const string IsDeleteColumn = "isDelete";
         const string ExtendedDataColumn = "@extendedData";
         const string LetterTypeIdColumn = "@type";
 
@@ -46,6 +46,7 @@ namespace Registration.DataInterface.Sql
         const string LetterTypeId = "type";
         const string Id = "id";
         const string TypeClientUI = "typeClientUI";
+        
 
         private DatabaseService _databaseService;
      
@@ -76,6 +77,7 @@ namespace Registration.DataInterface.Sql
                     DatabaseService.AddParameterWithValue(DateColumn, letter.Date, command);
                     DatabaseService.AddParameterWithValue(ExtendedDataColumn, letter.ExtendedData, command);
                     DatabaseService.AddParameterWithValue(LetterTypeIdColumn, letter.Type, command);
+                    DatabaseService.AddParameterWithValue(IsDeleteColumn, false, command);
 
                     DataTable data = new DataTable();
                     data.Columns.Add(IdLetter, typeof(Guid));

@@ -18,7 +18,6 @@ namespace Registration.WinForms.Controlers
     {
         public event EventHandler AddedReceiver;
 
-        private LetterProperties _letterProperties = new LetterProperties();
         private LetterView _letterView = new LetterView();
         private DataSerialization.IDataSerializationService<LetterWithReminderData> _dataSerializer = DataSerialization.DataSerializationServiceFactory<LetterWithReminderData>.InitializeDataSerializationService();
 
@@ -33,49 +32,22 @@ namespace Registration.WinForms.Controlers
             fullContentLetterControl1.OnLoad(serviceProvider);
         }
 
-        public LetterProperties LetterExtendedProperties
-        {
-            set
-            {
-                _letterProperties = value;
-                LetterWithReminderData reminderLetterData = _dataSerializer.DeserializeData(value.ExtendedProperty);
-                dateTimePickerResponseRequired.Value = reminderLetterData.ReminderData;
-            }
-            get
-            {
-                var reminderLetterData = new LetterWithReminderData { ReminderData = dateTimePickerResponseRequired.Value };
-
-                _letterProperties.ExtendedProperty = _dataSerializer.SerializeData(reminderLetterData);
-
-                return _letterProperties;
-            }
-        }
-
         public LetterView LetterView
         {
             set
             {
-                StandartLetter = value;
-                _letterProperties.ExtendedProperty = value.ExtendedData;
-                LetterExtendedProperties = _letterProperties;
-            }
-            get
-            {
-                _letterView = StandartLetter;
-                _letterView.ExtendedData = LetterExtendedProperties.ExtendedProperty;
-                return _letterView;
-            }
-        }
+                fullContentLetterControl1.LetterView = value;
 
-        public LetterView StandartLetter
-        {
-            set
-            {
-                fullContentLetterControl1.StandartLetter = value;
+                _letterView.ExtendedData = value.ExtendedData;
+                LetterWithReminderData reminderLetterData = _dataSerializer.DeserializeData(_letterView.ExtendedData);
+                dateTimePickerResponseRequired.Value = reminderLetterData.ReminderData;
             }
             get
             {
-                return fullContentLetterControl1.StandartLetter;
+                _letterView = fullContentLetterControl1.LetterView;
+                var reminderLetterData = new LetterWithReminderData { ReminderData = dateTimePickerResponseRequired.Value };
+                _letterView.ExtendedData = _dataSerializer.SerializeData(reminderLetterData);
+                return _letterView;
             }
         }
 
