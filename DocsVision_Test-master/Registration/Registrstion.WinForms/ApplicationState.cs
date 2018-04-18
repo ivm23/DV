@@ -17,5 +17,7 @@ namespace Registration.WinForms
         public LetterView SelectedLetterView { get; set; } = new LetterView();
         public LetterType SelectedLetterType { get; set; } = new LetterType();
         public CloseReason CloseReason { get; set; } = new CloseReason();
+
+        public ILetterPropertiesUIPlugin CurrentLetterPropertiesPlugin { get; set; }
     }
 }

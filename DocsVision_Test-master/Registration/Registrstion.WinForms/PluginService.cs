@@ -8,7 +8,6 @@ namespace Registration.WinForms
     public class PluginService : IPluginService
     {
         private readonly IDictionary<int, IFolderPropertiesUIPlugin> _existClientPlugin = new Dictionary<int, IFolderPropertiesUIPlugin>();
-        private  KeyValuePair<int, ILetterPropertiesUIPlugin> _currentClientLetterPropertiesPlugin;
         private readonly IDictionary<Guid, object> _globalExistClientPlugin = new Dictionary<Guid, object>();
         private readonly IServiceProvider _serviceProvider;
 
@@ -46,21 +45,9 @@ namespace Registration.WinForms
             if (null == selectedLetterType)
                 throw new ArgumentNullException(nameof(selectedLetterType));
 
-            ILetterPropertiesUIPlugin clientLetterPropertiesPlugin;
-            if (_currentClientLetterPropertiesPlugin.Key != selectedLetterType.Id)
-            {
-                IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
-
-                string typeClientLetterPropertiesUI = clientRequests.GetLetterType(selectedLetterType.Id).TypeClientUI;
-                _currentClientLetterPropertiesPlugin = new KeyValuePair<int, ILetterPropertiesUIPlugin>(selectedLetterType.Id, CreatePlugin<ILetterPropertiesUIPlugin>(typeClientLetterPropertiesUI));
-                clientLetterPropertiesPlugin = _currentClientLetterPropertiesPlugin.Value;
-            }
-            else
-            {
-                clientLetterPropertiesPlugin = _currentClientLetterPropertiesPlugin.Value;
-                _currentClientLetterPropertiesPlugin = new KeyValuePair<int, ILetterPropertiesUIPlugin>(0, null);
-            }
-            return clientLetterPropertiesPlugin;
+            IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
+            string typeClientLetterPropertiesUI = clientRequests.GetLetterType(selectedLetterType.Id).TypeClientUI;
+            return CreatePlugin<ILetterPropertiesUIPlugin>(typeClientLetterPropertiesUI);
         }
 
         private T CreatePlugin<T>(string typeName)

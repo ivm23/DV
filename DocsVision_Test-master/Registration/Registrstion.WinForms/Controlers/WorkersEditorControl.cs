@@ -62,7 +62,6 @@ namespace Registration.WinForms.Controlers
 
         public void SetWorkers(IEnumerable<string> workers)
         {
-
             if (ReadOnly)
             {
                 StringBuilder workersString = new StringBuilder();

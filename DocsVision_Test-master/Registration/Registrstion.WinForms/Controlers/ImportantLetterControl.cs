@@ -32,6 +32,9 @@ namespace Registration.WinForms.Controlers
 
         public void OnLoad(IServiceProvider serviceProvider)
         {
+            if (null == serviceProvider)
+                throw new ArgumentNullException(nameof(serviceProvider));
+
             fullContentLetterControl1.OnLoad(serviceProvider);
         }
 

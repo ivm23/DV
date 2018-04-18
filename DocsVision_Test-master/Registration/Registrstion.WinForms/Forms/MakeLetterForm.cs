@@ -112,6 +112,7 @@ namespace Registration.WinForms.Forms
             var workers = clientService.GetAllWorkers();
             this.Size = new Size(((Control)newControl).Size.Width, ((Control)newControl).Height);
             this.Controls.Add(((Control)newControl));
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentLetterPropertiesPlugin = newControl;
         }
 
         private void MakeLetterForm_Load(object sender, EventArgs e)
@@ -129,7 +130,7 @@ namespace Registration.WinForms.Forms
         private void sendLetterB_Click_1(object sender, EventArgs e)
         {
             LetterType selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
-            ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+            ILetterPropertiesUIPlugin clientUIPlugin = ((ApplicationState)(ServiceProvider.GetService(typeof(ApplicationState)))).CurrentLetterPropertiesPlugin;
 
             LetterView letterView = clientUIPlugin.LetterView;
 

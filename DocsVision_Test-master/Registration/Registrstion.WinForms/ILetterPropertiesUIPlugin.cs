@@ -14,8 +14,6 @@ namespace Registration.WinForms
         LetterView LetterView { get; set; }
 
         event EventHandler AddedReceiver;
-
         bool ReadOnly { set; get; }
-
     }
 }

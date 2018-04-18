@@ -36,6 +36,9 @@ namespace Registration.WinForms.Controlers
         }
 
         public void OnLoad(IServiceProvider serviceProvider) {
+            if (null == serviceProvider)
+                throw new ArgumentNullException(nameof(serviceProvider));
+
             _serviceProvider = serviceProvider;
             InitializeReceivers();
             InitializeSender();
