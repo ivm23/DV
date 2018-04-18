@@ -78,16 +78,6 @@ namespace Registration.WinForms.Forms
             return true;
         }
 
-        private IEnumerable<string> GetAllWorkers()
-        {
-            return ClientRequests.GetAllWorkers();
-        }
-
-        private string GetWorkerName(Guid workerId)
-        {
-            return ClientRequests.GetWorkerName(workerId);
-        }
-
         private void InitializeClientService()
         {
             _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
@@ -136,6 +126,7 @@ namespace Registration.WinForms.Forms
 
         private void sendLetterB_Click_1(object sender, EventArgs e)
         {
+           
             LetterType selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
             ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 

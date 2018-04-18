@@ -16,9 +16,9 @@ namespace Registration.Api
 
         public static ConfigurationService InitializeConfigurationService()
         {
-            if (sectionHandler != null)
+            if (null != sectionHandler)
 
-            if (String.IsNullOrEmpty(sectionHandler.Name))
+            if (string.IsNullOrEmpty(sectionHandler.Name))
                 throw new Exception("Configuration name not defined in ConfigurationService section of web.config.");
 
             try
