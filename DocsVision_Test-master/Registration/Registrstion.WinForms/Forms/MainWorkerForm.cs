@@ -28,6 +28,7 @@ namespace Registration.WinForms.Forms
         private IList<LetterType> _letterTypes;
 
         private int _selectNodeIndex = 0;
+        private int _indexOfSelectedRow = 0;
 
         public MainWorkerForm(IServiceProvider provider)
         {
@@ -177,10 +178,16 @@ namespace Registration.WinForms.Forms
 
         private void FillBriefContentLetterDGV()
         {
-            int select = 0;
+            int select = _indexOfSelectedRow;
+
             if (briefContentLetterDGV.Rows.Count != 0)
             {
                 select = briefContentLetterDGV.CurrentRow.Index;
+            }
+
+            if (select > briefContentLetterDGV.Rows.Count)
+            {
+                select = (select == 0 ? 0 : select - 1);
             }
 
             briefContentLetterDGV.Rows.Clear();
@@ -229,7 +236,16 @@ namespace Registration.WinForms.Forms
 
             foldersTV.ExpandAll();
 
-            foldersTV.SelectedNode = foldersTV.Nodes[0];
+            string findKey = string.Empty;
+            findSelectedNodeKey(ref findKey);
+            if (_existPrivateFoldersInTree.ContainsKey(findKey))
+            {
+                foldersTV.SelectedNode = _existPrivateFoldersInTree[findKey];
+            }
+            else
+            {
+                foldersTV.SelectedNode = _existSharedFoldersInTree[findKey];
+            }
 
             FillBriefContentLetterDGV();
         }
@@ -359,9 +375,9 @@ namespace Registration.WinForms.Forms
             else
             if (MessageService.QuestionMessage(Message.MessageResource.DeleteLetter) == DialogResult.Yes)
             {
-                int indexOfSelectedRow = briefContentLetterDGV.CurrentCell.RowIndex;
+                _indexOfSelectedRow = briefContentLetterDGV.CurrentCell.RowIndex;
 
-                DeleteLetter(_lettersInfo[indexOfSelectedRow], ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+                DeleteLetter(_lettersInfo[_indexOfSelectedRow], ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
 
                 InitializeMainWorkerForm();
             }
