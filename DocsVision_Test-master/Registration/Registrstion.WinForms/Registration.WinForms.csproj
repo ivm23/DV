@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{140B793F-CDD4-44CD-A557-67644D1CD6EF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Registrstion.WinForms</RootNamespace>
+    <AssemblyName>Registrstion.WinForms</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationState.cs" />
+    <Compile Include="Controlers\ButtonCreateCancelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\ButtonCreateCancelControl.Designer.cs">
+      <DependentUpon>ButtonCreateCancelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\FullContentLetterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\FullContentLetterControl.Designer.cs">
+      <DependentUpon>FullContentLetterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\ImportanceDegreeEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\ImportanceDegreeEditorControl.Designer.cs">
+      <DependentUpon>ImportanceDegreeEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\ImportantLetterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\ImportantLetterControl.Designer.cs">
+      <DependentUpon>ImportantLetterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\InboxFolderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\InboxFolderControl.Designer.cs">
+      <DependentUpon>InboxFolderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\LetterWithResponseTimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\LetterWithResponseTimeControl.Designer.cs">
+      <DependentUpon>LetterWithResponseTimeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\SearchFolderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\SearchFolderControl.Designer.cs">
+      <DependentUpon>SearchFolderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\SentFolderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\SentFolderControl.Designer.cs">
+      <DependentUpon>SentFolderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\SingUpControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\SingUpControl.Designer.cs">
+      <DependentUpon>SingUpControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\StandartLetterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\StandartLetterControl.Designer.cs">
+      <DependentUpon>StandartLetterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\UnreadFolderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\UnreadFolderControl.Designer.cs">
+      <DependentUpon>UnreadFolderControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controlers\WorkersEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\WorkersEditorControl.Designer.cs">
+      <DependentUpon>WorkersEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreateFolderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateFolderForm.Designer.cs">
+      <DependentUpon>CreateFolderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreateSearchFolderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateSearchFolderForm.Designer.cs">
+      <DependentUpon>CreateSearchFolderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FullContentLetterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FullContentLetterForm.Designer.cs">
+      <DependentUpon>FullContentLetterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RenameFolderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RenameFolderForm.Designer.cs">
+      <DependentUpon>RenameFolderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SingUpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SingUpForm.Designer.cs">
+      <DependentUpon>SingUpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainWorkerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainWorkerForm.Designer.cs">
+      <DependentUpon>MainWorkerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MakeLetterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MakeLetterForm.Designer.cs">
+      <DependentUpon>MakeLetterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AuthorizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AuthorizationForm.Designer.cs">
+      <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IFolderPropertiesUIPlugin.cs" />
+    <Compile Include="ILetterPropertiesUIPlugin.cs" />
+    <Compile Include="IPluginService.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Message\IMessageService.cs" />
+    <Compile Include="Message\MessageService.cs" />
+    <Compile Include="Message\MessageResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessageResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PluginService.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controlers\ButtonCreateCancelControl.resx">
+      <DependentUpon>ButtonCreateCancelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\FullContentLetterControl.resx">
+      <DependentUpon>FullContentLetterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\ImportanceDegreeEditorControl.resx">
+      <DependentUpon>ImportanceDegreeEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\ImportantLetterControl.resx">
+      <DependentUpon>ImportantLetterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\InboxFolderControl.resx">
+      <DependentUpon>InboxFolderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\LetterWithResponseTimeControl.resx">
+      <DependentUpon>LetterWithResponseTimeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\SearchFolderControl.resx">
+      <DependentUpon>SearchFolderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\SentFolderControl.resx">
+      <DependentUpon>SentFolderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\SingUpControl.resx">
+      <DependentUpon>SingUpControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\StandartLetterControl.resx">
+      <DependentUpon>StandartLetterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\UnreadFolderControl.resx">
+      <DependentUpon>UnreadFolderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\WorkersEditorControl.resx">
+      <DependentUpon>WorkersEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateFolderForm.resx">
+      <DependentUpon>CreateFolderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateSearchFolderForm.resx">
+      <DependentUpon>CreateSearchFolderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FullContentLetterForm.resx">
+      <DependentUpon>FullContentLetterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RenameFolderForm.resx">
+      <DependentUpon>RenameFolderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SingUpForm.resx">
+      <DependentUpon>SingUpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainWorkerForm.resx">
+      <DependentUpon>MainWorkerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MakeLetterForm.resx">
+      <DependentUpon>MakeLetterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AuthorizationForm.resx">
+      <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Message\MessageResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Message\MessageResource.ru.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Forms\AuthorizationForm.ru.resx">
+      <DependentUpon>AuthorizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Registration.ClientInterface\Registration.ClientInterface.csproj">
+      <Project>{c715b00f-8ec8-48f7-b18c-c6c7b954f884}</Project>
+      <Name>Registration.ClientInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registration.DataInterface\Registration.DataInterface.csproj">
+      <Project>{944c171e-f955-48c7-974c-7ff5c21c7639}</Project>
+      <Name>Registration.DataInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registration.DataSerialization\Registration.DataSerialization.csproj">
+      <Project>{852cb496-37e5-4364-8782-9743fa3b4de5}</Project>
+      <Name>Registration.DataSerialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registration.Logger\Registration.Logger.csproj">
+      <Project>{2eb8e0cb-1fac-4185-8315-96a50d92db69}</Project>
+      <Name>Registration.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registretion.Model\Registration.Model.csproj">
+      <Project>{8c0a1308-ae5a-4d36-ac6c-5e808a9c929e}</Project>
+      <Name>Registration.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
