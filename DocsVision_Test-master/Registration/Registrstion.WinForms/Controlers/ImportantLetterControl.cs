@@ -43,13 +43,13 @@ namespace Registration.WinForms.Controlers
                 _letterProperties = value;
                 Model.ImportantLetterData importantLetterData = _dataSerializer.DeserializeData(value.ExtendedProperty);
 
-                importanceDegreeEditorControl1.SelectedImportanceDegree = importantLetterData.DegreeImportance;
+                importanceDegreeEditorControl1.ImportanceDegree = importantLetterData.DegreeImportance;
             }
             get
             {
                 var importantLetterData = new ImportantLetterData();
 
-                importantLetterData.DegreeImportance = importanceDegreeEditorControl1.SelectedImportanceDegree;
+                importantLetterData.DegreeImportance = importanceDegreeEditorControl1.ImportanceDegree;
 
                 _letterProperties.ExtendedProperty = _dataSerializer.SerializeData(importantLetterData);
 
