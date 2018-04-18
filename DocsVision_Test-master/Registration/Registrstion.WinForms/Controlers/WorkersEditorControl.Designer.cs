@@ -48,7 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboWorkers.FormattingEnabled = true;
-            this.comboWorkers.Location = new System.Drawing.Point(3, 3);
+            this.comboWorkers.Location = new System.Drawing.Point(3, 2);
             this.comboWorkers.Name = "comboWorkers";
             this.comboWorkers.Size = new System.Drawing.Size(204, 21);
             this.comboWorkers.TabIndex = 1;
@@ -57,8 +57,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.comboWorkers);
             this.Controls.Add(this.txtWorkers);
+            this.Controls.Add(this.comboWorkers);
             this.Name = "WorkersEditorControl";
             this.Size = new System.Drawing.Size(211, 28);
             this.Load += new System.EventHandler(this.WorkersEditorControl_Load);

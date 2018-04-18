@@ -148,7 +148,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.workersEditorControl2.Location = new System.Drawing.Point(15, 109);
             this.workersEditorControl2.Name = "workersEditorControl2";
-            this.workersEditorControl2.ReadOnly = true;
+            this.workersEditorControl2.ReadOnly = false;
             this.workersEditorControl2.Size = new System.Drawing.Size(336, 28);
             this.workersEditorControl2.TabIndex = 3;
             // 

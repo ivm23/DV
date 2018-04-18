@@ -108,6 +108,7 @@ namespace Registration.WinForms.Forms
             // newControl.AddReceiver += new EventHandler(ButtonAddReceivers_Click);
             newControl.OnLoad(ServiceProvider);
             newControl.ReadOnly = false;
+
             var clientService = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
             var workers = clientService.GetAllWorkers();
             this.Size = new Size(((Control)newControl).Size.Width, ((Control)newControl).Height);

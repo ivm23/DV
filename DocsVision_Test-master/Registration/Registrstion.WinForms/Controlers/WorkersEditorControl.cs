@@ -37,7 +37,7 @@ namespace Registration.WinForms.Controlers
             {
                 txtWorkers.ReadOnly = value;
                 txtWorkers.Visible = value;
-                comboWorkers.Visible = !value;
+                comboWorkers.Visible = false;
             }
             get
             {
