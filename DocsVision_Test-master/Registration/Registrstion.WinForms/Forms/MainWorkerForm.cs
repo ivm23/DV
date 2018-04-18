@@ -178,12 +178,7 @@ namespace Registration.WinForms.Forms
 
         private void FillBriefContentLetterDGV()
         {
-            int select = _indexOfSelectedRow;
-
-            if (briefContentLetterDGV.Rows.Count != 0)
-            {
-                select = briefContentLetterDGV.CurrentRow.Index;
-            }
+            int select = _indexOfSelectedRow; 
 
             if (select > briefContentLetterDGV.Rows.Count)
             {
@@ -386,7 +381,7 @@ namespace Registration.WinForms.Forms
         private void briefContentLetterDGV_CellDoubleClick(object sender, EventArgs e)
         {
             int indexOfSelectedRow = briefContentLetterDGV.CurrentCell.RowIndex;
-
+            _indexOfSelectedRow = indexOfSelectedRow;
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = _lettersInfo[indexOfSelectedRow];
 
 
