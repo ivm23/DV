@@ -51,7 +51,7 @@
             this.dateTimePickerResponseRequired.Location = new System.Drawing.Point(394, 70);
             this.dateTimePickerResponseRequired.Name = "dateTimePickerResponseRequired";
             this.dateTimePickerResponseRequired.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePickerResponseRequired.TabIndex = 1;
+            this.dateTimePickerResponseRequired.TabIndex = 2;
             // 
             // fullContentLetterControl1
             // 
@@ -75,7 +75,7 @@
             this.fullContentLetterControl1.ReadOnly = true;
             this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 457);
             this.fullContentLetterControl1.StandartLetter = letterView1;
-            this.fullContentLetterControl1.TabIndex = 2;
+            this.fullContentLetterControl1.TabIndex = 1;
             // 
             // LetterWithResponseTimeControl
             // 

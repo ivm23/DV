@@ -53,7 +53,7 @@
             this.importanceDegreeEditorControl1.Location = new System.Drawing.Point(391, 69);
             this.importanceDegreeEditorControl1.Name = "importanceDegreeEditorControl1";
             this.importanceDegreeEditorControl1.Size = new System.Drawing.Size(128, 30);
-            this.importanceDegreeEditorControl1.TabIndex = 38;
+            this.importanceDegreeEditorControl1.TabIndex = 2;
             // 
             // fullContentLetterControl1
             // 
@@ -77,7 +77,7 @@
             this.fullContentLetterControl1.ReadOnly = true;
             this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 457);
             this.fullContentLetterControl1.StandartLetter = letterView1;
-            this.fullContentLetterControl1.TabIndex = 39;
+            this.fullContentLetterControl1.TabIndex = 1;
             // 
             // ImportantLetterControl
             // 

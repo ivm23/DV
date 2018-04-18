@@ -82,10 +82,10 @@ namespace Registration.WinForms.Forms
 
             ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 
-         //   ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedClientLetterPluginUIFullName = newControl.GetType().FullName;
-
+            int tabIndex = 0;
             newControl.OnLoad(ServiceProvider);
-            LetterProperties prop = new LetterProperties() { };
+
+            ((Control)newControl).TabIndex = tabIndex;
 
             int heightSize = 0;
             int locationY = 0;
@@ -106,6 +106,8 @@ namespace Registration.WinForms.Forms
 
             foreach(Control control in BaseControls)
             {
+                ++tabIndex;
+                control.TabIndex = tabIndex;
                 this.Controls.Add(control);
             }
         }

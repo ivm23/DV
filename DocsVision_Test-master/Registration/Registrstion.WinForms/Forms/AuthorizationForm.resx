@@ -130,7 +130,7 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="singIn.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>4</value>
   </data>
   <data name="singIn.Text" xml:space="preserve">
     <value>sing in</value>
@@ -157,7 +157,7 @@
     <value>75, 23</value>
   </data>
   <data name="singUp.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>5</value>
   </data>
   <data name="singUp.Text" xml:space="preserve">
     <value>sing up</value>
@@ -238,7 +238,7 @@
     <value>133, 20</value>
   </data>
   <data name="loginTB.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;loginTB.Name" xml:space="preserve">
     <value>loginTB</value>
@@ -265,7 +265,7 @@
     <value>133, 20</value>
   </data>
   <data name="passwordTB.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;passwordTB.Name" xml:space="preserve">
     <value>passwordTB</value>
@@ -316,7 +316,7 @@
     <value>133, 21</value>
   </data>
   <data name="databaseNamesCB.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;databaseNamesCB.Name" xml:space="preserve">
     <value>databaseNamesCB</value>

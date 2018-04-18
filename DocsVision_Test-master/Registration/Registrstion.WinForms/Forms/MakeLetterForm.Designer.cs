@@ -36,11 +36,11 @@
             // 
             this.sendLetterB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.sendLetterB.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.sendLetterB.Location = new System.Drawing.Point(375, 522);
+            this.sendLetterB.Location = new System.Drawing.Point(388, 522);
             this.sendLetterB.Name = "sendLetterB";
             this.sendLetterB.Size = new System.Drawing.Size(87, 27);
-            this.sendLetterB.TabIndex = 14;
-            this.sendLetterB.Text = "Send";
+            this.sendLetterB.TabIndex = 10;
+            this.sendLetterB.Text = "&Send";
             this.sendLetterB.UseVisualStyleBackColor = true;
             this.sendLetterB.Click += new System.EventHandler(this.sendLetterB_Click_1);
             // 
@@ -52,8 +52,8 @@
             this.btnCancel.Location = new System.Drawing.Point(485, 522);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(87, 27);
-            this.btnCancel.TabIndex = 15;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.TabIndex = 11;
+            this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // MakeLetterForm

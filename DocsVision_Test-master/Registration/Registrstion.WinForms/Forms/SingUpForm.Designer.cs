@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SingUpForm));
             this.singUpB = new System.Windows.Forms.Button();
             this.cancelB = new System.Windows.Forms.Button();
-            this.singUpControl1 = new Controlers.SingUpControl();
+            this.singUpControl1 = new  WinForms.Controlers.SingUpControl();
             this.SuspendLayout();
             // 
             // singUpB

@@ -38,7 +38,7 @@
             this.cancelB.Location = new System.Drawing.Point(92, 11);
             this.cancelB.Name = "cancelB";
             this.cancelB.Size = new System.Drawing.Size(75, 23);
-            this.cancelB.TabIndex = 8;
+            this.cancelB.TabIndex = 7;
             this.cancelB.Text = "Cancel";
             this.cancelB.UseVisualStyleBackColor = true;
             // 
@@ -48,7 +48,7 @@
             this.createB.Location = new System.Drawing.Point(11, 11);
             this.createB.Name = "createB";
             this.createB.Size = new System.Drawing.Size(75, 23);
-            this.createB.TabIndex = 7;
+            this.createB.TabIndex = 6;
             this.createB.Text = "Create";
             this.createB.UseVisualStyleBackColor = true;
             // 

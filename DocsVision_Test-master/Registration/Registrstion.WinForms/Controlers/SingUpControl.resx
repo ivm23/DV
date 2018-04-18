@@ -126,7 +126,7 @@
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="loginWorkerTB.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;loginWorkerTB.Name" xml:space="preserve">
     <value>loginWorkerTB</value>
@@ -150,7 +150,7 @@
     <value>100, 20</value>
   </data>
   <data name="passwordWorkerTB.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;passwordWorkerTB.Name" xml:space="preserve">
     <value>passwordWorkerTB</value>
@@ -252,7 +252,7 @@
     <value>100, 21</value>
   </data>
   <data name="databaseNamesCB.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;databaseNamesCB.Name" xml:space="preserve">
     <value>databaseNamesCB</value>
@@ -304,7 +304,7 @@
     <value>99, 20</value>
   </data>
   <data name="nameWorkerTB.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;nameWorkerTB.Name" xml:space="preserve">
     <value>nameWorkerTB</value>

@@ -25,8 +25,7 @@ namespace Registration.WinForms.Forms
 
         private Dictionary<string, TreeNode> _existSharedFoldersInTree;
         private Dictionary<string, Folder> _currentSharedFoldersInTree;
-        private IEnumerable<LetterType> _letterTypes;
-        private IList<LetterType> _comboLettersTypes = new List<LetterType>();
+        private IList<LetterType> _letterTypes;
 
         private int _selectNodeIndex = 0;
 
@@ -93,7 +92,7 @@ namespace Registration.WinForms.Forms
                 {
                     fParent = f;
                     FolderType newFolderType = ClientRequests.GetFolderType(f.Type);
-                    
+
                     n = MakeHierarchy(ref allFolders, ref existFoldersInTree, f, newFolderType, ref path);
                     break;
                 }
@@ -113,7 +112,7 @@ namespace Registration.WinForms.Forms
             int count = 0;
             try
             {
-             count = ClientRequests.GetCountLetterInFolder(folder.Id);
+                count = ClientRequests.GetCountLetterInFolder(folder.Id);
             }
             catch (Exception ex)
             {
@@ -268,28 +267,43 @@ namespace Registration.WinForms.Forms
 
         private void InitializeNewLetterMenu()
         {
-            _letterTypes = ClientRequests.GetAllLetterTypes();
+            _letterTypes = (List<LetterType>)(ClientRequests.GetAllLetterTypes());
 
-            toolStripComboBox1.SelectedIndexChanged += new EventHandler(toolStripComboBox1_SelectedIndexChanged);
+            List<System.Windows.Forms.ToolStripMenuItem> items = new List<System.Windows.Forms.ToolStripMenuItem>();
 
-            toolStripComboBox1.Items.Clear();
+            compose.DropDown.Items.Clear();
+            int i = 0;
             foreach (LetterType letterType in _letterTypes)
             {
-                toolStripComboBox1.Items.Add(letterType.Name);
-                _comboLettersTypes.Add(letterType);
+                items.Add(new System.Windows.Forms.ToolStripMenuItem(letterType.Name));
+                items[i].Click += new EventHandler(toolStripComboBox1_SelectedIndexChanged);
+                ++i;
             }
-            toolStripComboBox1.SelectedItem = 0;
+            compose.DropDownItems.AddRange(items.ToArray());
+        }
+
+        private int GetIndexOfSelectedLetter(string letterTypeName)
+        {
+            int i = 0;
+            foreach (LetterType letterType in _letterTypes)
+            {
+                if (letterType.Name == letterTypeName)
+                    return i;
+                ++i;
+            }
+            return i;
         }
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int index = GetIndexOfSelectedLetter(((ToolStripMenuItem)sender).ToString());
             LetterType letterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
 
-            if (toolStripComboBox1.SelectedIndex >= 0 && null != _comboLettersTypes[toolStripComboBox1.SelectedIndex])
+            if (index >= 0 && null != _letterTypes[index])
             {
-                letterType.Id = _comboLettersTypes[toolStripComboBox1.SelectedIndex].Id;
-                letterType.Name = _comboLettersTypes[toolStripComboBox1.SelectedIndex].Name;
-                letterType.TypeClientUI = _comboLettersTypes[toolStripComboBox1.SelectedIndex].TypeClientUI;
+                letterType.Id = _letterTypes[index].Id;
+                letterType.Name = _letterTypes[index].Name;
+                letterType.TypeClientUI = _letterTypes[index].TypeClientUI;
 
                 using (var makeLetterForm = new Forms.MakeLetterForm(ServiceProvider))
                 {
@@ -297,6 +311,7 @@ namespace Registration.WinForms.Forms
                 }
                 InitializeMainWorkerForm();
             }
+
         }
 
         private void MainWorkerForm_Load(object sender, EventArgs e)
@@ -315,7 +330,7 @@ namespace Registration.WinForms.Forms
                 InitializeMainWorkerForm();
                 Timer timer = new Timer();
                 timer.Interval = (2000); // 2 sec
-              //  timer.Tick += new EventHandler(timer_Tick);
+                timer.Tick += new EventHandler(timer_Tick);
                 timer.Start();
             }
             catch (Exception ex)
@@ -359,7 +374,7 @@ namespace Registration.WinForms.Forms
 
             using (var fullContentLetterForm = new FullContentLetterForm(ServiceProvider))
             {
-               if (fullContentLetterForm.ShowDialog() == DialogResult.OK) { }
+                if (fullContentLetterForm.ShowDialog() == DialogResult.OK) { }
             }
             FillBriefContentLetterDGV();
         }
@@ -422,7 +437,8 @@ namespace Registration.WinForms.Forms
             foreach (string key in _existPrivateFoldersInTree.Keys)
             {
                 findKey = key;
-                if (index == _selectNodeIndex) {
+                if (index == _selectNodeIndex)
+                {
                     find = true;
                     break;
                 }
@@ -441,7 +457,7 @@ namespace Registration.WinForms.Forms
                     ++index;
                 }
             }
-           
+
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -474,7 +490,7 @@ namespace Registration.WinForms.Forms
 
                 if (createFolderForm.ShowDialog() == DialogResult.OK)
                 {
-                    
+
                 }
             }
         }
@@ -493,7 +509,7 @@ namespace Registration.WinForms.Forms
             {
                 ClientRequests.DeleteFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
             }
-
         }
+
     }
 }

@@ -97,11 +97,13 @@ namespace Registration.WinForms.Forms
         {
             InitializeClientService();
             InitializeMessageService();
+            int tabIndex = 0;
 
             var selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
 
 
             ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
+            ((Control)newControl).TabIndex = tabIndex;
 
             // newControl.AddReceiver += new EventHandler(ButtonAddReceivers_Click);
             newControl.OnLoad(ServiceProvider);

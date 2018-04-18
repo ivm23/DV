@@ -69,7 +69,7 @@
             this.senderContent.Location = new System.Drawing.Point(107, 65);
             this.senderContent.Name = "senderContent";
             this.senderContent.Size = new System.Drawing.Size(159, 20);
-            this.senderContent.TabIndex = 3;
+            this.senderContent.TabIndex = 1;
             // 
             // saveB
             // 
@@ -77,8 +77,8 @@
             this.saveB.Location = new System.Drawing.Point(107, 95);
             this.saveB.Name = "saveB";
             this.saveB.Size = new System.Drawing.Size(75, 23);
-            this.saveB.TabIndex = 4;
-            this.saveB.Text = "Save";
+            this.saveB.TabIndex = 2;
+            this.saveB.Text = "&Save";
             this.saveB.UseVisualStyleBackColor = true;
             // 
             // cancelB
@@ -87,8 +87,8 @@
             this.cancelB.Location = new System.Drawing.Point(191, 95);
             this.cancelB.Name = "cancelB";
             this.cancelB.Size = new System.Drawing.Size(75, 23);
-            this.cancelB.TabIndex = 5;
-            this.cancelB.Text = "Cancel";
+            this.cancelB.TabIndex = 3;
+            this.cancelB.Text = "&Cancel";
             this.cancelB.UseVisualStyleBackColor = true;
             // 
             // CreateSearchFolderForm

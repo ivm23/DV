@@ -47,9 +47,9 @@
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(16, 16);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(35, 13);
+            this.labelName.Size = new System.Drawing.Size(27, 13);
             this.labelName.TabIndex = 0;
-            this.labelName.Text = "&Name";
+            this.labelName.Text = "&Title";
             // 
             // labelDate
             // 
@@ -69,7 +69,7 @@
             this.nameLetterTB.Name = "nameLetterTB";
             this.nameLetterTB.ReadOnly = true;
             this.nameLetterTB.Size = new System.Drawing.Size(330, 20);
-            this.nameLetterTB.TabIndex = 2;
+            this.nameLetterTB.TabIndex = 1;
             // 
             // dateLetterTB
             // 
@@ -79,7 +79,7 @@
             this.dateLetterTB.Name = "dateLetterTB";
             this.dateLetterTB.ReadOnly = true;
             this.dateLetterTB.Size = new System.Drawing.Size(118, 20);
-            this.dateLetterTB.TabIndex = 3;
+            this.dateLetterTB.TabIndex = 4;
             // 
             // labelSender
             // 
@@ -98,7 +98,7 @@
             this.nameSenderTB.Name = "nameSenderTB";
             this.nameSenderTB.ReadOnly = true;
             this.nameSenderTB.Size = new System.Drawing.Size(330, 20);
-            this.nameSenderTB.TabIndex = 5;
+            this.nameSenderTB.TabIndex = 2;
             // 
             // labelReceivers
             // 
@@ -129,7 +129,7 @@
             this.textLetterTB.ReadOnly = true;
             this.textLetterTB.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textLetterTB.Size = new System.Drawing.Size(330, 296);
-            this.textLetterTB.TabIndex = 9;
+            this.textLetterTB.TabIndex = 5;
             // 
             // addReceiversB
             // 
@@ -150,7 +150,7 @@
             this.workersEditorControl2.Name = "workersEditorControl2";
             this.workersEditorControl2.ReadOnly = true;
             this.workersEditorControl2.Size = new System.Drawing.Size(336, 28);
-            this.workersEditorControl2.TabIndex = 13;
+            this.workersEditorControl2.TabIndex = 3;
             // 
             // workersEditorControl1
             // 

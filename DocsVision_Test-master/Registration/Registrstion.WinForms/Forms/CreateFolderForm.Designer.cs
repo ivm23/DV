@@ -37,11 +37,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 19);
+            this.label1.Location = new System.Drawing.Point(8, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 7;
-            this.label1.Text = "Name";
+            this.label1.Text = "&Name";
             // 
             // txtFolderName
             // 
@@ -62,11 +62,11 @@
             // FolderTypeL
             // 
             this.FolderTypeL.AutoSize = true;
-            this.FolderTypeL.Location = new System.Drawing.Point(8, 46);
+            this.FolderTypeL.Location = new System.Drawing.Point(8, 42);
             this.FolderTypeL.Name = "FolderTypeL";
             this.FolderTypeL.Size = new System.Drawing.Size(31, 13);
             this.FolderTypeL.TabIndex = 10;
-            this.FolderTypeL.Text = "Type";
+            this.FolderTypeL.Text = "&Type";
             // 
             // CreateFolderForm
             // 

@@ -12,9 +12,23 @@ namespace Registration.WinForms.Controlers
 {
     public partial class WorkersEditorControl : UserControl
     {
+
+        private IServiceProvider _serviceProvider;
+        private StringBuilder _existNameString = new StringBuilder();
+        private int _currentEndOfNamesString = 0;
+
+        private IServiceProvider ServiceProvider
+        {
+            get
+            {
+                return _serviceProvider;
+            }
+        }
+
         public WorkersEditorControl()
         {
             InitializeComponent();
+            comboWorkers.KeyDown += new KeyEventHandler(comboWorkers_KeyPress);
         }
 
         public bool ReadOnly
@@ -63,7 +77,9 @@ namespace Registration.WinForms.Controlers
 
         public void InitializeAllWorkers(IServiceProvider serviceProvider)
         {
-            IEnumerable<string> workers = ((ClientInterface.IClientRequests)serviceProvider.GetService(typeof(ClientInterface.IClientRequests))).GetAllWorkers();
+            _serviceProvider = serviceProvider;
+
+            IEnumerable<string> workers = ((ClientInterface.IClientRequests)ServiceProvider.GetService(typeof(ClientInterface.IClientRequests))).GetAllWorkers();
             comboWorkers.Items.Clear();
             foreach (string worker in workers)
             {
@@ -73,9 +89,26 @@ namespace Registration.WinForms.Controlers
 
         private void WorkersEditorControl_Load(object sender, EventArgs e)
         {
-            comboWorkers.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboWorkers.AutoCompleteMode = AutoCompleteMode.Suggest;
             comboWorkers.AutoCompleteSource = AutoCompleteSource.ListItems;
+        }
 
+        private void comboWorkers_KeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string newName = comboWorkers.Text.Substring(_currentEndOfNamesString);
+
+                comboWorkers.ValueMember = newName;
+
+                if (!comboWorkers.Items.Contains(newName))
+                {
+                    MessageBox.Show(newName + "SuchWorker isn't exist");
+                    comboWorkers.Text = comboWorkers.Text.Substring(0, _currentEndOfNamesString);
+                }
+                    _currentEndOfNamesString = comboWorkers.Text.Length;
+                comboWorkers.Text += "; ";
+            }
         }
     }
 

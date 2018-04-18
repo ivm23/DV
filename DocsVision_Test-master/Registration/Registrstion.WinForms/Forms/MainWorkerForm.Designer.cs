@@ -34,7 +34,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.compose = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.deleteLetterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.foldersTV = new System.Windows.Forms.TreeView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -73,19 +72,11 @@
             // 
             // compose
             // 
-            this.compose.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBox1});
             this.compose.Image = ((System.Drawing.Image)(resources.GetObject("compose.Image")));
             this.compose.Name = "compose";
             this.compose.Size = new System.Drawing.Size(92, 20);
             this.compose.Text = "New Letter";
             this.compose.Click += new System.EventHandler(this.Compose_Click);
-            // 
-            // toolStripComboBox1
-            // 
-            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
             // 
             // deleteLetterToolStripMenuItem
             // 
@@ -283,6 +274,5 @@
         private System.Windows.Forms.ToolStripMenuItem changeFolderTSMI;
         private System.Windows.Forms.ToolStripMenuItem deleteFolderTSMI;
         private System.Windows.Forms.ToolStripMenuItem compose;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
     }
 }
