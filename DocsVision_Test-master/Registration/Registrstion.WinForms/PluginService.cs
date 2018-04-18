@@ -24,7 +24,7 @@ namespace Registration.WinForms
 
         public IFolderPropertiesUIPlugin GetFolderPropetiesPlugin(FolderType selectedFolderType)
         {
-            if (selectedFolderType == null)
+            if (null == selectedFolderType)
                 throw new ArgumentNullException(nameof(selectedFolderType));
 
             IFolderPropertiesUIPlugin clientUIPlugin;
@@ -43,7 +43,7 @@ namespace Registration.WinForms
 
         public ILetterPropertiesUIPlugin GetLetterPropetiesPlugin(LetterType selectedLetterType)
         {
-            if (selectedLetterType == null)
+            if (null == selectedLetterType)
                 throw new ArgumentNullException(nameof(selectedLetterType));
 
             ILetterPropertiesUIPlugin clientLetterPropertiesPlugin;
@@ -99,7 +99,5 @@ namespace Registration.WinForms
 
         //    string typeClientFolderPropertiesUI = clientRequests.GetFolderType(folderTypeId).TypeClientUI;
         //}
-
-
     }
 }
