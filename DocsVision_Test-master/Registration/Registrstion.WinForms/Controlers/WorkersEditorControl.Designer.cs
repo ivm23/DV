@@ -61,6 +61,7 @@
             this.Controls.Add(this.txtWorkers);
             this.Name = "WorkersEditorControl";
             this.Size = new System.Drawing.Size(211, 28);
+            this.Load += new System.EventHandler(this.WorkersEditorControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

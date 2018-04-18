@@ -70,6 +70,13 @@ namespace Registration.WinForms.Controlers
                 comboWorkers.Items.Add(worker);
             }
         }
+
+        private void WorkersEditorControl_Load(object sender, EventArgs e)
+        {
+            comboWorkers.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboWorkers.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+        }
     }
 
 }
