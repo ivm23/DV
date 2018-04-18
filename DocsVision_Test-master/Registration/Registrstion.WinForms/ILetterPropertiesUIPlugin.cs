@@ -17,5 +17,8 @@ namespace Registration.WinForms
 
         bool ReadOnly { set; get; }
 
+
+        /////some change to check
+
     }
 }
