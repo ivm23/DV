@@ -50,7 +50,7 @@
             // 
             this.importanceDegreeEditorControl1.Location = new System.Drawing.Point(376, 71);
             this.importanceDegreeEditorControl1.Name = "importanceDegreeEditorControl1";
-            this.importanceDegreeEditorControl1.SelectedImportanceDegree = Model.ImportanceDegree.Low;
+            this.importanceDegreeEditorControl1.ImportanceDegree = Model.ImportanceDegree.Low;
             this.importanceDegreeEditorControl1.Size = new System.Drawing.Size(125, 30);
             this.importanceDegreeEditorControl1.TabIndex = 38;
             this.importanceDegreeEditorControl1.Load += new System.EventHandler(this.importanceDegreeEditorControl1_Load);

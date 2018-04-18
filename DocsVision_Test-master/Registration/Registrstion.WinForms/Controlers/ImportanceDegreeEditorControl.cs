@@ -35,7 +35,7 @@ namespace Registration.WinForms.Controlers
             comboImportanceDegree.ValueMember = "Key";
         }
 
-        public Model.ImportanceDegree SelectedImportanceDegree
+        public Model.ImportanceDegree ImportanceDegree 
         {
             set
             {
@@ -43,6 +43,7 @@ namespace Registration.WinForms.Controlers
             }
             get
             {
+                if (null == comboImportanceDegree.SelectedValue) return Model.ImportanceDegree.Low;
                 return (Model.ImportanceDegree)comboImportanceDegree.SelectedValue;
             }
         }

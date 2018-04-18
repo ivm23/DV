@@ -126,7 +126,6 @@ namespace Registration.WinForms.Forms
 
         private void sendLetterB_Click_1(object sender, EventArgs e)
         {
-           
             LetterType selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
             ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 
