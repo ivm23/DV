@@ -79,7 +79,6 @@ namespace Registration.WinForms.Forms
 
         private void InitializeDatabaseNames()
         {
-            //databasesNames = ;
             DatabaseNames = ClientRequests.GetDatabasesNames();
             SelectDatabaseName = DatabaseNames.First();
         }
@@ -114,11 +113,12 @@ namespace Registration.WinForms.Forms
 
             if (!(string.IsNullOrEmpty(workerName) || string.IsNullOrEmpty(workerLogin) || string.IsNullOrEmpty(workerPassword)))
             {
-                if (ClientRequests.WorkerIsExist(workerLogin))
+                try 
                 {
+                    ClientRequests.WorkerIsExist(workerLogin);
                     MessageService.ErrorMessage(Message.MessageResource.ExistWorker);
                 }
-                else
+                catch (Exception ex)
                 {
                     workerId = CreateWorker(workerName, workerLogin, workerPassword);
                     MessageService.InfoMessage(Message.MessageResource.SuccessfullRegistration);

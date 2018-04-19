@@ -15,16 +15,16 @@ namespace Registration.WinForms.Forms
     {
         private IClientRequests _clientRequests;
         private readonly IServiceProvider _serviceProvider;
-
         private Message.IMessageService _messageService;
+
         private List<LetterView> _lettersInfo;
-        private List<Guid> _foldersId;
+
         private Dictionary<string, TreeNode> _existPrivateFoldersInTree;
         private Dictionary<string, Folder> _currentPrivateFoldersInTree;
-        private Dictionary<string, FolderType> _currentPrivateFoldersTypeInTree;
 
         private Dictionary<string, TreeNode> _existSharedFoldersInTree;
         private Dictionary<string, Folder> _currentSharedFoldersInTree;
+
         private IList<LetterType> _letterTypes;
 
         private int _selectNodeIndex = 0;
@@ -35,7 +35,6 @@ namespace Registration.WinForms.Forms
             InitializeComponent();
 
             _lettersInfo = new List<LetterView>();
-            _foldersId = new List<Guid>();
 
             briefContentLetterDGV.MouseClick += new MouseEventHandler(briefContentLetterDGV_MouseClick);
             briefContentLetterDGV.CellDoubleClick += new DataGridViewCellEventHandler(briefContentLetterDGV_CellDoubleClick);
@@ -83,7 +82,7 @@ namespace Registration.WinForms.Forms
             return ClientRequests.GetWorkerLettersInFolder(workerId, folderId);
         }
 
-        public TreeNode MakeHierarchy(ref IEnumerable<Folder> allFolders, ref Dictionary<string, TreeNode> existFoldersInTree, Folder folder, FolderType folderType, ref StringBuilder path)
+        public TreeNode MakeHierarchy(ref IEnumerable<Folder> allFolders, ref Dictionary<string, TreeNode> existFoldersInTree, Folder folder, FolderType folderType, ref StringBuilder path, ref Dictionary<string, Folder> currentFoldersInTree)
         {
             TreeNode n = new TreeNode();
             Folder fParent = new Folder();
@@ -94,7 +93,7 @@ namespace Registration.WinForms.Forms
                     fParent = f;
                     FolderType newFolderType = ClientRequests.GetFolderType(f.Type);
 
-                    n = MakeHierarchy(ref allFolders, ref existFoldersInTree, f, newFolderType, ref path);
+                    n = MakeHierarchy(ref allFolders, ref existFoldersInTree, f, newFolderType, ref path, ref currentFoldersInTree);
                     break;
                 }
             }
@@ -113,7 +112,7 @@ namespace Registration.WinForms.Forms
             int count = 0;
             try
             {
-                count = ClientRequests.GetCountLetterInFolder(folder.Id);
+                count = ClientRequests.GetCountLetterInFolder(folder.Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
             }
             catch (Exception ex)
             {
@@ -126,6 +125,7 @@ namespace Registration.WinForms.Forms
                 newNode.NodeFont = new Font(foldersTV.Font, FontStyle.Bold); ;
             }
 
+
             if (folder.ParentId == Guid.Empty)
             {
                 foldersTV.Nodes.Add(newNode);
@@ -134,51 +134,44 @@ namespace Registration.WinForms.Forms
             {
                 n.Nodes.Add(newNode);
             }
-            _currentPrivateFoldersInTree.Add(newNode.FullPath, folder);
-            _currentPrivateFoldersTypeInTree.Add(newNode.FullPath, folderType);
+            currentFoldersInTree.Add(newNode.FullPath, folder);
 
             return newNode;
         }
+
+        private void InitializeMakeHierarchy(ref IEnumerable<Folder> folders, ref Dictionary<string, TreeNode> _existFoldersInTree, ref Dictionary<string, Folder> _currentFoldersInTree)
+        {
+            List<Guid> folderUsed = new List<Guid>();
+            _existFoldersInTree = new Dictionary<string, TreeNode>();
+            _currentFoldersInTree = new Dictionary<string, Folder>();
+
+            foreach (Folder folder in folders)
+            {
+                if (!folderUsed.Contains(folder.Id))
+                {
+                    StringBuilder path = new StringBuilder();
+                    FolderType folderType = ClientRequests.GetFolderType(folder.Type);
+                    MakeHierarchy(ref folders, ref _existFoldersInTree, folder, folderType, ref path, ref _currentFoldersInTree);
+                }
+            }
+        }
+
 
         private void InitializeTreeView()
         {
             foldersTV.Nodes.Clear();
 
             IEnumerable<Folder> privateFolder = ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-            List<Guid> folderUsed = new List<Guid>();
-            _existPrivateFoldersInTree = new Dictionary<string, TreeNode>();
-            _currentPrivateFoldersInTree = new Dictionary<string, Folder>();
-            _currentPrivateFoldersTypeInTree = new Dictionary<string, FolderType>();
-
-            foreach (Folder folder in privateFolder)
-            {
-                if (!folderUsed.Contains(folder.Id))
-                {
-                    StringBuilder path = new StringBuilder();
-                    FolderType folderType = ClientRequests.GetFolderType(folder.Type);
-                    MakeHierarchy(ref privateFolder, ref _existPrivateFoldersInTree, folder, folderType, ref path);
-                }
-            }
-
+            InitializeMakeHierarchy(ref privateFolder, ref _existPrivateFoldersInTree, ref _currentPrivateFoldersInTree);
+        
             IEnumerable<Folder> sharedFolder = ClientRequests.GetAllWorkerFolders(Guid.Empty);
-            folderUsed = new List<Guid>();
-            _existSharedFoldersInTree = new Dictionary<string, TreeNode>();
-            _currentSharedFoldersInTree = new Dictionary<string, Folder>();
-
-            foreach (Folder folder in sharedFolder)
-            {
-                if (!folderUsed.Contains(folder.Id))
-                {
-                    StringBuilder path = new StringBuilder();
-                    FolderType folderType = ClientRequests.GetFolderType(folder.Type);
-                    MakeHierarchy(ref sharedFolder, ref _existSharedFoldersInTree, folder, folderType, ref path);
-                }
-            }
+            InitializeMakeHierarchy(ref sharedFolder, ref _existSharedFoldersInTree, ref _currentSharedFoldersInTree);
         }
+
 
         private void FillBriefContentLetterDGV()
         {
-            int select = _indexOfSelectedRow; 
+            int select = _indexOfSelectedRow;
 
             if (select > briefContentLetterDGV.Rows.Count)
             {
@@ -187,41 +180,49 @@ namespace Registration.WinForms.Forms
 
             briefContentLetterDGV.Rows.Clear();
             _lettersInfo.Clear();
+            Folder folder;
 
-            Folder folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
-            FolderType folderType = _currentPrivateFoldersTypeInTree[foldersTV.SelectedNode.FullPath];
+            if (_currentPrivateFoldersInTree.ContainsKey(foldersTV.SelectedNode.FullPath))
+                folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
+            else
+                if (_currentSharedFoldersInTree.ContainsKey(foldersTV.SelectedNode.FullPath))
+                folder = _currentSharedFoldersInTree[foldersTV.SelectedNode.FullPath];
+            else
+                throw new IndexOutOfRangeException();
 
-            Guid folderId = folder.Id;
+                Guid folderId = folder.Id;
 
-            DataGridViewRow row = briefContentLetterDGV.RowTemplate;
+                DataGridViewRow row = briefContentLetterDGV.RowTemplate;
 
-            IEnumerable<LetterView> letters = new List<LetterView>();
-            try
-            {
-                letters = GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-            }
-            catch (Exception ex)
-            {
-                NLogger.Logger.Trace(ex.ToString());
-            }
-
-            foreach (LetterView letter in letters)
-            {
-                _lettersInfo.Add(letter);
-                row.DefaultCellStyle.BackColor = Color.White;
-
-                if (!letter.IsRead)
+                IEnumerable<LetterView> letters = new List<LetterView>();
+                try
                 {
-                    row.DefaultCellStyle.BackColor = Color.AliceBlue;
+                    letters = GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
                 }
-                briefContentLetterDGV.Rows.Add(letter.Date.ToString(), letter.Name, letter.SenderName);
+                catch (Exception ex)
+                {
+                    deleteLetterToolStripMenuItem.Enabled = false;
+                    NLogger.Logger.Trace(ex.ToString());
+                }
+
+                foreach (LetterView letter in letters)
+                {
+                    _lettersInfo.Add(letter);
+                    row.DefaultCellStyle.BackColor = Color.White;
+
+                    if (!letter.IsRead)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.AliceBlue;
+                    }
+                    briefContentLetterDGV.Rows.Add(letter.Date.ToString(), letter.Name, letter.SenderName);
+                }
+
+                if (select < briefContentLetterDGV.Rows.Count)
+                {
+                    briefContentLetterDGV.Rows[select].Selected = true;
+                }
             }
 
-            if (select < briefContentLetterDGV.Rows.Count)
-            {
-                briefContentLetterDGV.Rows[select].Selected = true;
-            }
-        }
 
         private void InitializeMainWorkerForm()
         {
@@ -250,11 +251,24 @@ namespace Registration.WinForms.Forms
             ClientRequests.LetterIsRead(letterId, workerId);
         }
 
+
         private void briefContentLetterDGV_MouseClick(object sender, MouseEventArgs e)
         {
             deleteLetterToolStripMenuItem.Enabled = true;
+            Folder folder;
 
-            Folder folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
+            if (_currentPrivateFoldersInTree.ContainsKey(foldersTV.SelectedNode.FullPath))
+            {
+                folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
+            }
+            else
+                  if (_currentSharedFoldersInTree.ContainsKey(foldersTV.SelectedNode.FullPath))
+            {
+                folder = _currentSharedFoldersInTree[foldersTV.SelectedNode.FullPath];
+            }
+            else
+                throw new IndexOutOfRangeException();
+
             Guid folderId = folder.Id;
             if (0 < briefContentLetterDGV.Rows.Count)
             {
@@ -282,13 +296,13 @@ namespace Registration.WinForms.Forms
         {
             _letterTypes = (List<LetterType>)(ClientRequests.GetAllLetterTypes());
 
-            List<System.Windows.Forms.ToolStripMenuItem> items = new List<System.Windows.Forms.ToolStripMenuItem>();
+            List<ToolStripMenuItem> items = new List<ToolStripMenuItem>();
 
             compose.DropDown.Items.Clear();
             int i = 0;
             foreach (LetterType letterType in _letterTypes)
             {
-                items.Add(new System.Windows.Forms.ToolStripMenuItem(letterType.Name));
+                items.Add(new ToolStripMenuItem(letterType.Name));
                 items[i].Click += new EventHandler(toolStripComboBox1_SelectedIndexChanged);
                 ++i;
             }
@@ -343,7 +357,7 @@ namespace Registration.WinForms.Forms
                 InitializeMainWorkerForm();
                 Timer timer = new Timer();
                 timer.Interval = (2000); // 2 sec
-                //timer.Tick += new EventHandler(timer_Tick);
+                timer.Tick += new EventHandler(timer_Tick);
                 timer.Start();
             }
             catch (Exception ex)
@@ -400,11 +414,20 @@ namespace Registration.WinForms.Forms
         private void foldersTV_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             Folder folder = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder;
-            folder.Id = _currentPrivateFoldersInTree[e.Node.FullPath].Id;
-            folder.Name = _currentPrivateFoldersInTree[e.Node.FullPath].Name;
-            folder.OwnerId = _currentPrivateFoldersInTree[e.Node.FullPath].OwnerId;
-            folder.ParentId = _currentPrivateFoldersInTree[e.Node.FullPath].ParentId;
-            folder.Type = _currentPrivateFoldersInTree[e.Node.FullPath].Type;
+            Folder currentFolder;
+            if (_currentPrivateFoldersInTree.ContainsKey(e.Node.FullPath))
+                currentFolder = _currentPrivateFoldersInTree[e.Node.FullPath];
+            else
+                  if (_currentSharedFoldersInTree.ContainsKey(e.Node.FullPath))
+                currentFolder = _currentSharedFoldersInTree[e.Node.FullPath];
+            else
+                throw new IndexOutOfRangeException();
+
+                folder.Id = currentFolder.Id;
+                folder.Name = currentFolder.Name;
+                folder.OwnerId = currentFolder.OwnerId;
+                folder.ParentId = currentFolder.ParentId;
+                folder.Type = currentFolder.Type;
 
             foldersTV.SelectedNode = e.Node;
 

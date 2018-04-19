@@ -37,9 +37,8 @@
             this.labelReceivers = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
             this.textLetterTB = new System.Windows.Forms.TextBox();
-            this.addReceiversB = new System.Windows.Forms.Button();
-            this.workersEditorControl2 = new WorkersEditorControl();
             this.workersEditorControl1 = new WorkersEditorControl();
+            this.workersEditorControl2 = new WorkersEditorControl();
             this.SuspendLayout();
             // 
             // labelName
@@ -112,7 +111,7 @@
             // labelMessage
             // 
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Location = new System.Drawing.Point(16, 138);
+            this.labelMessage.Location = new System.Drawing.Point(16, 166);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(50, 13);
             this.labelMessage.TabIndex = 8;
@@ -123,34 +122,13 @@
             this.textLetterTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textLetterTB.Location = new System.Drawing.Point(19, 154);
+            this.textLetterTB.Location = new System.Drawing.Point(19, 182);
             this.textLetterTB.Multiline = true;
             this.textLetterTB.Name = "textLetterTB";
             this.textLetterTB.ReadOnly = true;
             this.textLetterTB.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLetterTB.Size = new System.Drawing.Size(330, 296);
+            this.textLetterTB.Size = new System.Drawing.Size(330, 301);
             this.textLetterTB.TabIndex = 5;
-            // 
-            // addReceiversB
-            // 
-            this.addReceiversB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addReceiversB.Location = new System.Drawing.Point(394, 111);
-            this.addReceiversB.Name = "addReceiversB";
-            this.addReceiversB.Size = new System.Drawing.Size(87, 23);
-            this.addReceiversB.TabIndex = 12;
-            this.addReceiversB.Text = "Add";
-            this.addReceiversB.UseVisualStyleBackColor = true;
-            this.addReceiversB.Click += new System.EventHandler(this.addReceiversB_Click_1);
-            // 
-            // workersEditorControl2
-            // 
-            this.workersEditorControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.workersEditorControl2.Location = new System.Drawing.Point(15, 109);
-            this.workersEditorControl2.Name = "workersEditorControl2";
-            this.workersEditorControl2.ReadOnly = false;
-            this.workersEditorControl2.Size = new System.Drawing.Size(336, 28);
-            this.workersEditorControl2.TabIndex = 3;
             // 
             // workersEditorControl1
             // 
@@ -160,15 +138,24 @@
             this.workersEditorControl1.Size = new System.Drawing.Size(336, 28);
             this.workersEditorControl1.TabIndex = 13;
             // 
+            // workersEditorControl2
+            // 
+            this.workersEditorControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.workersEditorControl2.Location = new System.Drawing.Point(20, 111);
+            this.workersEditorControl2.Name = "workersEditorControl2";
+            this.workersEditorControl2.ReadOnly = false;
+            this.workersEditorControl2.Size = new System.Drawing.Size(335, 57);
+            this.workersEditorControl2.TabIndex = 4;
+            // 
             // FullContentLetterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.workersEditorControl2);
-            this.Controls.Add(this.addReceiversB);
-            this.Controls.Add(this.textLetterTB);
             this.Controls.Add(this.labelMessage);
+            this.Controls.Add(this.textLetterTB);
             this.Controls.Add(this.labelReceivers);
             this.Controls.Add(this.nameSenderTB);
             this.Controls.Add(this.labelSender);
@@ -176,8 +163,9 @@
             this.Controls.Add(this.nameLetterTB);
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.labelName);
+            this.MinimumSize = new System.Drawing.Size(544, 500);
             this.Name = "FullContentLetterControl";
-            this.Size = new System.Drawing.Size(544, 457);
+            this.Size = new System.Drawing.Size(544, 500);
             this.Load += new System.EventHandler(this.FullContentLetterControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -195,7 +183,6 @@
         private System.Windows.Forms.Label labelReceivers;
         private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.TextBox textLetterTB;
-        private System.Windows.Forms.Button addReceiversB;
         private WorkersEditorControl workersEditorControl1;
         private WorkersEditorControl workersEditorControl2;
     }

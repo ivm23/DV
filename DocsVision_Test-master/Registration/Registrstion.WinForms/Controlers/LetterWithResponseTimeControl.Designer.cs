@@ -57,6 +57,7 @@
             this.fullContentLetterControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.fullContentLetterControl1.AutoScroll = true;
             letterView1.Date = new System.DateTime(((long)(0)));
             letterView1.ExtendedData = null;
             letterView1.IdFolder = new System.Guid("00000000-0000-0000-0000-000000000000");
@@ -68,9 +69,10 @@
             letterView1.Type = 0;
             this.fullContentLetterControl1.LetterView = letterView1;
             this.fullContentLetterControl1.Location = new System.Drawing.Point(0, 0);
+            this.fullContentLetterControl1.MinimumSize = new System.Drawing.Size(544, 500);
             this.fullContentLetterControl1.Name = "fullContentLetterControl1";
             this.fullContentLetterControl1.ReadOnly = true;
-            this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 457);
+            this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 500);
             this.fullContentLetterControl1.TabIndex = 4;
             // 
             // LetterWithResponseTimeControl

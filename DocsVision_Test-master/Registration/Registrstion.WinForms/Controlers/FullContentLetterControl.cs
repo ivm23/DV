@@ -20,8 +20,6 @@ namespace Registration.WinForms.Controlers
         private LetterView _letterView = new LetterView();
         private IServiceProvider _serviceProvider;
 
-        private IList<string> _namesAndLoginsReceivers = new List<string>();
-
         private IServiceProvider ServiceProvider
         {
             get
@@ -52,7 +50,7 @@ namespace Registration.WinForms.Controlers
                 nameSenderTB.Text = value.SenderName;
                 dateLetterTB.Text = value.Date.ToString();
                 textLetterTB.Text = value.Text;
-                workersEditorControl2.SetWorkers(value.ReceiversName);
+                workersEditorControl2.NamesWorkers = value.ReceiversName;
                 _letterView.ExtendedData = value.ExtendedData;
             }
             get
@@ -60,7 +58,7 @@ namespace Registration.WinForms.Controlers
                 _letterView.Name = nameLetterTB.Text;
                 _letterView.SenderName = nameSenderTB.Text;
                 _letterView.Text = textLetterTB.Text;
-                _letterView.ReceiversName.AddRange(ReadOnly ? workersEditorControl1.GetWorkers() : _namesAndLoginsReceivers);
+                _letterView.ReceiversName.AddRange(workersEditorControl2.NamesWorkers);
                 return _letterView;
             }
         }
@@ -74,7 +72,6 @@ namespace Registration.WinForms.Controlers
                 dateLetterTB.Visible = value;
                 labelDate.Visible = value;
                 workersEditorControl2.ReadOnly = value;
-                addReceiversB.Visible = !value;
             }
             get
             {
@@ -92,18 +89,6 @@ namespace Registration.WinForms.Controlers
             Guid workerId = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id;
             nameSenderTB.Text = ((ClientInterface.IClientRequests)ServiceProvider.GetService(typeof(ClientInterface.IClientRequests))).GetWorkerName(workerId);
         } 
-
-        private void addReceiversB_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                _namesAndLoginsReceivers.Add(workersEditorControl2.GetSelectedWorker());
-            }
-            catch(Exception ex)
-            {
-                ((Message.IMessageService)ServiceProvider.GetService(typeof(Message.IMessageService))).ErrorMessage(Message.MessageResource.EmptyListRecipient);
-            }
-        }
 
         private void FullContentLetterControl_Load(object sender, EventArgs e)
         {

@@ -15,8 +15,7 @@ namespace Registration.WinForms.Controlers
 
         private IServiceProvider _serviceProvider;
         private StringBuilder _existNameString = new StringBuilder();
-        private int _currentEndOfNamesString = 0;
-
+        private const char SplitMarker = ';';
         private IServiceProvider ServiceProvider
         {
             get
@@ -28,7 +27,10 @@ namespace Registration.WinForms.Controlers
         public WorkersEditorControl()
         {
             InitializeComponent();
-            comboWorkers.KeyDown += new KeyEventHandler(comboWorkers_KeyPress);
+            txtWorkers.PreviewKeyDown += new PreviewKeyDownEventHandler(comboWorkers_KeyPress);
+            listBoxWorkers.SelectedIndexChanged += new EventHandler(comboWorkers_SelectedIndexChanged);
+            txtWorkers.TextChanged += new EventHandler(txtWorkers_TextChanged);
+            listBoxWorkers.LostFocus += new EventHandler(comboWorkers_LostFocus);
         }
 
         public bool ReadOnly
@@ -36,8 +38,6 @@ namespace Registration.WinForms.Controlers
             set
             {
                 txtWorkers.ReadOnly = value;
-                txtWorkers.Visible = value;
-                comboWorkers.Visible = false;
             }
             get
             {
@@ -45,71 +45,138 @@ namespace Registration.WinForms.Controlers
             }
         }
 
-        public IEnumerable<string> GetWorkers()
+        public IEnumerable<string> NamesWorkers
         {
-            IEnumerable<string> workers = new List<string>();
-            workers = txtWorkers.Text.Split(';');
-            return workers;
+            set
+            {
+                if (ReadOnly)
+                {
+                    StringBuilder workersString = new StringBuilder();
+                    foreach (string worker in value)
+                    {
+                        workersString.Append(worker).Append(SplitMarker).Append(" ");
+                    }
+                    txtWorkers.Text = workersString.ToString();
+                }
+            }
+            get
+            {
+                IEnumerable<string> workers = new List<string>();
+                workers = txtWorkers.Text.Trim().Split(SplitMarker);
+                return workers.AsQueryable().Where(str => !string.IsNullOrEmpty(str));
+            }
         }
 
         public string GetSelectedWorker()
         {
-            if (null == comboWorkers.SelectedItem)
+            if (null == listBoxWorkers.SelectedItem)
                 throw new Exception("Worker isn't select");
 
-            return comboWorkers.SelectedItem.ToString();
-        }
-
-        public void SetWorkers(IEnumerable<string> workers)
-        {
-            if (ReadOnly)
-            {
-                StringBuilder workersString = new StringBuilder();
-                foreach (string worker in workers)
-                {
-                    workersString.Append(worker).Append("; ");
-                }
-
-                txtWorkers.Text = workersString.ToString();
-            }
+            return listBoxWorkers.SelectedItem.ToString();
         }
 
         public void InitializeAllWorkers(IServiceProvider serviceProvider)
         {
+            if (null == serviceProvider)
+                throw new ArgumentNullException();
+
             _serviceProvider = serviceProvider;
 
+            var acsc = new AutoCompleteStringCollection();
             IEnumerable<string> workers = ((ClientInterface.IClientRequests)ServiceProvider.GetService(typeof(ClientInterface.IClientRequests))).GetAllWorkers();
-            comboWorkers.Items.Clear();
-            foreach (string worker in workers)
-            {
-                comboWorkers.Items.Add(worker);
-            }
+
+            if (null != workers)                
+                acsc.AddRange(workers.ToArray());
+
+            txtWorkers.AutoCompleteCustomSource = acsc;
         }
 
         private void WorkersEditorControl_Load(object sender, EventArgs e)
         {
-            comboWorkers.AutoCompleteMode = AutoCompleteMode.Suggest;
-            comboWorkers.AutoCompleteSource = AutoCompleteSource.ListItems;
+            txtWorkers.Visible = true;            
+            txtWorkers.AutoCompleteMode = AutoCompleteMode.None;
+            txtWorkers.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
-        private void comboWorkers_KeyPress(object sender, KeyEventArgs e)
+        void txtWorkers_TextChanged(object sender, EventArgs e)
+        {
+            listBoxWorkers.Items.Clear();
+            if (txtWorkers.Text.Length == 0)
+            {
+                hideResults();
+                return;
+            }
+
+            int _currentEndOfNamesString = findPrevEndOfNameString(txtWorkers.Text);
+
+            foreach (string s in txtWorkers.AutoCompleteCustomSource)
+            {
+                if (s.Contains(txtWorkers.Text.Substring(_currentEndOfNamesString).Trim()))
+                {
+                    listBoxWorkers.Items.Add(s);
+                    listBoxWorkers.Visible = true;
+                }
+            }
+        }
+
+        void comboWorkers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int _currentEndOfNamesString = findPrevEndOfNameString(txtWorkers.Text);
+
+            if (_currentEndOfNamesString != 0)
+                ++_currentEndOfNamesString;
+
+            txtWorkers.Text = txtWorkers.Text.Substring(0,_currentEndOfNamesString) + listBoxWorkers.Items[listBoxWorkers.SelectedIndex].ToString() + SplitMarker + " ";
+            txtWorkers.SelectionStart = txtWorkers.Text.Length;
+
+            hideResults();
+        }
+
+        void comboWorkers_LostFocus(object sender, EventArgs e)
+        {
+            hideResults();
+        }
+
+        void hideResults()
+        {
+            listBoxWorkers.Visible = false;
+        }
+
+        private int findPrevEndOfNameString(string namesString)
+        {
+            int index = namesString.LastIndexOf(SplitMarker) + 1;
+            return (index < 0 || index > namesString.Length ? 0 : index);
+        }
+
+        private void comboWorkers_KeyPress(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string newName = comboWorkers.Text.Substring(_currentEndOfNamesString);
+                string namesString = txtWorkers.Text;
 
-                comboWorkers.ValueMember = newName;
+                int _currentEndOfNamesString = findPrevEndOfNameString(namesString);
+                bool isExist = false;
 
-                if (!comboWorkers.Items.Contains(newName))
+                foreach (string s in txtWorkers.AutoCompleteCustomSource)
                 {
-                    MessageBox.Show(newName + "SuchWorker isn't exist");
-                    comboWorkers.Text = comboWorkers.Text.Substring(0, _currentEndOfNamesString);
+                    if (s.Contains(namesString.Substring(_currentEndOfNamesString).Trim()))
+                    {
+                        isExist = true;
+                        break;
+                    }
                 }
-                    _currentEndOfNamesString = comboWorkers.Text.Length;
-                comboWorkers.Text += "; ";
+
+                if (!isExist)
+                    ((Message.IMessageService)ServiceProvider.GetService(typeof(Message.IMessageService))).ErrorMessage(Message.MessageResource.NonexistWorker);
+                
+                else
+                {
+                    txtWorkers.Text += SplitMarker + " ";
+                    txtWorkers.SelectionStart = txtWorkers.Text.Length;
+                }
             }
         }
-    }
 
+    }
 }
 

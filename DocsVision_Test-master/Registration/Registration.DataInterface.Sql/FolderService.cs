@@ -30,9 +30,9 @@ namespace Registration.DataInterface.Sql
             get { return _databaseService; }
         }
 
-        abstract public int GetCountLettersInFolder(Guid folderId);
+        abstract public int GetCountLettersInFolder(Guid folderId, Guid ownerId);
 
-        abstract public IEnumerable<LetterView> GetLettersInFolder(Guid folderId);
+        abstract public IEnumerable<LetterView> GetLettersInFolder(Guid folderId, Guid ownerId);
 
         public void GetReceivers(Guid letterId, ref IDictionary<Guid, string> receivers)
         {

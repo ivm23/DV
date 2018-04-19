@@ -21,9 +21,9 @@ namespace Registration.WinForms.Controlers
 
         private LetterView _letterView = new LetterView();
 
-        // private  DataSerialization.IDataSerializationService<ImportantLetterData> _dataSerializer = DataSerialization.DataSerializationServiceFactory<ImportantLetterData>.InitializeDataSerializationService();
+        private  DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
 
-        private DataSerialization.DataSerializationXML<ImportantLetterData> _dataSerializer = new DataSerialization.DataSerializationXML<ImportantLetterData>();
+        //private DataSerialization.DataSerializationXML _dataSerializer = new DataSerialization.DataSerializationXML();
 
         public ImportantLetterControl()
         {
@@ -47,7 +47,7 @@ namespace Registration.WinForms.Controlers
 
                 _letterView.ExtendedData = value.ExtendedData;
 
-                Model.ImportantLetterData importantLetterData = _dataSerializer.DeserializeData(_letterView.ExtendedData);
+                ImportantLetterData importantLetterData = _dataSerializer.DeserializeData<ImportantLetterData>(_letterView.ExtendedData);
 
                 importanceDegreeEditorControl1.ImportanceDegree = importantLetterData.DegreeImportance;
             }
@@ -70,7 +70,7 @@ namespace Registration.WinForms.Controlers
             set
             {
                 fullContentLetterControl1.ReadOnly = value;
-                importanceDegreeEditorControl1.Enabled = !value;
+                importanceDegreeEditorControl1.ReadOnly = value;
             }
             get
             {

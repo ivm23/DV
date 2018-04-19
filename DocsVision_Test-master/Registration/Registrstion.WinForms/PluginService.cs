@@ -7,8 +7,6 @@ namespace Registration.WinForms
 {
     public class PluginService : IPluginService
     {
-        private readonly IDictionary<int, IFolderPropertiesUIPlugin> _existClientPlugin = new Dictionary<int, IFolderPropertiesUIPlugin>();
-        private readonly IDictionary<Guid, object> _globalExistClientPlugin = new Dictionary<Guid, object>();
         private readonly IServiceProvider _serviceProvider;
 
         public PluginService(IServiceProvider provider)
@@ -21,34 +19,25 @@ namespace Registration.WinForms
 
         private IServiceProvider ServiceProvider => _serviceProvider;
 
+
         public IFolderPropertiesUIPlugin GetFolderPropetiesPlugin(FolderType selectedFolderType)
         {
-            if (null == selectedFolderType)
-                throw new ArgumentNullException(nameof(selectedFolderType));
-
-            IFolderPropertiesUIPlugin clientUIPlugin;
-
-            if (!_existClientPlugin.TryGetValue(selectedFolderType.Id, out clientUIPlugin))
-            {
-                IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
-
-                string typeClientFolderPropertiesUI = clientRequests.GetFolderType(selectedFolderType.Id).TypeClientUI;
-                clientUIPlugin = CreatePlugin<IFolderPropertiesUIPlugin>(typeClientFolderPropertiesUI);
-
-                _existClientPlugin.Add(selectedFolderType.Id, clientUIPlugin);
-            }
-            return clientUIPlugin;
+            return GetPlugin<IFolderPropertiesUIPlugin>(selectedFolderType.Id, GetFolderPluginTypeName);
         }
 
         public ILetterPropertiesUIPlugin GetLetterPropetiesPlugin(LetterType selectedLetterType)
         {
-            if (null == selectedLetterType)
-                throw new ArgumentNullException(nameof(selectedLetterType));
-
-            IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
-            string typeClientLetterPropertiesUI = clientRequests.GetLetterType(selectedLetterType.Id).TypeClientUI;
-            return CreatePlugin<ILetterPropertiesUIPlugin>(typeClientLetterPropertiesUI);
+            return GetPlugin<ILetterPropertiesUIPlugin>(selectedLetterType.Id, GetLetterPluginTypeName);
         }
+
+        private T GetPlugin<T>(int typeId, Func<int, string> typeNameGetter)
+        {
+            if (null == typeNameGetter)
+                throw new ArgumentNullException(nameof(typeNameGetter));
+            
+               return CreatePlugin<T>(typeNameGetter(typeId));
+        }
+
 
         private T CreatePlugin<T>(string typeName)
         {
@@ -56,35 +45,19 @@ namespace Registration.WinForms
             return (T)Activator.CreateInstance(obj);
         }
 
-        //public IFolderPropertiesUIPlugin GetFolderPropetiesPlugin(FolderType selectedFolderType)
-        //{
-        //    return GetPlugin<IFolderPropertiesUIPlugin>(Guid.Empty, GetFolderPluginTypeName);
-        //}
 
-        //private T GetPlugin<T>(Guid typeId, Func<Guid, string> typeNameGetter)
-        //{
-        //    if (typeId == Guid.Empty)
-        //        throw new ArgumentOutOfRangeException(nameof(typeId));
-        //    if (typeNameGetter == null)
-        //        throw new ArgumentNullException(nameof(typeNameGetter));
+        private string GetFolderPluginTypeName(int folderTypeId)
+        {
+            IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
 
-        //    object clientUIPlugin;
+            return clientRequests.GetFolderType(folderTypeId).TypeClientUI;
+        }
 
-        //    if (!_globalExistClientPlugin.TryGetValue(typeId, out clientUIPlugin))
-        //    {
-        //        clientUIPlugin = CreatePlugin<T>(typeNameGetter(typeId));
-        //        _globalExistClientPlugin.Add(typeId, clientUIPlugin);
-        //    }
+        private string GetLetterPluginTypeName(int letterTypeId)
+        {
+            IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
 
-        //    return (T)clientUIPlugin;
-
-        //}
-
-        //private string GetFolderPluginTypeName(Guid folderTypeId)
-        //{
-        //    IClientRequests clientRequests = (IClientRequests)(ServiceProvider.GetService(typeof(IClientRequests)));
-
-        //    string typeClientFolderPropertiesUI = clientRequests.GetFolderType(folderTypeId).TypeClientUI;
-        //}
+            return clientRequests.GetLetterType(letterTypeId).TypeClientUI;
+        }
     }
 }

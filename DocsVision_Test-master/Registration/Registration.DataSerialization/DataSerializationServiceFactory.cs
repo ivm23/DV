@@ -8,13 +8,13 @@ using Registration.Api;
 
 namespace Registration.DataSerialization
 {
-    public sealed class DataSerializationServiceFactory<T>
+    public sealed class DataSerializationServiceFactory
     {
         private static DataSerializationServiceFactorySectionHandler sectionHandler = (DataSerializationServiceFactorySectionHandler)ConfigurationManager.GetSection("DataSerializeService");
 
         private DataSerializationServiceFactory() { }
 
-        public static IDataSerializationService<T> InitializeDataSerializationService()
+        public static IDataSerializationService InitializeDataSerializationService()
         {
             if (sectionHandler != null)
 
@@ -23,7 +23,7 @@ namespace Registration.DataSerialization
 
             try
             {
-                return (IDataSerializationService<T>)Activator.CreateInstance(Type.GetType(sectionHandler.Name));
+                return (IDataSerializationService)Activator.CreateInstance(Type.GetType(sectionHandler.Name));
             }
             catch (Exception excep)
             {

@@ -27,7 +27,7 @@ namespace Registration.ClientInterface
         Folder CreateFolder(Folder folder, string connectionString);
         Folder UpdateFolder(Folder folder, string connectionString);
 
-        int GetCountLettersInFolder(Guid folderId, string connectionString);
+        int GetCountLettersInFolder(Guid folderId, Guid ownerId, string connectionString);
 
         void DeleteFolder(Guid folderId, string connectionString);
 

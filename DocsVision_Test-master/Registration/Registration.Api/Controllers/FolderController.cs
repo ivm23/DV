@@ -57,14 +57,14 @@ namespace Registration.Api.Controllers
         [Route("api/{databaseName}/letters/folder/{folderId}/{ownerId}")]
         public IEnumerable<LetterView> GetLettersInFolder(Guid folderId, Guid ownerId, string databaseName)
         {
-            return getFolderTreeService(databaseName).GetFolderService(folderId).GetLettersInFolder(folderId);
+            return getFolderTreeService(databaseName).GetFolderService(folderId).GetLettersInFolder(folderId, ownerId);
         }
 
         [HttpGet]
-        [Route("api/{databaseName}/count/letters/{folderId}")]
-        public int GetCountLettersInFolder(Guid folderId, string databaseName)
+        [Route("api/{databaseName}/count/letters/{folderId}/{ownerId}")]
+        public int GetCountLettersInFolder(Guid folderId, Guid ownerId, string databaseName)
         {
-            return getFolderTreeService(databaseName).GetFolderService(folderId).GetCountLettersInFolder(folderId);
+            return getFolderTreeService(databaseName).GetFolderService(folderId).GetCountLettersInFolder(folderId, ownerId);
         }
 
         [HttpPut]

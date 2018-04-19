@@ -19,7 +19,7 @@ namespace Registration.WinForms.Controlers
         public event EventHandler AddedReceiver;
 
         private LetterView _letterView = new LetterView();
-        private DataSerialization.IDataSerializationService<LetterWithReminderData> _dataSerializer = DataSerialization.DataSerializationServiceFactory<LetterWithReminderData>.InitializeDataSerializationService();
+        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
 
 
         public LetterWithResponseTimeControl()
@@ -42,7 +42,7 @@ namespace Registration.WinForms.Controlers
                 fullContentLetterControl1.LetterView = value;
 
                 _letterView.ExtendedData = value.ExtendedData;
-                LetterWithReminderData reminderLetterData = _dataSerializer.DeserializeData(_letterView.ExtendedData);
+                LetterWithReminderData reminderLetterData = _dataSerializer.DeserializeData<LetterWithReminderData>(_letterView.ExtendedData);
                 dateTimePickerResponseRequired.Value = reminderLetterData.ReminderData;
             }
             get

@@ -13,6 +13,8 @@ namespace Registration.WinForms.Controlers
     public partial class ImportanceDegreeEditorControl : UserControl
     {
         private IDictionary<Model.ImportanceDegree, string> _importanceDegree = new Dictionary<Model.ImportanceDegree, string>();
+        private const string ComboImportanceDegreeDisplayMember = "Value";
+        private const string ComboImportanceDegreeValueMember = "Key";
 
         public ImportanceDegreeEditorControl()
         {
@@ -31,8 +33,8 @@ namespace Registration.WinForms.Controlers
             }
 
             comboImportanceDegree.DataSource = new BindingSource(_importanceDegree, null);
-            comboImportanceDegree.DisplayMember = "Value";
-            comboImportanceDegree.ValueMember = "Key";
+            comboImportanceDegree.DisplayMember = ComboImportanceDegreeDisplayMember;
+            comboImportanceDegree.ValueMember = ComboImportanceDegreeValueMember;
         }
 
         public Model.ImportanceDegree ImportanceDegree 
@@ -43,7 +45,9 @@ namespace Registration.WinForms.Controlers
             }
             get
             {
-                if (null == comboImportanceDegree.SelectedValue) return Model.ImportanceDegree.Low;
+                if (null == comboImportanceDegree.SelectedValue)
+                    return Model.ImportanceDegree.Low;
+
                 return (Model.ImportanceDegree)comboImportanceDegree.SelectedValue;
             }
         }
@@ -51,6 +55,18 @@ namespace Registration.WinForms.Controlers
         private void ImportanceDegreeEditorControl_Load_1(object sender, EventArgs e)
         {
             InitializeImportanceDegreeControl();
+        }
+
+        public bool ReadOnly
+        {
+            set
+            {
+                comboImportanceDegree.Enabled = !value;
+            }
+            get
+            {
+                return !comboImportanceDegree.Enabled;
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Registration.DataInterface.Sql
 
 
         const string IdFolderColumn = "@idFolder";
+        const string IdOwnerColumn = "@idOwner";
 
         const string IdLetter = "idLetter";
         const string NameLetter = "nameLetter";
@@ -32,13 +33,14 @@ namespace Registration.DataInterface.Sql
 
         public SentFolderService(DatabaseService _databaseService) : base(_databaseService) {}
 
-        override public int GetCountLettersInFolder(Guid folderId)
+        override public int GetCountLettersInFolder(Guid folderId, Guid ownerId)
         {
             using (IDbConnection connection = DatabaseService.CreateOpenConnection())
             {
                 using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetCountLettersInSentFolder, connection))
                 {
                     DatabaseService.AddParameterWithValue(IdFolderColumn, folderId, command);
+                    DatabaseService.AddParameterWithValue(IdOwnerColumn, ownerId, command);
 
                     using (IDataReader reader = command.ExecuteReader())
                     {
@@ -52,13 +54,14 @@ namespace Registration.DataInterface.Sql
             }
         }
 
-        override public IEnumerable<LetterView> GetLettersInFolder(Guid folderId)
+        override public IEnumerable<LetterView> GetLettersInFolder(Guid folderId, Guid ownerId)
         {
             using (IDbConnection connection = DatabaseService.CreateOpenConnection())
             {
                 using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetLettersFromSentFolder, connection))
                 {
                     DatabaseService.AddParameterWithValue(IdFolderColumn, folderId, command);
+                    DatabaseService.AddParameterWithValue(IdOwnerColumn, ownerId, command);
 
                     using (IDataReader reader = command.ExecuteReader())
                     {

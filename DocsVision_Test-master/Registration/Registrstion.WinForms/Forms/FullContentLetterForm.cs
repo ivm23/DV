@@ -82,6 +82,10 @@ namespace Registration.WinForms.Forms
 
             ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 
+            newControl.LetterView = letterView;
+
+            newControl.ReadOnly = true;
+
             int tabIndex = 0;
             newControl.OnLoad(ServiceProvider);
 

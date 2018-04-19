@@ -75,9 +75,7 @@ namespace Registration.DataInterface.Sql
                     DatabaseService.AddParameterWithValue(IdSenderColumn, letter.IdSender, command);
                     DatabaseService.AddParameterWithValue(TextColumn, letter.Text, command);
                     DatabaseService.AddParameterWithValue(DateColumn, letter.Date, command);
-                    DatabaseService.AddParameterWithValue(ExtendedDataColumn, letter.ExtendedData, command);
-                    DatabaseService.AddParameterWithValue(LetterTypeIdColumn, letter.Type, command);
-                    DatabaseService.AddParameterWithValue(IsDeleteColumn, false, command);
+          
 
                     DataTable data = new DataTable();
                     data.Columns.Add(IdLetter, typeof(Guid));
@@ -90,6 +88,10 @@ namespace Registration.DataInterface.Sql
                     }
 
                     DatabaseService.AddParameterWithValue(IdReceiversColumn, data, command);
+
+                    DatabaseService.AddParameterWithValue(ExtendedDataColumn, letter.ExtendedData, command);
+                    DatabaseService.AddParameterWithValue(LetterTypeIdColumn, letter.Type, command);
+                    DatabaseService.AddParameterWithValue(IsDeleteColumn, false, command);
 
                     command.ExecuteNonQuery();
                     return letter;

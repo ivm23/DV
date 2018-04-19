@@ -51,6 +51,7 @@
             this.importanceDegreeEditorControl1.ImportanceDegree = Model.ImportanceDegree.Low;
             this.importanceDegreeEditorControl1.Location = new System.Drawing.Point(391, 69);
             this.importanceDegreeEditorControl1.Name = "importanceDegreeEditorControl1";
+            this.importanceDegreeEditorControl1.ReadOnly = false;
             this.importanceDegreeEditorControl1.Size = new System.Drawing.Size(128, 30);
             this.importanceDegreeEditorControl1.TabIndex = 25;
             // 
@@ -71,9 +72,10 @@
             letterView1.Type = 0;
             this.fullContentLetterControl1.LetterView = letterView1;
             this.fullContentLetterControl1.Location = new System.Drawing.Point(0, 0);
+            this.fullContentLetterControl1.MinimumSize = new System.Drawing.Size(500, 500);
             this.fullContentLetterControl1.Name = "fullContentLetterControl1";
             this.fullContentLetterControl1.ReadOnly = true;
-            this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 457);
+            this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 500);
             this.fullContentLetterControl1.TabIndex = 24;
             // 
             // ImportantLetterControl
@@ -84,7 +86,7 @@
             this.Controls.Add(this.importanceDegreeEditorControl1);
             this.Controls.Add(this.labelImportanceDegree);
             this.Controls.Add(this.fullContentLetterControl1);
-            this.MinimumSize = new System.Drawing.Size(500, 500);
+            this.MinimumSize = new System.Drawing.Size(544, 500);
             this.Name = "ImportantLetterControl";
             this.Size = new System.Drawing.Size(544, 500);
             this.Load += new System.EventHandler(this.ImportantLetterControl_Load);
