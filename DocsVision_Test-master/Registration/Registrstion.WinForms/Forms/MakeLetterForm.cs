@@ -61,20 +61,26 @@ namespace Registration.WinForms.Forms
             ClientRequests.CreateLetter(letterName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, workerNameAndLogin, letterText, extendedData, type);
         }
 
-        private bool SendLetter(string letterName, Guid workerId, IEnumerable<string> workerNameAndLogin, string letterText, string extendedData, int type)
+        private bool SendLetter(Guid workerId)
         {
-            if (string.IsNullOrEmpty(letterName))
+            LetterType selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
+            ILetterPropertiesUIPlugin clientUIPlugin = ((ApplicationState)(ServiceProvider.GetService(typeof(ApplicationState)))).CurrentLetterPropertiesPlugin;
+
+            LetterView letterView = clientUIPlugin.LetterView;
+
+
+            if (string.IsNullOrEmpty(letterView.Name))
             {
                 MessageService.ErrorMessage(Message.MessageResource.EmptyNameInLetter);
                 return false;
             }
-            if (workerNameAndLogin.Count() == 0)
+            if (letterView.ReceiversName.Count() == 0)
             {
                 MessageService.ErrorMessage(Message.MessageResource.EmptyListRecipient);
                 return false;
             }
 
-            CreateLetter(letterName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, workerNameAndLogin, letterText, extendedData, type);
+            CreateLetter(letterView.Name, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, letterView.ReceiversName, letterView.Text, letterView.ExtendedData, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType.Id);
             return true;
         }
 
@@ -105,7 +111,6 @@ namespace Registration.WinForms.Forms
             ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
             ((Control)newControl).TabIndex = tabIndex;
 
-            // newControl.AddReceiver += new EventHandler(ButtonAddReceivers_Click);
             newControl.OnLoad(ServiceProvider);
             newControl.ReadOnly = false;
 
@@ -128,16 +133,13 @@ namespace Registration.WinForms.Forms
             }
         }
 
+
+
         private void sendLetterB_Click_1(object sender, EventArgs e)
         {
-            LetterType selectedLetterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
-            ILetterPropertiesUIPlugin clientUIPlugin = ((ApplicationState)(ServiceProvider.GetService(typeof(ApplicationState)))).CurrentLetterPropertiesPlugin;
-
-            LetterView letterView = clientUIPlugin.LetterView;
-
-            if (SendLetter(letterView.Name, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, letterView.ReceiversName, letterView.Text, letterView.ExtendedData, selectedLetterType.Id))
+          
+            if (SendLetter( ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id))
             {
-                MessageService.InfoMessage(Message.MessageResource.SentLetter);
                 Close();
             }
         }

@@ -13,14 +13,28 @@ namespace Registration.WinForms.Controlers
 {
     public partial class SearchFolderControl : UserControl, IFolderPropertiesUIPlugin
     {
+        private IServiceProvider _serviceProvider;
+
         public SearchFolderControl()
         {
             InitializeComponent();
+            createFolderControl1.ChangedFolderType += new EventHandler(createFolderControl_ChangedFolderType);
         }
 
-        public FolderProperties Info
+        public event EventHandler ChangedFolderTypePlugin;
+
+        private IServiceProvider ServiceProvider
         {
-            set {
+            get
+            {
+                return _serviceProvider;
+            }
+        }
+
+        public FolderProperties FolderProperties
+        {
+            set
+            {
                 foreach (KeyValuePair<string, string> name in value.Properties)
                 {
                     comboSelectSender.Items.Add(name);
@@ -28,12 +42,39 @@ namespace Registration.WinForms.Controlers
             }
             get
             {
-                global::Registration.Model.FolderProperties info = new global::Registration.Model.FolderProperties();
-                info.Properties.Add(comboSelectSender.Text, comboSelectSender.SelectedItem.ToString());
+                FolderProperties info = new FolderProperties();
+                if (null != comboSelectSender.SelectedItem)
+                    info.Properties.Add(comboSelectSender.Text, comboSelectSender.SelectedItem.ToString());
                 return info;
             }
         }
 
-        public void OnLoad() { }
+        public void OnLoad(IServiceProvider serviceProvider)
+        {
+            if (null == serviceProvider)
+                throw new ArgumentNullException();
+
+            _serviceProvider = serviceProvider;
+            createFolderControl1.InitializeFolderTypes(ServiceProvider);
+        }
+
+        private void createFolderControl_ChangedFolderType(object sender, EventArgs e)
+        {
+                ChangedFolderTypePlugin(this, e);
+        }
+
+        public FolderType FolderType
+        {
+            set
+            {
+                createFolderControl1.FolderType = value;
+            }
+            get
+            {
+                return createFolderControl1.FolderType;
+            }
+        }
+
+
     }
 }

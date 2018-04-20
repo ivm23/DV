@@ -116,16 +116,16 @@ namespace Registration.WinForms.Forms
             }
         }
 
-        private void DeleteLetter(LetterView letterView, Guid workerId)
+        private void DeleteLetter()
         {
-            ClientRequests.DeleteLetter(letterView, workerId);
+            ClientRequests.DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
         }
 
         private void deleteLetterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageService.QuestionMessage(Message.MessageResource.DeleteLetter) == DialogResult.Yes)
             {
-                DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+                DeleteLetter();
                 Close();
             }
         }

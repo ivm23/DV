@@ -39,7 +39,7 @@
             this.sendLetterB.Location = new System.Drawing.Point(388, 522);
             this.sendLetterB.Name = "sendLetterB";
             this.sendLetterB.Size = new System.Drawing.Size(87, 27);
-            this.sendLetterB.TabIndex = 10;
+            this.sendLetterB.TabIndex = 3;
             this.sendLetterB.Text = "&Send";
             this.sendLetterB.UseVisualStyleBackColor = true;
             this.sendLetterB.Click += new System.EventHandler(this.sendLetterB_Click_1);
@@ -52,7 +52,7 @@
             this.btnCancel.Location = new System.Drawing.Point(485, 522);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(87, 27);
-            this.btnCancel.TabIndex = 11;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 

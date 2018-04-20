@@ -16,7 +16,6 @@ namespace Registration.WinForms.Forms
         private IClientRequests _clientRequests;
         private Message.IMessageService _messageService;
         private readonly IServiceProvider _serviceProvider;
-  //      private IEnumerable<string> databasesNames;
 
         public SingUpForm(IServiceProvider provider)
         {
@@ -107,45 +106,53 @@ namespace Registration.WinForms.Forms
             return ClientRequests.CreateWorker(workerName, workerLogin, workerPassword);
         }
 
-        private Guid SingUp(string workerName, string workerLogin, string workerPassword)
+
+        private void SingUp()
         {
+            IClientRequests clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
+            clientRequests.DatabaseName = SelectDatabaseName;
+
             Guid workerId = Guid.Empty;
 
-            if (!(string.IsNullOrEmpty(workerName) || string.IsNullOrEmpty(workerLogin) || string.IsNullOrEmpty(workerPassword)))
+            if (!(string.IsNullOrEmpty(NameW) || string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password)))
             {
                 try 
                 {
-                    ClientRequests.WorkerIsExist(workerLogin);
+                    ClientRequests.WorkerIsExist(Login);
                     MessageService.ErrorMessage(Message.MessageResource.ExistWorker);
                 }
                 catch (Exception ex)
                 {
-                    workerId = CreateWorker(workerName, workerLogin, workerPassword);
+                    workerId = CreateWorker(NameW, Login, Password);
                     MessageService.InfoMessage(Message.MessageResource.SuccessfullRegistration);
                 }
             }
             else
             {
-                if (string.IsNullOrEmpty(workerName)) MessageService.ErrorMessage(Message.MessageResource.EmptyName);
+                if (string.IsNullOrEmpty(NameW)) MessageService.ErrorMessage(Message.MessageResource.EmptyName);
                 else
-                    if (string.IsNullOrEmpty(workerLogin)) MessageService.ErrorMessage(Message.MessageResource.EmptyLogin);
+                    if (string.IsNullOrEmpty(Login)) MessageService.ErrorMessage(Message.MessageResource.EmptyLogin);
                 else
-                    if (string.IsNullOrEmpty(workerPassword)) MessageService.ErrorMessage(Message.MessageResource.EmptyPassword);
+                    if (string.IsNullOrEmpty(Password)) MessageService.ErrorMessage(Message.MessageResource.EmptyPassword);
             }
-
-            return workerId;
-        }
-
-        private void singUpB_Click(object sender, EventArgs e)
-        {
-            IClientRequests clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
-            clientRequests.DatabaseName = SelectDatabaseName;
-
-            Guid workerId = SingUp(NameW, Login, Password);
 
             if (Guid.Empty != workerId)
             {
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = workerId;
+            }
+            else
+                throw new Exception();
+        }
+
+        private void singUpB_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SingUp();
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
 

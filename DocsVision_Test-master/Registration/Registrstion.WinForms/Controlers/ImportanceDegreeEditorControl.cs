@@ -23,6 +23,8 @@ namespace Registration.WinForms.Controlers
 
         private void InitializeImportanceDegreeControl()
         {
+            _importanceDegree.Clear();
+
             foreach (int value in Enum.GetValues(typeof(Model.ImportanceDegree)))
             {
                 string importanceDegreeStringValue = (string)Resources.ResourceManager.GetObject(value.ToString());
@@ -41,12 +43,18 @@ namespace Registration.WinForms.Controlers
         {
             set
             {
-                comboImportanceDegree.SelectedValue = value;
+                InitializeImportanceDegreeControl();
+                var a = comboImportanceDegree.SelectedValue;
+                foreach (var c in comboImportanceDegree.Items)
+                {
+
+                }
+               comboImportanceDegree.SelectedValue = value;
             }
             get
             {
-                if (null == comboImportanceDegree.SelectedValue)
-                    return Model.ImportanceDegree.Low;
+               if (null == comboImportanceDegree.SelectedValue)
+                 return Model.ImportanceDegree.Low;
 
                 return (Model.ImportanceDegree)comboImportanceDegree.SelectedValue;
             }
@@ -54,7 +62,6 @@ namespace Registration.WinForms.Controlers
 
         private void ImportanceDegreeEditorControl_Load_1(object sender, EventArgs e)
         {
-            InitializeImportanceDegreeControl();
         }
 
         public bool ReadOnly

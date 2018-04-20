@@ -23,7 +23,7 @@ namespace Registration.WinForms.Controlers
 
         private  DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
 
-        //private DataSerialization.DataSerializationXML _dataSerializer = new DataSerialization.DataSerializationXML();
+        private ImportantLetterData _importantLetterData = new ImportantLetterData();
 
         public ImportantLetterControl()
         {
@@ -45,7 +45,7 @@ namespace Registration.WinForms.Controlers
             {
                 fullContentLetterControl1.LetterView = value;
 
-                _letterView.ExtendedData = value.ExtendedData;
+                _letterView = value;
 
                 ImportantLetterData importantLetterData = _dataSerializer.DeserializeData<ImportantLetterData>(_letterView.ExtendedData);
 
@@ -53,14 +53,9 @@ namespace Registration.WinForms.Controlers
             }
             get
             {
-                _letterView = fullContentLetterControl1.LetterView;
-
-                var importantLetterData = new ImportantLetterData();
-
-                importantLetterData.DegreeImportance = importanceDegreeEditorControl1.ImportanceDegree;
-
-                _letterView.ExtendedData = _dataSerializer.SerializeData(importantLetterData);
-
+                _letterView = fullContentLetterControl1.LetterView;                
+                _importantLetterData.DegreeImportance = importanceDegreeEditorControl1.ImportanceDegree;
+                _letterView.ExtendedData = _dataSerializer.SerializeData(_importantLetterData);
                 return _letterView;
             }
         }

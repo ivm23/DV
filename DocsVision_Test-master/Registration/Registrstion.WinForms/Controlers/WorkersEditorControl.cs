@@ -159,7 +159,7 @@ namespace Registration.WinForms.Controlers
 
                 foreach (string s in txtWorkers.AutoCompleteCustomSource)
                 {
-                    if (s.Contains(namesString.Substring(_currentEndOfNamesString).Trim()))
+                    if (s.Trim().Equals(namesString.Substring(_currentEndOfNamesString).Trim()))
                     {
                         isExist = true;
                         break;

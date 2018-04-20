@@ -68,6 +68,8 @@ namespace Registration.DataInterface.Sql
                 letter.Date = DateTime.Now;
                 letter.IsRead = true;
 
+                if (string.IsNullOrEmpty(letter.ExtendedData)) letter.ExtendedData = string.Empty;
+
                 using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpCreateLetter, connection))
                 {
                     DatabaseService.AddParameterWithValue(IdLetterColumn, letter.Id, command);

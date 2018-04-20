@@ -37,8 +37,8 @@
             this.labelReceivers = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
             this.textLetterTB = new System.Windows.Forms.TextBox();
-            this.workersEditorControl1 = new WorkersEditorControl();
             this.workersEditorControl2 = new WorkersEditorControl();
+            this.workersEditorControl1 = new WorkersEditorControl();
             this.SuspendLayout();
             // 
             // labelName
@@ -127,16 +127,8 @@
             this.textLetterTB.Name = "textLetterTB";
             this.textLetterTB.ReadOnly = true;
             this.textLetterTB.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textLetterTB.Size = new System.Drawing.Size(330, 301);
+            this.textLetterTB.Size = new System.Drawing.Size(330, 304);
             this.textLetterTB.TabIndex = 5;
-            // 
-            // workersEditorControl1
-            // 
-            this.workersEditorControl1.Location = new System.Drawing.Point(16, 110);
-            this.workersEditorControl1.Name = "workersEditorControl1";
-            this.workersEditorControl1.ReadOnly = true;
-            this.workersEditorControl1.Size = new System.Drawing.Size(336, 28);
-            this.workersEditorControl1.TabIndex = 13;
             // 
             // workersEditorControl2
             // 
@@ -147,6 +139,14 @@
             this.workersEditorControl2.ReadOnly = false;
             this.workersEditorControl2.Size = new System.Drawing.Size(335, 57);
             this.workersEditorControl2.TabIndex = 4;
+            // 
+            // workersEditorControl1
+            // 
+            this.workersEditorControl1.Location = new System.Drawing.Point(16, 110);
+            this.workersEditorControl1.Name = "workersEditorControl1";
+            this.workersEditorControl1.ReadOnly = true;
+            this.workersEditorControl1.Size = new System.Drawing.Size(336, 28);
+            this.workersEditorControl1.TabIndex = 13;
             // 
             // FullContentLetterControl
             // 

@@ -43,10 +43,15 @@ namespace Registration.WinForms.Forms
             newNameTB.Text = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Name; 
         }
 
-        private void saveB_Click(object sender, EventArgs e)
+        private void UpdateFolder()
         {
             Folder folder = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder;
             ClientRequests.UpdateFolder(folder.Id, newNameTB.Text);
+        }
+
+        private void saveB_Click(object sender, EventArgs e)
+        {
+            UpdateFolder();
             Close();
         }
     }

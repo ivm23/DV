@@ -17,6 +17,7 @@ namespace Registration.WinForms.Controlers
     internal partial class FullContentLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
         public event EventHandler AddedReceiver;
+
         private LetterView _letterView = new LetterView();
         private IServiceProvider _serviceProvider;
 
@@ -51,7 +52,7 @@ namespace Registration.WinForms.Controlers
                 dateLetterTB.Text = value.Date.ToString();
                 textLetterTB.Text = value.Text;
                 workersEditorControl2.NamesWorkers = value.ReceiversName;
-                _letterView.ExtendedData = value.ExtendedData;
+                _letterView = value;
             }
             get
             {
