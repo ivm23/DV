@@ -288,7 +288,6 @@ namespace Registration.DataInterface
             FolderType folderType = GetFolderType(folderTypeId);
 
             return (IFolderService)Activator.CreateInstance(Type.GetType(folderType.TypeFolderService), DatabaseService);
-
         }
     }
 

@@ -20,5 +20,7 @@ namespace Registration.WinForms
 
         public ILetterPropertiesUIPlugin CurrentLetterPropertiesPlugin { get; set; }
         public IFolderPropertiesUIPlugin CurrentFolderPropertiesPlugin { get; set; }
+
+        public IEnumerable<string> CurrentReceivers { get; set; } = new List<string>();
     }
 }

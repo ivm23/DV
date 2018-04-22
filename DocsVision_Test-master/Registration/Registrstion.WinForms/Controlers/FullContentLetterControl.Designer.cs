@@ -102,7 +102,7 @@
             // labelReceivers
             // 
             this.labelReceivers.AutoSize = true;
-            this.labelReceivers.Location = new System.Drawing.Point(16, 94);
+            this.labelReceivers.Location = new System.Drawing.Point(16, 97);
             this.labelReceivers.Name = "labelReceivers";
             this.labelReceivers.Size = new System.Drawing.Size(55, 13);
             this.labelReceivers.TabIndex = 6;
@@ -111,7 +111,7 @@
             // labelMessage
             // 
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Location = new System.Drawing.Point(16, 166);
+            this.labelMessage.Location = new System.Drawing.Point(16, 144);
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(50, 13);
             this.labelMessage.TabIndex = 8;
@@ -122,7 +122,7 @@
             this.textLetterTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textLetterTB.Location = new System.Drawing.Point(19, 182);
+            this.textLetterTB.Location = new System.Drawing.Point(19, 160);
             this.textLetterTB.Multiline = true;
             this.textLetterTB.Name = "textLetterTB";
             this.textLetterTB.ReadOnly = true;
@@ -153,8 +153,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.Controls.Add(this.workersEditorControl2);
-            this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.textLetterTB);
             this.Controls.Add(this.labelReceivers);
             this.Controls.Add(this.nameSenderTB);
@@ -163,6 +161,8 @@
             this.Controls.Add(this.nameLetterTB);
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.labelName);
+            this.Controls.Add(this.labelMessage);
+            this.Controls.Add(this.workersEditorControl2);
             this.MinimumSize = new System.Drawing.Size(544, 500);
             this.Name = "FullContentLetterControl";
             this.Size = new System.Drawing.Size(544, 500);

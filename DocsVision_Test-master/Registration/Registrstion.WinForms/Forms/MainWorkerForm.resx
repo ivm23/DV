@@ -124,7 +124,7 @@
   <data name="compose.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAHNYAABzWAUwiJ6EAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
+        YQUAAAAJcEhZcwAAHNUAABzVAeGbBswAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwa
         AAAI0UlEQVR4Xu2ce2xbVx3HA2MI8Zq0P6bxkBDiD/4DoUn7B8FSx/G1Q6lYR4vYJDRem9SBgDGJrUvb
         sD42tKRNuqRt0ti+dhzHSbPm4TbJ0jRxHsap41fzcpwHLUJIDCS6qTCmVuvh/G7PTVPn52s79nXutc9X
         +qhSkpN77vd7z+N3rpsyLi4uLi4uLi4uLi4uLi4uLi4uLi6uUlZw4dqjsfjazmhiZV9sae0PpUAksfqT
@@ -169,7 +169,7 @@
   <data name="deleteLetterToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAc
-        0wAAHNMBYZhCVwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAnmSURBVHhe7Zxp
+        0gAAHNIBs9+gswAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAnmSURBVHhe7Zxp
         bFTXGYbdNkGVuio/qnSRqqo/+qNSqgpmpkAoZmYwMSJqFWK1pFEUtRFJUaOkoVGAQMzmFkhIMIuN4wVv
         4IWyxSSuNwzENl7GnsF4PN7dQiuVQMF4Ni/YX883Ptd47nzj2ceznFd6ZMtzz9xz3nfuvd8593oShISE
         hISEhISEhISEhISEhISEhISE4lmtxuEnDabBdfre/k2GnsF34oGO3oGXOkz9K+uHh7/KbVh46U39ifqe

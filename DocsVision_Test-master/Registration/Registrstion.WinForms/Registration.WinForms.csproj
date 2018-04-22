@@ -161,6 +161,12 @@
     <Compile Include="Controlers\WorkersEditorControl.Designer.cs">
       <DependentUpon>WorkersEditorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddWorkersFromAllWorkersList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddWorkersFromAllWorkersList.Designer.cs">
+      <DependentUpon>AddWorkersFromAllWorkersList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CreateFolderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controlers\WorkersEditorControl.resx">
       <DependentUpon>WorkersEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddWorkersFromAllWorkersList.resx">
+      <DependentUpon>AddWorkersFromAllWorkersList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateFolderForm.resx">
       <DependentUpon>CreateFolderForm.cs</DependentUpon>

@@ -19,6 +19,8 @@ namespace Registration.WinForms.Forms
         private List<Control> _baseControls;
         private Point _baseSizeHeight;
 
+        
+
         public FullContentLetterForm(IServiceProvider provider)
         {
             _serviceProvider = provider;
@@ -29,6 +31,7 @@ namespace Registration.WinForms.Forms
         {
             get { return _baseSizeHeight; }
         }
+
         private List<Control> BaseControls
         {
             get { return _baseControls; }
