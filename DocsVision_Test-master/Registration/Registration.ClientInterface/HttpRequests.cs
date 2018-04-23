@@ -162,9 +162,9 @@ namespace Registration.ClientInterface
             _client.DeleteAsync(request.ToString());
         }
 
-        public int GetCountLettersInFolder(Guid folderId, string connectionString)
+        public int GetCountLettersInFolder(Guid folderId, Guid ownerId, string connectionString)
         {
-            return _client.GetAsync($"{connectionString}/count/letters/{folderId}").Result.Content.ReadAsAsync<int>().Result;
+            return _client.GetAsync($"{connectionString}/count/letters/{folderId}/{ownerId}").Result.Content.ReadAsAsync<int>().Result;
         }
 
         public IEnumerable<FolderType> GetAllFolderTypes(string connectionString)

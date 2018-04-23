@@ -100,7 +100,7 @@ namespace Registration.WinForms
             return workerId;
         }
 
-        private void singIn_Click(object sender, EventArgs e)
+        private void UpdateWorkerId()
         {
             ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).DatabaseName = databaseNamesCB.SelectedItem.ToString();
 
@@ -110,6 +110,11 @@ namespace Registration.WinForms
             {
                 Hide();
             }
+        }
+
+        private void singIn_Click(object sender, EventArgs e)
+        {
+            UpdateWorkerId();
         }
 
         private void singUp_Click(object sender, EventArgs e)

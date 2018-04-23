@@ -40,7 +40,7 @@
             this.dateTimePickerResponseRequired.Location = new System.Drawing.Point(394, 70);
             this.dateTimePickerResponseRequired.Name = "dateTimePickerResponseRequired";
             this.dateTimePickerResponseRequired.Size = new System.Drawing.Size(122, 20);
-            this.dateTimePickerResponseRequired.TabIndex = 5;
+            this.dateTimePickerResponseRequired.TabIndex = 2;
             // 
             // labelDate
             // 
@@ -57,6 +57,7 @@
             this.fullContentLetterControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.fullContentLetterControl1.AutoScroll = true;
             letterView1.Date = new System.DateTime(((long)(0)));
             letterView1.ExtendedData = null;
             letterView1.IdFolder = new System.Guid("00000000-0000-0000-0000-000000000000");
@@ -68,10 +69,11 @@
             letterView1.Type = 0;
             this.fullContentLetterControl1.LetterView = letterView1;
             this.fullContentLetterControl1.Location = new System.Drawing.Point(0, 0);
+            this.fullContentLetterControl1.MinimumSize = new System.Drawing.Size(544, 500);
             this.fullContentLetterControl1.Name = "fullContentLetterControl1";
             this.fullContentLetterControl1.ReadOnly = true;
-            this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 457);
-            this.fullContentLetterControl1.TabIndex = 4;
+            this.fullContentLetterControl1.Size = new System.Drawing.Size(544, 500);
+            this.fullContentLetterControl1.TabIndex = 1;
             // 
             // LetterWithResponseTimeControl
             // 
@@ -82,7 +84,7 @@
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.fullContentLetterControl1);
             this.Name = "LetterWithResponseTimeControl";
-            this.Size = new System.Drawing.Size(544, 457);
+            this.Size = new System.Drawing.Size(544, 500);
             this.Load += new System.EventHandler(this.LetterWithResponseTimeControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

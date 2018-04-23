@@ -28,18 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.createFolderControl1 = new CreateFolderControl();
             this.SuspendLayout();
+            // 
+            // createFolderControl1
+            // 
+            this.createFolderControl1.Location = new System.Drawing.Point(0, 0);
+            this.createFolderControl1.Name = "createFolderControl1";
+            this.createFolderControl1.Size = new System.Drawing.Size(230, 63);
+            this.createFolderControl1.TabIndex = 0;
             // 
             // InboxFolderControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.createFolderControl1);
             this.Name = "InboxFolderControl";
-            this.Size = new System.Drawing.Size(150, 10);
+            this.Size = new System.Drawing.Size(232, 64);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private CreateFolderControl createFolderControl1;
     }
 }

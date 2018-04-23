@@ -9,8 +9,7 @@ namespace Registration.DataInterface
 {
     public interface IFolderService
     {
-        int GetCountLettersInFolder(Guid folderId);
-        IEnumerable<LetterView> GetLettersInFolder(Guid folderId);
-
+        int GetCountLettersInFolder(Guid folderId, Guid ownerId);
+        IEnumerable<LetterView> GetLettersInFolder(Guid folderId, Guid ownerId);
     }
 }

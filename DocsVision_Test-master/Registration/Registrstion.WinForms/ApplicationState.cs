@@ -19,5 +19,8 @@ namespace Registration.WinForms
         public CloseReason CloseReason { get; set; } = new CloseReason();
 
         public ILetterPropertiesUIPlugin CurrentLetterPropertiesPlugin { get; set; }
+        public IFolderPropertiesUIPlugin CurrentFolderPropertiesPlugin { get; set; }
+
+        public IEnumerable<string> CurrentReceivers { get; set; } = new List<string>();
     }
 }

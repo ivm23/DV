@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Registration.DataSerialization
 {
-    public interface IDataSerializationService<T>
+    public interface IDataSerializationService
     {
-        string SerializeData(T data);
-        T DeserializeData(string serializeData);
+        string SerializeData<T>(T data);
+        T DeserializeData<T>(string serializeData);
     }
 }

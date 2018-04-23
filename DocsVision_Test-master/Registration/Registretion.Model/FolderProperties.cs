@@ -10,6 +10,9 @@ namespace Registration.Model
     public class FolderProperties
     {
         public IDictionary<string, string> Properties { get; } = new Dictionary<string, string>();
+        public string ExtendedProperty { get; set; }
+
+        public string Name { get; set; }
      
     }
 }

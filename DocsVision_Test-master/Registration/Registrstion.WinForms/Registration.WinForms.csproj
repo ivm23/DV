@@ -89,6 +89,12 @@
     <Compile Include="Controlers\ButtonCreateCancelControl.Designer.cs">
       <DependentUpon>ButtonCreateCancelControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controlers\CreateFolderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controlers\CreateFolderControl.Designer.cs">
+      <DependentUpon>CreateFolderControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controlers\FullContentLetterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -155,17 +161,17 @@
     <Compile Include="Controlers\WorkersEditorControl.Designer.cs">
       <DependentUpon>WorkersEditorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddWorkersFromAllWorkersList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddWorkersFromAllWorkersList.Designer.cs">
+      <DependentUpon>AddWorkersFromAllWorkersList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CreateFolderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CreateFolderForm.Designer.cs">
       <DependentUpon>CreateFolderForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\CreateSearchFolderForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CreateSearchFolderForm.Designer.cs">
-      <DependentUpon>CreateSearchFolderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FullContentLetterForm.cs">
       <SubType>Form</SubType>
@@ -206,6 +212,7 @@
     <Compile Include="IFolderPropertiesUIPlugin.cs" />
     <Compile Include="ILetterPropertiesUIPlugin.cs" />
     <Compile Include="IPluginService.cs" />
+    <Compile Include="IPropertiesUIPlugin.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -223,6 +230,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controlers\ButtonCreateCancelControl.resx">
       <DependentUpon>ButtonCreateCancelControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controlers\CreateFolderControl.resx">
+      <DependentUpon>CreateFolderControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controlers\FullContentLetterControl.resx">
       <DependentUpon>FullContentLetterControl.cs</DependentUpon>
@@ -257,11 +267,11 @@
     <EmbeddedResource Include="Controlers\WorkersEditorControl.resx">
       <DependentUpon>WorkersEditorControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddWorkersFromAllWorkersList.resx">
+      <DependentUpon>AddWorkersFromAllWorkersList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CreateFolderForm.resx">
       <DependentUpon>CreateFolderForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CreateSearchFolderForm.resx">
-      <DependentUpon>CreateSearchFolderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FullContentLetterForm.resx">
       <DependentUpon>FullContentLetterForm.cs</DependentUpon>

@@ -26,7 +26,7 @@ namespace Registration.ClientInterface
         Folder CreateFolder(Guid parentId, string name, Guid creatorId, int type, string data );
         Folder UpdateFolder(Guid folderId, string newName);
 
-        int GetCountLetterInFolder(Guid folderId);
+        int GetCountLetterInFolder(Guid folderId, Guid ownerId);
         void DeleteFolder(Guid folderId);
 
         IEnumerable<FolderType> GetAllFolderTypes();

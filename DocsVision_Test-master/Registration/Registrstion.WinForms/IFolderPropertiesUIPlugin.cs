@@ -10,9 +10,13 @@ using System.Windows.Forms;
 namespace Registration.WinForms
 {
 
-    public interface IFolderPropertiesUIPlugin
+    public interface IFolderPropertiesUIPlugin : IPropertiesUIPlugin
     {
-        void OnLoad();
-        FolderProperties Info { set; get; }
+        void OnLoad(IServiceProvider serviceProvider);
+        FolderProperties FolderProperties { set; get; }
+
+        event EventHandler ChangedFolderTypePlugin;
+
+        FolderType FolderType { set; get; }
     }
 }

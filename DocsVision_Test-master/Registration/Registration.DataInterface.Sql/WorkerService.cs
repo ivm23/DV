@@ -71,30 +71,34 @@ namespace Registration.DataInterface.Sql
             {
                 Worker userExist = new Worker();
                 worker.Id = Guid.NewGuid();
-                if (!(userExist = Get(worker.Login)).isEmpty())
+                try
                 {
-                    return userExist;
+                    return Get(worker.Login);
                 }
-
-                FolderTreeService folderTreeService = new FolderTreeService(_databaseService);
-                folderTreeService.Create(new Folder()
+                catch (Exception ex)
                 {
-                    Name = PrivateFolders,
-                    ParentId = Guid.Empty,
-                    Type = 0,
-                    OwnerId = worker.Id,
-                    Data = string.Empty
-                }
-                );
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpCreateWorker, connection))
-                {
-                    DatabaseService.AddParameterWithValue(IdColumn, worker.Id, command);
-                    DatabaseService.AddParameterWithValue(NameColumn, worker.Name, command);
-                    DatabaseService.AddParameterWithValue(LoginColumn, worker.Login, command);
-                    DatabaseService.AddParameterWithValue(PasswordColumn, worker.Password, command);
 
-                    command.ExecuteNonQuery();
-                    return worker;
+
+                    FolderTreeService folderTreeService = new FolderTreeService(_databaseService);
+                    folderTreeService.Create(new Folder()
+                    {
+                        Name = PrivateFolders,
+                        ParentId = Guid.Empty,
+                        Type = 0,
+                        OwnerId = worker.Id,
+                        Data = string.Empty
+                    }
+                    );
+                    using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpCreateWorker, connection))
+                    {
+                        DatabaseService.AddParameterWithValue(IdColumn, worker.Id, command);
+                        DatabaseService.AddParameterWithValue(NameColumn, worker.Name, command);
+                        DatabaseService.AddParameterWithValue(LoginColumn, worker.Login, command);
+                        DatabaseService.AddParameterWithValue(PasswordColumn, worker.Password, command);
+
+                        command.ExecuteNonQuery();
+                        return worker;
+                    }
                 }
             }
         }

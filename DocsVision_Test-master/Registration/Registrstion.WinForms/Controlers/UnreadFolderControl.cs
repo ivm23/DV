@@ -13,14 +13,26 @@ namespace Registration.WinForms.Controlers
 {
     public partial class UnreadFolderControl : UserControl, IFolderPropertiesUIPlugin
     {
+        private IServiceProvider _serviceProvider;
+        public event EventHandler ChangedFolderTypePlugin;
+
         public UnreadFolderControl()
         {
             InitializeComponent();
+            createFolderControl1.ChangedFolderType += new EventHandler(createFolderControl_ChangedFolderType);
         }
 
         FolderProperties info;
 
-        public FolderProperties Info
+        private IServiceProvider ServiceProvider
+        {
+            get
+            {
+                return _serviceProvider;
+            }
+        }
+
+        public FolderProperties FolderProperties
         {
             set
             {
@@ -32,11 +44,37 @@ namespace Registration.WinForms.Controlers
                 {
                     info = new global::Registration.Model.FolderProperties();
                 }
+                info.Properties.Clear();
+
+                info.Name = createFolderControl1.NameF;
                 return info;
             }
         }
 
-        public void OnLoad() { }
+        public void OnLoad(IServiceProvider serviceProvider) {
+            if (null == serviceProvider)
+                throw new ArgumentNullException();
+
+            _serviceProvider = serviceProvider;
+            createFolderControl1.InitializeFolderTypes(ServiceProvider);
+        }
+
+        private void createFolderControl_ChangedFolderType(object sender, EventArgs e)
+        {
+            ChangedFolderTypePlugin(this, e);
+        }
+
+        public FolderType FolderType
+        {
+            set
+            {
+                createFolderControl1.FolderType = value;
+            }
+            get
+            {
+                return createFolderControl1.FolderType;
+            }
+        }
 
     }
 }

@@ -23,12 +23,14 @@ namespace Registration.WinForms.Forms
         {
             _serviceProvider = provider;
             InitializeComponent();
+            this.KeyDown += new KeyEventHandler(form_KeyDown);
         }
 
         private Point BaseSizeHeight
         {
             get { return _baseSizeHeight; }
         }
+
         private List<Control> BaseControls
         {
             get { return _baseControls; }
@@ -82,6 +84,10 @@ namespace Registration.WinForms.Forms
 
             ILetterPropertiesUIPlugin newControl = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(selectedLetterType);
 
+            newControl.LetterView = letterView;
+
+            newControl.ReadOnly = true;
+
             int tabIndex = 0;
             newControl.OnLoad(ServiceProvider);
 
@@ -112,16 +118,16 @@ namespace Registration.WinForms.Forms
             }
         }
 
-        private void DeleteLetter(LetterView letterView, Guid workerId)
+        private void DeleteLetter()
         {
-            ClientRequests.DeleteLetter(letterView, workerId);
+            ClientRequests.DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
         }
 
         private void deleteLetterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageService.QuestionMessage(Message.MessageResource.DeleteLetter) == DialogResult.Yes)
             {
-                DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+                DeleteLetter();
                 Close();
             }
         }
@@ -136,6 +142,12 @@ namespace Registration.WinForms.Forms
             {
                 NLogger.Logger.Error(ex.ToString());
             }
+        }
+
+        private void form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)
+                this.Close();
         }
     }
 }

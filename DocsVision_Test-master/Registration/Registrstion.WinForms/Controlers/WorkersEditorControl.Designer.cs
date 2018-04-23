@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.txtWorkers = new System.Windows.Forms.TextBox();
-            this.comboWorkers = new System.Windows.Forms.ComboBox();
+            this.listBoxWorkers = new System.Windows.Forms.ListBox();
+            this.buttonAllWorkers = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtWorkers
@@ -37,30 +38,45 @@
             this.txtWorkers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtWorkers.Location = new System.Drawing.Point(2, 2);
+            this.txtWorkers.Location = new System.Drawing.Point(0, 3);
             this.txtWorkers.Name = "txtWorkers";
             this.txtWorkers.Size = new System.Drawing.Size(205, 20);
             this.txtWorkers.TabIndex = 0;
             // 
-            // comboWorkers
+            // listBoxWorkers
             // 
-            this.comboWorkers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listBoxWorkers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboWorkers.FormattingEnabled = true;
-            this.comboWorkers.Location = new System.Drawing.Point(3, 2);
-            this.comboWorkers.Name = "comboWorkers";
-            this.comboWorkers.Size = new System.Drawing.Size(204, 21);
-            this.comboWorkers.TabIndex = 1;
+            this.listBoxWorkers.FormattingEnabled = true;
+            this.listBoxWorkers.Location = new System.Drawing.Point(0, 22);
+            this.listBoxWorkers.Name = "listBoxWorkers";
+            this.listBoxWorkers.Size = new System.Drawing.Size(205, 30);
+            this.listBoxWorkers.TabIndex = 3;
+            this.listBoxWorkers.Visible = false;
+            // 
+            // buttonAllWorkers
+            // 
+            this.buttonAllWorkers.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.buttonAllWorkers.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAllWorkers.Location = new System.Drawing.Point(185, 1);
+            this.buttonAllWorkers.Name = "buttonAllWorkers";
+            this.buttonAllWorkers.Size = new System.Drawing.Size(22, 20);
+            this.buttonAllWorkers.TabIndex = 4;
+            this.buttonAllWorkers.Text = "...";
+            this.buttonAllWorkers.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonAllWorkers.UseVisualStyleBackColor = true;
+            this.buttonAllWorkers.Click += new System.EventHandler(this.buttonAllWorkers_Click);
             // 
             // WorkersEditorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonAllWorkers);
+            this.Controls.Add(this.listBoxWorkers);
             this.Controls.Add(this.txtWorkers);
-            this.Controls.Add(this.comboWorkers);
             this.Name = "WorkersEditorControl";
-            this.Size = new System.Drawing.Size(211, 28);
+            this.Size = new System.Drawing.Size(211, 52);
             this.Load += new System.EventHandler(this.WorkersEditorControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -70,6 +86,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtWorkers;
-        private System.Windows.Forms.ComboBox comboWorkers;
+        private System.Windows.Forms.ListBox listBoxWorkers;
+        private System.Windows.Forms.Button buttonAllWorkers;
     }
 }

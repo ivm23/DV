@@ -15,32 +15,45 @@ namespace Registration.WinForms.Forms
     {
         private IClientRequests _clientRequests;
         private readonly IServiceProvider _serviceProvider;
-
         private Message.IMessageService _messageService;
-        private List<LetterView> _lettersInfo;
-        private List<Guid> _foldersId;
+
+        private IList<LetterView> _lettersInfo;
+
         private Dictionary<string, TreeNode> _existPrivateFoldersInTree;
         private Dictionary<string, Folder> _currentPrivateFoldersInTree;
-        private Dictionary<string, FolderType> _currentPrivateFoldersTypeInTree;
 
         private Dictionary<string, TreeNode> _existSharedFoldersInTree;
         private Dictionary<string, Folder> _currentSharedFoldersInTree;
+
         private IList<LetterType> _letterTypes;
 
+        private IDictionary<int, LetterView> _letters;
+
+        private Guid _index;
+
         private int _selectNodeIndex = 0;
-        private int _indexOfSelectedRow = 0;
+
+        private IDictionary<int, int> _selectedRowInSelectedFolder = new Dictionary<int, int>();
+
+        private IDictionary<string, ILetterPropertiesUIPlugin> _letterPropertiesUIPlugins;
 
         public MainWorkerForm(IServiceProvider provider)
         {
             InitializeComponent();
 
             _lettersInfo = new List<LetterView>();
-            _foldersId = new List<Guid>();
+
+
+            _letters = new Dictionary<int, LetterView>();
+            _index = Guid.Empty;
 
             briefContentLetterDGV.MouseClick += new MouseEventHandler(briefContentLetterDGV_MouseClick);
             briefContentLetterDGV.CellDoubleClick += new DataGridViewCellEventHandler(briefContentLetterDGV_CellDoubleClick);
 
+            briefContentLetterDGV.KeyUp += new KeyEventHandler(briefContentLetterDGV_KeyPress);
+
             foldersTV.NodeMouseClick += new TreeNodeMouseClickEventHandler(foldersTV_NodeMouseClick);
+
             _serviceProvider = provider;
         }
 
@@ -56,26 +69,43 @@ namespace Registration.WinForms.Forms
             get { return _messageService; }
         }
 
-        public LetterView FullLetter
+        private void disableControls(Control.ControlCollection controls)
         {
-            set
+            foreach (Control control in controls)
             {
-                if (value != null)
+                control.Visible = false;
+            }
+        }
+
+        private void enableControl(Control controlForEnable)
+        {
+            controlForEnable.Visible = true;
+        }
+
+        public void SetFullLetter(LetterView letterView)
+        {
+                if (letterView != null)
                 {
-                    LetterType letterType = ClientRequests.GetLetterType(value.Type);
+                    LetterType letterType = ClientRequests.GetLetterType(letterView.Type);
+                    ILetterPropertiesUIPlugin clientUIPlugin;
 
-                    ILetterPropertiesUIPlugin clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(letterType);
+                    disableControls(splitContainer1.Panel2.Controls);
+
+                    if (!_letterPropertiesUIPlugins.TryGetValue(letterType.TypeClientUI, out clientUIPlugin))
+                    {
+                        clientUIPlugin = ((PluginService)(ServiceProvider.GetService(typeof(PluginService)))).GetLetterPropetiesPlugin(letterType);
+                        _letterPropertiesUIPlugins.Add(letterType.TypeClientUI, clientUIPlugin);
+
+                        splitContainer1.Panel2.Controls.Add((Control)clientUIPlugin);
+                    }
+
+                    clientUIPlugin.LetterView = letterView;
                     clientUIPlugin.ReadOnly = true;
-
-                    clientUIPlugin.LetterView = value;
 
                     this.Size = new Size(splitContainer2.Size.Width + ((Control)clientUIPlugin).Size.Width, Math.Max(splitContainer2.Size.Height, ((Control)clientUIPlugin).Size.Height));
 
-                    splitContainer1.Panel2.Controls.Clear();
-                    splitContainer1.Panel2.Controls.Add((Control)clientUIPlugin);
-                    Refresh();
+                    enableControl((Control)clientUIPlugin);
                 }
-            }
         }
 
         private IEnumerable<LetterView> GetWorkerLettersInFolder(Guid workerId, Guid folderId)
@@ -83,7 +113,7 @@ namespace Registration.WinForms.Forms
             return ClientRequests.GetWorkerLettersInFolder(workerId, folderId);
         }
 
-        public TreeNode MakeHierarchy(ref IEnumerable<Folder> allFolders, ref Dictionary<string, TreeNode> existFoldersInTree, Folder folder, FolderType folderType, ref StringBuilder path)
+        public TreeNode MakeHierarchy(ref IEnumerable<Folder> allFolders, ref Dictionary<string, TreeNode> existFoldersInTree, Folder folder, FolderType folderType, ref StringBuilder path, ref Dictionary<string, Folder> currentFoldersInTree)
         {
             TreeNode n = new TreeNode();
             Folder fParent = new Folder();
@@ -94,7 +124,7 @@ namespace Registration.WinForms.Forms
                     fParent = f;
                     FolderType newFolderType = ClientRequests.GetFolderType(f.Type);
 
-                    n = MakeHierarchy(ref allFolders, ref existFoldersInTree, f, newFolderType, ref path);
+                    n = MakeHierarchy(ref allFolders, ref existFoldersInTree, f, newFolderType, ref path, ref currentFoldersInTree);
                     break;
                 }
             }
@@ -113,7 +143,7 @@ namespace Registration.WinForms.Forms
             int count = 0;
             try
             {
-                count = ClientRequests.GetCountLetterInFolder(folder.Id);
+                count = ClientRequests.GetCountLetterInFolder(folder.Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
             }
             catch (Exception ex)
             {
@@ -122,7 +152,7 @@ namespace Registration.WinForms.Forms
 
             if (count > 0)
             {
-                newNode.Text += " " + count.ToString();
+                newNode.Text += " (" + count.ToString() + ")";
                 newNode.NodeFont = new Font(foldersTV.Font, FontStyle.Bold); ;
             }
 
@@ -134,51 +164,69 @@ namespace Registration.WinForms.Forms
             {
                 n.Nodes.Add(newNode);
             }
-            _currentPrivateFoldersInTree.Add(newNode.FullPath, folder);
-            _currentPrivateFoldersTypeInTree.Add(newNode.FullPath, folderType);
+            currentFoldersInTree.Add(newNode.FullPath, folder);
 
             return newNode;
         }
+
+        private void InitializeMakeHierarchy(ref IEnumerable<Folder> folders, ref Dictionary<string, TreeNode> _existFoldersInTree, ref Dictionary<string, Folder> _currentFoldersInTree)
+        {
+            List<Guid> folderUsed = new List<Guid>();
+            _existFoldersInTree = new Dictionary<string, TreeNode>();
+            _currentFoldersInTree = new Dictionary<string, Folder>();
+
+            foreach (Folder folder in folders)
+            {
+                if (!folderUsed.Contains(folder.Id))
+                {
+                    StringBuilder path = new StringBuilder();
+                    FolderType folderType = ClientRequests.GetFolderType(folder.Type);
+                    MakeHierarchy(ref folders, ref _existFoldersInTree, folder, folderType, ref path, ref _currentFoldersInTree);
+                }
+            }
+        }
+
 
         private void InitializeTreeView()
         {
             foldersTV.Nodes.Clear();
 
             IEnumerable<Folder> privateFolder = ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-            List<Guid> folderUsed = new List<Guid>();
-            _existPrivateFoldersInTree = new Dictionary<string, TreeNode>();
-            _currentPrivateFoldersInTree = new Dictionary<string, Folder>();
-            _currentPrivateFoldersTypeInTree = new Dictionary<string, FolderType>();
-
-            foreach (Folder folder in privateFolder)
-            {
-                if (!folderUsed.Contains(folder.Id))
-                {
-                    StringBuilder path = new StringBuilder();
-                    FolderType folderType = ClientRequests.GetFolderType(folder.Type);
-                    MakeHierarchy(ref privateFolder, ref _existPrivateFoldersInTree, folder, folderType, ref path);
-                }
-            }
+            InitializeMakeHierarchy(ref privateFolder, ref _existPrivateFoldersInTree, ref _currentPrivateFoldersInTree);
 
             IEnumerable<Folder> sharedFolder = ClientRequests.GetAllWorkerFolders(Guid.Empty);
-            folderUsed = new List<Guid>();
-            _existSharedFoldersInTree = new Dictionary<string, TreeNode>();
-            _currentSharedFoldersInTree = new Dictionary<string, Folder>();
-
-            foreach (Folder folder in sharedFolder)
+            InitializeMakeHierarchy(ref sharedFolder, ref _existSharedFoldersInTree, ref _currentSharedFoldersInTree);
+            
+            string findKey = string.Empty;
+            findSelectedNodeKey(ref findKey);
+            TreeNode e;
+            if (_existPrivateFoldersInTree.ContainsKey(findKey))
             {
-                if (!folderUsed.Contains(folder.Id))
-                {
-                    StringBuilder path = new StringBuilder();
-                    FolderType folderType = ClientRequests.GetFolderType(folder.Type);
-                    MakeHierarchy(ref sharedFolder, ref _existSharedFoldersInTree, folder, folderType, ref path);
-                }
+                e = _existPrivateFoldersInTree[findKey];
             }
+            else
+            if (_existSharedFoldersInTree.ContainsKey(findKey))
+            {
+                e = _existSharedFoldersInTree[findKey];
+            }
+            else
+            {
+                e = foldersTV.Nodes[0];
+            
+            }
+
+            InitializeSelectedFolder(e);
+
+            foldersTV.SelectedNode = e;
+
+            ChangeSelectionNodeIndex(e);
+            UpdateSelectedRowDictionary(false);
         }
+
 
         private void FillBriefContentLetterDGV()
         {
-            int select = _indexOfSelectedRow; 
+            int select = _selectedRowInSelectedFolder[_selectNodeIndex];
 
             if (select > briefContentLetterDGV.Rows.Count)
             {
@@ -187,23 +235,34 @@ namespace Registration.WinForms.Forms
 
             briefContentLetterDGV.Rows.Clear();
             _lettersInfo.Clear();
+            _letters.Clear();
 
-            Folder folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
-            FolderType folderType = _currentPrivateFoldersTypeInTree[foldersTV.SelectedNode.FullPath];
+            Folder folder;
+
+            if (_currentPrivateFoldersInTree.ContainsKey(foldersTV.SelectedNode.FullPath))
+                folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
+            else
+                if (_currentSharedFoldersInTree.ContainsKey(foldersTV.SelectedNode.FullPath))
+                folder = _currentSharedFoldersInTree[foldersTV.SelectedNode.FullPath];
+            else
+                throw new IndexOutOfRangeException();
 
             Guid folderId = folder.Id;
 
             DataGridViewRow row = briefContentLetterDGV.RowTemplate;
 
             IEnumerable<LetterView> letters = new List<LetterView>();
+
             try
             {
                 letters = GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
             }
             catch (Exception ex)
             {
+                deleteLetterToolStripMenuItem.Enabled = false;
                 NLogger.Logger.Trace(ex.ToString());
             }
+
 
             foreach (LetterView letter in letters)
             {
@@ -214,17 +273,23 @@ namespace Registration.WinForms.Forms
                 {
                     row.DefaultCellStyle.BackColor = Color.AliceBlue;
                 }
+
                 briefContentLetterDGV.Rows.Add(letter.Date.ToString(), letter.Name, letter.SenderName);
             }
 
             if (select < briefContentLetterDGV.Rows.Count)
             {
                 briefContentLetterDGV.Rows[select].Selected = true;
+                ShowBriefContentLetter();
             }
+            if (0 < _lettersInfo.Count)
+                deleteLetterToolStripMenuItem.Enabled = true;
         }
+
 
         private void InitializeMainWorkerForm()
         {
+            _letterPropertiesUIPlugins = new Dictionary<string, ILetterPropertiesUIPlugin>();
             InitializeTreeView();
 
             InitializeNewLetterMenu();
@@ -250,11 +315,23 @@ namespace Registration.WinForms.Forms
             ClientRequests.LetterIsRead(letterId, workerId);
         }
 
-        private void briefContentLetterDGV_MouseClick(object sender, MouseEventArgs e)
+        private void ShowBriefContentLetter()
         {
             deleteLetterToolStripMenuItem.Enabled = true;
+            Folder folder;
 
-            Folder folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
+            if (_currentPrivateFoldersInTree.ContainsKey(foldersTV.SelectedNode.FullPath))
+            {
+                folder = _currentPrivateFoldersInTree[foldersTV.SelectedNode.FullPath];
+            }
+            else
+                  if (_currentSharedFoldersInTree.ContainsKey(foldersTV.SelectedNode.FullPath))
+            {
+                folder = _currentSharedFoldersInTree[foldersTV.SelectedNode.FullPath];
+            }
+            else
+                throw new IndexOutOfRangeException();
+
             Guid folderId = folder.Id;
             if (0 < briefContentLetterDGV.Rows.Count)
             {
@@ -264,7 +341,19 @@ namespace Registration.WinForms.Forms
 
                 LetterIsRead(_lettersInfo[selectRowIndex].Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
 
-                FullLetter = _lettersInfo[selectRowIndex];
+                SetFullLetter(_lettersInfo[selectRowIndex]);
+            }
+        }
+
+        private void briefContentLetterDGV_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                ShowBriefContentLetter();
+            }
+            catch (Exception ex)
+            {
+                NLogger.Logger.Trace(ex.ToString());
             }
         }
 
@@ -282,13 +371,13 @@ namespace Registration.WinForms.Forms
         {
             _letterTypes = (List<LetterType>)(ClientRequests.GetAllLetterTypes());
 
-            List<System.Windows.Forms.ToolStripMenuItem> items = new List<System.Windows.Forms.ToolStripMenuItem>();
+            List<ToolStripMenuItem> items = new List<ToolStripMenuItem>();
 
             compose.DropDown.Items.Clear();
             int i = 0;
             foreach (LetterType letterType in _letterTypes)
             {
-                items.Add(new System.Windows.Forms.ToolStripMenuItem(letterType.Name));
+                items.Add(new ToolStripMenuItem(letterType.Name));
                 items[i].Click += new EventHandler(toolStripComboBox1_SelectedIndexChanged);
                 ++i;
             }
@@ -307,24 +396,37 @@ namespace Registration.WinForms.Forms
             return i;
         }
 
-        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void InitializeMakeLetterForm(int SelectedTypeLetterIndex)
         {
-            int index = GetIndexOfSelectedLetter(((ToolStripMenuItem)sender).ToString());
             LetterType letterType = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType;
 
-            if (index >= 0 && null != _letterTypes[index])
+            if (SelectedTypeLetterIndex >= 0 && null != _letterTypes[SelectedTypeLetterIndex])
             {
-                letterType.Id = _letterTypes[index].Id;
-                letterType.Name = _letterTypes[index].Name;
-                letterType.TypeClientUI = _letterTypes[index].TypeClientUI;
+                letterType.Id = _letterTypes[SelectedTypeLetterIndex].Id;
+                letterType.Name = _letterTypes[SelectedTypeLetterIndex].Name;
+                letterType.TypeClientUI = _letterTypes[SelectedTypeLetterIndex].TypeClientUI;
 
                 using (var makeLetterForm = new Forms.MakeLetterForm(ServiceProvider))
                 {
-                    makeLetterForm.ShowDialog();
+                    if (makeLetterForm.ShowDialog() == DialogResult.OK) { }
+                  
                 }
                 InitializeMainWorkerForm();
             }
+        }
 
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InitializeMakeLetterForm(GetIndexOfSelectedLetter(((ToolStripMenuItem)sender).ToString()));
+        }
+
+        private void InitializeTimer()
+        {
+            Timer timer = new Timer();
+            timer.Interval = (2000); // 2 sec
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
         }
 
         private void MainWorkerForm_Load(object sender, EventArgs e)
@@ -336,15 +438,14 @@ namespace Registration.WinForms.Forms
             {
                 form.ShowDialog();
             }
-            if (((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CloseReason == CloseReason.UserClosing) { Close(); }
-
+            if (((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CloseReason == CloseReason.UserClosing)
+            {
+                Close();
+            }
             try
             {
                 InitializeMainWorkerForm();
-                Timer timer = new Timer();
-                timer.Interval = (2000); // 2 sec
-                //timer.Tick += new EventHandler(timer_Tick);
-                timer.Start();
+                InitializeTimer();
             }
             catch (Exception ex)
             {
@@ -352,36 +453,46 @@ namespace Registration.WinForms.Forms
             }
         }
 
-        private void Compose_Click(object sender, EventArgs e)
-        {
-        }
 
-        private void DeleteLetter(LetterView letterView, Guid workerId)
-        {
-            ClientRequests.DeleteLetter(letterView, workerId);
-        }
-
-        private void DeleteLetterToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteLetter()
         {
             if (_lettersInfo.Count == 0 || briefContentLetterDGV.SelectedCells.Count == 0)
             {
                 MessageService.ErrorMessage(Message.MessageResource.LetterNotSelect);
             }
             else
-            if (MessageService.QuestionMessage(Message.MessageResource.DeleteLetter) == DialogResult.Yes)
+
+           if (MessageService.QuestionMessage(Message.MessageResource.DeleteLetter) == DialogResult.Yes)
             {
-                _indexOfSelectedRow = briefContentLetterDGV.CurrentCell.RowIndex;
-
-                DeleteLetter(_lettersInfo[_indexOfSelectedRow], ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-
+                ClientRequests.DeleteLetter(_lettersInfo[_selectedRowInSelectedFolder[_selectNodeIndex]], ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
                 InitializeMainWorkerForm();
             }
         }
 
-        private void briefContentLetterDGV_CellDoubleClick(object sender, EventArgs e)
+        private void saveSelectedRow()
+        {
+            _selectedRowInSelectedFolder[_selectNodeIndex] = briefContentLetterDGV.CurrentRow.Index;
+        }
+
+        private void recoverSelectedRow()
+        {
+            if (_selectedRowInSelectedFolder[_selectNodeIndex] >= briefContentLetterDGV.Rows.Count)
+                --_selectedRowInSelectedFolder[_selectNodeIndex];
+
+            briefContentLetterDGV.Rows[_selectedRowInSelectedFolder[_selectNodeIndex]].Selected = true;
+        }
+
+        private void DeleteLetterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveSelectedRow();
+            DeleteLetter();
+            recoverSelectedRow();
+        }
+
+        private void InitializeFullContentLetterForm()
         {
             int indexOfSelectedRow = briefContentLetterDGV.CurrentCell.RowIndex;
-            _indexOfSelectedRow = indexOfSelectedRow;
+            _selectedRowInSelectedFolder[_selectNodeIndex] = indexOfSelectedRow;
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = _lettersInfo[indexOfSelectedRow];
 
 
@@ -392,27 +503,26 @@ namespace Registration.WinForms.Forms
             FillBriefContentLetterDGV();
         }
 
+        private void briefContentLetterDGV_CellDoubleClick(object sender, EventArgs e)
+        {
+            saveSelectedRow();
+            InitializeFullContentLetterForm();
+            recoverSelectedRow();
+        }
+
+
         private void MakeMenuForFolder(Point locationPoint)
         {
             foldersTV.ContextMenuStrip = contextMenuStrip1;
         }
 
-        private void foldersTV_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void ChangeSelectionNodeIndex(TreeNode selectedNode)
         {
-            Folder folder = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder;
-            folder.Id = _currentPrivateFoldersInTree[e.Node.FullPath].Id;
-            folder.Name = _currentPrivateFoldersInTree[e.Node.FullPath].Name;
-            folder.OwnerId = _currentPrivateFoldersInTree[e.Node.FullPath].OwnerId;
-            folder.ParentId = _currentPrivateFoldersInTree[e.Node.FullPath].ParentId;
-            folder.Type = _currentPrivateFoldersInTree[e.Node.FullPath].Type;
-
-            foldersTV.SelectedNode = e.Node;
-
             bool find = false;
             _selectNodeIndex = 0;
             foreach (var value in _existPrivateFoldersInTree.Values)
             {
-                if (value == e.Node)
+                if (value == selectedNode)
                 {
                     find = true;
                     break;
@@ -424,13 +534,64 @@ namespace Registration.WinForms.Forms
             {
                 foreach (var value in _existSharedFoldersInTree.Values)
                 {
-                    if (value == e.Node)
+                    if (value == selectedNode)
                     {
                         find = true;
                         break;
                     }
                     ++_selectNodeIndex;
                 }
+            }
+            if (!find)
+                throw new ArgumentOutOfRangeException();
+
+        }
+
+        private void InitializeSelectedFolder(TreeNode selectedNode)
+        {
+            Folder folder = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder;
+            Folder currentFolder;
+            if (_currentPrivateFoldersInTree.ContainsKey(selectedNode.FullPath))
+                currentFolder = _currentPrivateFoldersInTree[selectedNode.FullPath];
+            else
+                  if (_currentSharedFoldersInTree.ContainsKey(selectedNode.FullPath))
+                currentFolder = _currentSharedFoldersInTree[selectedNode.FullPath];
+            else
+                throw new IndexOutOfRangeException();
+
+            folder.Id = currentFolder.Id;
+            folder.Name = currentFolder.Name;
+            folder.OwnerId = currentFolder.OwnerId;
+            folder.ParentId = currentFolder.ParentId;
+            folder.Type = currentFolder.Type;
+        }
+        
+        private void UpdateSelectedRowDictionary(bool useDefaultValue)
+        {
+            if (!_selectedRowInSelectedFolder.ContainsKey(_selectNodeIndex))
+            {
+                _selectedRowInSelectedFolder.Add(_selectNodeIndex, 0);
+            }
+           else
+                if (useDefaultValue)
+                _selectedRowInSelectedFolder[_selectNodeIndex] = 0;
+        }
+
+        private void foldersTV_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            try
+            {
+                InitializeSelectedFolder(e.Node);
+
+                foldersTV.SelectedNode = e.Node;
+
+                ChangeSelectionNodeIndex(e.Node);
+
+                UpdateSelectedRowDictionary(true);
+            }
+            catch (Exception ex)
+            {
+                NLogger.Logger.Trace(ex.ToString());
             }
 
             if (e.Button == MouseButtons.Right)
@@ -442,6 +603,7 @@ namespace Registration.WinForms.Forms
                 FillBriefContentLetterDGV();
             }
         }
+
 
         private void findSelectedNodeKey(ref string findKey)
         {
@@ -470,14 +632,10 @@ namespace Registration.WinForms.Forms
                     ++index;
                 }
             }
-
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void ChangeFoldersSelectedNode()
         {
-            InitializeTreeView();
-            foldersTV.ExpandAll();
-
             string findKey = string.Empty;
             findSelectedNodeKey(ref findKey);
             if (_existPrivateFoldersInTree.ContainsKey(findKey))
@@ -485,13 +643,29 @@ namespace Registration.WinForms.Forms
                 foldersTV.SelectedNode = _existPrivateFoldersInTree[findKey];
             }
             else
+            if (_existSharedFoldersInTree.ContainsKey(findKey))
             {
                 foldersTV.SelectedNode = _existSharedFoldersInTree[findKey];
             }
+            else
+                throw new ArgumentException();
         }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            InitializeTreeView();
+            foldersTV.ExpandAll();
+            try
+            {
+                ChangeFoldersSelectedNode();
+            }
+            catch (Exception ex)
+            {
+                NLogger.Logger.Trace(ex.ToString());
+            }
+        }
 
-        private void createFolderTSMI_Click(object sender, EventArgs e)
+        private void InitializeCreateFolderForm()
         {
             using (var createFolderForm = new Forms.CreateFolderForm(ServiceProvider))
             {
@@ -508,6 +682,12 @@ namespace Registration.WinForms.Forms
             }
         }
 
+        private void createFolderTSMI_Click(object sender, EventArgs e)
+        {
+            InitializeCreateFolderForm();
+        }
+
+
         private void changeFolderTSMI_Click(object sender, EventArgs e)
         {
             using (var renameForm = new Forms.RenameFolderForm(ServiceProvider))
@@ -516,12 +696,54 @@ namespace Registration.WinForms.Forms
             }
         }
 
+        private void DeleteFolder()
+        {
+            ClientRequests.DeleteFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+        }
+
+
         private void deleteFolderTSMI_Click(object sender, EventArgs e)
         {
             if (MessageService.QuestionMessage(Message.MessageResource.DeleteFolder) == DialogResult.Yes)
             {
-                ClientRequests.DeleteFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+                DeleteFolder();
             }
+        }
+
+        private void ArrowUp()
+        {
+            if (0 <= _selectedRowInSelectedFolder[_selectNodeIndex] - 1)
+                --_selectedRowInSelectedFolder[_selectNodeIndex];
+        }
+
+        private void ArrowDown()
+        {
+            if (_selectedRowInSelectedFolder[_selectNodeIndex] + 1 < briefContentLetterDGV.Rows.Count)
+                ++_selectedRowInSelectedFolder[_selectNodeIndex];
+        }
+
+        private void briefContentLetterDGV_KeyPress(object sender, KeyEventArgs e)
+        {
+            deleteLetterToolStripMenuItem.Enabled = true;
+            if (e.KeyData == Keys.Enter)
+            {
+                InitializeFullContentLetterForm();
+            } else
+            if (e.KeyData == Keys.Down)
+            {
+                ArrowDown();
+                ShowBriefContentLetter();
+                recoverSelectedRow();
+            }
+            else
+            if (e.KeyData == Keys.Up)
+            {
+                ArrowUp();
+                ShowBriefContentLetter();
+                recoverSelectedRow();
+            }
+            else
+                deleteLetterToolStripMenuItem.Enabled = false;
         }
 
     }

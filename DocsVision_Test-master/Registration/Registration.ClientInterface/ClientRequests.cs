@@ -114,26 +114,6 @@ namespace Registration.ClientInterface
             return HttpRequests.GetDatabasesNames();
         }
 
-   /*     public IDictionary<string,string> GetDatabaseNamesAndConnectionStrings()
-        {
-            IEnumerable<string> connectionStrings = GetConnectionStrings();
-
-            IDictionary<string, string> databaseNamesAndConnectionStrings = new Dictionary<string, string>();
-
-            foreach(string connectString in connectionStrings)
-            {
-                int indexBeginName = connectString.IndexOf(DatabaseNameMark) + DatabaseNameMark.Length;
-                int indexEndName = indexBeginName;
-
-                while (connectString[indexEndName] != SplitMark) 
-                {
-                    ++indexEndName;
-                }
-                databaseNamesAndConnectionStrings.Add(connectString.Substring(indexBeginName, indexEndName - indexBeginName), _connectionString);
-            }
-            return databaseNamesAndConnectionStrings;
-        }*/
-
         public string GetWorkerName(Guid workerId)
         {
             return HttpRequests.GetWorkerName(workerId, _connectionString);
@@ -171,9 +151,9 @@ namespace Registration.ClientInterface
         {
             HttpRequests.DeleteFolder(folderId, _connectionString);
         }
-        public int GetCountLetterInFolder(Guid folderId)
+        public int GetCountLetterInFolder(Guid folderId, Guid ownerId)
         {
-            return HttpRequests.GetCountLettersInFolder(folderId, _connectionString);
+            return HttpRequests.GetCountLettersInFolder(folderId, ownerId, _connectionString);
         }
 
         public IEnumerable<FolderType> GetAllFolderTypes()

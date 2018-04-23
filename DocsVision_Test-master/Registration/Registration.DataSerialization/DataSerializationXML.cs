@@ -10,9 +10,9 @@ using System.IO;
 
 namespace Registration.DataSerialization
 {
-    public class DataSerializationXML<T> : IDataSerializationService<T>
+    public class DataSerializationXML : IDataSerializationService
     {
-        public string SerializeData(T data)
+        public string SerializeData<T>(T data)
         {
             var xmlSerializer = new XmlSerializer(typeof(T));
 
@@ -26,7 +26,7 @@ namespace Registration.DataSerialization
             }
         }
 
-        public T DeserializeData(string serializeData)
+        public T DeserializeData<T>(string serializeData)
         {
             var xmlSerializer = new XmlSerializer(typeof(T));
 

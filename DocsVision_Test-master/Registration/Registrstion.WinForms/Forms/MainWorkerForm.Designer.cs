@@ -74,9 +74,8 @@
             // 
             this.compose.Image = ((System.Drawing.Image)(resources.GetObject("compose.Image")));
             this.compose.Name = "compose";
-            this.compose.Size = new System.Drawing.Size(92, 20);
-            this.compose.Text = "New Letter";
-            this.compose.Click += new System.EventHandler(this.Compose_Click);
+            this.compose.Size = new System.Drawing.Size(94, 20);
+            this.compose.Text = "Type Letter";
             // 
             // deleteLetterToolStripMenuItem
             // 
