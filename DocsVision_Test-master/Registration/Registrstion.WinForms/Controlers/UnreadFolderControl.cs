@@ -44,6 +44,9 @@ namespace Registration.WinForms.Controlers
                 {
                     info = new global::Registration.Model.FolderProperties();
                 }
+                info.Properties.Clear();
+
+                info.Name = createFolderControl1.NameF;
                 return info;
             }
         }

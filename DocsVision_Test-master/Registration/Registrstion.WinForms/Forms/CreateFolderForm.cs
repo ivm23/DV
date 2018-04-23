@@ -64,7 +64,9 @@ namespace Registration.WinForms.Forms
 
         public FolderType SelectedFolderType
         {
-            set { comboFolderType.SelectedItem = value; }
+            set {
+                comboFolderType.SelectedItem = value;
+            }
             get { return (FolderType)comboFolderType.SelectedItem; }
         }
 
@@ -105,6 +107,8 @@ namespace Registration.WinForms.Forms
         {
             InitializeClientService();
             InitializeBaseSize();
+
+            InitializeFolderPluginUI(comboFolderType);
         }
 
 
@@ -123,7 +127,7 @@ namespace Registration.WinForms.Forms
                 }
             }
 
-            ClientRequests.CreateFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id, FolderName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, SelectedFolderType.Id, data.ToString());
+            ClientRequests.CreateFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id, clientUIPlugin.FolderProperties.Name, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, SelectedFolderType.Id, data.ToString());
         }
 
         private void CreateFolder(object sender, EventArgs e)
@@ -154,7 +158,11 @@ namespace Registration.WinForms.Forms
 
             clientUIPlugin.ChangedFolderTypePlugin += new EventHandler(FolderTypeIsChange);
 
-            clientUIPlugin.FolderType = selectedFolderType;
+            clientUIPlugin.FolderType.Id = selectedFolderType.Id;
+            clientUIPlugin.FolderType.Name = selectedFolderType.Name;
+            clientUIPlugin.FolderType.TypeClientUI = selectedFolderType.TypeClientUI;
+            clientUIPlugin.FolderType.TypeFolderService = selectedFolderType.TypeFolderService;
+
             Control newControl = (Control)clientUIPlugin;
 
             newControl.Location = new Point(0, 0);
@@ -169,8 +177,13 @@ namespace Registration.WinForms.Forms
             this.Controls.Add(newControl);
             this.Controls.Add(_newButtonsControl);
 
-            SelectedFolderType = selectedFolderType;
+            SelectedFolderType.Id = selectedFolderType.Id;
+            SelectedFolderType.Name = selectedFolderType.Name;
+            SelectedFolderType.TypeFolderService = selectedFolderType.TypeFolderService;
+            SelectedFolderType.TypeClientUI = selectedFolderType.TypeClientUI;
+
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentFolderPropertiesPlugin = clientUIPlugin;
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Name = clientUIPlugin.FolderProperties.Name;
         }
 
         void FolderTypeIsChange(object sender, EventArgs e)

@@ -425,7 +425,7 @@ namespace Registration.WinForms.Forms
         {
             Timer timer = new Timer();
             timer.Interval = (2000); // 2 sec
-                                     // timer.Tick += new EventHandler(timer_Tick);
+            timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
 

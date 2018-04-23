@@ -16,9 +16,7 @@ namespace Registration.WinForms.Controlers
         private IServiceProvider _serviceProvider;
 
         public event EventHandler ChangedFolderTypePlugin;
-
-
-
+        
         public InboxFolderControl()
         {
             InitializeComponent();
@@ -43,9 +41,10 @@ namespace Registration.WinForms.Controlers
             }
             get
             {
+                _info.Properties.Clear();
                 if (_info == null)
                     _info = new global::Registration.Model.FolderProperties();
-
+                _info.Name = createFolderControl1.NameF;
 
                 return _info;
             }

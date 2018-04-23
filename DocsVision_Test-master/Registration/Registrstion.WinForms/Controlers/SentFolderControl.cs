@@ -15,13 +15,13 @@ namespace Registration.WinForms.Controlers
     {
         private IServiceProvider _serviceProvider;
         public event EventHandler ChangedFolderTypePlugin;
+        private FolderProperties _info;
+
         public SentFolderControl()
         {
             InitializeComponent();
             createFolderControl1.ChangedFolderType += new EventHandler(createFolderControl_ChangedFolderType);
         }
-
-        FolderProperties info;
 
         private IServiceProvider ServiceProvider
         {
@@ -35,19 +35,25 @@ namespace Registration.WinForms.Controlers
         {
             set
             {
-                info = value;
+                _info = value;
             }
             get
             {
-                if (null == info)
+
+                if (null == _info)
                 {
-                    info = new global::Registration.Model.FolderProperties();
+                    _info = new global::Registration.Model.FolderProperties();
                 }
-                return info;
+                _info.Properties.Clear();
+
+                _info.Name = createFolderControl1.NameF;
+
+                return _info;
             }
         }
 
-        public void OnLoad(IServiceProvider serviceProvider) {
+        public void OnLoad(IServiceProvider serviceProvider)
+        {
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 

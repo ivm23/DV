@@ -14,7 +14,7 @@ namespace Registration.WinForms.Controlers
     public partial class SearchFolderControl : UserControl, IFolderPropertiesUIPlugin
     {
         private IServiceProvider _serviceProvider;
-
+        private FolderProperties _info;
         public SearchFolderControl()
         {
             InitializeComponent();
@@ -41,11 +41,16 @@ namespace Registration.WinForms.Controlers
                 }
             }
             get
-            {
-                FolderProperties info = new FolderProperties();
+            {if (null == _info)
+                    _info= new FolderProperties();
+
+                _info.Properties.Clear();
                 if (null != comboSelectSender.SelectedItem)
-                    info.Properties.Add(comboSelectSender.Text, comboSelectSender.SelectedItem.ToString());
-                return info;
+                    _info.Properties.Add(comboSelectSender.Text, comboSelectSender.SelectedItem.ToString());
+
+                _info.Name = createFolderControl1.NameF;
+
+                return _info;
             }
         }
 

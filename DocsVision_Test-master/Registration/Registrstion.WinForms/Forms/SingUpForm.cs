@@ -139,13 +139,6 @@ namespace Registration.WinForms.Forms
                 else
                     if (string.IsNullOrEmpty(Password)) MessageService.ErrorMessage(Message.MessageResource.EmptyPassword);
             }
-
-           /* if (Guid.Empty != workerId)
-            {
-                
-            }
-            else
-                throw new Exception();*/
         }
 
         private void singUpB_Click(object sender, EventArgs e)

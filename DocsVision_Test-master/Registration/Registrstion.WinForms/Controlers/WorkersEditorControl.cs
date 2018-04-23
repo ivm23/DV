@@ -135,7 +135,7 @@ namespace Registration.WinForms.Controlers
 
             string newName = listBoxWorkers.Items[listBoxWorkers.SelectedIndex].ToString();
 
-            if (!txtWorkers.Text.Contains(newName.Trim()))
+          //  if (!txtWorkers.Text.Contains(newName.Trim()))
             {
                 txtWorkers.Text = txtWorkers.Text.Substring(0, _currentEndOfNamesString) + listBoxWorkers.Items[listBoxWorkers.SelectedIndex].ToString() + SplitMarker + " ";
                 txtWorkers.SelectionStart = txtWorkers.Text.Length;

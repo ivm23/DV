@@ -85,9 +85,9 @@
             this.lblAllWorkers.AutoSize = true;
             this.lblAllWorkers.Location = new System.Drawing.Point(5, 8);
             this.lblAllWorkers.Name = "lblAllWorkers";
-            this.lblAllWorkers.Size = new System.Drawing.Size(58, 13);
+            this.lblAllWorkers.Size = new System.Drawing.Size(73, 13);
             this.lblAllWorkers.TabIndex = 4;
-            this.lblAllWorkers.Text = "All workers";
+            this.lblAllWorkers.Text = "&Other workers";
             // 
             // lblReceivers
             // 
@@ -96,7 +96,7 @@
             this.lblReceivers.Name = "lblReceivers";
             this.lblReceivers.Size = new System.Drawing.Size(55, 13);
             this.lblReceivers.TabIndex = 5;
-            this.lblReceivers.Text = "Receivers";
+            this.lblReceivers.Text = "&Receivers";
             // 
             // buttonSave
             // 
