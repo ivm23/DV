@@ -139,6 +139,7 @@
             this.Controls.Add(this.listReceivers);
             this.Controls.Add(this.listAllWorkers);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.KeyPreview = true;
             this.Name = "AddWorkersFromAllWorkersList";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Receivers";

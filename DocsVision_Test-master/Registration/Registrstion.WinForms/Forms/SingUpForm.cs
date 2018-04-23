@@ -125,6 +125,10 @@ namespace Registration.WinForms.Forms
                 {
                     workerId = CreateWorker(NameW, Login, Password);
                     MessageService.InfoMessage(Message.MessageResource.SuccessfullRegistration);
+
+                    ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = workerId;
+                    DialogResult = DialogResult.OK;
+
                 }
             }
             else
@@ -136,12 +140,12 @@ namespace Registration.WinForms.Forms
                     if (string.IsNullOrEmpty(Password)) MessageService.ErrorMessage(Message.MessageResource.EmptyPassword);
             }
 
-            if (Guid.Empty != workerId)
+           /* if (Guid.Empty != workerId)
             {
-                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = workerId;
+                
             }
             else
-                throw new Exception();
+                throw new Exception();*/
         }
 
         private void singUpB_Click(object sender, EventArgs e)

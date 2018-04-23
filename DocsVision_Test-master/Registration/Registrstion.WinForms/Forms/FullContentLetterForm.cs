@@ -19,12 +19,11 @@ namespace Registration.WinForms.Forms
         private List<Control> _baseControls;
         private Point _baseSizeHeight;
 
-        
-
         public FullContentLetterForm(IServiceProvider provider)
         {
             _serviceProvider = provider;
             InitializeComponent();
+            this.KeyDown += new KeyEventHandler(form_KeyDown);
         }
 
         private Point BaseSizeHeight
@@ -143,6 +142,12 @@ namespace Registration.WinForms.Forms
             {
                 NLogger.Logger.Error(ex.ToString());
             }
+        }
+
+        private void form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)
+                this.Close();
         }
     }
 }

@@ -31,12 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SingUpForm));
             this.singUpB = new System.Windows.Forms.Button();
             this.cancelB = new System.Windows.Forms.Button();
-            this.singUpControl1 = new  WinForms.Controlers.SingUpControl();
+            this.singUpControl1 = new Controlers.SingUpControl();
             this.SuspendLayout();
             // 
             // singUpB
             // 
-            this.singUpB.DialogResult = System.Windows.Forms.DialogResult.OK;
             resources.ApplyResources(this.singUpB, "singUpB");
             this.singUpB.Name = "singUpB";
             this.singUpB.UseVisualStyleBackColor = true;

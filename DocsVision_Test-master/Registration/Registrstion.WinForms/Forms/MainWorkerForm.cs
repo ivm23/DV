@@ -409,7 +409,8 @@ namespace Registration.WinForms.Forms
 
                 using (var makeLetterForm = new Forms.MakeLetterForm(ServiceProvider))
                 {
-                    makeLetterForm.ShowDialog();
+                    if (makeLetterForm.ShowDialog() == DialogResult.OK) { }
+                  
                 }
                 InitializeMainWorkerForm();
             }

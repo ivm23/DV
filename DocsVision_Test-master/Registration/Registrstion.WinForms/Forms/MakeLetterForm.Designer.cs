@@ -35,7 +35,6 @@
             // sendLetterB
             // 
             this.sendLetterB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendLetterB.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.sendLetterB.Location = new System.Drawing.Point(388, 522);
             this.sendLetterB.Name = "sendLetterB";
             this.sendLetterB.Size = new System.Drawing.Size(87, 27);
@@ -60,9 +59,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 561);
+            this.ClientSize = new System.Drawing.Size(584, 562);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.sendLetterB);
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "MakeLetterForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;

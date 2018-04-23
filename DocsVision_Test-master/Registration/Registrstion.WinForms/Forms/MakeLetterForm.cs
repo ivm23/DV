@@ -23,6 +23,7 @@ namespace Registration.WinForms.Forms
         {
             InitializeComponent();
             _serviceProvider = provider;
+            this.KeyDown += new KeyEventHandler(form_KeyDown);
         }
 
         private IServiceProvider ServiceProvider => _serviceProvider;
@@ -71,7 +72,7 @@ namespace Registration.WinForms.Forms
 
             if (string.IsNullOrEmpty(letterView.Name))
             {
-                MessageService.ErrorMessage(Message.MessageResource.EmptyNameInLetter);
+               MessageService.ErrorMessage(Message.MessageResource.EmptyNameInLetter);
                 return false;
             }
             if (letterView.ReceiversName.Count() == 0)
@@ -137,11 +138,16 @@ namespace Registration.WinForms.Forms
 
         private void sendLetterB_Click_1(object sender, EventArgs e)
         {
-          
             if (SendLetter( ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id))
             {
-                Close();
+                this.DialogResult = DialogResult.OK;
             }
+        }
+
+        private void form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)            
+                this.Close();
         }
     }
 }

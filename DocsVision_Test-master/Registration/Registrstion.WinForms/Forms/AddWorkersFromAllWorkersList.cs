@@ -14,6 +14,8 @@ namespace Registration.WinForms.Forms
     public partial class AddWorkersFromAllWorkersList : Form
     {
         private readonly IServiceProvider _serviceProvider;
+        private IEnumerable<string> _receivers = new List<string>();
+        private IEnumerable<string> _otherWorkers = new List<string>();
 
         public AddWorkersFromAllWorkersList(IServiceProvider serviceProvider)
         {
@@ -40,17 +42,20 @@ namespace Registration.WinForms.Forms
 
         private void InitializeAllWorkers()
         {
-            IEnumerable<string> currentReceivers = (((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentReceivers).Select(str=>str.Trim());
-            listAllWorkers.Items.AddRange(((((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).GetAllWorkers()).Where(str => !currentReceivers.Contains(str.Trim()))).ToArray());
+            listAllWorkers.Items.AddRange(((((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).GetAllWorkers()).Where(str => ! _receivers.Contains(str.Trim()))).ToArray());
         }
 
         private void InitializeCurrentReceivers()
         {
-            listReceivers.Items.AddRange((((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentReceivers).Select(str=>str.Trim()).ToArray());
+            _receivers = (((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentReceivers).Select(str => str.Trim()).Where(str => _otherWorkers.Contains(str));
+            listReceivers.Items.AddRange(_receivers.ToArray());
         }
 
         private void InitializeAddWorkersForm()
         {
+            _receivers = (((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentReceivers).Select(str => str.Trim());
+            _otherWorkers = (((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).GetAllWorkers()).Select(str => str.Trim());
+
             InitializeCurrentReceivers();
             InitializeAllWorkers();
         }

@@ -16,6 +16,7 @@ namespace Registration.WinForms.Controlers
         private IServiceProvider _serviceProvider;
         private StringBuilder _existNameString = new StringBuilder();
         private const char SplitMarker = ';';
+        private IEnumerable<string> _allWorkers = new List<string>();
 
         private IServiceProvider ServiceProvider
         {
@@ -64,7 +65,7 @@ namespace Registration.WinForms.Controlers
             {
                 IEnumerable<string> workers = new List<string>();
                 workers = txtWorkers.Text.Trim().Split(SplitMarker);
-                return workers.AsQueryable().Where(str => !string.IsNullOrEmpty(str));
+                return workers.AsQueryable().Where(str => !string.IsNullOrEmpty(str) && _allWorkers.Contains(str));
             }
         }
 
@@ -76,10 +77,10 @@ namespace Registration.WinForms.Controlers
             _serviceProvider = serviceProvider;
 
             var acsc = new AutoCompleteStringCollection();
-            IEnumerable<string> workers = ((ClientInterface.IClientRequests)ServiceProvider.GetService(typeof(ClientInterface.IClientRequests))).GetAllWorkers();
+            _allWorkers = ((ClientInterface.IClientRequests)ServiceProvider.GetService(typeof(ClientInterface.IClientRequests))).GetAllWorkers();
 
-            if (null != workers)
-                acsc.AddRange(workers.ToArray());
+            if (null != _allWorkers)
+                acsc.AddRange(_allWorkers.ToArray());
 
             txtWorkers.AutoCompleteCustomSource = acsc;
         }
