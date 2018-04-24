@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Registration.WPF.Views"
         xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls" x:Class="Registration.WPF.Views.AuthorizationWindow"
         mc:Ignorable="d"
-        Title="AuthorizationWindow" Height="158.769" Width="203.077">
+        Title="AuthorizationWindow" Height="170" Width="220" MinWidth="220" MinHeight="170" MaxWidth="220" MaxHeight="170" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" HorizontalAlignment="Center" VerticalAlignment="Center"
+        >
     <Grid>
-        <Controls:AuthorizationControl HorizontalAlignment="Left" Margin="-9,-5,-162,-181" VerticalAlignment="Top" Height="314" Width="366"/>
-        <Button x:Name="btnSingIn" Content="SingIn" HorizontalAlignment="Left" Margin="31,102,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnSingUp" Content="SingUp" HorizontalAlignment="Left" Margin="111,102,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnSingIn" Content="SingIn" HorizontalAlignment="Left" Margin="31,102,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingInCommand}"/>
+        <Button x:Name="btnSingUp" Content="SingUp" HorizontalAlignment="Left" Margin="111,102,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingUpCommand}"/>
+        <Controls:AuthorizationControl HorizontalAlignment="Left" Margin="-4,8,0,0" VerticalAlignment="Top" Height="93" Width="203"/>
     </Grid>
-    
+
 </Window>

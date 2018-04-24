@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
-             mc:Ignorable="d" Height="313.846" Width="365.538">
+             mc:Ignorable="d" Height="92.861" Width="203.325">
     <Grid Margin="0,0,156,168">
-        <TextBox x:Name="txtLogin" HorizontalAlignment="Left" Height="23" Margin="77,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding ElementName=txtLogin,Path=Text}"/>
-        <Label x:Name="labelLogin" Content="Login:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="labelLogin_Copy" Content="Password:" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="77,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="labelLogin_Copy1" Content="Database:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboDatabases" HorizontalAlignment="Left" Margin="77,70,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtLogin" HorizontalAlignment="Left" Height="23" Margin="70,3,-143,-26" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Login, Mode=TwoWay}"/>
+        <Label x:Name="labelLogin" Content="Login:" HorizontalAlignment="Left" Margin="3,3,0,-29" VerticalAlignment="Top"/>
+        <Label x:Name="labelLogin_Copy" Content="Password:" HorizontalAlignment="Left" Margin="3,33,-18,-59" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="70,33,-143,-56" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Password, Mode=TwoWay}"/>
+        <Label x:Name="labelLogin_Copy1" Content="Database:" HorizontalAlignment="Left" Margin="3,63,-18,-89" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboDatabases" HorizontalAlignment="Left" Margin="70,63,-143,-85" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=DatabasesNames, Mode=TwoWay}" SelectedItem="{Binding _selectedDatabaseNames, Mode=TwoWay}"/>
     </Grid>
 </UserControl>

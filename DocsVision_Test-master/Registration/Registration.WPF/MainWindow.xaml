@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen"
+        Initialized="Window_Initialized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="170*" />
@@ -35,6 +36,6 @@
             </MenuItem>
             <MenuItem Header="Delete"/>
         </Menu>
-        <TextBox x:Name="txtTest" Text="{Binding Name}" Margin="0,177,0,0" />
+        <TextBox x:Name="txtTest" Text="{Binding Path=Id, Mode=TwoWay}" Margin="0,177,0,0"  />
     </Grid>
 </Window>

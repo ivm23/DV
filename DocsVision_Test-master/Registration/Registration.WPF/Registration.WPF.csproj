@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -58,11 +62,16 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
+    <Compile Include="ViewModels\Command.cs" />
+    <Compile Include="ViewModels\Notifier.cs" />
     <Compile Include="Views\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\AuthorizationControl.xaml.cs">
       <DependentUpon>AuthorizationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SingUpWindow.xaml.cs">
+      <DependentUpon>SingUpWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -81,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\AuthorizationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SingUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,6 +116,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -112,7 +126,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Registration.ClientInterface\Registration.ClientInterface.csproj">
+      <Project>{c715b00f-8ec8-48f7-b18c-c6c7b954f884}</Project>
+      <Name>Registration.ClientInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registretion.Model\Registration.Model.csproj">
+      <Project>{8c0a1308-ae5a-4d36-ac6c-5e808a9c929e}</Project>
+      <Name>Registration.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registrstion.WinForms\Registration.WinForms.csproj">
+      <Project>{140b793f-cdd4-44cd-a557-67644d1cd6ef}</Project>
+      <Name>Registration.WinForms</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

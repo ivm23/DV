@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace Registration.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for AuthorizationWindow.xaml
+    /// Interaction logic for SingUpWindow.xaml
     /// </summary>
-    public partial class AuthorizationWindow : Window
+    public partial class SingUpWindow : Window
     {
-        public AuthorizationWindow(IServiceProvider provider)
+        public SingUpWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModels.AuthorizationViewModel(provider);
         }
     }
 }

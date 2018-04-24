@@ -1,0 +1,18 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Registration.WPF.Views"
+        xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls" x:Class="Registration.WPF.Views.SingUpWindow"
+        mc:Ignorable="d"
+        Title="SingUpWindow" Height="198.113" Width="216.711" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,4,0">
+        <Label x:Name="labelName" Content="Name:&#xD;&#xA;" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Margin="68,9,0,0" TextWrapping="Wrap" Text="&#xD;&#xA;" VerticalAlignment="Top" Width="120" TabIndex="0"/>
+        <Button x:Name="btnSingIn" Content="SingIn" HorizontalAlignment="Left" Margin="33,129,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingUpCommand}" TabIndex="3"/>
+        <Button x:Name="btnSingUp" Content="SingUp" HorizontalAlignment="Left" Margin="113,129,0,0" VerticalAlignment="Top" Width="75" TabIndex="4"/>
+        <Controls:AuthorizationControl HorizontalAlignment="Left" Margin="-2,35,-4,0" VerticalAlignment="Top" Height="93" Width="203" TabIndex="2"/>
+
+    </Grid>
+</Window>

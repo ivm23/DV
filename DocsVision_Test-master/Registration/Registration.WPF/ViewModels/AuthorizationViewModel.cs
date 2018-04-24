@@ -6,53 +6,150 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.ComponentModel;
+using Registration.Model;
+using Registration.ClientInterface;
+using System.Windows;
 
 namespace Registration.WPF.ViewModels
 {
-    class AuthorizationViewModel : INotifyPropertyChanged
+    class AuthorizationViewModel : Notifier
     {
-        public string Name
+        private Worker _worker = new Worker();
+        private readonly IServiceProvider _serviceProvider;
+        private IClientRequests _clientRequests;
+        private WinForms.Message.IMessageService _messageService;
+        public string _selectedDatabaseNames { get; set; }
+
+        private ObservableCollection<string> _databasesNames = new ObservableCollection<string>();
+        public ObservableCollection<string> DatabasesNames
         {
-            get { return this._name; }
+            get {
+               
+                return _databasesNames;
+            }
             set
             {
-                this._name = value;
-
-                OnPropertyChanged("Name");
-                OnPropertyChanged("HelloText");
+                _databasesNames = value;
+                OnPropertyChanged("DatabasesNames");
             }
         }
 
-        public string HelloText
+        private WinForms.Message.IMessageService MessageService
         {
             get
             {
-                return "fff";//_service.SayHello(this.Name);
+                return _messageService;
             }
         }
 
-        string _name;
-
-        public AuthorizationViewModel()
+        private IServiceProvider ServiceProvider
         {
-            //    this._service = service;
-        }
-
-        #region INotifyPropertyChanged Members
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
+            get
             {
-                handler(this,
-                        new PropertyChangedEventArgs(propertyName));
+                return _serviceProvider;
             }
         }
 
-        #endregion
+        private IClientRequests ClientRequests
+        {
+            get { return _clientRequests; }
+        }
+
+        private void InitializeClientRequests()
+        {
+            _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
+        }
+        public string Login
+        {
+            set
+            {
+                _worker.Login = value;
+                OnPropertyChanged("_worker.Login");
+            }
+            get
+            {
+                return _worker.Login;
+            }
+        }
+
+        public string Password
+        {
+            set
+            {
+                _worker.Password = value;
+                OnPropertyChanged("_worker.Password");
+            }
+            get
+            {
+                return _worker.Password;
+            }
+        }
+
+        private void InitializeDatabasesNames()
+        {
+            IEnumerable<string> _databasesNames = ClientRequests.GetDatabasesNames();
+
+            foreach (var name in _databasesNames)
+            {
+
+                DatabasesNames.Add(name);
+            }
+        }
+
+        private void InitializeCommands()
+        {
+            SingInCommand = new ViewModels.Command(arg => SingInMethod());
+            SingUpCommand = new ViewModels.Command(arg => SingUpMethod());
+        }
+
+        private void InitializeMessageService()
+        {
+             _messageService = (WinForms.Message.IMessageService)ServiceProvider.GetService(typeof(WinForms.Message.IMessageService));
+        }
+
+        public AuthorizationViewModel(IServiceProvider provider)
+        {
+            if (null == provider)
+                throw new ArgumentNullException();
+
+            _serviceProvider = provider;
+
+            InitializeClientRequests();
+            InitializeMessageService();            
+            InitializeDatabasesNames();
+            InitializeCommands();
+        }
+
+
+        public ICommand SingInCommand { get; set; }
+        public ICommand SingUpCommand { get; set; }
+
+        private void SingInMethod()
+        {
+
+            ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).DatabaseName = _selectedDatabaseNames;
+
+            _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(_worker.Login, _worker.Password);
+            if (Guid.Empty != _worker.Id)
+            {
+                //MessageService.InfoMessage();                
+                MessageBox.Show("Welcom!");
+            }
+            else
+            {
+                MessageService.InfoMessage("Login or password is wrong");
+            }
+
+            MessageBox.Show(_worker.Id.ToString());
+            
+        }
+        private void SingUpMethod()
+        {
+            var singUpWindow = new Views.SingUpWindow();
+               singUpWindow.ShowDialog();
+
+        }
+
     }
 }
 

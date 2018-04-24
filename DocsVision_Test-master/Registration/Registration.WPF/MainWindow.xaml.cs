@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel.Design;
+using Registration.ClientInterface;
+using Registration.WinForms;
 
 namespace Registration.WPF
 {
@@ -20,15 +23,26 @@ namespace Registration.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private readonly IServiceContainer _serviceContainer = new ServiceContainer();
         public MainWindow()
         {
             InitializeComponent();
-            f();
+
+            DataContext = new ViewModelBase();
         }
 
-        private void f()
+        private void Window_Initialized(object sender, EventArgs e)
         {
-            MessageBox.Show(txtTest.Text);
+            IClientRequests clientRequests = new ClientRequests();
+
+            _serviceContainer.AddService(typeof(IClientRequests), clientRequests);
+            _serviceContainer.AddService(typeof(PluginService), new PluginService(_serviceContainer));
+            _serviceContainer.AddService(typeof(ApplicationState), new ApplicationState());
+            _serviceContainer.AddService(typeof(WinForms.Message.IMessageService), new WinForms.Message.MessageService());
+
+            var form = new Views.AuthorizationWindow(_serviceContainer);
+            form.ShowDialog();
         }
     }
 }
