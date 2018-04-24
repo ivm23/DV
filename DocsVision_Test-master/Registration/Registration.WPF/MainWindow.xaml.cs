@@ -24,15 +24,20 @@ namespace Registration.WPF
     public partial class MainWindow : Window
     {
 
+        private readonly MainWindowViewModel _mainWindowViewModel;
+
         private readonly IServiceContainer _serviceContainer = new ServiceContainer();
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeServiceContainer();
 
-            DataContext = new ViewModelBase();
+            _mainWindowViewModel = new MainWindowViewModel(_serviceContainer);
+            DataContext = _mainWindowViewModel;
+
+            InitializeComponent();
         }
 
-        private void Window_Initialized(object sender, EventArgs e)
+        private void InitializeServiceContainer()
         {
             IClientRequests clientRequests = new ClientRequests();
 
@@ -40,9 +45,15 @@ namespace Registration.WPF
             _serviceContainer.AddService(typeof(PluginService), new PluginService(_serviceContainer));
             _serviceContainer.AddService(typeof(ApplicationState), new ApplicationState());
             _serviceContainer.AddService(typeof(WinForms.Message.IMessageService), new WinForms.Message.MessageService());
+        }
+
+        private void Window_Initialized(object sender, EventArgs e)
+        {
 
             var form = new Views.AuthorizationWindow(_serviceContainer);
             form.ShowDialog();
+
+            _mainWindowViewModel.InitializeTreeView();
         }
     }
 }
