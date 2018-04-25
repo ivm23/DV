@@ -82,6 +82,12 @@
     <Compile Include="Views\Controls\FullContentLetterControl.xaml.cs">
       <DependentUpon>FullContentLetterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\ImportanceDegreeEditorControl.xaml.cs">
+      <DependentUpon>ImportanceDegreeEditorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ImportantLetterControl.xaml.cs">
+      <DependentUpon>ImportantLetterControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\WorkersEditorControl.xaml.cs">
       <DependentUpon>WorkersEditorControl.xaml</DependentUpon>
     </Compile>
@@ -126,6 +132,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\FullContentLetterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ImportanceDegreeEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ImportantLetterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

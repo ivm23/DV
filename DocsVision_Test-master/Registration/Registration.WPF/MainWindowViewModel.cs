@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using Registration.ClientInterface;
 using Registration.WPF.ViewModels;
 using Registration.WinForms;
+using System.Windows.Input;
 
 namespace Registration.WPF
 {
@@ -27,8 +28,13 @@ namespace Registration.WPF
 
 
             InitializeClientRequests();
+            ClickCommand = new ViewModels.Command(arg => ClickMethod());
+        }
 
-          
+        public ICommand ClickCommand { get; set; }
+        private void ClickMethod()
+        {
+            var a = SelectedValue;
         }
 
         private IServiceProvider ServiceProvider
@@ -58,7 +64,7 @@ namespace Registration.WPF
             set
             {
                 _lettersViews = value;
-                OnPropertyChanged("LettersViews");
+                OnPropertyChanged(nameof(LettersViews));
             }
         }
 
@@ -75,12 +81,25 @@ namespace Registration.WPF
 
         public void InitializeTreeView()
         {
-
-      //       folders = ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
             var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty));
             DirItems = itemProvider.DirItems;
         }
 
+        private object _selectedValue;
+
+        public object SelectedValue
+        {
+            set
+            {
+                _selectedValue = value;
+                OnPropertyChanged(nameof(SelectedValue));
+            }
+
+            get
+            {
+                return _selectedValue;
+            }
+        }
     }
 
 }

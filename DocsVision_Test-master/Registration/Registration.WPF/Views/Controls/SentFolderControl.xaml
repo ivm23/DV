@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="Registration.WPF.Views.Controls.SentFolderControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="64" d:DesignWidth="232">
+    <Grid>
+        <local:CreateFolderControl HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+    </Grid>
+</UserControl>

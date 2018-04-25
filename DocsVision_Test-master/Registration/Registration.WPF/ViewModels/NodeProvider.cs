@@ -36,6 +36,7 @@ namespace Registration.WPF.ViewModels
                     Models.DirectoryNode node = new WPF.Models.DirectoryNode { Name = folder.Name };
                     MakeTree(folder, folders, ref node);
                     _rootDirectoryNode.AddDirNode(node);
+                    _existFoldersInTree.Add(folder.Id);
                 }
             }
         }
@@ -45,6 +46,7 @@ namespace Registration.WPF.ViewModels
             _rootDirectoryNode = new WPF.Models.DirectoryNode { Name = string.Empty };
             InitialiseMakeTree(privateFolders);
             InitialiseMakeTree(sharedFolders);
+            _rootDirectoryNode.IsSelected = true;
         }
 
         public List<WPF.Models.Node> DirItems => _rootDirectoryNode.Traverse(_rootDirectoryNode);

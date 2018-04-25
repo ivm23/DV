@@ -133,18 +133,14 @@ namespace Registration.WPF.ViewModels
             _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(_worker.Login, _worker.Password);
             if (Guid.Empty != _worker.Id)
             {
-                //MessageService.InfoMessage();                
-                MessageBox.Show("Welcome!");
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = _worker.Id;
             }
             else
             {
                 MessageService.InfoMessage("Login or password is wrong");
             }
-
-            MessageBox.Show(_worker.Id.ToString());
-            
         }
+
         private void SingUpMethod()
         {
             var singUpWindow = new Views.SingUpWindow();

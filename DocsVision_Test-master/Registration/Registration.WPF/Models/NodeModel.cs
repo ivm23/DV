@@ -11,6 +11,8 @@ namespace Registration.WPF.Models
     {
         public string Name { get; set; }
         public FolderType FolderType { get; set; }
+
+        public bool IsSelected { get; set; }
     }
 
     public class DirectoryNode : Node
@@ -39,5 +41,6 @@ namespace Registration.WPF.Models
 
             return nodes;
         }
+
     }
 }

@@ -6,23 +6,24 @@
         xmlns:local="clr-namespace:Registration.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="597" Width="1229" WindowStartupLocation="CenterScreen"
-        Initialized="Window_Initialized">
+        Initialized="Window_Initialized" MinWidth="600" MinHeight="300">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="170*" />
+            <ColumnDefinition Width="403*" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="170*" />
+            <ColumnDefinition Width="404*" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="159*" />
-            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="408*" />
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <DataGrid Grid.Column="2" Margin="0,20,0,0"/>
-        <TreeView Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}">
+        <TreeView Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}" SelectedValuePath="textBox" SelectedItemChanged="SelectedItemChange" >
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
                     <TextBlock Text="{Binding Path=Name}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
+
         </TreeView>
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
@@ -40,5 +41,7 @@
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
+        <TextBox x:Name="textBox" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,331,0,0" TextWrapping="Wrap" Text="{Binding Path=TV, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="button" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="139,169,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ClickCommand}"/>
     </Grid>
 </Window>

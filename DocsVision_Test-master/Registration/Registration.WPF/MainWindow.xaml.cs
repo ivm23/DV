@@ -29,7 +29,7 @@ namespace Registration.WPF
 
         private readonly MainWindowViewModel _mainWindowViewModel;
 
-        private readonly IServiceContainer _serviceContainer = new ServiceContainer();
+       private readonly IServiceContainer _serviceContainer = new ServiceContainer();
         
 
         public MainWindow()
@@ -37,6 +37,7 @@ namespace Registration.WPF
             InitializeServiceContainer();
 
             _mainWindowViewModel = new MainWindowViewModel(_serviceContainer);
+
             DataContext = _mainWindowViewModel;
 
             InitializeComponent();         
@@ -56,10 +57,15 @@ namespace Registration.WPF
         private void Window_Initialized(object sender, EventArgs e)
         {
 
-            var form = new Views.AuthorizationWindow(_serviceContainer);
-            form.ShowDialog();
+          var form = new Views.AuthorizationWindow(_serviceContainer);
+          form.ShowDialog();
 
             _mainWindowViewModel.InitializeTreeView();
+        }
+
+        private void SelectedItemChange(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var a = _mainWindowViewModel.SelectedValue;
         }
     }
 }
