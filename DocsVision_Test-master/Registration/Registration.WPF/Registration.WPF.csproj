@@ -68,6 +68,7 @@
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="ViewModels\NodeProvider.cs" />
     <Compile Include="ViewModels\Notifier.cs" />
+    <Compile Include="ViewModels\SingUpViewModel.cs" />
     <Compile Include="Views\AddWorkersFromAllWorkersListWindow.xaml.cs">
       <DependentUpon>AddWorkersFromAllWorkersListWindow.xaml</DependentUpon>
     </Compile>
