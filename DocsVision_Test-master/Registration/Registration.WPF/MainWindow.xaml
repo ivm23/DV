@@ -17,7 +17,13 @@
             <ColumnDefinition Width="13*"/>
         </Grid.ColumnDefinitions>
         <DataGrid Grid.Column="2" Margin="0,20,0,0"/>
-        <TreeView Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding Path=Folders}"/>
+        <TreeView Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
+                    <TextBlock Text="{Binding Path=Name}" />
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <GridSplitter Grid.Column="3" ShowsPreview="False" Width="3"

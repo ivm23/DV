@@ -15,18 +15,23 @@ using System.Windows.Shapes;
 using System.ComponentModel.Design;
 using Registration.ClientInterface;
 using Registration.WinForms;
+using System.Collections.ObjectModel;
 
 namespace Registration.WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
     public partial class MainWindow : Window
     {
 
         private readonly MainWindowViewModel _mainWindowViewModel;
 
         private readonly IServiceContainer _serviceContainer = new ServiceContainer();
+        
+
         public MainWindow()
         {
             InitializeServiceContainer();
@@ -34,8 +39,9 @@ namespace Registration.WPF
             _mainWindowViewModel = new MainWindowViewModel(_serviceContainer);
             DataContext = _mainWindowViewModel;
 
-            InitializeComponent();
-        }
+            InitializeComponent();         
+
+    }
 
         private void InitializeServiceContainer()
         {

@@ -9,6 +9,7 @@ using System.ComponentModel;
 using Registration.Model;
 using Registration.ClientInterface;
 using System.Windows;
+using Registration.WinForms;
 
 namespace Registration.WPF.ViewModels
 {
@@ -133,7 +134,8 @@ namespace Registration.WPF.ViewModels
             if (Guid.Empty != _worker.Id)
             {
                 //MessageService.InfoMessage();                
-                MessageBox.Show("Welcom!");
+                MessageBox.Show("Welcome!");
+                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = _worker.Id;
             }
             else
             {
