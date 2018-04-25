@@ -11,6 +11,6 @@
         <Label x:Name="labelLogin_Copy" Content="Password:" HorizontalAlignment="Left" Margin="3,33,-18,-59" VerticalAlignment="Top"/>
         <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="70,33,-143,-56" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Password, Mode=TwoWay}"/>
         <Label x:Name="labelLogin_Copy1" Content="Database:" HorizontalAlignment="Left" Margin="3,63,-18,-89" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboDatabases" HorizontalAlignment="Left" Margin="70,63,-143,-85" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=DatabasesNames, Mode=TwoWay}" SelectedItem="{Binding _selectedDatabaseNames, Mode=TwoWay}"/>
+        <ComboBox x:Name="comboDatabases" HorizontalAlignment="Left" Margin="70,63,-143,-85" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Path=DatabasesNames, Mode=TwoWay}" SelectedItem="{Binding _selectedDatabaseName, Mode=TwoWay}" SelectedIndex="{Binding _selectedDatabaseIndex, Mode=TwoWay}"/>
     </Grid>
 </UserControl>

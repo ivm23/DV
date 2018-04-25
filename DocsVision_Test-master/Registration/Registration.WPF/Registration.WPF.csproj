@@ -88,6 +88,21 @@
     <Compile Include="Views\Controls\ImportantLetterControl.xaml.cs">
       <DependentUpon>ImportantLetterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\InboxFolderControl.xaml.cs">
+      <DependentUpon>InboxFolderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\LetterWithResponseTimeControl.xaml.cs">
+      <DependentUpon>LetterWithResponseTimeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\SearchFolderControl.xaml.cs">
+      <DependentUpon>SearchFolderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\SentFolderControl.xaml.cs">
+      <DependentUpon>SentFolderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\UnreadFolderControl.xaml.cs">
+      <DependentUpon>UnreadFolderControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\WorkersEditorControl.xaml.cs">
       <DependentUpon>WorkersEditorControl.xaml</DependentUpon>
     </Compile>
@@ -140,6 +155,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\ImportantLetterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\InboxFolderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\LetterWithResponseTimeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\SearchFolderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\SentFolderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\UnreadFolderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

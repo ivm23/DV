@@ -41,7 +41,5 @@
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
-        <TextBox x:Name="textBox" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="10,331,0,0" TextWrapping="Wrap" Text="{Binding Path=TV, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="139,169,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ClickCommand}"/>
     </Grid>
 </Window>

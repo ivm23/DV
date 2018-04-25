@@ -19,7 +19,8 @@ namespace Registration.WPF.ViewModels
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
         private WinForms.Message.IMessageService _messageService;
-        public string _selectedDatabaseNames { get; set; }
+        public string _selectedDatabaseName { get; set; }
+        public int _selectedDatabaseIndex { get; set; } = 0;
 
         private ObservableCollection<string> _databasesNames = new ObservableCollection<string>();
         public ObservableCollection<string> DatabasesNames
@@ -92,7 +93,6 @@ namespace Registration.WPF.ViewModels
 
             foreach (var name in _databasesNames)
             {
-
                 DatabasesNames.Add(name);
             }
         }
@@ -128,7 +128,7 @@ namespace Registration.WPF.ViewModels
         private void SingInMethod()
         {
 
-            ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).DatabaseName = _selectedDatabaseNames;
+            ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).DatabaseName = _selectedDatabaseName;
 
             _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(_worker.Login, _worker.Password);
             if (Guid.Empty != _worker.Id)
