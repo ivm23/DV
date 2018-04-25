@@ -10,7 +10,7 @@ namespace Registration.WPF.Models
     public class Node
     {
         public string Name { get; set; }
-        public FolderType FolderType { get; set; }
+        public Folder Folder { get; set; }
 
         public bool IsSelected { get; set; }
     }

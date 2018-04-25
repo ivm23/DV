@@ -16,7 +16,7 @@
             <ColumnDefinition Width="408*" />
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Column="2" Margin="0,20,0,0"/>
+        <DataGrid Grid.Column="2" Margin="0,20,0,0" ItemsSource="{Binding Letters}" SelectedItem="{Binding Path=SelectedLetter}"/>
         <TreeView Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}" SelectedValuePath="textBox" SelectedItemChanged="SelectedItemChange" >
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">

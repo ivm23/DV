@@ -19,7 +19,7 @@ namespace Registration.WPF.ViewModels
             {
                 if (folder.Id == f.ParentId )
                 {
-                    Models.DirectoryNode newNode = new WPF.Models.DirectoryNode { Name = f.Name };
+                    Models.DirectoryNode newNode = new WPF.Models.DirectoryNode { Name = f.Name, Folder = f};
                     MakeTree(f, folders, ref node);
                     node.AddDirNode(newNode);
                 }
@@ -33,7 +33,7 @@ namespace Registration.WPF.ViewModels
             {
                 if (!_existFoldersInTree.Contains(folder.Id) && folder.ParentId == Guid.Empty)
                 {
-                    Models.DirectoryNode node = new WPF.Models.DirectoryNode { Name = folder.Name };
+                    Models.DirectoryNode node = new WPF.Models.DirectoryNode { Name = folder.Name, Folder = folder};
                     MakeTree(folder, folders, ref node);
                     _rootDirectoryNode.AddDirNode(node);
                     _existFoldersInTree.Add(folder.Id);

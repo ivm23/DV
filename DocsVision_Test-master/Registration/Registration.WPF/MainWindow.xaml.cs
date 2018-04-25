@@ -65,8 +65,7 @@ namespace Registration.WPF
 
         private void SelectedItemChange(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-
-            var a = _mainWindowViewModel.SelectedValue;
+            _mainWindowViewModel.InitializeDataGrid(((Models.Node)(e.NewValue)).Folder.Id);
         }
     }
 }

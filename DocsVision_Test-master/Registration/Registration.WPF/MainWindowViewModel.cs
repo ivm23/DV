@@ -18,6 +18,10 @@ namespace Registration.WPF
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
         private List<Models.Node> _dirItems;
+        private Letter _selectedLetter;
+        private Models.Node _selectedNode;
+        private IEnumerable<Letter> _letters;
+
 
         public MainWindowViewModel(IServiceProvider provider)
         {
@@ -78,11 +82,41 @@ namespace Registration.WPF
             }
         }
 
+        public Letter SelectedLetter
+        {
+            set
+            {
+                _selectedLetter = value;
+                OnPropertyChanged(nameof(SelectedLetter));
+            }
+            get
+            {
+                return _selectedLetter;
+            }
+        }
 
+        public Models.Node SelectedNode
+        {
+            set
+            {
+                _selectedNode = value;
+                OnPropertyChanged(nameof(SelectedNode));
+            }
+            get
+            {
+                return _selectedNode;
+            }
+        }
         public void InitializeTreeView()
         {
             var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty));
             DirItems = itemProvider.DirItems;
+        }
+
+        public void InitializeDataGrid(Guid folderId)
+        {
+            var allLetters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+            Letters = allLetters;
         }
 
         private object _selectedValue;
@@ -100,6 +134,20 @@ namespace Registration.WPF
                 return _selectedValue;
             }
         }
+
+        public IEnumerable<Letter> Letters
+        {
+            set
+            {
+                _letters = value;
+                OnPropertyChanged(nameof(Letters));
+            }
+            get
+            {
+                return _letters;
+            }
+        }
     }
+
 
 }
