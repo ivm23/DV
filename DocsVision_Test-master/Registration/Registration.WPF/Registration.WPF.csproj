@@ -61,6 +61,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Models\LetterModel.cs" />
     <Compile Include="Models\NodeModel.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />

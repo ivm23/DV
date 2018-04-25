@@ -20,7 +20,7 @@ namespace Registration.WPF
         private List<Models.Node> _dirItems;
         private Letter _selectedLetter;
         private Models.Node _selectedNode;
-        private IEnumerable<Letter> _letters;
+        private IEnumerable<LetterView> _letters;
 
 
         public MainWindowViewModel(IServiceProvider provider)
@@ -116,7 +116,13 @@ namespace Registration.WPF
         public void InitializeDataGrid(Guid folderId)
         {
             var allLetters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-            Letters = allLetters;
+            //IList<Models.LetterModel> allLetterModel = new List<Models.LetterModel>();
+            //foreach(var letter in allLetters)
+            //{
+            //    allLetterModel.Add(new Models.LetterModel() { Title = letter.Name, SenderName = letter.SenderName, Date = letter.Date });
+            //}
+
+           Letters = allLetters;
         }
 
         private object _selectedValue;
@@ -135,7 +141,7 @@ namespace Registration.WPF
             }
         }
 
-        public IEnumerable<Letter> Letters
+        public IEnumerable<LetterView> Letters
         {
             set
             {

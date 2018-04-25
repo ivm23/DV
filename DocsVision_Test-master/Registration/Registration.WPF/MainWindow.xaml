@@ -16,7 +16,14 @@
             <ColumnDefinition Width="408*" />
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Column="2" Margin="0,20,0,0" ItemsSource="{Binding Letters}" SelectedItem="{Binding Path=SelectedLetter}"/>
+
+        <DataGrid Grid.Column="2" Margin="0,20,0,0" ItemsSource="{Binding Letters}" SelectedItem="{Binding Path=SelectedLetter}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title" Binding="{Binding Path=Name}" Width="90" />
+                <DataGridHyperlinkColumn Header="SenderName" Binding="{Binding Path=SenderName}" Width="80" />
+                <DataGridTextColumn Header="Date" Binding="{Binding Path=Date}" Width="50" />
+            </DataGrid.Columns>
+        </DataGrid>
         <TreeView Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}" SelectedValuePath="textBox" SelectedItemChanged="SelectedItemChange" >
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
