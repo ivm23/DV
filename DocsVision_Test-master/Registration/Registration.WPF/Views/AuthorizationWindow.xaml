@@ -9,7 +9,7 @@
         Title="AuthorizationWindow" Height="170" Width="220" MinWidth="220" MinHeight="170" MaxWidth="220" MaxHeight="170" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" HorizontalAlignment="Center" VerticalAlignment="Center"
         >
     <Grid>
-        <Button x:Name="btnSingIn" Content="SingIn" HorizontalAlignment="Left" Margin="31,102,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingInCommand}" TabIndex="2" />
+        <Button x:Name="btnSingIn" IsDefault="True" Content="SingIn" HorizontalAlignment="Left" Margin="31,102,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingInCommand}" TabIndex="2"/>
         <Button x:Name="btnSingUp" Content="SingUp" HorizontalAlignment="Left" Margin="111,102,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingUpCommand}" TabIndex="3"/>
         <Controls:AuthorizationControl HorizontalAlignment="Left" Margin="-4,8,0,0" VerticalAlignment="Top" Height="93" Width="203" TabIndex="1"/>
     </Grid>
