@@ -104,6 +104,7 @@ namespace Registration.WPF
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
                 OnPropertyChanged(nameof(SelectedLetter));
                 LetterPlugin = ViewModels.ViewPluginShower.Show(ServiceProvider);
+                
             }
             get
             {

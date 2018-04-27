@@ -58,8 +58,10 @@ namespace Registration.WPF
         {
 
             var form = new Views.AuthorizationWindow(_serviceContainer);
-            form.ShowDialog();
-            _mainWindowViewModel.InitializeTreeView();
+            if (form.ShowDialog() == true)
+            {
+                _mainWindowViewModel.InitializeTreeView();
+            }
         }
     }
 }
