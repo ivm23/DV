@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:Registration.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="597" Width="1229" WindowStartupLocation="CenterScreen"
@@ -24,14 +25,24 @@
                 <DataGridTextColumn Header="Date" Binding="{Binding Path=Date}" Width="50" />
             </DataGrid.Columns>
         </DataGrid>
-        <TreeView Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}" SelectedValuePath="textBox" SelectedItemChanged="SelectedItemChange" >
+        
+        <TreeView  Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}"  >
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
                     <TextBlock Text="{Binding Path=Name}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedItemChanged">
+                    <i:InvokeCommandAction
+                           Command="{Binding Path=SelectedItemChanged}"
+                CommandParameter="{Binding ElementName=TV, Path=SelectedValue}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
         </TreeView>
+        
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <GridSplitter Grid.Column="3" ShowsPreview="False" Width="3"
@@ -48,5 +59,7 @@
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
+        
     </Grid>
+    
 </Window>

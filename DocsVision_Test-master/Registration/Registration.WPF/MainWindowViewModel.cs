@@ -10,6 +10,8 @@ using Registration.ClientInterface;
 using Registration.WPF.ViewModels;
 using Registration.WinForms;
 using System.Windows.Input;
+using System.Windows;
+
 
 namespace Registration.WPF
 {
@@ -21,7 +23,7 @@ namespace Registration.WPF
         private Letter _selectedLetter;
         private Models.Node _selectedNode;
         private IEnumerable<LetterView> _letters;
-
+        private ILetterPropertiesUIPlugin _letterPlugin;
 
         public MainWindowViewModel(IServiceProvider provider)
         {
@@ -33,13 +35,25 @@ namespace Registration.WPF
 
             InitializeClientRequests();
             ClickCommand = new ViewModels.Command(arg => ClickMethod());
+            SelectedItemChanged = new ViewModels.Command(arg => SelectedItemChangedMethod(arg));
         }
 
         public ICommand ClickCommand { get; set; }
+        public ICommand SelectedItemChanged { get; set; }
         private void ClickMethod()
         {
+            MessageBox.Show("hi from 2x");
+           
             var a = SelectedValue;
+            var b = SelectedLetter;
         }
+
+
+        private void SelectedItemChangedMethod(object arg)
+        {
+            InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
+        }
+
 
         private IServiceProvider ServiceProvider
         {
@@ -87,7 +101,9 @@ namespace Registration.WPF
             set
             {
                 _selectedLetter = value;
+                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
                 OnPropertyChanged(nameof(SelectedLetter));
+                LetterPlugin = ViewModels.ViewPluginShower.Show(ServiceProvider);
             }
             get
             {
@@ -151,6 +167,19 @@ namespace Registration.WPF
             get
             {
                 return _letters;
+            }
+        }
+
+        public ILetterPropertiesUIPlugin LetterPlugin
+        {
+            set
+            {
+                _letterPlugin = value;
+                OnPropertyChanged(nameof(LetterPlugin));
+            }
+            get
+            {
+                return _letterPlugin;
             }
         }
     }
