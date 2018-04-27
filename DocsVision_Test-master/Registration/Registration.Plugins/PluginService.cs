@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Registration.Model;
 using Registration.ClientInterface;
+using System.Reflection;
 
-namespace Registration.WinForms
+namespace Registration
 {
     public class PluginService : IPluginService
     {
@@ -41,8 +42,8 @@ namespace Registration.WinForms
 
         private T CreatePlugin<T>(string typeName)
         {
-            var obj = new ImportanceDegree();//Type.GetType(typeName);
-            return (T)Activator.CreateInstance(obj.GetType());
+            var obj = Type.GetType(typeName);
+            return (T)Activator.CreateInstance(obj);
         }
 
 

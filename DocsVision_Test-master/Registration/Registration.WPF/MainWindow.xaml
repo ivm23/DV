@@ -67,8 +67,7 @@
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
-
-        <ContentControl Content="{Binding Path=LetterPlugin}"/>
+        <UserControl Grid.Column="4" DataContext="{Binding Registration.WPF.Models.ImportantLetterControl, Mode=TwoWay}"/>
     </Grid>
     
 </Window>

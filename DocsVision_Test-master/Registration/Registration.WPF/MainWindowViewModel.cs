@@ -12,7 +12,6 @@ using Registration.WinForms;
 using System.Windows.Input;
 using System.Windows;
 
-
 namespace Registration.WPF
 {
     class MainWindowViewModel : ViewModels.Notifier
@@ -45,10 +44,6 @@ namespace Registration.WPF
         public ICommand MouseDoubleClick { set; get; }
         private void ClickMethod()
         {
-            MessageBox.Show("hi from 2x");
-           
-            var a = SelectedValue;
-            var b = SelectedLetter;
         }
 
         bool f = false;
@@ -60,10 +55,12 @@ namespace Registration.WPF
                 f = true;
             }
         }
+
         private void MouseDoubleClickMethod(object arg)
         {
             var win = new Views.FullContentLetterWindow();
-         //   win.Content = arg;
+
+            win.Content = LetterPlugin;
             win.ShowDialog();
         }
 
@@ -130,7 +127,7 @@ namespace Registration.WPF
             {
                 _selectedNode = value;
                 OnPropertyChanged(nameof(SelectedNode));
-            }
+            }   
             get
             {
                 return _selectedNode;
@@ -140,6 +137,9 @@ namespace Registration.WPF
         {
             var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty));
             DirItems = itemProvider.DirItems;
+
+            var a = new WinForms.Controlers.ImportantLetterControl();
+            MessageBox.Show(a.GetType().AssemblyQualifiedName);
         }
 
         public void InitializeDataGrid(Guid folderId)
@@ -182,6 +182,7 @@ namespace Registration.WPF
             {
                 _letterPlugin = value;
                 OnPropertyChanged(nameof(LetterPlugin));
+                
             }
             get
             {

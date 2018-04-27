@@ -10,7 +10,8 @@ namespace Registration.WPF.ViewModels
 {
     public class ImportantLetterControl : Notifier, ILetterPropertiesUIPlugin
     {
-        public void OnLoad(IServiceProvider serviceProvider) { }
+        public void OnLoad(IServiceProvider serviceProvider) {
+        }
 
         private LetterView _letterView;
         public LetterView LetterView

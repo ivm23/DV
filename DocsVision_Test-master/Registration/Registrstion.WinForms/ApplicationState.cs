@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Registration.Model;
 using System.Windows.Forms;
+using Registration.Plugins;
 
 namespace Registration.WinForms
 {
@@ -18,7 +19,7 @@ namespace Registration.WinForms
         public LetterType SelectedLetterType { get; set; } = new LetterType();
         public CloseReason CloseReason { get; set; } = new CloseReason();
 
-        public ILetterPropertiesUIPlugin CurrentLetterPropertiesPlugin { get; set; }
+        public  ILetterPropertiesUIPlugin CurrentLetterPropertiesPlugin { get; set; }
         public IFolderPropertiesUIPlugin CurrentFolderPropertiesPlugin { get; set; }
 
         public IEnumerable<string> CurrentReceivers { get; set; } = new List<string>();

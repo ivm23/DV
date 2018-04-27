@@ -11,6 +11,7 @@ using Registration.Model;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using Registration.Plugins;
 
 namespace Registration.WinForms.Controlers
 {

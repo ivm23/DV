@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Registration.WinForms
+namespace Registration.Plugins
 {
-    public interface IPropertiesUIPlugin
+    public class Class1
     {
-        void OnLoad(IServiceProvider serviceProvider);
     }
 }

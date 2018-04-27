@@ -23,6 +23,7 @@ namespace Registration.WPF.Views.Controls
         public ImportantLetterControl()
         {
             InitializeComponent();
+            DataContext = new ImportantLetterControl();
         }
     }
 }

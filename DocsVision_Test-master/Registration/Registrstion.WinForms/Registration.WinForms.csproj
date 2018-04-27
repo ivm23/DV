@@ -209,10 +209,6 @@
     <Compile Include="Forms\AuthorizationForm.Designer.cs">
       <DependentUpon>AuthorizationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="IFolderPropertiesUIPlugin.cs" />
-    <Compile Include="ILetterPropertiesUIPlugin.cs" />
-    <Compile Include="IPluginService.cs" />
-    <Compile Include="IPropertiesUIPlugin.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -225,7 +221,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MessageResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="PluginService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controlers\ButtonCreateCancelControl.resx">
@@ -343,6 +338,10 @@
     <ProjectReference Include="..\Registration.Logger\Registration.Logger.csproj">
       <Project>{2eb8e0cb-1fac-4185-8315-96a50d92db69}</Project>
       <Name>Registration.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registration.Plugins\Registration.Plugins.csproj">
+      <Project>{3a1a1ee2-602c-4359-bb35-49203c2fb362}</Project>
+      <Name>Registration.Plugins</Name>
     </ProjectReference>
     <ProjectReference Include="..\Registretion.Model\Registration.Model.csproj">
       <Project>{8c0a1308-ae5a-4d36-ac6c-5e808a9c929e}</Project>

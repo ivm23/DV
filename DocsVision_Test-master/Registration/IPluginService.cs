@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Registration.Model;
 
-namespace Registration.WinForms
+namespace Registration
 {
     interface IPluginService
     {

@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls"
-        Title="FullContentLetterWindow" Height="300" Width="300">
+        Title="FullContentLetterWindow" Height="540" Width="557">
     <Grid>
-        <Menu Height="20"  VerticalAlignment="Top">
+        <Menu Name="Menu" Height="20"  VerticalAlignment="Top">
             <MenuItem Header="Delete Letter">
                 <MenuItem.Icon>
                     <Image Source="C:\Users\Ivanova.M\Downloads\DeleteLetter.png"/>
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
-        <UserControl DataContext="{Binding Path=LetterPlugin}"/>
+        <Controls:FullContentLetterControl HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
     </Grid>
 </Window>

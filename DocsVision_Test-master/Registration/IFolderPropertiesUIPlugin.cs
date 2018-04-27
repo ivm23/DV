@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Registration.Model;
 using System.Windows.Forms;
 
-namespace Registration.WinForms
+namespace Registration
 {
 
     public interface IFolderPropertiesUIPlugin : IPropertiesUIPlugin
