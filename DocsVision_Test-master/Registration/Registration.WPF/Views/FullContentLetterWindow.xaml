@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
+        xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls"
         Title="FullContentLetterWindow" Height="300" Width="300">
     <Grid>
         <Menu Height="20"  VerticalAlignment="Top">
@@ -14,5 +15,6 @@
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
+        <UserControl DataContext="{Binding Path=LetterPlugin}"/>
     </Grid>
 </Window>

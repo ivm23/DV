@@ -284,10 +284,16 @@ namespace Registration.DataInterface
         public IFolderService GetFolderService(Guid folderId)
         {
             int folderTypeId = GetFolderTypeId(folderId);
+            try
+            {
+                FolderType folderType = GetFolderType(folderTypeId);
 
-            FolderType folderType = GetFolderType(folderTypeId);
-
-            return (IFolderService)Activator.CreateInstance(Type.GetType(folderType.TypeFolderService), DatabaseService);
+                return (IFolderService)Activator.CreateInstance(Type.GetType(folderType.TypeFolderService), DatabaseService);
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
     }
 

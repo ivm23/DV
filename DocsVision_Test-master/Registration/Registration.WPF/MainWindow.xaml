@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="597" Width="1229" WindowStartupLocation="CenterScreen"
         Initialized="Window_Initialized" MinWidth="600" MinHeight="300">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="403*" />
@@ -18,12 +19,19 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid Grid.Column="2" Margin="0,20,0,0" ItemsSource="{Binding Letters}" SelectedItem="{Binding Path=SelectedLetter}">
+        <DataGrid Name="BriefContentLetters" Grid.Column="2" Margin="0,20,0,0" ItemsSource="{Binding Letters}" SelectedItem="{Binding Path=SelectedLetter}" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Path=Name}" Width="90" />
                 <DataGridHyperlinkColumn Header="SenderName" Binding="{Binding Path=SenderName}" Width="80" />
                 <DataGridTextColumn Header="Date" Binding="{Binding Path=Date}" Width="50" />
             </DataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction
+                           Command="{Binding Path=MouseDoubleClick}"
+                CommandParameter="{Binding ElementName=BriefContentLetters, Path=SelectedValue}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </DataGrid>
         
         <TreeView  Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}"  >
@@ -59,7 +67,8 @@
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
-        
+
+        <ContentControl Content="{Binding Path=LetterPlugin}"/>
     </Grid>
     
 </Window>

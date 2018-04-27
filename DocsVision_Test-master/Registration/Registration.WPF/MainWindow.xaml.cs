@@ -58,7 +58,8 @@ namespace Registration.WPF
         {
 
             var form = new Views.AuthorizationWindow(_serviceContainer);
-            if (form.ShowDialog() == true)
+            form.ShowDialog();
+      //      if (form.ShowDialog() == true)
             {
                 _mainWindowViewModel.InitializeTreeView();
             }

@@ -67,6 +67,7 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
     <Compile Include="ViewModels\Command.cs" />
+    <Compile Include="ViewModels\ImportantLetterControl.cs" />
     <Compile Include="ViewModels\NodeProvider.cs" />
     <Compile Include="ViewModels\Notifier.cs" />
     <Compile Include="ViewModels\SingUpViewModel.cs" />

@@ -36,10 +36,13 @@ namespace Registration.WPF
             InitializeClientRequests();
             ClickCommand = new ViewModels.Command(arg => ClickMethod());
             SelectedItemChanged = new ViewModels.Command(arg => SelectedItemChangedMethod(arg));
+            MouseDoubleClick = new ViewModels.Command(args => MouseDoubleClickMethod(args));
         }
 
         public ICommand ClickCommand { get; set; }
         public ICommand SelectedItemChanged { get; set; }
+
+        public ICommand MouseDoubleClick { set; get; }
         private void ClickMethod()
         {
             MessageBox.Show("hi from 2x");
@@ -48,10 +51,20 @@ namespace Registration.WPF
             var b = SelectedLetter;
         }
 
-
+        bool f = false;
         private void SelectedItemChangedMethod(object arg)
         {
-            InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
+            if (!f)
+            {
+                InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
+                f = true;
+            }
+        }
+        private void MouseDoubleClickMethod(object arg)
+        {
+            var win = new Views.FullContentLetterWindow();
+         //   win.Content = arg;
+            win.ShowDialog();
         }
 
 
@@ -104,7 +117,6 @@ namespace Registration.WPF
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
                 OnPropertyChanged(nameof(SelectedLetter));
                 LetterPlugin = ViewModels.ViewPluginShower.Show(ServiceProvider);
-                
             }
             get
             {
@@ -132,14 +144,7 @@ namespace Registration.WPF
 
         public void InitializeDataGrid(Guid folderId)
         {
-            var allLetters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-            //IList<Models.LetterModel> allLetterModel = new List<Models.LetterModel>();
-            //foreach(var letter in allLetters)
-            //{
-            //    allLetterModel.Add(new Models.LetterModel() { Title = letter.Name, SenderName = letter.SenderName, Date = letter.Date });
-            //}
-
-           Letters = allLetters;
+            Letters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
         }
 
         private object _selectedValue;

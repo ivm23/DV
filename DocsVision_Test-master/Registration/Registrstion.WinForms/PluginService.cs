@@ -41,8 +41,8 @@ namespace Registration.WinForms
 
         private T CreatePlugin<T>(string typeName)
         {
-            var obj = Type.GetType(typeName);
-            return (T)Activator.CreateInstance(obj);
+            var obj = new ImportanceDegree();//Type.GetType(typeName);
+            return (T)Activator.CreateInstance(obj.GetType());
         }
 
 
