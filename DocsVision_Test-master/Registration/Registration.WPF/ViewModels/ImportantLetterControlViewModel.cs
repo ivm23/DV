@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Registration.WinForms;
 using Registration.Model;
+using System.ComponentModel;
+using Registration.WinForms;
 
 namespace Registration.WPF.ViewModels
 {
-    public class ImportantLetterControl : Notifier, ILetterPropertiesUIPlugin
+    class ImportantLetterControlViewModel : ViewModelBase, ILetterPropertiesUIPlugin
     {
-        public void OnLoad(IServiceProvider serviceProvider) {
+        
+        public ImportantLetterControlViewModel()
+        {
+
+        }
+
+        public void OnLoad(IServiceProvider serviceProvider)
+        {
+            LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
         }
 
         private LetterView _letterView;
@@ -21,7 +30,8 @@ namespace Registration.WPF.ViewModels
                 _letterView = value;
                 OnPropertyChanged(nameof(LetterView));
             }
-            get {
+            get
+            {
                 return _letterView;
             }
         }
@@ -29,14 +39,16 @@ namespace Registration.WPF.ViewModels
 
         private bool _readOnly;
 
-        public bool ReadOnly {
+        public bool ReadOnly
+        {
             set
             {
                 _readOnly = value;
-                OnPropertyChanged(nameof(ReadOnly));   
+                OnPropertyChanged(nameof(ReadOnly));
             }
-            get {
-                return _readOnly; 
+            get
+            {
+                return _readOnly;
             }
         }
     }

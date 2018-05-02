@@ -8,6 +8,8 @@
         xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls"
         Title="FullContentLetterWindow" Height="540" Width="557">
     <Grid>
+        <ContentPresenter Content="{Binding }" />
+        
         <Menu Name="Menu" Height="20"  VerticalAlignment="Top">
             <MenuItem Header="Delete Letter">
                 <MenuItem.Icon>

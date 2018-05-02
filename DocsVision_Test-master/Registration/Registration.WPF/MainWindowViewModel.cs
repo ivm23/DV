@@ -14,15 +14,17 @@ using System.Windows;
 
 namespace Registration.WPF
 {
-    class MainWindowViewModel : ViewModels.Notifier
+    class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
         private List<Models.Node> _dirItems;
-        private Letter _selectedLetter;
+        private LetterView _selectedLetter;
         private Models.Node _selectedNode;
         private IEnumerable<LetterView> _letters;
         private ILetterPropertiesUIPlugin _letterPlugin;
+
+        public MainWindowViewModel() { }
 
         public MainWindowViewModel(IServiceProvider provider)
         {
@@ -31,20 +33,41 @@ namespace Registration.WPF
 
             _serviceProvider = provider;
 
-
             InitializeClientRequests();
             ClickCommand = new ViewModels.Command(arg => ClickMethod());
             SelectedItemChanged = new ViewModels.Command(arg => SelectedItemChangedMethod(arg));
             MouseDoubleClick = new ViewModels.Command(args => MouseDoubleClickMethod(args));
+            DeleteLetterClick = new ViewModels.Command(args => DeleteLetterClickMethod());
+            SelectedLetterType = new ViewModels.Command(args => SelectedLetterTypeMethod());
         }
 
         public ICommand ClickCommand { get; set; }
         public ICommand SelectedItemChanged { get; set; }
 
         public ICommand MouseDoubleClick { set; get; }
+        public ICommand DeleteLetterClick { set; get; }
+        public ICommand SelectedLetterType { set; get; } 
+
         private void ClickMethod()
         {
         }
+
+        private void DeleteLetterClickMethod()
+        {
+            ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+        }
+
+        private void SelectedLetterTypeMethod()
+        {
+            var fullLetter = new FullContentLetterControlViewModel();
+            fullLetter.OnLoad(ServiceProvider);
+
+            var win = (ViewModelBase)(fullLetter);
+            ShowMakeLetterWindow(win);
+
+        }
+
+
 
         bool f = false;
         private void SelectedItemChangedMethod(object arg)
@@ -56,14 +79,40 @@ namespace Registration.WPF
             }
         }
 
-        private void MouseDoubleClickMethod(object arg)
-        {
-            var win = new Views.FullContentLetterWindow();
 
-            win.Content = LetterPlugin;
-            win.ShowDialog();
+        private IDictionary<string, LetterType> _existLettersTypes = new Dictionary<string, LetterType>();
+
+        public IDictionary<string, LetterType> ExistLettersTypes
+        {
+            set
+            {               
+                _existLettersTypes = value;
+                OnPropertyChanged(nameof(ExistLettersTypes));
+            }
+            get
+            {
+                return _existLettersTypes;
+            }
         }
 
+        public void InitializeMenu()
+        {
+            IEnumerable<LetterType> allLettersType = ClientRequests.GetAllLetterTypes();
+            IDictionary<string, LetterType> lettersType = new Dictionary<string, LetterType>();
+
+            foreach (LetterType letterType in allLettersType)
+            {
+                lettersType.Add(letterType.Name, letterType);
+            }
+            ExistLettersTypes = lettersType;
+        }
+
+        private void MouseDoubleClickMethod(object arg)
+        {   
+            LetterPlugin.OnLoad(ServiceProvider);
+            var win = (ViewModelBase)(LetterPlugin);
+            ShowFullContent(win);
+        }
 
         private IServiceProvider ServiceProvider
         {
@@ -106,12 +155,13 @@ namespace Registration.WPF
             }
         }
 
-        public Letter SelectedLetter
+        public LetterView SelectedLetter
         {
             set
             {
                 _selectedLetter = value;
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
+                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = _selectedLetter;
                 OnPropertyChanged(nameof(SelectedLetter));
                 LetterPlugin = ViewModels.ViewPluginShower.Show(ServiceProvider);
             }
@@ -133,13 +183,11 @@ namespace Registration.WPF
                 return _selectedNode;
             }
         }
+
         public void InitializeTreeView()
         {
             var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty));
             DirItems = itemProvider.DirItems;
-
-            var a = new WinForms.Controlers.ImportantLetterControl();
-            MessageBox.Show(a.GetType().AssemblyQualifiedName);
         }
 
         public void InitializeDataGrid(Guid folderId)
@@ -190,6 +238,4 @@ namespace Registration.WPF
             }
         }
     }
-
-
 }

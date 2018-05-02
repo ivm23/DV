@@ -11,34 +11,46 @@ namespace Registration.WPF
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-        private IServiceProvider _serviceProvider;
+        private Views.FullContentLetterWindow _fullLetterContentWindow = null;
+        private Views.MakeLetterWindow _makeLetterWindow = null;
+
+        protected virtual void Closed()
+        {
+
+        }
+
+        public bool Close()
+        {
+            var result = false;
+            if (_fullLetterContentWindow != null)
+            {
+                _fullLetterContentWindow.Close();
+                _fullLetterContentWindow = null;
+                result = true;
+            }
+            return result;
+        }
+
+        protected void ShowFullContent(ViewModelBase viewModel)
+        {
+            viewModel._fullLetterContentWindow = new Views.FullContentLetterWindow();
+            viewModel._fullLetterContentWindow.DataContext = viewModel;
+            viewModel._fullLetterContentWindow.Closed += (sender, e) => Closed();
+            viewModel._fullLetterContentWindow.ShowDialog();
+        }
+
+        protected void ShowMakeLetterWindow(ViewModelBase viewModel)
+        {
+            viewModel._makeLetterWindow = new Views.MakeLetterWindow();
+            viewModel._makeLetterWindow.DataContext = viewModel;
+            //viewModel._makeLetterWindow.Closed += (sender, e) => Closed();
+            viewModel._makeLetterWindow.ShowDialog();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        protected void NotifyPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public ViewModelBase()
-        {
-            ClickCommand = new ViewModels.Command(arg => ClickMethod());
-        }
-
-        public ICommand ClickCommand { get; set; }
-        public string id = "dasd";
-
-        public string Id
-        {
-            set
-            {
-                id = value;
-            }
-            get { return id;  }
-        }
-
-        private void ClickMethod()
-        {
-            id = "111";
         }
     }
 }

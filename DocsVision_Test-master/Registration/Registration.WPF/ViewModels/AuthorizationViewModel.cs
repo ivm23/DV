@@ -61,6 +61,7 @@ namespace Registration.WPF.ViewModels
         {
             _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
+
         public string Login
         {
             set
@@ -97,6 +98,9 @@ namespace Registration.WPF.ViewModels
             }
         }
 
+        public ICommand SingInCommand { get; set; }
+        public ICommand SingUpCommand { get; set; }
+
         private void InitializeCommands()
         {
             SingInCommand = new ViewModels.Command(arg => SingInMethod());
@@ -121,23 +125,24 @@ namespace Registration.WPF.ViewModels
             InitializeCommands();
         }
 
-
-        public ICommand SingInCommand { get; set; }
-        public ICommand SingUpCommand { get; set; }
-
         private void SingInMethod()
         {
 
             ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).DatabaseName = _selectedDatabaseName;
 
-            _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(_worker.Login, _worker.Password);
+            _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(Login,Password);
             if (Guid.Empty != _worker.Id)
             {
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = _worker.Id;
+                MessageBox.Show("Welcome!");
+
+                var window = Application.Current.Windows[1];
+                if (window != null)
+                    window.Close();
             }
             else
             {
-                MessageService.InfoMessage("Login or password is wrong");
+               MessageBox.Show("Login or password is wrong");
             }
         }
 

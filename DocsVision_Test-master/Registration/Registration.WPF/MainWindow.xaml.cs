@@ -62,6 +62,7 @@ namespace Registration.WPF
       //      if (form.ShowDialog() == true)
             {
                 _mainWindowViewModel.InitializeTreeView();
+                _mainWindowViewModel.InitializeMenu();
             }
         }
     }

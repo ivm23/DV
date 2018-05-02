@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Registration.WPF.Views.Controls
 {
     /// <summary>
-    /// Логика взаимодействия для MyDemo.xaml
+    /// Логика взаимодействия для ImportantLetterControlView.xaml
     /// </summary>
-    public partial class MyDemo : UserControl
+    public partial class ImportantLetterControlView : UserControl
     {
-        public MyDemo()
+        public ImportantLetterControlView()
         {
             InitializeComponent();
         }
