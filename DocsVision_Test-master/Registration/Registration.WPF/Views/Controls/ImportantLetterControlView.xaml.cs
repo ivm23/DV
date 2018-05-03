@@ -71,7 +71,6 @@ namespace Registration.WPF.Views.Controls
 
         public event EventHandler AddedReceiver;
 
-        private bool _readOnly;
 
         public bool ReadOnly
         {
