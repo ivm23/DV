@@ -110,8 +110,11 @@ namespace Registration.WPF
         private void MouseDoubleClickMethod(object arg)
         {   
             LetterPlugin.OnLoad(ServiceProvider);
-            var win = (ViewModelBase)(LetterPlugin);
-            ShowFullContent(win);
+            LetterPlugin.ReadOnly = true;
+
+            var window = new Views.FullContentLetterWindow();
+            window.DataContext = LetterPlugin;
+            window.ShowDialog();
         }
 
         private IServiceProvider ServiceProvider
@@ -230,7 +233,6 @@ namespace Registration.WPF
             {
                 _letterPlugin = value;
                 OnPropertyChanged(nameof(LetterPlugin));
-                
             }
             get
             {

@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="52" d:DesignWidth="211">
     <Grid>
-        <TextBox x:Name="txtWorkers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" Text="{Binding Path=NamesWorkers}"/>
-        <ListBox x:Name="listWorkers" HorizontalAlignment="Left" Height="29" Margin="0,23,0,0" VerticalAlignment="Top" Width="211" Visibility="Hidden"/>
+        <TextBox x:Name="txtWorkers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=NamesWorkers}"/>
+        <ListBox x:Name="listWorkers" HorizontalAlignment="Left" Height="29" Margin="0,23,0,0" VerticalAlignment="Top" Width="211"  Visibility="Hidden"/>
         <Button x:Name="btnAllWorkers" Content="..." HorizontalAlignment="Left" Height="22" Margin="184,1,0,0" VerticalAlignment="Top" Width="27" Visibility="Hidden"/>
     </Grid>
 </UserControl>

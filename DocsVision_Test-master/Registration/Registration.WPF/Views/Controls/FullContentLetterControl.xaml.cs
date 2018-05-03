@@ -12,17 +12,56 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Registration.WinForms;
+using Registration.Model;
+
 
 namespace Registration.WPF.Views.Controls
 {
     /// <summary>
     /// Interaction logic for FullContentLetterControl.xaml
     /// </summary>
-    public partial class FullContentLetterControl : UserControl
+    public partial class FullContentLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
         public FullContentLetterControl()
         {
             InitializeComponent();
         }
+
+        public void OnLoad(IServiceProvider serviceProvider)
+        {
+            LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+        }
+
+        private LetterView _letterView;
+
+        public LetterView LetterView
+        {
+            set
+            {
+                _letterView = value;
+            }
+            get
+            {
+                return _letterView;
+            }
+        }
+
+        public event EventHandler AddedReceiver;
+
+        private bool _readOnly;
+
+        public bool ReadOnly
+        {
+            set
+            {
+                _readOnly = value;
+            }
+            get
+            {
+                return _readOnly;
+            }
+        }
+
     }
 }

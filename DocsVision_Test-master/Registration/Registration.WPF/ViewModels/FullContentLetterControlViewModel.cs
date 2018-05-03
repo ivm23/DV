@@ -9,7 +9,7 @@ using Registration.WinForms;
 
 namespace Registration.WPF.ViewModels
 {
-    class FullContentLetterControlViewModel : ViewModelBase, ILetterPropertiesUIPlugin
+    class FullContentLetterControlViewModel : ViewModelBase
     {
         public FullContentLetterControlViewModel()
         {
@@ -52,6 +52,6 @@ namespace Registration.WPF.ViewModels
                 return _readOnly;
             }
         }
-     
+
     }
 }

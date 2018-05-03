@@ -44,11 +44,11 @@ namespace Registration.WinForms.Controlers
             set
             {
                 InitializeImportanceDegreeControl();
-                var a = comboImportanceDegree.SelectedValue;
+              /*  var a = comboImportanceDegree.SelectedValue;
                 foreach (var c in comboImportanceDegree.Items)
                 {
 
-                }
+                }*/
                comboImportanceDegree.SelectedValue = value;
             }
             get

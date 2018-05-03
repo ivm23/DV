@@ -71,6 +71,11 @@
     <Compile Include="Models\LettersType.cs" />
     <Compile Include="Models\NodeModel.cs" />
     <Compile Include="Models\PluginService.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
     <Compile Include="ViewModels\Command.cs" />
@@ -109,9 +114,6 @@
     </Compile>
     <Compile Include="Views\Controls\LetterWithResponseTimeControl.xaml.cs">
       <DependentUpon>LetterWithResponseTimeControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\ImportantLetterControl.xaml.cs">
-      <DependentUpon>ImportantLetterControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\SearchFolderControl.xaml.cs">
       <DependentUpon>SearchFolderControl.xaml</DependentUpon>
@@ -185,10 +187,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\ImportantLetterControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Controls\SearchFolderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -240,6 +238,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -254,6 +256,10 @@
     <ProjectReference Include="..\Registration.ClientInterface\Registration.ClientInterface.csproj">
       <Project>{c715b00f-8ec8-48f7-b18c-c6c7b954f884}</Project>
       <Name>Registration.ClientInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registration.DataSerialization\Registration.DataSerialization.csproj">
+      <Project>{852cb496-37e5-4364-8782-9743fa3b4de5}</Project>
+      <Name>Registration.DataSerialization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Registretion.Model\Registration.Model.csproj">
       <Project>{8c0a1308-ae5a-4d36-ac6c-5e808a9c929e}</Project>

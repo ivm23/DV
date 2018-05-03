@@ -6,14 +6,5 @@
              xmlns:local="clr-namespace:Registration.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type viewmodel:ImportantLetterControlViewModel}">
-            <view:ImportantLetterControlView HorizontalAlignment="Stretch" />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodel:FullContentLetterControlViewModel}">
-            <view:FullContentLetterControl HorizontalAlignment="Stretch" />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type viewmodel:LetterWithResponseTimeControlViewModel}">
-            <view:LetterWithResponseTimeControl HorizontalAlignment="Stretch" />
-        </DataTemplate>
     </Application.Resources>
 </Application>

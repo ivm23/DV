@@ -23,5 +23,7 @@ namespace Registration.WPF.Views
         {
             InitializeComponent();
         }
+
+
     }
 }

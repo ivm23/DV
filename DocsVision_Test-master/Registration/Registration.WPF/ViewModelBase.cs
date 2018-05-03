@@ -43,7 +43,6 @@ namespace Registration.WPF
         {
             viewModel._makeLetterWindow = new Views.MakeLetterWindow();
             viewModel._makeLetterWindow.DataContext = viewModel;
-            //viewModel._makeLetterWindow.Closed += (sender, e) => Closed();
             viewModel._makeLetterWindow.ShowDialog();
         }
 

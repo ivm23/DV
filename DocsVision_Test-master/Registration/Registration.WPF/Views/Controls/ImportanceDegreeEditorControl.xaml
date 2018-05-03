@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="128">
     <Grid>
-        <ComboBox x:Name="comboImportanceDegree" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="128"/>
-
+        <ComboBox x:Name="comboImportanceDegree" ItemsSource="{Binding ImportanceDegrees.Values}" IsEnabled="{Binding Path=Enable}" IsReadOnly="{Binding Path=ReadOnly}" SelectedValue="{Binding Path=SelectedImportanceDegree}" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="128"/>
     </Grid>
 </UserControl>

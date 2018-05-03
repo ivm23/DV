@@ -12,6 +12,8 @@ namespace Registration.WPF.ViewModels
     class LetterWithResponseTimeControlViewModel : ViewModelBase, ILetterPropertiesUIPlugin
     {
 
+        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
+
         public LetterWithResponseTimeControlViewModel()
         {
 
@@ -29,16 +31,32 @@ namespace Registration.WPF.ViewModels
             {
                 _letterView = value;
                 OnPropertyChanged(nameof(LetterView));
+                ReminderLetterData = (_dataSerializer.DeserializeData<LetterWithReminderData>(value.ExtendedData)).ReminderData.ToString();
             }
             get
             {
                 return _letterView;
             }
         }
+
+        private string _reminderLetterData;
+        public string ReminderLetterData
+        {
+            set
+            {
+                _reminderLetterData = value;
+                OnPropertyChanged(nameof(ReminderLetterData));
+            }
+            get
+            {
+                return _reminderLetterData;
+            }
+        }
+
         public event EventHandler AddedReceiver;
 
         private bool _readOnly;
-
+        private bool _enable;
         public bool ReadOnly
         {
             set
@@ -49,6 +67,19 @@ namespace Registration.WPF.ViewModels
             get
             {
                 return _readOnly;
+            }
+        }
+
+        public bool Enable
+        {
+            set
+            {
+                _enable = value;
+                OnPropertyChanged(nameof(Enable));
+            }
+            get
+            {
+                return _enable;
             }
         }
     }
