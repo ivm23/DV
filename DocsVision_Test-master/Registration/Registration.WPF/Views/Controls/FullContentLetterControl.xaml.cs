@@ -40,6 +40,10 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 _letterView = value;
+                title.Text = value.Name;
+                sender.Text = value.SenderName;
+                message.Text = value.Text;
+                date.Text = value.Date.ToString();
             }
             get
             {
@@ -56,6 +60,12 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 _readOnly = value;
+                title.IsReadOnly = value;
+                sender.IsReadOnly = value;
+                message.IsReadOnly = value;
+                date.IsReadOnly = value;
+
+                workersEditorControl.ReadOnly = value;
             }
             get
             {

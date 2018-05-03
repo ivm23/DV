@@ -9,7 +9,7 @@
     <Grid>
         <local:FullContentLetterControl HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblDataOfResponseReq" Content="Date of response required" HorizontalAlignment="Left" Margin="382,60,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,-2.038"/>
-        <DatePicker x:Name="dataPickerLetter" HorizontalAlignment="Left" Margin="384,86,0,0" SelectedDate="{Binding Path=ReminderLetterData}" VerticalAlignment="Top" Width="128" Height="25"/>
+        <DatePicker x:Name="dataPickerLetter" HorizontalAlignment="Left" Margin="384,86,0,0" IsEnabled="{Binding Path=Enable}" SelectedDate="{Binding Path=ReminderLetterData}" VerticalAlignment="Top" Width="128" Height="25"/>
 
     </Grid>
 </UserControl>

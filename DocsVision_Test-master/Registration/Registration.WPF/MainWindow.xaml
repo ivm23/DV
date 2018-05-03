@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Registration.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="597" Width="1229" WindowStartupLocation="CenterScreen"
-        Initialized="Window_Initialized" MinWidth="600" MinHeight="300">    
+        Initialized="Window_Initialized" MinWidth="600" MinHeight="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="403*" />
@@ -17,6 +17,7 @@
             <ColumnDefinition Width="408*" />
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
+        <ContentPresenter Content="{Binding }" />
         <DataGrid Name="BriefContentLetters" Grid.Column="2" Margin="0,20,0,0" ItemsSource="{Binding Letters}" SelectedItem="{Binding Path=SelectedLetter}" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Path=Name}" Width="90" />
@@ -32,37 +33,33 @@
             </i:Interaction.Triggers>
         </DataGrid>
         
-        <TreeView  Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}"  >
+        <TreeView  Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="tv_dep_PreviewMouseRightButtonDown" >
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
                     <TextBlock Text="{Binding Path=Name}" />
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
-            
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectedItemChanged">
                     <i:InvokeCommandAction
                            Command="{Binding Path=SelectedItemChanged}"
                 CommandParameter="{Binding ElementName=TV, Path=SelectedValue}" />
                 </i:EventTrigger>
+                <i:EventTrigger EventName="MouseRightButtonDown">
+                    <i:InvokeCommandAction
+                           Command="{Binding Path=TreeViewRightClick}"
+                CommandParameter="{Binding ElementName=TV, Path=SelectedValue}" />
+                </i:EventTrigger>
             </i:Interaction.Triggers>
-
         </TreeView>
-        
+
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <GridSplitter Grid.Column="3" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <Menu Height="20"  VerticalAlignment="Top" Grid.ColumnSpan="6" Margin="0,0,-71,0">
             <MenuItem Header="New Letter" ItemsSource="{Binding Path=ExistLettersTypes.Keys}" >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction
-                           Command="{Binding Path=SelectedLetterType}" 
-                            
-                            />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
                 <MenuItem.Icon>
                     <Image Source="C:\Users\Ivanova.M\Downloads\NewLetter.png"/>
                 </MenuItem.Icon>
@@ -74,7 +71,9 @@
                     </MenuItem.Icon>
                 </MenuItem>
         </Menu>
-        <UserControl Grid.Column="4" DataContext="{Binding Registration.WPF.Models.ImportantLetterControl, Mode=TwoWay}"/>
+
+        <UserControl Grid.Column="4" DataContext="{Binding Path=LetterPlugin}"/>
+
     </Grid>
     
 </Window>

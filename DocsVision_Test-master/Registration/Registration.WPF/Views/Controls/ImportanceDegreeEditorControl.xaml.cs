@@ -23,7 +23,18 @@ namespace Registration.WPF.Views.Controls
         public ImportanceDegreeEditorControl()
         {
             InitializeComponent();
-            DataContext = new ViewModels.ImportantLetterControlViewModel();
+        }
+
+        public Model.ImportanceDegree SelectedImportanceDegree
+        {
+            set
+            {
+                comboImportanceDegree.SelectedValue = value;
+            }
+            get
+            {
+                return (Model.ImportanceDegree)comboImportanceDegree.SelectedValue;
+            }
         }
 
     }

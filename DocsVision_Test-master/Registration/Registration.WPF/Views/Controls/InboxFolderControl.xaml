@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="64" d:DesignWidth="232">
     <Grid>
-        <local:CreateFolderControl HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <local:CreateFolderControl DataContext="{Binding Path=CurrentFolderPropertiesPlugin}" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
     </Grid>
 </UserControl>

@@ -22,7 +22,7 @@ namespace Registration.WPF
         private LetterView _selectedLetter;
         private Models.Node _selectedNode;
         private IEnumerable<LetterView> _letters;
-        private ILetterPropertiesUIPlugin _letterPlugin;
+   //     private ILetterPropertiesUIPlugin _letterPlugin;
 
         public MainWindowViewModel() { }
 
@@ -38,36 +38,56 @@ namespace Registration.WPF
             SelectedItemChanged = new ViewModels.Command(arg => SelectedItemChangedMethod(arg));
             MouseDoubleClick = new ViewModels.Command(args => MouseDoubleClickMethod(args));
             DeleteLetterClick = new ViewModels.Command(args => DeleteLetterClickMethod());
-            SelectedLetterType = new ViewModels.Command(args => SelectedLetterTypeMethod());
+
+            TreeViewRightClick = new ViewModels.Command(args => TreeViewRightClickMethod(args));
+
+
+            DataContextChange = new ViewModels.Command(arg => ClickMethod(arg));
         }
 
-        public ICommand ClickCommand { get; set; }
+
+    public ICommand ClickCommand { get; set; }
         public ICommand SelectedItemChanged { get; set; }
+        public ICommand TreeViewRightClick { get; set; }
 
         public ICommand MouseDoubleClick { set; get; }
         public ICommand DeleteLetterClick { set; get; }
-        public ICommand SelectedLetterType { set; get; } 
 
         private void ClickMethod()
         {
         }
 
+        private IFolderPropertiesUIPlugin InitializeFolderPlugin(Models.DirectoryNode directoryNode)
+        {
+            FolderType folderType = ClientRequests.GetFolderType(directoryNode.Folder.Type);
+
+            IFolderPropertiesUIPlugin folderPlugin = ViewPluginCreater.Create(folderType, (PluginService)ServiceProvider.GetService(typeof(PluginService)));
+            folderPlugin.OnLoad(ServiceProvider);
+
+            return folderPlugin;         
+        }
+
+
+        private void TreeViewRightClickMethod(object arg) { 
+                  
+            var window = new Views.MakeFolderWindow(ServiceProvider);
+            window.InitializeMakeFolderWindow(((Models.DirectoryNode)(arg)).Folder.Type);
+            window.ShowDialog();
+        }
+
+       public string NameFolder { set; get; }
+
+        public ICommand DataContextChange { get; set; }
+        private void ClickMethod(object arg)
+        {
+            MessageBox.Show("aa");
+        }
+
+
         private void DeleteLetterClickMethod()
         {
             ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
         }
-
-        private void SelectedLetterTypeMethod()
-        {
-            var fullLetter = new FullContentLetterControlViewModel();
-            fullLetter.OnLoad(ServiceProvider);
-
-            var win = (ViewModelBase)(fullLetter);
-            ShowMakeLetterWindow(win);
-
-        }
-
-
 
         bool f = false;
         private void SelectedItemChangedMethod(object arg)
@@ -109,11 +129,12 @@ namespace Registration.WPF
 
         private void MouseDoubleClickMethod(object arg)
         {   
-            LetterPlugin.OnLoad(ServiceProvider);
-            LetterPlugin.ReadOnly = true;
+        //    LetterPlugin.OnLoad(ServiceProvider);
+      //      LetterPlugin.ReadOnly = true;
 
-            var window = new Views.FullContentLetterWindow();
-            window.DataContext = LetterPlugin;
+            var window = new Views.FullContentLetterWindow(ServiceProvider);
+            window.InitializeFullContentLetterWindow();
+     //       window.DataContext = LetterPlugin;
             window.ShowDialog();
         }
 
@@ -163,10 +184,16 @@ namespace Registration.WPF
             set
             {
                 _selectedLetter = value;
+
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = _selectedLetter;
+
+             //   LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
+
                 OnPropertyChanged(nameof(SelectedLetter));
-                LetterPlugin = ViewModels.ViewPluginShower.Show(ServiceProvider);
+
+         //       LetterPlugin.OnLoad(ServiceProvider);
+         //       LetterPlugin.ReadOnly = true;
             }
             get
             {
@@ -227,7 +254,7 @@ namespace Registration.WPF
             }
         }
 
-        public ILetterPropertiesUIPlugin LetterPlugin
+ /*       public ILetterPropertiesUIPlugin LetterPlugin
         {
             set
             {
@@ -238,6 +265,6 @@ namespace Registration.WPF
             {
                 return _letterPlugin;
             }
-        }
+        }*/
     }
 }

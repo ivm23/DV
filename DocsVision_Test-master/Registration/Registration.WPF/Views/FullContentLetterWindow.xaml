@@ -6,10 +6,8 @@
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls"
-        Title="FullContentLetterWindow" Height="540" Width="557">
+        Title="FullContentLetterWindow" Height="540" Width="557" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ContentPresenter Content="{Binding }" />
-
         <Menu Name="Menu" Height="20"  VerticalAlignment="Top">
             <MenuItem Header="Delete Letter">
                 <MenuItem.Icon>
@@ -17,6 +15,6 @@
                 </MenuItem.Icon>
             </MenuItem>
         </Menu>
-        <Controls:FullContentLetterControl HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="461" Margin="10,25,0,0" VerticalAlignment="Top" Width="529"/>
     </Grid>
 </Window>

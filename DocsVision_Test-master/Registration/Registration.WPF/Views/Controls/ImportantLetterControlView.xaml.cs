@@ -33,6 +33,8 @@ namespace Registration.WPF.Views.Controls
         {
             LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
             InitializeImportanceDegreeControl();
+            fullContentLetterControl.OnLoad(serviceProvider);
+
             CurrentImportantLetterControlView = this;
         }
 
@@ -76,11 +78,12 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 _readOnly = value;
-                Enable = !value;    
+                fullContentLetterControl.ReadOnly = value;
+                importanceDegreeEditorControl.IsEnabled = !value;
             }
             get
             {
-                return _readOnly;
+                return fullContentLetterControl.ReadOnly;
             }
         }
 

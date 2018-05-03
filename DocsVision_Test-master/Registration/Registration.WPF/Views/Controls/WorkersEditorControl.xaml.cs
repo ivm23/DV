@@ -24,5 +24,20 @@ namespace Registration.WPF.Views.Controls
         {
             InitializeComponent();
         }
+
+        public bool ReadOnly
+        {
+            set
+            {
+                txtWorkers.IsReadOnly = value;
+                listWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
+                btnAllWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
+            }
+
+            get
+            {
+                return txtWorkers.IsReadOnly;
+            }
+        }
     }
 }

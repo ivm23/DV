@@ -7,17 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="544">
     <Grid>
-        <local:WorkersEditorControl HorizontalAlignment="Left" Margin="14,137,0,0" VerticalAlignment="Top" Width="294"/>
+        <local:WorkersEditorControl x:Name="workersEditorControl" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="294"/>
 
         <Label x:Name="label" Content="Title" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Copy" Content="Sender" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,2.637"/>
         <Label x:Name="label_Copy1" Content="Receivers" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,2.637"/>
         <Label x:Name="label_Copy2" Content="Message" HorizontalAlignment="Left" Margin="10,168,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.491,2.637"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="25" Margin="10,36,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=LetterView.Name, Mode=TwoWay}" VerticalAlignment="Top" Width="294"/>
-        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="25" Margin="10,87,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=LetterView.SenderName, Mode=TwoWay}" VerticalAlignment="Top" Width="294"/>
-        <TextBox x:Name="textBox_Copy1" HorizontalAlignment="Left" Height="296" Margin="10,194,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=LetterView.Text, Mode=TwoWay}" VerticalAlignment="Top" Width="294"/>
+        <TextBox x:Name="title" Height="25" Margin="10,36,197,430" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" Width="294" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left"/>
+        <TextBox x:Name="sender" HorizontalAlignment="Left" Height="25" Margin="10,87,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}"  VerticalAlignment="Top" Width="294"/>
+        <TextBox x:Name="message" HorizontalAlignment="Left" Height="296" Margin="10,194,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}"  VerticalAlignment="Top" Width="294"/>
         <Label x:Name="label1" Content="Date" HorizontalAlignment="Left" Margin="373,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtDateLetter" HorizontalAlignment="Left" Height="25" Margin="373,36,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=LetterView.Date, Mode=TwoWay}" VerticalAlignment="Top" Width="128"/>
+        <TextBox x:Name="date" HorizontalAlignment="Left" Height="25" Margin="373,36,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" VerticalAlignment="Top" Width="128"/>
 
     </Grid>
 </UserControl>

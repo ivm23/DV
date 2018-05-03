@@ -12,9 +12,7 @@ namespace Registration
     {
         void OnLoad(IServiceProvider serviceProvider);
         FolderProperties FolderProperties { set; get; }
-
-        event EventHandler ChangedFolderTypePlugin;
-
         FolderType FolderType { set; get; }
+        string FolderName { set; get; }
     }
 }

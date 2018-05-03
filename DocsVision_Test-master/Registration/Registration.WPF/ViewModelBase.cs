@@ -31,14 +31,14 @@ namespace Registration.WPF
             return result;
         }
 
-        protected void ShowFullContent(ViewModelBase viewModel)
+       /* protected void ShowFullContent(ViewModelBase viewModel)
         {
             viewModel._fullLetterContentWindow = new Views.FullContentLetterWindow();
             viewModel._fullLetterContentWindow.DataContext = viewModel;
             viewModel._fullLetterContentWindow.Closed += (sender, e) => Closed();
             viewModel._fullLetterContentWindow.ShowDialog();
         }
-
+        */
         protected void ShowMakeLetterWindow(ViewModelBase viewModel)
         {
             viewModel._makeLetterWindow = new Views.MakeLetterWindow();

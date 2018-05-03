@@ -32,34 +32,26 @@ namespace Registration.WPF.Views.Controls
             LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
         }
 
-        private LetterView _letterView;
+        public LetterView LetterView { set; get; }
+        public bool Enable { set; get; }
 
-        public LetterView LetterView
-        {
-            set
-            {
-                _letterView = value;
-            }
-            get
-            {
-                return _letterView;
-            }
-        }
 
         public event EventHandler AddedReceiver;
 
         private bool _readOnly;
-
         public bool ReadOnly
         {
             set
             {
                 _readOnly = value;
+                Enable = !value;
             }
             get
             {
                 return _readOnly;
             }
         }
+
+        
     }
 }

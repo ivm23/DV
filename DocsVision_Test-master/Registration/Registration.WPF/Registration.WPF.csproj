@@ -82,11 +82,11 @@
     <Compile Include="ViewModels\FullContentLetterControlViewModel.cs" />
     <Compile Include="ViewModels\ImportantLetterControlViewModel.cs" />
     <Compile Include="ViewModels\LetterWithResponseTimeControlViewModel.cs" />
+    <Compile Include="ViewModels\MakeFolderViewModel.cs" />
     <Compile Include="ViewModels\NodeProvider.cs" />
     <Compile Include="ViewModels\Notifier.cs" />
-    <Compile Include="ViewModels\SimpleCommand.cs" />
     <Compile Include="ViewModels\SingUpViewModel.cs" />
-    <Compile Include="ViewModels\ViewPluginShower.cs" />
+    <Compile Include="ViewModels\ViewPluginCreator.cs" />
     <Compile Include="ViewModels\WorkersEditorControlViewModel.cs" />
     <Compile Include="Views\AddWorkersFromAllWorkersListWindow.xaml.cs">
       <DependentUpon>AddWorkersFromAllWorkersListWindow.xaml</DependentUpon>
@@ -126,6 +126,9 @@
     </Compile>
     <Compile Include="Views\Controls\WorkersEditorControl.xaml.cs">
       <DependentUpon>WorkersEditorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MakeFolderWindow.xaml.cs">
+      <DependentUpon>MakeFolderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RenameFolderWindow.xaml.cs">
       <DependentUpon>RenameFolderWindow.xaml</DependentUpon>
@@ -200,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\WorkersEditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MakeFolderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
