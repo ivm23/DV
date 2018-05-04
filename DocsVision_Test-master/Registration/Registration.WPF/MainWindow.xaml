@@ -70,18 +70,26 @@
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <Menu Height="20"  VerticalAlignment="Top" Grid.ColumnSpan="6" Margin="0,0,-71,0">
             
-            <MenuItem Header="New Letter" ItemsSource="{Binding Path=ExistLettersTypes.Keys}" >
+            <MenuItem x:Name="X" Header="New Letter" DisplayMemberPath="Name" ItemsSource="{Binding Path=ExistLettersTypes}">
                 <MenuItem.Icon>
                     <Image Source="C:\Users\Ivanova.M\Downloads\NewLetter.png"/>
                 </MenuItem.Icon>
-
-                <i:Interaction.Triggers>
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <EventSetter Event="Click" Handler="A" />
+                        <Setter Property="MenuItem.Command" Value="{Binding Path=AA}" />
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+                <!-- <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction
-                           Command="{Binding Path=MakeLetter}"/>
+                           Command="{Binding Path=A}"
+                       />
                     </i:EventTrigger>
-                </i:Interaction.Triggers>
+                </i:Interaction.Triggers>-->
+                
             </MenuItem>
+                
 
             <MenuItem Header="Delete Letter" Command="{Binding Path=DeleteLetterClick}">
                 <MenuItem.Icon>

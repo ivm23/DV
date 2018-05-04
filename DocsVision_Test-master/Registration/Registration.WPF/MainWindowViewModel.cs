@@ -38,6 +38,8 @@ namespace Registration.WPF
             DeleteLetterClick = new ViewModels.Command(args => DeleteLetterClickMethod());
             MakeLetter = new ViewModels.Command(arg => MakeLetterMethod());
             CreateFolder = new ViewModels.Command(arg => CreateFolderMethod());
+
+            AA = new ViewModels.Command(arg => AMethod());
         }
 
         public ICommand SelectedItemChanged { get; set; }
@@ -46,6 +48,13 @@ namespace Registration.WPF
         public ICommand MakeLetter { set; get; }
 
         public ICommand CreateFolder { set; get; }
+
+        public ICommand AA { get; set; }
+
+        private void AMethod()
+        {
+            MessageBox.Show("Hi");
+        }
 
         private void MakeLetterMethod()
         {
@@ -78,9 +87,9 @@ namespace Registration.WPF
         }
 
 
-        private IDictionary<string, LetterType> _existLettersTypes = new Dictionary<string, LetterType>();
+        private IEnumerable<LetterType> _existLettersTypes;
 
-        public IDictionary<string, LetterType> ExistLettersTypes
+        public IEnumerable<LetterType> ExistLettersTypes
         {
             set
             {               
@@ -95,14 +104,7 @@ namespace Registration.WPF
 
         public void InitializeMenu()
         {
-            IEnumerable<LetterType> allLettersType = ClientRequests.GetAllLetterTypes();
-            IDictionary<string, LetterType> lettersType = new Dictionary<string, LetterType>();
-
-            foreach (LetterType letterType in allLettersType)
-            {
-                lettersType.Add(letterType.Name, letterType);
-            }
-            ExistLettersTypes = lettersType;
+            ExistLettersTypes = ClientRequests.GetAllLetterTypes();
         }
 
         private void OpenLetterViewWindowMethod(object arg)

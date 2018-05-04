@@ -30,7 +30,10 @@ namespace Registration.WPF
 
         private readonly IServiceContainer _serviceContainer = new ServiceContainer();
 
+        void A(object sender, RoutedEventArgs e)
+        {
 
+        }
         public MainWindow()
         {
             InitializeServiceContainer();
@@ -40,7 +43,6 @@ namespace Registration.WPF
             DataContext = _mainWindowViewModel;
 
             InitializeComponent();
-
         }
 
         private void InitializeServiceContainer()
@@ -78,6 +80,17 @@ namespace Registration.WPF
                 source = VisualTreeHelper.GetParent(source);
 
             return source;
+        }
+
+
+        private void Opening(object sender, ContextMenuEventArgs e)
+        {
+            int a = 1;
+        }
+
+        private void Closing(object sender, ContextMenuEventArgs e)
+        {
+
         }
     }
 }
