@@ -9,20 +9,24 @@ using Registration.WinForms;
 
 namespace Registration.WPF.ViewModels
 {
-    class FullContentLetterControlViewModel : ViewModelBase
+    class FullContentLetterControlViewModel : Notifier
     {
-        public FullContentLetterControlViewModel()
+        private readonly IServiceProvider _serviceProvider;
+        public FullContentLetterControlViewModel(IServiceProvider provider)
         {
+            if (null == provider)
+                throw new ArgumentNullException();
 
+            _serviceProvider = provider;
         }
 
-        public void OnLoad(IServiceProvider serviceProvider)
+        private IServiceProvider ServiceProvider
         {
-            LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+            get { return _serviceProvider; }
         }
 
-        private LetterView _letterView;
-
+        private LetterView _letterView = new LetterView();
+     
         public LetterView LetterView
         {
             set
@@ -36,10 +40,42 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        public event EventHandler AddedReceiver;
-
+        public string LetterTitle {
+            set
+            {
+                _letterView.Name = value;
+                OnPropertyChanged(nameof(LetterTitle));
+            }
+            get
+            {
+                return _letterView.Name;
+            }
+        }
+        public string LetterText
+        {
+            set
+            {
+                _letterView.Text = value;
+                OnPropertyChanged(nameof(LetterText));
+            }
+            get
+            {
+                return _letterView.Text;
+            }
+        }
+        public string LetterSenderName
+        {
+            set
+            {
+                _letterView.SenderName = value;
+                OnPropertyChanged(nameof(LetterSenderName));
+            }
+            get
+            {
+                return _letterView.SenderName;
+            }
+        }
         private bool _readOnly;
-
         public bool ReadOnly
         {
             set
@@ -53,5 +89,9 @@ namespace Registration.WPF.ViewModels
             }
         }
 
+        public void InitializeLetterView()
+        {
+            LetterView = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+        }
     }
 }

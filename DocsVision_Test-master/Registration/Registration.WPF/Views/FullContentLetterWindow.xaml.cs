@@ -54,17 +54,10 @@ namespace Registration.WPF.Views
 
             ILetterPropertiesUIPlugin letterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             letterPlugin.OnLoad(ServiceProvider);
+            letterPlugin.InitializeLetterView();
             letterPlugin.ReadOnly = true;
 
             stackPanel.Children.Add((Control)(letterPlugin));
-            N = "saas";
         }
-
-        public string N
-        {
-            get; set;
-        }
-     public LetterView LetterView { get; set; }
-
     }
 }

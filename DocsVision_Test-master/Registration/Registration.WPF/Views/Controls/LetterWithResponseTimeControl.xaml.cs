@@ -20,7 +20,7 @@ namespace Registration.WPF.Views.Controls
     /// <summary>
     /// Interaction logic for LetterWithResponseTimeControl.xaml
     /// </summary>
-    public partial class LetterWithResponseTimeControl : UserControl, ILetterPropertiesUIPlugin
+    public partial class LetterWithResponseTimeControl : UserControl//, ILetterPropertiesUIPlugin
     {
         public LetterWithResponseTimeControl()
         {

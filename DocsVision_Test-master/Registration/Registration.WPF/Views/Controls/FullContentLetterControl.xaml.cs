@@ -23,6 +23,7 @@ namespace Registration.WPF.Views.Controls
     /// </summary>
     public partial class FullContentLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
+        private ViewModels.FullContentLetterControlViewModel fullContentLetterControlViewModel;
         public FullContentLetterControl()
         {
             InitializeComponent();
@@ -30,48 +31,43 @@ namespace Registration.WPF.Views.Controls
 
         public void OnLoad(IServiceProvider serviceProvider)
         {
-            LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+            if (null == serviceProvider)
+                throw new ArgumentNullException();
+
+            fullContentLetterControlViewModel = new ViewModels.FullContentLetterControlViewModel(serviceProvider);
+
+            DataContext = fullContentLetterControlViewModel;
         }
-
-        private LetterView _letterView;
-
-        public LetterView LetterView
-        {
-            set
-            {
-                _letterView = value;
-                title.Text = value.Name;
-                sender.Text = value.SenderName;
-                message.Text = value.Text;
-                date.Text = value.Date.ToString();
-            }
-            get
-            {
-                return _letterView;
-            }
-        }
-
-        public event EventHandler AddedReceiver;
-
-        private bool _readOnly;
 
         public bool ReadOnly
         {
             set
             {
-                _readOnly = value;
-                title.IsReadOnly = value;
-                sender.IsReadOnly = value;
-                message.IsReadOnly = value;
-                date.IsReadOnly = value;
-
-                workersEditorControl.ReadOnly = value;
+                fullContentLetterControlViewModel.ReadOnly = value;
             }
             get
             {
-                return _readOnly;
+                return fullContentLetterControlViewModel.ReadOnly;
             }
+        }
+
+        public LetterView LetterView
+        {
+            set
+            {
+                fullContentLetterControlViewModel.LetterView = value;
+            }
+            get
+            {
+                return fullContentLetterControlViewModel.LetterView;
+            }
+        }
+
+        public void InitializeLetterView()
+        {
+            fullContentLetterControlViewModel.InitializeLetterView();
         }
 
     }
 }
+

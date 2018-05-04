@@ -9,7 +9,7 @@ using Registration.WinForms;
 
 namespace Registration.WPF.ViewModels
 {
-    class LetterWithResponseTimeControlViewModel : ViewModelBase, ILetterPropertiesUIPlugin
+    class LetterWithResponseTimeControlViewModel : ViewModelBase//, ILetterPropertiesUIPlugin
     {
 
         private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();

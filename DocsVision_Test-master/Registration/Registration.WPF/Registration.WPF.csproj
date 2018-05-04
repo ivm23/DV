@@ -83,6 +83,7 @@
     <Compile Include="ViewModels\ImportantLetterControlViewModel.cs" />
     <Compile Include="ViewModels\LetterWithResponseTimeControlViewModel.cs" />
     <Compile Include="ViewModels\MakeFolderViewModel.cs" />
+    <Compile Include="ViewModels\MakeLetterViewModel.cs" />
     <Compile Include="ViewModels\NodeProvider.cs" />
     <Compile Include="ViewModels\Notifier.cs" />
     <Compile Include="ViewModels\SingUpViewModel.cs" />

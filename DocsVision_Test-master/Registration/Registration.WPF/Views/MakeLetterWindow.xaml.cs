@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Registration.ClientInterface;
+using Registration.WinForms;
 
 namespace Registration.WPF.Views
 {
@@ -19,9 +21,22 @@ namespace Registration.WPF.Views
     /// </summary>
     public partial class MakeLetterWindow : Window
     {
-        public MakeLetterWindow()
+
+        ViewModels.MakeLetterViewModel _makeLetterViewModel;
+        public MakeLetterWindow(IServiceProvider provider)
         {
+            if (null == provider)
+                throw new ArgumentNullException();
+
             InitializeComponent();
+            _makeLetterViewModel = new ViewModels.MakeLetterViewModel(provider);
+            DataContext = _makeLetterViewModel;
+        }
+    
+        public void InitializeMakeLetterWindow()
+        {
+            _makeLetterViewModel.InitializeLetterPlugin();
+            stackPanel.Children.Add((Control)(_makeLetterViewModel.LetterPlugin));
         }
     }
 }

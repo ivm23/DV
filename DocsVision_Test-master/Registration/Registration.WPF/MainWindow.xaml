@@ -63,12 +63,23 @@
                 <MenuItem.Icon>
                     <Image Source="C:\Users\Ivanova.M\Downloads\NewLetter.png"/>
                 </MenuItem.Icon>
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction
+                           Command="{Binding Path=MakeLetter}"
+              />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+
             </MenuItem>
 
             <MenuItem Header="Delete Letter" Command="{Binding Path=DeleteLetterClick}">
                     <MenuItem.Icon>
                         <Image Source="C:\Users\Ivanova.M\Downloads\DeleteLetter.png"/>
                     </MenuItem.Icon>
+                
                 </MenuItem>
         </Menu>
 

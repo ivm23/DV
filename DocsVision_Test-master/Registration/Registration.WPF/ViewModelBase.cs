@@ -39,12 +39,12 @@ namespace Registration.WPF
             viewModel._fullLetterContentWindow.ShowDialog();
         }
         */
-        protected void ShowMakeLetterWindow(ViewModelBase viewModel)
+       /* protected void ShowMakeLetterWindow(ViewModelBase viewModel)
         {
             viewModel._makeLetterWindow = new Views.MakeLetterWindow();
             viewModel._makeLetterWindow.DataContext = viewModel;
             viewModel._makeLetterWindow.ShowDialog();
-        }
+        }*/
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         protected void OnPropertyChanged(string propertyName)

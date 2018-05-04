@@ -34,27 +34,30 @@ namespace Registration.WPF
             _serviceProvider = provider;
 
             InitializeClientRequests();
-            ClickCommand = new ViewModels.Command(arg => ClickMethod());
+  //          ClickCommand = new ViewModels.Command(arg => ClickMethod());
             SelectedItemChanged = new ViewModels.Command(arg => SelectedItemChangedMethod(arg));
             MouseDoubleClick = new ViewModels.Command(args => MouseDoubleClickMethod(args));
             DeleteLetterClick = new ViewModels.Command(args => DeleteLetterClickMethod());
 
             TreeViewRightClick = new ViewModels.Command(args => TreeViewRightClickMethod(args));
 
-
-            DataContextChange = new ViewModels.Command(arg => ClickMethod(arg));
+            MakeLetter = new ViewModels.Command(arg => MakeLetterMethod());
         }
 
 
-    public ICommand ClickCommand { get; set; }
+   // public ICommand ClickCommand { get; set; }
         public ICommand SelectedItemChanged { get; set; }
         public ICommand TreeViewRightClick { get; set; }
 
         public ICommand MouseDoubleClick { set; get; }
         public ICommand DeleteLetterClick { set; get; }
+        public ICommand MakeLetter { set; get; }
 
-        private void ClickMethod()
+        private void MakeLetterMethod()
         {
+            var window = new Views.MakeLetterWindow(ServiceProvider);
+            window.InitializeMakeLetterWindow();
+            window.ShowDialog();
         }
 
         private IFolderPropertiesUIPlugin InitializeFolderPlugin(Models.DirectoryNode directoryNode)
@@ -128,13 +131,9 @@ namespace Registration.WPF
         }
 
         private void MouseDoubleClickMethod(object arg)
-        {   
-        //    LetterPlugin.OnLoad(ServiceProvider);
-      //      LetterPlugin.ReadOnly = true;
-
+        {  
             var window = new Views.FullContentLetterWindow(ServiceProvider);
             window.InitializeFullContentLetterWindow();
-     //       window.DataContext = LetterPlugin;
             window.ShowDialog();
         }
 

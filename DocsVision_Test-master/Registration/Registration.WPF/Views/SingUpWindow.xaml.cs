@@ -19,9 +19,13 @@ namespace Registration.WPF.Views
     /// </summary>
     public partial class SingUpWindow : Window
     {
-        public SingUpWindow()
+        public SingUpWindow(IServiceProvider provider)
         {
+            if (null == provider)
+                throw new ArgumentNullException(); 
+
             InitializeComponent();
+            DataContext = new ViewModels.SingUpViewModel(provider);
         }
     }
 }

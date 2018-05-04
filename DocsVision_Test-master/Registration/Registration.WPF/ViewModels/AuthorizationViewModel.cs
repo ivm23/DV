@@ -25,8 +25,9 @@ namespace Registration.WPF.ViewModels
         private ObservableCollection<string> _databasesNames = new ObservableCollection<string>();
         public ObservableCollection<string> DatabasesNames
         {
-            get {
-               
+            get
+            {
+
                 return _databasesNames;
             }
             set
@@ -103,13 +104,13 @@ namespace Registration.WPF.ViewModels
 
         private void InitializeCommands()
         {
-            SingInCommand = new ViewModels.Command(arg => SingInMethod());
-            SingUpCommand = new ViewModels.Command(arg => SingUpMethod());
+            SingInCommand = new ViewModels.Command(arg => SingInMethod(arg));
+            SingUpCommand = new ViewModels.Command(arg => SingUpMethod(arg));
         }
 
         private void InitializeMessageService()
         {
-             _messageService = (WinForms.Message.IMessageService)ServiceProvider.GetService(typeof(WinForms.Message.IMessageService));
+            _messageService = (WinForms.Message.IMessageService)ServiceProvider.GetService(typeof(WinForms.Message.IMessageService));
         }
 
         public AuthorizationViewModel(IServiceProvider provider)
@@ -120,39 +121,40 @@ namespace Registration.WPF.ViewModels
             _serviceProvider = provider;
 
             InitializeClientRequests();
-            InitializeMessageService();            
+            InitializeMessageService();
             InitializeDatabasesNames();
             InitializeCommands();
         }
 
-        private void SingInMethod()
+        private void SingInMethod(object arg)
         {
 
             ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).DatabaseName = _selectedDatabaseName;
 
-            _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(Login,Password);
+            _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(Login, Password);
             if (Guid.Empty != _worker.Id)
             {
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = _worker.Id;
                 MessageBox.Show("Welcome!");
 
-                var window = Application.Current.Windows[1];
-                if (window != null)
-                    window.Close();
+                ((Window)(arg)).Close();
             }
             else
             {
-               MessageBox.Show("Login or password is wrong");
+                MessageBox.Show("Login or password is wrong");
             }
         }
 
-        private void SingUpMethod()
+        private void SingUpMethod(object arg)
         {
-            var singUpWindow = new Views.SingUpWindow();
-               singUpWindow.ShowDialog();
+            ((Window)(arg)).Hide();
 
+            var singUpWindow = new Views.SingUpWindow(ServiceProvider);
+            if (singUpWindow.ShowDialog() == true)
+            {
+                ((Window)(arg)).Close();
+            }
         }
-
     }
 }
 

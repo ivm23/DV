@@ -21,7 +21,7 @@ namespace Registration.WPF.Views.Controls
     /// <summary>
     /// Логика взаимодействия для ImportantLetterControlView.xaml
     /// </summary>
-    public partial class ImportantLetterControlView : UserControl, ILetterPropertiesUIPlugin
+    public partial class ImportantLetterControlView : UserControl//, ILetterPropertiesUIPlugin
     {
         private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
         public ImportantLetterControlView()
@@ -76,7 +76,7 @@ namespace Registration.WPF.Views.Controls
         {
             set
             {
-                _readOnly = value;
+               
                 fullContentLetterControl.ReadOnly = value;
                 importanceDegreeEditorControl.IsEnabled = !value;
             }

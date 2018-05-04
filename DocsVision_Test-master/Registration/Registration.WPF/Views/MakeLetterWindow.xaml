@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MakeLetterWindow" Height="600" Width="601">
     <Grid Margin="0,0,-8,-4">
-        <ContentPresenter Content="{Binding }" />
         <Button x:Name="button" Content="Cancel" HorizontalAlignment="Left" Margin="502,540,0,0" VerticalAlignment="Top" Width="76"/>
-        <Button x:Name="button_Copy" Content="Send" HorizontalAlignment="Left" Margin="408,540,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="1.921,0.875"/>
+        <Button x:Name="button_Copy" Content="Send" HorizontalAlignment="Left" Margin="408,540,0,0" Command="{Binding Path=SendLetterClick}" VerticalAlignment="Top" Width="76" RenderTransformOrigin="1.921,0.875"/>
+        <StackPanel x:Name="stackPanel"  HorizontalAlignment="Left" Height="519" VerticalAlignment="Top" Width="591"/>
 
     </Grid>
 </Window>
