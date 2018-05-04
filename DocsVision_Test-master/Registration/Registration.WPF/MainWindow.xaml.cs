@@ -59,11 +59,8 @@ namespace Registration.WPF
 
             var form = new Views.AuthorizationWindow(_serviceContainer);
             form.ShowDialog();
-      //      if (form.ShowDialog() == true)
-            {
-                _mainWindowViewModel.InitializeTreeView();
-                _mainWindowViewModel.InitializeMenu();
-            }
+            _mainWindowViewModel.InitializeTreeView();
+            _mainWindowViewModel.InitializeMenu();
         }
 
         private void tv_dep_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -75,6 +72,7 @@ namespace Registration.WPF
                 treeViewItem.Focus();
             }
         }
+
         static DependencyObject VisualUpwardSearch<T>(DependencyObject source)
         {
             while (source != null && source.GetType() != typeof(T))

@@ -34,30 +34,37 @@ namespace Registration.WPF
             _serviceProvider = provider;
 
             InitializeClientRequests();
-  //          ClickCommand = new ViewModels.Command(arg => ClickMethod());
+
             SelectedItemChanged = new ViewModels.Command(arg => SelectedItemChangedMethod(arg));
-            MouseDoubleClick = new ViewModels.Command(args => MouseDoubleClickMethod(args));
+            OpenLetterViewWindow = new ViewModels.Command(args => OpenLetterViewWindowMethod(args));
             DeleteLetterClick = new ViewModels.Command(args => DeleteLetterClickMethod());
 
-            TreeViewRightClick = new ViewModels.Command(args => TreeViewRightClickMethod(args));
+            OpenMakeFolderWindow = new ViewModels.Command(args => OpenMakeFolderWindowMethod(args));
 
             MakeLetter = new ViewModels.Command(arg => MakeLetterMethod());
+            CreateFolder = new ViewModels.Command(arg => CreateFolderMethod());
         }
 
-
-   // public ICommand ClickCommand { get; set; }
         public ICommand SelectedItemChanged { get; set; }
-        public ICommand TreeViewRightClick { get; set; }
+        public ICommand OpenMakeFolderWindow { get; set; }
 
-        public ICommand MouseDoubleClick { set; get; }
+        public ICommand OpenLetterViewWindow { set; get; }
         public ICommand DeleteLetterClick { set; get; }
         public ICommand MakeLetter { set; get; }
 
+        public ICommand CreateFolder { set; get; }
+
         private void MakeLetterMethod()
         {
-            var window = new Views.MakeLetterWindow(ServiceProvider);
-            window.InitializeMakeLetterWindow();
+            var window = new Views.MakeLetterWindow(ServiceProvider);          
             window.ShowDialog();
+        }
+
+        private void CreateFolderMethod()
+        {
+            var makeFolderWindow = new Views.MakeFolderWindow(ServiceProvider);
+
+            makeFolderWindow.ShowDialog();
         }
 
         private IFolderPropertiesUIPlugin InitializeFolderPlugin(Models.DirectoryNode directoryNode)
@@ -71,10 +78,9 @@ namespace Registration.WPF
         }
 
 
-        private void TreeViewRightClickMethod(object arg) { 
+        private void OpenMakeFolderWindowMethod(object arg) { 
                   
             var window = new Views.MakeFolderWindow(ServiceProvider);
-            window.InitializeMakeFolderWindow(((Models.DirectoryNode)(arg)).Folder.Type);
             window.ShowDialog();
         }
 
@@ -130,11 +136,10 @@ namespace Registration.WPF
             ExistLettersTypes = lettersType;
         }
 
-        private void MouseDoubleClickMethod(object arg)
+        private void OpenLetterViewWindowMethod(object arg)
         {  
-            var window = new Views.FullContentLetterWindow(ServiceProvider);
-            window.InitializeFullContentLetterWindow();
-            window.ShowDialog();
+            var letterViewWindow = new Views.LetterViewWindow(ServiceProvider);
+            letterViewWindow.ShowDialog();
         }
 
         private IServiceProvider ServiceProvider

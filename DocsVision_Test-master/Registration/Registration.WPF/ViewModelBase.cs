@@ -11,7 +11,7 @@ namespace Registration.WPF
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-        private Views.FullContentLetterWindow _fullLetterContentWindow = null;
+        private Views.LetterViewWindow _fullLetterContentWindow = null;
         private Views.MakeLetterWindow _makeLetterWindow = null;
 
         protected virtual void Closed()

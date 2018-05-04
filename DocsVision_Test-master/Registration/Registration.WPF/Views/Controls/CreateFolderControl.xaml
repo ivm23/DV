@@ -10,8 +10,8 @@
     <Grid>
         <Label x:Name="labelName" Content="Name" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
         <Label x:Name="labelType" Content="Type" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Text="{Binding Path=FolderName, Mode=TwoWay}" Margin="65,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-        <ComboBox x:Name="comboType" HorizontalAlignment="Left" Height="21" Margin="65,33,0,0" VerticalAlignment="Top" Width="155" DisplayMemberPath="Name" ItemsSource="{Binding Path=FoldersTypes}">
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Text="{Binding Path=Name, Mode=TwoWay}" Margin="65,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+        <ComboBox x:Name="comboType" HorizontalAlignment="Left" Height="21" Margin="65,33,0,0" VerticalAlignment="Top" Width="155" DisplayMemberPath="TypeName" ItemsSource="{Binding Path=FoldersTypes}" SelectedValue="{Binding Path=SelectedFolderType}">
             
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">

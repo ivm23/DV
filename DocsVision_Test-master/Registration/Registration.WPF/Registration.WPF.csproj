@@ -79,7 +79,9 @@
     <Compile Include="ViewModelBase.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
     <Compile Include="ViewModels\Command.cs" />
-    <Compile Include="ViewModels\FullContentLetterControlViewModel.cs" />
+    <Compile Include="ViewModels\InboxFolderViewModel.cs" />
+    <Compile Include="ViewModels\StandartLetterControlViewModel.cs" />
+    <Compile Include="ViewModels\LetterViewModel.cs" />
     <Compile Include="ViewModels\ImportantLetterControlViewModel.cs" />
     <Compile Include="ViewModels\LetterWithResponseTimeControlViewModel.cs" />
     <Compile Include="ViewModels\MakeFolderViewModel.cs" />
@@ -101,8 +103,8 @@
     <Compile Include="Views\Controls\CreateFolderControl.xaml.cs">
       <DependentUpon>CreateFolderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\FullContentLetterControl.xaml.cs">
-      <DependentUpon>FullContentLetterControl.xaml</DependentUpon>
+    <Compile Include="Views\Controls\StandartLetterControl.xaml.cs">
+      <DependentUpon>StandartLetterControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ImportanceDegreeEditorControl.xaml.cs">
       <DependentUpon>ImportanceDegreeEditorControl.xaml</DependentUpon>
@@ -134,8 +136,8 @@
     <Compile Include="Views\RenameFolderWindow.xaml.cs">
       <DependentUpon>RenameFolderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FullContentLetterWindow.xaml.cs">
-      <DependentUpon>FullContentLetterWindow.xaml</DependentUpon>
+    <Compile Include="Views\LetterViewWindow.xaml.cs">
+      <DependentUpon>LetterViewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MakeLetterWindow.xaml.cs">
       <DependentUpon>MakeLetterWindow.xaml</DependentUpon>
@@ -171,7 +173,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\FullContentLetterControl.xaml">
+    <Page Include="Views\Controls\StandartLetterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,7 +217,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FullContentLetterWindow.xaml">
+    <Page Include="Views\LetterViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

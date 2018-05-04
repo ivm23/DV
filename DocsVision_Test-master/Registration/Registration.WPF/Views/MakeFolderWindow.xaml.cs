@@ -21,47 +21,21 @@ namespace Registration.WPF.Views
     /// </summary>
     public partial class MakeFolderWindow : Window
     {
-        private IServiceProvider _serviceProvider;
-        private IClientRequests _clientRequests;
-
+        ViewModels.MakeFolderViewModel _makeFolderViewModel;
         public MakeFolderWindow(IServiceProvider provider)
         {
             if (null == provider)
-                throw new ArgumentNullException(); 
+                throw new ArgumentNullException();
 
             InitializeComponent();
 
-            _serviceProvider = provider;
+            _makeFolderViewModel = new ViewModels.MakeFolderViewModel(provider);
+            DataContext = _makeFolderViewModel;
+
+          
+            _makeFolderViewModel.InitializeFolderPlugin();
+            stackPanel.Children.Add((Control)(_makeFolderViewModel.FolderPlugin));
         }
 
-        private void InitializeClientRequests()
-        {
-            _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
-        }
-
-        public IServiceProvider ServiceProvider
-        {
-            get
-            {
-                return _serviceProvider;
-            }
-        }
-
-        public IClientRequests ClientRequests
-        {
-            get { return _clientRequests; }
-        }
-
-        public void InitializeMakeFolderWindow(int selectedFolderType)
-        {
-            InitializeClientRequests();
-            FolderType folderType = ClientRequests.GetFolderType(selectedFolderType);
-
-            IFolderPropertiesUIPlugin folderPlugin = ViewModels.ViewPluginCreater.Create(folderType, (PluginService)ServiceProvider.GetService(typeof(PluginService)));
-            folderPlugin.OnLoad(ServiceProvider);
-
-            stackPanel.Children.Add((Control)(folderPlugin));
-        }
-       
     }
 }

@@ -1,31 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Registration.Model;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
 using Registration.ClientInterface;
-using Registration.WPF.ViewModels;
 using Registration.WinForms;
-
+using Registration.Model;
 
 namespace Registration.WPF.ViewModels
 {
-    class MakeFolderViewModel
+
+    class LetterViewModel
     {
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
         private Worker _worker;
-        public MakeFolderViewModel(IServiceProvider provider)
+        public ILetterPropertiesUIPlugin LetterPlugin { get; set; }
+
+        public LetterViewModel(IServiceProvider provider)
         {
             if (null == provider)
                 throw new ArgumentNullException();
 
             _serviceProvider = provider;
         }
+
         private IServiceProvider ServiceProvider
         {
             get { return _serviceProvider; }
@@ -46,16 +43,13 @@ namespace Registration.WPF.ViewModels
             _worker = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker;
         }
 
-        public IFolderPropertiesUIPlugin FolderPlugin { get; set; }
-
-        public void InitializeFolderPlugin()
+        public void InitializeLetterPlugin()
         {
             InitializeClientRequests();
-            InitializeWorker();
 
-            FolderPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
-            FolderPlugin.OnLoad(ServiceProvider);
+            LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
+            LetterPlugin.OnLoad(ServiceProvider);
+            LetterPlugin.ReadOnly = true;
         }
-
     }
 }

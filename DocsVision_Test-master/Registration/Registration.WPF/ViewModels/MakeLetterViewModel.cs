@@ -49,6 +49,7 @@ namespace Registration.WPF.ViewModels
         private void SendLetterClickMethod()
         {
             var letterView = LetterPlugin.LetterView;
+           
             ClientRequests.CreateLetter(letterView.Name, _worker.Id, letterView.ReceiversName, letterView.Text, letterView.ExtendedData, 3);
         }
 

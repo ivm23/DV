@@ -15,7 +15,7 @@ namespace Registration
 
     //    event EventHandler AddedReceiver;
         bool ReadOnly { set; get; }
-        void InitializeLetterView();
+       // void InitializeLetterView();
        // LetterView LetterView { get; set; }
     }
 }

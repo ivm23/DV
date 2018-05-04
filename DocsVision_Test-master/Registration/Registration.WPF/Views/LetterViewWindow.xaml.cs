@@ -11,29 +11,29 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Registration.Model;
 using Registration.ClientInterface;
 using Registration.WinForms;
 
 namespace Registration.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for MakeLetterWindow.xaml
+    /// Interaction logic for FullContentLetterWindow.xaml
     /// </summary>
-    public partial class MakeLetterWindow : Window
+    public partial class LetterViewWindow : Window
     {
-
-        ViewModels.MakeLetterViewModel _makeLetterViewModel;
-        public MakeLetterWindow(IServiceProvider provider)
+        ViewModels.LetterViewModel _fullContentLetterViewModel;
+        public LetterViewWindow(IServiceProvider provider)
         {
             if (null == provider)
                 throw new ArgumentNullException();
 
             InitializeComponent();
 
-            _makeLetterViewModel = new ViewModels.MakeLetterViewModel(provider);
-            DataContext = _makeLetterViewModel;
-            _makeLetterViewModel.InitializeLetterPlugin();
-            stackPanel.Children.Add((Control)(_makeLetterViewModel.LetterPlugin));
+            _fullContentLetterViewModel = new ViewModels.LetterViewModel(provider);
+            DataContext = _fullContentLetterViewModel;
+            _fullContentLetterViewModel.InitializeLetterPlugin();
+            stackPanel.Children.Add((Control)(_fullContentLetterViewModel.LetterPlugin));
         }
     }
 }

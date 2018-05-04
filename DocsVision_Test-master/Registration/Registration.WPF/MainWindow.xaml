@@ -17,6 +17,7 @@
             <ColumnDefinition Width="408*" />
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
+       
         <ContentPresenter Content="{Binding }" />
         <DataGrid Name="BriefContentLetters" Grid.Column="2" Margin="0,20,0,0" ItemsSource="{Binding Letters}" SelectedItem="{Binding Path=SelectedLetter}" IsReadOnly="True">
             <DataGrid.Columns>
@@ -27,38 +28,48 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction
-                           Command="{Binding Path=MouseDoubleClick}"
+                           Command="{Binding Path=OpenLetterViewWindow}"
                 CommandParameter="{Binding ElementName=BriefContentLetters, Path=SelectedValue}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>
-        
-        <TreeView  Name="TV" Grid.Column="0" Margin="0,20,0,0" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="tv_dep_PreviewMouseRightButtonDown" >
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=Items}">
-                    <TextBlock Text="{Binding Path=Name}" />
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
+        <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="529" Margin="8,27,0,0" VerticalAlignment="Top" Width="385">
+            <TreeView  x:Name="TV" Margin="0,0,-18,0" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="tv_dep_PreviewMouseRightButtonDown" Height="546" >
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedItemChanged">
-                    <i:InvokeCommandAction
-                           Command="{Binding Path=SelectedItemChanged}"
-                CommandParameter="{Binding ElementName=TV, Path=SelectedValue}" />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseRightButtonDown">
-                    <i:InvokeCommandAction
-                           Command="{Binding Path=TreeViewRightClick}"
-                CommandParameter="{Binding ElementName=TV, Path=SelectedValue}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </TreeView>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectedItemChanged">
+                        <i:InvokeCommandAction
+                           Command="{Binding SelectedItemChanged}"
+                           CommandParameter="{Binding SelectedValue, ElementName=TV}" />
+                    </i:EventTrigger>
+                <!--    <i:EventTrigger EventName="MouseRightButtonDown">
+                        <i:InvokeCommandAction
+                           Command="{Binding OpenMakeFolderWindow}"
+                           CommandParameter="{Binding SelectedValue, ElementName=TV}" />
+                    </i:EventTrigger>-->
+                </i:Interaction.Triggers>
+                <TreeView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Create" Command="{Binding Path=CreateFolder}" />
+                        <MenuItem Header="Edit" Command="{Binding Path=EditFolder}"/>
+                        <MenuItem Header="Delete" Command="{Binding Path=DeleteFolder}"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+            </TreeView>
+            
+        </StackPanel>
 
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <GridSplitter Grid.Column="3" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
         <Menu Height="20"  VerticalAlignment="Top" Grid.ColumnSpan="6" Margin="0,0,-71,0">
+            
             <MenuItem Header="New Letter" ItemsSource="{Binding Path=ExistLettersTypes.Keys}" >
                 <MenuItem.Icon>
                     <Image Source="C:\Users\Ivanova.M\Downloads\NewLetter.png"/>
@@ -67,24 +78,21 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction
-                           Command="{Binding Path=MakeLetter}"
-              />
+                           Command="{Binding Path=MakeLetter}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-
-
             </MenuItem>
 
             <MenuItem Header="Delete Letter" Command="{Binding Path=DeleteLetterClick}">
-                    <MenuItem.Icon>
-                        <Image Source="C:\Users\Ivanova.M\Downloads\DeleteLetter.png"/>
-                    </MenuItem.Icon>
-                
-                </MenuItem>
+                <MenuItem.Icon>
+                    <Image Source="C:\Users\Ivanova.M\Downloads\DeleteLetter.png"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            
         </Menu>
 
         <UserControl Grid.Column="4" DataContext="{Binding Path=LetterPlugin}"/>
-
+        
     </Grid>
-    
+
 </Window>

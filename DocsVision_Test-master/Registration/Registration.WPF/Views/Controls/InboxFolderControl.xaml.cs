@@ -20,25 +20,11 @@ namespace Registration.WPF.Views.Controls
     /// <summary>
     /// Interaction logic for InboxFolderControl.xaml
     /// </summary>
-    public partial class InboxFolderControl : UserControl//, IFolderPropertiesUIPlugin
+    public partial class InboxFolderControl : UserControl, IFolderPropertiesUIPlugin
     {
-        public event EventHandler ChangedFolderTypePlugin;
-        private IServiceProvider _serviceProvider;
-        private IClientRequests _clientRequests;
-
         public InboxFolderControl()
         {
             InitializeComponent();
-        }
-
-        public IClientRequests ClientRequests
-        {
-            get { return _clientRequests; }
-        }
-
-        private void InitializeClientRequests()
-        {
-            _clientRequests = (IClientRequests)_serviceProvider.GetService(typeof(IClientRequests));
         }
 
         public void OnLoad(IServiceProvider serviceProvider)
@@ -46,32 +32,18 @@ namespace Registration.WPF.Views.Controls
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
-            _serviceProvider = serviceProvider;
-            InitializeClientRequests();
-            InitializeFolderTypes();
-          //  CurrentFolderPropertiesPlugin = this;
-        }
-
-        private void InitializeFolderTypes()
-        {
-            FoldersTypes = ClientRequests.GetAllFolderTypes();            
+           CurrentFolderPropertiesPlugin = this;
         }
 
         public FolderType FolderType
         {
             set
             {
-                // createFolderControl1.FolderType = value;
             }
             get
             {
-                return null;// createFolderControl1.FolderType;
+                return null;
             }
-        }
-
-        private void createFolderControl_ChangedFolderType(object sender, EventArgs e)
-        {
-            // ChangedFolderTypePlugin(this, e);
         }
 
         public IEnumerable<FolderType> FoldersTypes { get; set; }
@@ -80,19 +52,14 @@ namespace Registration.WPF.Views.Controls
         {
             set
             {
-                //   _info = value;
             }
             get
             {
-                //    _info.Properties.Clear();
-                //    if (_info == null)
-                //        _info = new global::Registration.Model.FolderProperties();
-                //      _info.Name = createFolderControl1.NameF;
-
-                return null;//_info;
+                return null;
             }
         }
 
+        public string FolderName { set; get; }
         public IFolderPropertiesUIPlugin CurrentFolderPropertiesPlugin { get; set; }
 
     }
