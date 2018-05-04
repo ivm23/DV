@@ -9,23 +9,31 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Registration.ClientInterface;
 using Registration.WPF.ViewModels;
-using Registration.WinForms;
 
 
 namespace Registration.WPF.ViewModels
 {
-    class MakeFolderViewModel
+    class MakeFolderViewModel : Notifier
     {
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
         private Worker _worker;
+        public ICommand CreateFolder { get; set; }
+        
         public MakeFolderViewModel(IServiceProvider provider)
         {
             if (null == provider)
                 throw new ArgumentNullException();
 
             _serviceProvider = provider;
+            CreateFolder = new ViewModels.Command(arg => CreateFolderMethod());
         }
+
+        private void CreateFolderMethod()
+        {
+            ClientRequests.CreateFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id, FolderPlugin.FolderName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType.Id, "");
+        }
+
         private IServiceProvider ServiceProvider
         {
             get { return _serviceProvider; }
@@ -46,7 +54,18 @@ namespace Registration.WPF.ViewModels
             _worker = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker;
         }
 
-        public IFolderPropertiesUIPlugin FolderPlugin { get; set; }
+        private IFolderPropertiesUIPlugin _folderPlugin;
+        public IFolderPropertiesUIPlugin FolderPlugin
+        {
+            get
+            {
+                return _folderPlugin;
+            }
+            set
+            {
+                _folderPlugin = value;
+            }
+        }
 
         public void InitializeFolderPlugin()
         {
@@ -55,7 +74,10 @@ namespace Registration.WPF.ViewModels
 
             FolderPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             FolderPlugin.OnLoad(ServiceProvider);
-        }
+            OnPropertyChanged(nameof(FolderPlugin));
 
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentFolderPropertiesPlugin = FolderPlugin;
+        }
     }
+
 }

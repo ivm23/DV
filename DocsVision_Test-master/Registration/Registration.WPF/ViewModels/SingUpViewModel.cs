@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Registration.ClientInterface;
 using System.Windows;
-using Registration.WinForms;
 using Registration.Model;
 
 namespace Registration.WPF.ViewModels

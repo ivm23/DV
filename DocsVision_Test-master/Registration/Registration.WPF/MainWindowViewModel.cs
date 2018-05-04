@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Registration.ClientInterface;
 using Registration.WPF.ViewModels;
-using Registration.WinForms;
 using System.Windows.Input;
 using System.Windows;
 
@@ -22,7 +21,6 @@ namespace Registration.WPF
         private LetterView _selectedLetter;
         private Models.Node _selectedNode;
         private IEnumerable<LetterView> _letters;
-   //     private ILetterPropertiesUIPlugin _letterPlugin;
 
         public MainWindowViewModel() { }
 
@@ -38,16 +36,11 @@ namespace Registration.WPF
             SelectedItemChanged = new ViewModels.Command(arg => SelectedItemChangedMethod(arg));
             OpenLetterViewWindow = new ViewModels.Command(args => OpenLetterViewWindowMethod(args));
             DeleteLetterClick = new ViewModels.Command(args => DeleteLetterClickMethod());
-
-            OpenMakeFolderWindow = new ViewModels.Command(args => OpenMakeFolderWindowMethod(args));
-
             MakeLetter = new ViewModels.Command(arg => MakeLetterMethod());
             CreateFolder = new ViewModels.Command(arg => CreateFolderMethod());
         }
 
         public ICommand SelectedItemChanged { get; set; }
-        public ICommand OpenMakeFolderWindow { get; set; }
-
         public ICommand OpenLetterViewWindow { set; get; }
         public ICommand DeleteLetterClick { set; get; }
         public ICommand MakeLetter { set; get; }
@@ -62,36 +55,11 @@ namespace Registration.WPF
 
         private void CreateFolderMethod()
         {
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType = ClientRequests.GetFolderType(2);
             var makeFolderWindow = new Views.MakeFolderWindow(ServiceProvider);
 
             makeFolderWindow.ShowDialog();
         }
-
-        private IFolderPropertiesUIPlugin InitializeFolderPlugin(Models.DirectoryNode directoryNode)
-        {
-            FolderType folderType = ClientRequests.GetFolderType(directoryNode.Folder.Type);
-
-            IFolderPropertiesUIPlugin folderPlugin = ViewPluginCreater.Create(folderType, (PluginService)ServiceProvider.GetService(typeof(PluginService)));
-            folderPlugin.OnLoad(ServiceProvider);
-
-            return folderPlugin;         
-        }
-
-
-        private void OpenMakeFolderWindowMethod(object arg) { 
-                  
-            var window = new Views.MakeFolderWindow(ServiceProvider);
-            window.ShowDialog();
-        }
-
-       public string NameFolder { set; get; }
-
-        public ICommand DataContextChange { get; set; }
-        private void ClickMethod(object arg)
-        {
-            MessageBox.Show("aa");
-        }
-
 
         private void DeleteLetterClickMethod()
         {
@@ -104,8 +72,9 @@ namespace Registration.WPF
             if (!f)
             {
                 InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
-                f = true;
-            }
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
+               f = true;
+                }
         }
 
 

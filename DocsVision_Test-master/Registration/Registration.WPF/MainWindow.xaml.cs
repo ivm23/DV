@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel.Design;
 using Registration.ClientInterface;
-using Registration.WinForms;
 using System.Collections.ObjectModel;
 
 namespace Registration.WPF

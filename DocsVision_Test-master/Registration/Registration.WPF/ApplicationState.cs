@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Registration.Model;
-using System.Windows.Forms;
-using Registration.Plugins;
 
-namespace Registration.WinForms
+
+namespace Registration.WPF
 {
     public class ApplicationState
     {
@@ -17,8 +16,7 @@ namespace Registration.WinForms
         public Letter SelectedLetter { get; set; } = new Letter();
         public LetterView SelectedLetterView { get; set; } = new LetterView();
         public LetterType SelectedLetterType { get; set; } = new LetterType();
-        public CloseReason CloseReason { get; set; } = new CloseReason();
-        public  ILetterPropertiesUIPlugin CurrentLetterPropertiesPlugin { get; set; }
+        public ILetterPropertiesUIPlugin CurrentLetterPropertiesPlugin { get; set; }
         public IFolderPropertiesUIPlugin CurrentFolderPropertiesPlugin { get; set; }
         public IEnumerable<string> CurrentReceivers { get; set; } = new List<string>();
     }

@@ -9,7 +9,6 @@ using System.ComponentModel;
 using Registration.Model;
 using Registration.ClientInterface;
 using System.Windows;
-using Registration.WinForms;
 
 namespace Registration.WPF.ViewModels
 {

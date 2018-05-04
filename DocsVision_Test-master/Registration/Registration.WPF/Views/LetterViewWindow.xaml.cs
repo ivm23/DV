@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Registration.Model;
 using Registration.ClientInterface;
-using Registration.WinForms;
 
 namespace Registration.WPF.Views
 {

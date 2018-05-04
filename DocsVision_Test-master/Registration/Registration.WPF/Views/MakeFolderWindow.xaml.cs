@@ -32,10 +32,8 @@ namespace Registration.WPF.Views
             _makeFolderViewModel = new ViewModels.MakeFolderViewModel(provider);
             DataContext = _makeFolderViewModel;
 
-          
             _makeFolderViewModel.InitializeFolderPlugin();
             stackPanel.Children.Add((Control)(_makeFolderViewModel.FolderPlugin));
         }
-
     }
 }

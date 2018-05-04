@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Registration.Model;
 using System.ComponentModel;
-using Registration.WinForms;
 
 namespace Registration.WPF.ViewModels
 {

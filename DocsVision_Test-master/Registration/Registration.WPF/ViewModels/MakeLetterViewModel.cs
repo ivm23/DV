@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Registration.ClientInterface;
-using Registration.WinForms;
 using Registration.Model;
 
 namespace Registration.WPF.ViewModels

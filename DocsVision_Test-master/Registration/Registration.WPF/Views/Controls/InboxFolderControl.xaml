@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
+              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="64" d:DesignWidth="232">
     <Grid>
-        <local:CreateFolderControl DataContext="{Binding Path=CurrentFolderPropertiesPlugin}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <local:CreateFolderControl x:Name="createFolderControl" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
     </Grid>
 </UserControl>

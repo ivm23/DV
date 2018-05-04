@@ -22,6 +22,7 @@ namespace Registration.WPF.Views.Controls
     /// </summary>
     public partial class InboxFolderControl : UserControl, IFolderPropertiesUIPlugin
     {
+        private ViewModels.InboxFolderViewModel _inboxFolderViewModel;
         public InboxFolderControl()
         {
             InitializeComponent();
@@ -32,21 +33,21 @@ namespace Registration.WPF.Views.Controls
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
-           CurrentFolderPropertiesPlugin = this;
+            _inboxFolderViewModel = new ViewModels.InboxFolderViewModel(serviceProvider, ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllFolderTypes());
+            DataContext = _inboxFolderViewModel;
         }
 
         public FolderType FolderType
         {
             set
             {
+                _inboxFolderViewModel.SelectedType = value;
             }
             get
             {
-                return null;
+                return _inboxFolderViewModel.SelectedType;
             }
         }
-
-        public IEnumerable<FolderType> FoldersTypes { get; set; }
 
         public FolderProperties FolderProperties
         {
@@ -59,8 +60,17 @@ namespace Registration.WPF.Views.Controls
             }
         }
 
-        public string FolderName { set; get; }
-        public IFolderPropertiesUIPlugin CurrentFolderPropertiesPlugin { get; set; }
+        public string FolderName
+        {
+            set
+            {
+                _inboxFolderViewModel.NameFolder = value;
+            }
 
+            get
+            {
+                return _inboxFolderViewModel.NameFolder;
+            }
+        }
     }
 }

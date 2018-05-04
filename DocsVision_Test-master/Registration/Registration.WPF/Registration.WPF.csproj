@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationState.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Models\IFolderPropertiesUIPlugin.cs" />
