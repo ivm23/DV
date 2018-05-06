@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="544">
     <Grid>
-        <local:StandartLetterControl x:Name="fullContentLetterControl" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,-1,0,0"/>
+        <local:StandartLetterControl x:Name="fullContentLetterControl" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl" HorizontalAlignment="Left" Margin="375,96,0,0" VerticalAlignment="Top" Width="128" Height="42"/>
         <Label x:Name="lblImportanceDegree" Content="Degree of importance" HorizontalAlignment="Left" Margin="375,66,0,0" VerticalAlignment="Top"/>
     </Grid>

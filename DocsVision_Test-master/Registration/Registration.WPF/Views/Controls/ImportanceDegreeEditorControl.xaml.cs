@@ -20,7 +20,6 @@ namespace Registration.WPF.Views.Controls
     /// </summary>
     public partial class ImportanceDegreeEditorControl : UserControl
     {
-        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
 
         public ImportanceDegreeEditorControl()
         {

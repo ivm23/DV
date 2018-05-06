@@ -20,23 +20,56 @@ namespace Registration.WPF.Views.Controls
     /// </summary>
     public partial class WorkersEditorControl : UserControl
     {
+        private ViewModels.WorkersEditorControlViewModel _workersEditorControlViewModel;
         public WorkersEditorControl()
         {
-            InitializeComponent();
+            InitializeComponent();                       
         }
 
+        public void InitializeWorkersEditorControl(IEnumerable<string> allWorkers )
+        {
+            _workersEditorControlViewModel = new ViewModels.WorkersEditorControlViewModel(allWorkers);
+
+            DataContext = _workersEditorControlViewModel;
+            //    _workersEditorControlViewModel.NamesWorkers = allWorkers();
+        }
         public bool ReadOnly
         {
             set
             {
                 txtWorkers.IsReadOnly = value;
-                listWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
+               //listWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
                 btnAllWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
             }
 
             get
             {
                 return txtWorkers.IsReadOnly;
+            }
+        }
+        private bool _enable;
+        public bool Enable
+        {
+            set
+            {
+                listWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
+                _enable = value;
+            }
+            get
+            {
+                return _enable;
+            }
+        }
+
+        public IEnumerable<string> NamesWorkers
+        {
+            set
+            {
+                _workersEditorControlViewModel.NamesWorkers = value;
+            }
+            get
+            {
+                return _workersEditorControlViewModel.NamesWorkers;
             }
         }
     }

@@ -4,11 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             
              mc:Ignorable="d" 
              d:DesignHeight="52" d:DesignWidth="211">
     <Grid>
-        <TextBox x:Name="txtWorkers" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=NamesWorkers}"/>
-        <ListBox x:Name="listWorkers" HorizontalAlignment="Left" Height="29" Margin="0,23,0,0" VerticalAlignment="Top" Width="211"  Visibility="Hidden"/>
-        <Button x:Name="btnAllWorkers" Content="..." HorizontalAlignment="Left" Height="22" Margin="184,1,0,0" VerticalAlignment="Top" Width="27" Visibility="Hidden"/>
+        <TextBox x:Name="txtWorkers" HorizontalAlignment="Left" TextWrapping="Wrap" Width="292" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Names}" Margin="0,0,-81,29">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction
+                           Command="{Binding Path=ChangedText}"
+                CommandParameter="{Binding ElementName=txtWorkers, Path=Text}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding Path=FocusToListBox}" Key="Down" />
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button x:Name="btnAllWorkers" Content="..." HorizontalAlignment="Left" Height="22" Margin="265,1,-81,0" VerticalAlignment="Top" Width="27" Visibility="Visible" Command="{Binding Path=AddSeveralWorkers}"/>
+        <ListBox x:Name="listWorkers" HorizontalAlignment="Left" SelectedIndex="0" ItemsSource="{Binding AllWorkers}" Margin="0,23,-81,0" Width="292" Visibility="{Binding Path=Enable, Mode=TwoWay}" Focusable="{Binding Path=Enable, Mode=TwoWay}">
+            <!-- <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction
+                           Command="{Binding Path=AddWorker}"
+                        CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}">
+                    </i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+            <ListBox.InputBindings>
+                <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
+                        CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
+                <MouseBinding Command="{Binding Path=AddWorker}"  MouseAction="LeftDoubleClick"
+                              CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
+            </ListBox.InputBindings>
+        </ListBox>
     </Grid>
 </UserControl>

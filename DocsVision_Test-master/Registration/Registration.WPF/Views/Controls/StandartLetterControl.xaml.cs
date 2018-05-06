@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Registration.Model;
+using Registration.ClientInterface;
 
 
 namespace Registration.WPF.Views.Controls
@@ -37,8 +38,10 @@ namespace Registration.WPF.Views.Controls
 
             _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
             standartLetterControlViewModel = new ViewModels.StandartLetterControlViewModel(_letterView);
-
             DataContext = standartLetterControlViewModel;
+
+            workersEditorControl.DataContext = new ViewModels.WorkersEditorControlViewModel(((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllWorkers());
+            workersEditorControl.InitializeWorkersEditorControl(((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllWorkers());
         }
 
         public bool ReadOnly
@@ -46,6 +49,7 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 standartLetterControlViewModel.ReadOnly = value;
+                workersEditorControl.ReadOnly = value;
             }
             get
             {
@@ -61,19 +65,23 @@ namespace Registration.WPF.Views.Controls
                 standartLetterControlViewModel.Title = value.Name;
                 standartLetterControlViewModel.Text = value.Text;
                 standartLetterControlViewModel.Date = value.Date;
-                standartLetterControlViewModel.SenderName = value.SenderName;               
+                standartLetterControlViewModel.SenderName = value.SenderName;
+                workersEditorControl.NamesWorkers = value.ReceiversName;        
             }
             get
             {
-                return new LetterView() {
+                var letter = new LetterView() {
                     Name = standartLetterControlViewModel.Title,
                     Text = standartLetterControlViewModel.Text,
                     Date = standartLetterControlViewModel.Date,
                     SenderName = standartLetterControlViewModel.SenderName
                 };
-
+                    letter.ReceiversName.AddRange(workersEditorControl.NamesWorkers);
+                return letter;
             }
         }
+        
+      
     }
 }
 

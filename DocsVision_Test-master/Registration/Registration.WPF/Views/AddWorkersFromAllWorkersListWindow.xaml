@@ -7,12 +7,12 @@
         mc:Ignorable="d"
         Title="AddWorkersFromAllWorkersListWindow" Height="296" Width="522">
     <Grid Margin="0,0,2,0">
-        <ListBox x:Name="listOtherWorkers" HorizontalAlignment="Left" Height="199" Margin="10,34,0,0" VerticalAlignment="Top" Width="225"/>
-        <ListBox x:Name="listReceivers" HorizontalAlignment="Left" Height="199" Margin="281,34,0,0" VerticalAlignment="Top" Width="225"/>
+        <ListBox x:Name="listOtherWorkers" HorizontalAlignment="Left" ItemsSource="{Binding Path=NonSelectedWorkers}" Height="199" Margin="10,34,0,0" VerticalAlignment="Top" Width="225"/>
+        <ListBox x:Name="listReceivers" HorizontalAlignment="Left" ItemsSource="{Binding Path=SelectedWorkers}" Height="199" Margin="281,34,0,0" VerticalAlignment="Top" Width="225"/>
         <Label x:Name="labelOtherWorkers" Content="Other workers" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
         <Label x:Name="labelReceivers" Content="Receivers" HorizontalAlignment="Left" Margin="281,8,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="431,238,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="340,238,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnCancel" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="431,238,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnCreate" Content="Create" IsDefault="True" HorizontalAlignment="Left" Margin="340,238,0,0" VerticalAlignment="Top" Width="75" Click="createButton_Click"/>
         <Button x:Name="btnAdd" Content="→" HorizontalAlignment="Left" Margin="241,63,0,0" VerticalAlignment="Top" Width="33"/>
         <Button x:Name="btnDelete" Content="←" HorizontalAlignment="Left" Margin="241,89,0,0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.557,2.178"/>
 

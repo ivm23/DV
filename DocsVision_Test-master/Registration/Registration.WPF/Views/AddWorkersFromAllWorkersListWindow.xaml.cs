@@ -19,9 +19,22 @@ namespace Registration.WPF.Views
     /// </summary>
     public partial class AddWorkersFromAllWorkersListWindow : Window
     {
-        public AddWorkersFromAllWorkersListWindow()
+        private ViewModels.AddWorkersFromAllWorkersListViewModel _addWorkersFromAllWorkersListViewModel;
+        public AddWorkersFromAllWorkersListWindow(IEnumerable<string> selectedWorkers, IEnumerable<string> nonSelectedWorkers)
         {
             InitializeComponent();
+            _addWorkersFromAllWorkersListViewModel = new ViewModels.AddWorkersFromAllWorkersListViewModel(selectedWorkers, nonSelectedWorkers);
+            DataContext = _addWorkersFromAllWorkersListViewModel;
+        }
+
+        void createButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+        
+        public IEnumerable<string> GetSelectedWorkers()
+        {
+            return _addWorkersFromAllWorkersListViewModel.SelectedWorkers;
         }
     }
 }
