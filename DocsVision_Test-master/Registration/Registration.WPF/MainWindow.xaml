@@ -6,7 +6,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:Registration.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="597" Width="1229" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="597" Width="1500" WindowStartupLocation="CenterScreen"
         Initialized="Window_Initialized" MinWidth="600" MinHeight="300">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,7 +14,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="404*" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="408*" />
+            <ColumnDefinition Width="700*" />
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
        
@@ -29,6 +29,11 @@
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction
                            Command="{Binding Path=OpenLetterViewWindow}"
+                CommandParameter="{Binding ElementName=BriefContentLetters, Path=SelectedValue}" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="SelectedCellsChanged">
+                    <i:InvokeCommandAction
+                           Command="{Binding Path=ShowBriefLetter}"
                 CommandParameter="{Binding ElementName=BriefContentLetters, Path=SelectedValue}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -47,7 +52,8 @@
                            Command="{Binding SelectedItemChanged}"
                            CommandParameter="{Binding SelectedValue, ElementName=TV}" />
                     </i:EventTrigger>
-                <!--    <i:EventTrigger EventName="MouseRightButtonDown">
+
+                    <!--    <i:EventTrigger EventName="MouseRightButtonDown">
                         <i:InvokeCommandAction
                            Command="{Binding OpenMakeFolderWindow}"
                            CommandParameter="{Binding SelectedValue, ElementName=TV}" />
@@ -55,13 +61,13 @@
                 </i:Interaction.Triggers>
                 <TreeView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Create" Command="{Binding Path=CreateFolder}" />
-                        <MenuItem Header="Edit" Command="{Binding Path=EditFolder}"/>
-                        <MenuItem Header="Delete" Command="{Binding Path=DeleteFolder}"/>
+                        <MenuItem Header="Create" Command="{Binding CreateFolder}" />
+                        <MenuItem Header="Edit" Command="{Binding EditFolder}"/>
+                        <MenuItem Header="Delete" Command="{Binding DeleteFolder}"/>
                     </ContextMenu>
                 </TreeView.ContextMenu>
             </TreeView>
-            
+
         </StackPanel>
 
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
@@ -76,8 +82,8 @@
                 </MenuItem.Icon>
                 <MenuItem.ItemContainerStyle>
                     <Style TargetType="{x:Type MenuItem}">
-                        <EventSetter Event="Click" Handler="A" />
-                        <Setter Property="MenuItem.Command" Value="{Binding Path=AA}" />
+                        <Setter Property="Command" Value="{Binding DataContext.MakeLetter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type MenuItem}, AncestorLevel=1}}" />
+                        <Setter Property="CommandParameter" Value="{Binding}" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
                 <!-- <i:Interaction.Triggers>
@@ -99,7 +105,7 @@
             
         </Menu>
 
-        <UserControl Grid.Column="4" DataContext="{Binding Path=LetterPlugin}"/>
+        <ContentControl  Grid.Column="4" Content="{Binding Path=LetterPlugin}"/>
         
     </Grid>
 

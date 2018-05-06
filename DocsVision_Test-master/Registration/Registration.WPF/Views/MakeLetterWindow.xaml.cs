@@ -22,6 +22,7 @@ namespace Registration.WPF.Views
     {
 
         ViewModels.MakeLetterViewModel _makeLetterViewModel;
+
         public MakeLetterWindow(IServiceProvider provider)
         {
             if (null == provider)

@@ -11,6 +11,7 @@ namespace Registration.WPF.ViewModels
     class StandartLetterControlViewModel : Notifier
     {
         private LetterView _letterView = new LetterView();
+
         public StandartLetterControlViewModel(LetterView letterView)
         {
             if (null == letterView)
@@ -34,6 +35,7 @@ namespace Registration.WPF.ViewModels
                 return _letterView.Name;
             }
         }
+
         public string Text
         {
             set

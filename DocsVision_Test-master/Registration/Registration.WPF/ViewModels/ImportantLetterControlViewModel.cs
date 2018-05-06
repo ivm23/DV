@@ -10,102 +10,18 @@ namespace Registration.WPF.ViewModels
 {
     class ImportantLetterControlViewModel : Notifier
     {
-
         private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
 
-        private LetterView _letterView;
+        private LetterView _letterView = new LetterView();
+
         public ImportantLetterControlViewModel(LetterView letterView)
         {
             if (null == letterView)
                 throw new ArgumentNullException();
 
-            Title = letterView.Name;
-            Text = letterView.Text;
-            SenderName = letterView.SenderName;
-            Date = letterView.Date;
-        }
-        public string Title
-        {
-            set
-            {
-                _letterView.Name = value;
-                OnPropertyChanged(nameof(Title));
-            }
-            get
-            {
-                return _letterView.Name;
-            }
-        }
-        public string Text
-        {
-            set
-            {
-                _letterView.Text = value;
-                OnPropertyChanged(nameof(Text));
-            }
-            get
-            {
-                return _letterView.Text;
-            }
+            StringSelectedImportanceDegree = letterView.ExtendedData;
         }
 
-        public string SenderName
-        {
-            set
-            {
-                _letterView.SenderName = value;
-                OnPropertyChanged(nameof(SenderName));
-            }
-            get
-            {
-                return _letterView.SenderName;
-            }
-        }
-
-        public DateTime Date
-        {
-            set
-            {
-                _letterView.Date = value;
-                OnPropertyChanged(nameof(Date));
-            }
-            get
-            {
-                return _letterView.Date;
-            }
-        }
-
-        public LetterView LetterView
-        {
-            set
-            {
-                _letterView = value;
-                ImportantLetterData importantLetterData = _dataSerializer.DeserializeData<ImportantLetterData>(_letterView.ExtendedData);
-
-                SelectedImportanceDegree = importantLetterData.DegreeImportance.ToString();
-
-                OnPropertyChanged(nameof(LetterView));
-            }
-            get
-            {
-                return _letterView;
-            }
-        }
-
-        private bool _readOnly;
-
-        public bool ReadOnly
-        {
-            set
-            {
-                _readOnly = value;
-                OnPropertyChanged(nameof(ReadOnly));
-            }
-            get
-            {
-                return _readOnly;
-            }
-        }
 
         private IDictionary<Model.ImportanceDegree, string> _importanceDegrees = new Dictionary<Model.ImportanceDegree, string>();
 
@@ -114,8 +30,6 @@ namespace Registration.WPF.ViewModels
             set
             {
                 _importanceDegrees = value;
-              
-                OnPropertyChanged(nameof(ImportanceDegrees));
             }
             get
             {
@@ -123,7 +37,37 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        private void InitializeImportanceDegreeControl()
+        private bool _readOnly;
+        private bool _enable;
+
+        public bool ReadOnly
+        {
+            set
+            {
+                _readOnly = value;
+                Enable = !value;
+                OnPropertyChanged(nameof(ReadOnly));
+            }
+            get
+            {
+                return _readOnly;
+            }
+        }
+
+        public bool Enable
+        {
+            set
+            {
+                _enable = value;
+                OnPropertyChanged(nameof(Enable));
+            }
+            get
+            {
+                return _enable;
+            }
+        }
+
+        public void InitializeImportanceDegreeControl()
         {
             IDictionary<Model.ImportanceDegree, string> importanceDegrees = new Dictionary<Model.ImportanceDegree, string>();
             foreach (int value in Enum.GetValues(typeof(Model.ImportanceDegree)))
@@ -135,34 +79,42 @@ namespace Registration.WPF.ViewModels
                 importanceDegrees.Add(importanceDegreeEnumValue, importanceDegreeStringValue);
             }
             ImportanceDegrees = importanceDegrees;
-
-            CurrentImportantLetterControlViewModel = this;
         }
 
-        private ImportantLetterControlViewModel _currentImportantLetterControlViewModel;
-        public ImportantLetterControlViewModel CurrentImportantLetterControlViewModel
+        private Model.ImportanceDegree _selectedImportance;
+
+        public string StringSelectedImportanceDegree
         {
             set
             {
-                _currentImportantLetterControlViewModel = value;
-                OnPropertyChanged(nameof(CurrentImportantLetterControlViewModel));
-            }
-            get { return _currentImportantLetterControlViewModel; }
-        }
+                if (null != value)
+                {
+                    ImportantLetterData importantLetterData = _dataSerializer.DeserializeData<ImportantLetterData>(value);
 
-        private string _selectedImportance;
-        public string SelectedImportanceDegree
+                    SelectedImportanceDegree = importantLetterData.DegreeImportance;
+                }
+            }
+            get
+            {
+                return _dataSerializer.SerializeData(_selectedImportance);
+            }
+        }
+        public Model.ImportanceDegree SelectedImportanceDegree
         {
             set
             {
                 _selectedImportance = value;
+
                 OnPropertyChanged(nameof(SelectedImportanceDegree));
             }
+
             get
             {
                 return _selectedImportance;
             }
         }
-
     }
+
 }
+
+

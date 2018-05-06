@@ -20,22 +20,11 @@ namespace Registration.WPF.Views.Controls
     /// </summary>
     public partial class ImportanceDegreeEditorControl : UserControl
     {
+        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
+
         public ImportanceDegreeEditorControl()
         {
             InitializeComponent();
         }
-
-        public Model.ImportanceDegree SelectedImportanceDegree
-        {
-            set
-            {
-                comboImportanceDegree.SelectedValue = value;
-            }
-            get
-            {
-                return (Model.ImportanceDegree)comboImportanceDegree.SelectedValue;
-            }
-        }
-
     }
 }

@@ -49,7 +49,7 @@ namespace Registration.WPF.ViewModels
         {
             var letterView = LetterPlugin.LetterView;
            
-            ClientRequests.CreateLetter(letterView.Name, _worker.Id, letterView.ReceiversName, letterView.Text, letterView.ExtendedData, 3);
+            ClientRequests.CreateLetter(letterView.Name, _worker.Id, letterView.ReceiversName, letterView.Text, letterView.ExtendedData, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType.Id);
         }
 
         public ILetterPropertiesUIPlugin LetterPlugin { get; set; }

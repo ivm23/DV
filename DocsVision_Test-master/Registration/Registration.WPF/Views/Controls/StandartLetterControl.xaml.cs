@@ -23,6 +23,8 @@ namespace Registration.WPF.Views.Controls
     public partial class StandartLetterControl : UserControl, ILetterPropertiesUIPlugin
     {
         private ViewModels.StandartLetterControlViewModel standartLetterControlViewModel;
+        private LetterView _letterView = new LetterView();
+
         public StandartLetterControl()
         {
             InitializeComponent();
@@ -33,8 +35,8 @@ namespace Registration.WPF.Views.Controls
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
-            var let = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
-            standartLetterControlViewModel = new ViewModels.StandartLetterControlViewModel(let);
+            _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+            standartLetterControlViewModel = new ViewModels.StandartLetterControlViewModel(_letterView);
 
             DataContext = standartLetterControlViewModel;
         }
@@ -55,10 +57,11 @@ namespace Registration.WPF.Views.Controls
         {
             set
             {
+                _letterView = value;
                 standartLetterControlViewModel.Title = value.Name;
                 standartLetterControlViewModel.Text = value.Text;
                 standartLetterControlViewModel.Date = value.Date;
-                standartLetterControlViewModel.SenderName = value.SenderName;
+                standartLetterControlViewModel.SenderName = value.SenderName;               
             }
             get
             {

@@ -20,9 +20,12 @@ namespace Registration.WPF.Views.Controls
     /// <summary>
     /// Логика взаимодействия для ImportantLetterControlView.xaml
     /// </summary>
-    public partial class ImportantLetterControlView : UserControl//, ILetterPropertiesUIPlugin
+    public partial class ImportantLetterControlView : UserControl, ILetterPropertiesUIPlugin
     {
-        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
+
+        private ViewModels.ImportantLetterControlViewModel importantLetterControlViewModel;
+        private LetterView _letterView = new LetterView();
+
         public ImportantLetterControlView()
         {
             InitializeComponent();
@@ -30,115 +33,45 @@ namespace Registration.WPF.Views.Controls
 
         public void OnLoad(IServiceProvider serviceProvider)
         {
-            LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
-            InitializeImportanceDegreeControl();
+            if (null == serviceProvider)
+                throw new ArgumentNullException();
+
             fullContentLetterControl.OnLoad(serviceProvider);
 
-            CurrentImportantLetterControlView = this;
+            _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+            importantLetterControlViewModel = new ViewModels.ImportantLetterControlViewModel(_letterView);
+
+            DataContext = importantLetterControlViewModel;
+
+            importantLetterControlViewModel.InitializeImportanceDegreeControl();
         }
 
-        private LetterView _letterView;
+
         public LetterView LetterView
         {
             set
             {
-                _letterView = value;
-                ImportantLetterData importantLetterData = _dataSerializer.DeserializeData<ImportantLetterData>(_letterView.ExtendedData);
-
-                SelectedImportanceDegree = importantLetterData.DegreeImportance.ToString();
+                fullContentLetterControl.LetterView = value;
+                importantLetterControlViewModel.StringSelectedImportanceDegree = value.ExtendedData;
             }
             get
             {
+                _letterView = fullContentLetterControl.LetterView;
+                _letterView.ExtendedData = importantLetterControlViewModel.StringSelectedImportanceDegree;
                 return _letterView;
             }
         }
-
-        private ImportantLetterControlView _currentImportantLetterControlView;
-
-        public ImportantLetterControlView CurrentImportantLetterControlView
-        {
-            set
-            {
-                _currentImportantLetterControlView = value;
-            }
-            get
-            {
-                return _currentImportantLetterControlView;
-            }
-        }
-
-
-        public event EventHandler AddedReceiver;
-
 
         public bool ReadOnly
         {
             set
             {
-               
                 fullContentLetterControl.ReadOnly = value;
-                importanceDegreeEditorControl.IsEnabled = !value;
+                importantLetterControlViewModel.ReadOnly = value;
             }
             get
             {
                 return fullContentLetterControl.ReadOnly;
-            }
-        }
-
-
-        private IDictionary<Model.ImportanceDegree, string> _importanceDegrees = new Dictionary<Model.ImportanceDegree, string>();
-
-        public IDictionary<Model.ImportanceDegree, string> ImportanceDegrees
-        {
-            set
-            {
-                _importanceDegrees = value;
-            }
-            get
-            {
-                return _importanceDegrees;
-            }
-        }
-
-        private void InitializeImportanceDegreeControl()
-        {
-            IDictionary<Model.ImportanceDegree, string> importanceDegrees = new Dictionary<Model.ImportanceDegree, string>();
-            foreach (int value in Enum.GetValues(typeof(Model.ImportanceDegree)))
-            {
-                string importanceDegreeStringValue = (string)Resource.ResourceManager.GetObject(value.ToString());
-
-                Model.ImportanceDegree importanceDegreeEnumValue;
-                Enum.TryParse(importanceDegreeStringValue, out importanceDegreeEnumValue);
-                importanceDegrees.Add(importanceDegreeEnumValue, importanceDegreeStringValue);
-            }
-            ImportanceDegrees = importanceDegrees;
-        }
-
-
-        private string _selectedImportance;
-        public string SelectedImportanceDegree
-        {
-            set
-            {
-                _selectedImportance = value;
-            }
-            get
-            {
-                return _selectedImportance;
-            }
-        }
-
-        private bool _enable;
-
-        public bool Enable
-        {
-            set
-            {
-                _enable = value;
-            }
-            get
-            {
-                return _enable;
             }
         }
     }
