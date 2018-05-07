@@ -23,10 +23,10 @@ namespace Registration.WPF.Views.Controls
         private ViewModels.WorkersEditorControlViewModel _workersEditorControlViewModel;
         public WorkersEditorControl()
         {
-            InitializeComponent();                       
+            InitializeComponent();
         }
 
-        public void InitializeWorkersEditorControl(IEnumerable<string> allWorkers )
+        public void InitializeWorkersEditorControl(IEnumerable<string> allWorkers)
         {
             _workersEditorControlViewModel = new ViewModels.WorkersEditorControlViewModel(allWorkers);
 
@@ -38,8 +38,7 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 txtWorkers.IsReadOnly = value;
-               //listWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
-                btnAllWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
+                btnAllWorkers.Visibility = (value ? Visibility.Collapsed : Visibility.Visible);
             }
 
             get
@@ -47,21 +46,6 @@ namespace Registration.WPF.Views.Controls
                 return txtWorkers.IsReadOnly;
             }
         }
-
-        private bool _enable;
-        public bool Enable
-        {
-            set
-            {
-                listWorkers.Visibility = (value ? Visibility.Hidden : Visibility.Visible);
-                _enable = value;
-            }
-            get
-            {
-                return _enable;
-            }
-        }
-
         public IEnumerable<string> NamesWorkers
         {
             set

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Registration.WPF.ViewModels
 {
@@ -11,7 +13,6 @@ namespace Registration.WPF.ViewModels
     {
         public WorkersEditorControlViewModel(IEnumerable<string> allWorkers)
         {
-            //   InitializeAllWorkers(allWorkers);
             _allWorkers = allWorkers;
             AllWorkers = allWorkers;
             Focus = true;
@@ -20,7 +21,7 @@ namespace Registration.WPF.ViewModels
             AddWorker = new ViewModels.Command(arg => AddWorkerMethod(arg));
             AddSeveralWorkers = new ViewModels.Command(arg => AddSeveralWorkersMethod());
 
-            Enable = false;
+            Enable = Visibility.Collapsed;
         }
 
         private IEnumerable<string> _receivers;
@@ -37,7 +38,6 @@ namespace Registration.WPF.ViewModels
                 {
                     workersString.Append(worker).Append(SplitMarker).Append(" ");
                 }
-                //OnPropertyChanged(nameof(NamesWorkers));               
                 Names = workersString.ToString();
             }
             get
@@ -80,17 +80,17 @@ namespace Registration.WPF.ViewModels
             NamesWorkers = allWorkers;
         }
 
-        private string _enable;
-        public bool Enable
+        private Visibility _enable;
+        public Visibility Enable
         {
             set
             {
-                _enable = (value ? "Visible" : "Hidden");
+                _enable = value;
                 OnPropertyChanged(nameof(Enable));
             }
             get
             {
-                return (_enable == "Visible");
+                return _enable;
             }
         }
 
@@ -112,7 +112,7 @@ namespace Registration.WPF.ViewModels
         public ICommand ChangedText { set; get; }
         private void ChangedTextMethod(object arg)
         {
-            Enable = true;
+            Enable = Visibility.Visible;
             var matchWorkerNames = new List<string>();
             foreach(string workerName in _allWorkers)
             {
@@ -121,7 +121,11 @@ namespace Registration.WPF.ViewModels
                     matchWorkerNames.Add(workerName);
                 }
             }
-            AllWorkers = matchWorkerNames;
+            if (matchWorkerNames.Count != 0)
+            {
+                AllWorkers = matchWorkerNames;
+            }
+            else Enable = Visibility.Collapsed;
         }
 
         public ICommand FocusToListBox { get; set; }
@@ -139,8 +143,7 @@ namespace Registration.WPF.ViewModels
 
         public ICommand AddSeveralWorkers { get; set; }
         private void AddSeveralWorkersMethod()
-        {
-            
+        {   
             IEnumerable<string> nonSelectedWorkers = new List<string>();
             nonSelectedWorkers = _allWorkers.Where(str => !selectedWorkers.Contains(str));
        

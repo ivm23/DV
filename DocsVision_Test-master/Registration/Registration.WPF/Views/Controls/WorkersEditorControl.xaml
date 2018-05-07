@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="52" d:DesignWidth="211">
     <Grid Margin="0,0,-80,0">
-        <TextBox x:Name="txtWorkers" HorizontalAlignment="Left" TextWrapping="Wrap" Width="292" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Names}" Margin="0,0,-81,29">
+        <TextBox x:Name="txtWorkers" HorizontalAlignment="Left" TextWrapping="Wrap" Width="292" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Names}" Margin="0,0,-1,29">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
                     <i:InvokeCommandAction
@@ -21,8 +21,8 @@
                 <KeyBinding Command="{Binding Path=FocusToListBox}" Key="Down" />
             </TextBox.InputBindings>
         </TextBox>
-        <Button x:Name="btnAllWorkers" Content="..." HorizontalAlignment="Left" Height="22" Margin="265,1,-81,0" VerticalAlignment="Top" Width="27" Visibility="Visible" Command="{Binding Path=AddSeveralWorkers}"/>
-        <ListBox x:Name="listWorkers" HorizontalAlignment="Left" SelectedIndex="0" ItemsSource="{Binding AllWorkers}" Margin="0,23,-81,0" Width="292" Visibility="{Binding Path=Enable, Mode=TwoWay}" Focusable="{Binding Path=Enable, Mode=TwoWay}">
+        <Button x:Name="btnAllWorkers" Content="..." HorizontalAlignment="Left" Height="22" Margin="265,1,-81,0" VerticalAlignment="Top" Width="27" Visibility="{Binding Path=Enable}" Command="{Binding Path=AddSeveralWorkers}"/>
+        <ListBox x:Name="listWorkers" HorizontalAlignment="Left" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}" Margin="0,23,-81,0" Width="292" Focusable="{Binding Path=Focus}">
             <!-- <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
@@ -32,7 +32,9 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>-->
             <ListBox.InputBindings>
-                <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
+     <!--           <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
+                            CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>-->
+                <KeyBinding Command="{Binding Path=FocusToListBox}" Key="Enter" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
                 <MouseBinding Command="{Binding Path=AddWorker}" MouseAction="LeftDoubleClick"
                               CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>

@@ -48,7 +48,6 @@ namespace Registration.WPF
         public ICommand DeleteLetterClick { set; get; }
         public ICommand MakeLetter { set; get; }
         public ICommand ShowBriefLetter { set; get; }
-
         public ICommand CreateFolder { set; get; }
         public ICommand EditFolder { set; get; }
         public ICommand DeleteFolder { set; get; }
@@ -124,6 +123,8 @@ namespace Registration.WPF
         private void ShowBriefLetterMethod(object arg)
         {
             LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
+            LetterPlugin.OnLoad(ServiceProvider);
+            LetterPlugin.ReadOnly = true;
         }
 
         private IServiceProvider ServiceProvider
