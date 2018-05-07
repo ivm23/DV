@@ -94,6 +94,7 @@
     <Compile Include="ViewModels\NodeProvider.cs" />
     <Compile Include="ViewModels\Notifier.cs" />
     <Compile Include="ViewModels\SingUpViewModel.cs" />
+    <Compile Include="ViewModels\UnreadFolderViewModel.cs" />
     <Compile Include="ViewModels\ViewPluginCreator.cs" />
     <Compile Include="ViewModels\WorkersEditorControlViewModel.cs" />
     <Compile Include="Views\AddWorkersFromAllWorkersListWindow.xaml.cs">

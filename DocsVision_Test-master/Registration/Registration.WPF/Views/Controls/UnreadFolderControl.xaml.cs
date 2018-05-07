@@ -13,61 +13,69 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Registration.Model;
+using Registration.ClientInterface;
 
 namespace Registration.WPF.Views.Controls
 {
     /// <summary>
     /// Interaction logic for UnreadFolderControl.xaml
     /// </summary>
-    public partial class UnreadFolderControl : UserControl//, IFolderPropertiesUIPlugin
+    public partial class UnreadFolderControl : UserControl, IFolderPropertiesUIPlugin
     {
-        public event EventHandler ChangedFolderTypePlugin;
+        private ViewModels.UnreadFolderViewModel _unreadFolderViewModel;
 
         public UnreadFolderControl()
         {
             InitializeComponent();
         }
 
-        public void OnLoad(IServiceProvider serviceProvider)
+        public void OnLoad(IServiceProvider serviceProvider, Models.IMakeFolderWindow parent)
         {
-            //  if (null == serviceProvider)
-            //      throw new ArgumentNullException();
+            if (null == serviceProvider)
+                throw new ArgumentNullException();
 
-            //   _serviceProvider = serviceProvider;
-            //   createFolderControl1.InitializeFolderTypes(ServiceProvider);
+            _unreadFolderViewModel = new ViewModels.UnreadFolderViewModel(serviceProvider, ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllFolderTypes(), parent);
+            DataContext = _unreadFolderViewModel;
+            FolderType = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType;
+
+            createFolderControl.DataContext = _unreadFolderViewModel;
         }
 
         public FolderType FolderType
         {
             set
             {
-                // createFolderControl1.FolderType = value;
+                _unreadFolderViewModel.SelectedType = value;
             }
             get
             {
-                return null;// createFolderControl1.FolderType;
+                return _unreadFolderViewModel.SelectedType;
             }
         }
 
-        private void createFolderControl_ChangedFolderType(object sender, EventArgs e)
-        {
-            // ChangedFolderTypePlugin(this, e);
-        }
-
+        private FolderProperties _folderProperties = new FolderProperties();
         public FolderProperties FolderProperties
         {
             set
             {
-                //   _info = value;
+                _folderProperties = value;
             }
             get
             {
-                //    _info.Properties.Clear();
-                //    if (_info == null)
-                //        _info = new global::Registration.Model.FolderProperties();
-                //      _info.Name = createFolderControl1.NameF;
+                return _folderProperties;
+            }
+        }
 
-                return null;//_info;
+        public string FolderName
+        {
+            set
+            {
+                _unreadFolderViewModel.NameFolder = value;
+            }
+
+            get
+            {
+                return _unreadFolderViewModel.NameFolder;
             }
         }
     }
