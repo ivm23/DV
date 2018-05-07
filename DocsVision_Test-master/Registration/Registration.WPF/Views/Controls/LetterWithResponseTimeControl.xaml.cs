@@ -21,6 +21,8 @@ namespace Registration.WPF.Views.Controls
     /// </summary>
     public partial class LetterWithResponseTimeControl : UserControl//, ILetterPropertiesUIPlugin
     {
+        private ViewModels.LetterWithResponseTimeControlViewModel _letterWithResponseTimeViewModel;
+        private LetterView _letterView = new LetterView();
         public LetterWithResponseTimeControl()
         {
             InitializeComponent();
@@ -28,7 +30,15 @@ namespace Registration.WPF.Views.Controls
 
         public void OnLoad(IServiceProvider serviceProvider)
         {
-            LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+            if (null == serviceProvider)
+                throw new ArgumentNullException();
+
+            fullContentLetterControl.OnLoad(serviceProvider);
+
+            _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+
+            DataContext = _letterWithResponseTimeViewModel;
+            // LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
         }
 
         public LetterView LetterView { set; get; }
