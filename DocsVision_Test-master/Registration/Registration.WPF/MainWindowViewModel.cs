@@ -40,6 +40,7 @@ namespace Registration.WPF
             CreateFolder = new ViewModels.Command(arg => CreateFolderMethod());
             ShowBriefLetter = new ViewModels.Command(arg => ShowBriefLetterMethod(arg));
             EditFolder = new ViewModels.Command(arg => EditFolderMethod(arg));
+            DeleteFolder = new ViewModels.Command(arg => DeleteFolderMethod(arg));
         }
 
         public ICommand SelectedItemChanged { get; set; }
@@ -50,6 +51,7 @@ namespace Registration.WPF
 
         public ICommand CreateFolder { set; get; }
         public ICommand EditFolder { set; get; }
+        public ICommand DeleteFolder { set; get; }
 
         private void MakeLetterMethod(object arg)
         {
@@ -64,6 +66,10 @@ namespace Registration.WPF
             window.ShowDialog();
         }
 
+        private void DeleteFolderMethod(object arg)
+        {
+            ClientRequests.DeleteFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+        }
         private void CreateFolderMethod()
         {
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType = ClientRequests.GetFolderType(2);
