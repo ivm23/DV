@@ -40,8 +40,8 @@ namespace Registration.WPF.Views
         public void ChangeFolderPlugin(Control userControl)
         {
             stackPanel.Children.Clear();
-            userControl.DataContext = _makeFolderViewModel;
-            _makeFolderViewModel.FolderPlugin = (IFolderPropertiesUIPlugin)userControl;
+         
+            _makeFolderViewModel.FolderPlugin = (IFolderPropertiesUIPlugin)userControl;           
             stackPanel.Children.Add(userControl);
         }
 

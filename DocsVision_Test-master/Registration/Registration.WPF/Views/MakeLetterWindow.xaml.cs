@@ -33,6 +33,7 @@ namespace Registration.WPF.Views
             _makeLetterViewModel = new ViewModels.MakeLetterViewModel(provider);
             DataContext = _makeLetterViewModel;
             _makeLetterViewModel.InitializeLetterPlugin();
+
             stackPanel.Children.Add((Control)(_makeLetterViewModel.LetterPlugin));
         }
     }

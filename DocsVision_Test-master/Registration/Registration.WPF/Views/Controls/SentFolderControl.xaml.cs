@@ -26,7 +26,7 @@ namespace Registration.WPF.Views.Controls
         public SentFolderControl()
         {
             InitializeComponent();
-            createFolderControl.DataContext = _sentFolderViewModel;
+     //       createFolderControl.DataContext = _sentFolderViewModel;
         }
 
         private IServiceProvider _serviceProvider;
@@ -48,6 +48,10 @@ namespace Registration.WPF.Views.Controls
 
             _sentFolderViewModel = new ViewModels.SentFolderViewModel(serviceProvider, ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllFolderTypes(), parent);
             DataContext = _sentFolderViewModel;
+            FolderType = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType;
+            createFolderControl.DataContext = _sentFolderViewModel;
+
+            _sentFolderViewModel.SelectedType = FolderType;
         }
 
         public FolderType FolderType

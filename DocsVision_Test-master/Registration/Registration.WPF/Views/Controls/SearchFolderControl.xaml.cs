@@ -22,11 +22,11 @@ namespace Registration.WPF.Views.Controls
     /// </summary>
     public partial class SearchFolderControl : UserControl, IFolderPropertiesUIPlugin
     {
-        private ViewModels.SentFolderViewModel _searchFolderViewModel;
+        private ViewModels.SearchFolderViewModel _searchFolderViewModel;
         public SearchFolderControl()
         {
             InitializeComponent();
-            createFolderControl.DataContext = _searchFolderViewModel;
+         //   createFolderControl.DataContext = _searchFolderViewModel;
         }
 
         public void OnLoad(IServiceProvider serviceProvider, Models.IMakeFolderWindow parent)
@@ -34,8 +34,14 @@ namespace Registration.WPF.Views.Controls
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
-            _searchFolderViewModel = new ViewModels.SentFolderViewModel(serviceProvider, ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllFolderTypes(), parent);
+            _searchFolderViewModel = new ViewModels.SearchFolderViewModel(serviceProvider, ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllFolderTypes(), parent);
+
             DataContext = _searchFolderViewModel;
+
+            FolderType = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType;
+            createFolderControl.DataContext = _searchFolderViewModel;
+
+            _searchFolderViewModel.SelectedType = FolderType;
         }
 
 

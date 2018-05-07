@@ -28,8 +28,21 @@ namespace Registration.WPF.ViewModels
 
             FolderTypeChanged = new ViewModels.Command(arg => FolderTypeChangedMethod(arg));
             _parentWindow = parent;
+
+            SelectedType = ((ApplicationState)provider.GetService(typeof(ApplicationState))).SelectedFolderType;
+            SelectedFolderName = SelectedType.Name;
         }
 
+        private string _selectedFolderName;
+        public string SelectedFolderName
+        {
+            set
+            {
+                _selectedFolderName = value;
+                OnPropertyChanged(nameof(SelectedFolderName));
+            }
+            get { return _selectedFolderName;  }
+        }
 
         public ICommand FolderTypeChanged { get; set; }
         private void FolderTypeChangedMethod(object arg)
@@ -38,7 +51,9 @@ namespace Registration.WPF.ViewModels
             
             IFolderPropertiesUIPlugin folderPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)_serviceProvider.GetService(typeof(PluginService))));
             folderPlugin.OnLoad(_serviceProvider, _parentWindow);
-                        
+            folderPlugin.FolderType = SelectedType;
+            folderPlugin.FolderName = NameFolder;
+
             _parentWindow.ChangeFolderPlugin((Control)(folderPlugin));
             ((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).CurrentFolderPropertiesPlugin = folderPlugin;
         }

@@ -77,8 +77,6 @@ namespace Registration.WPF.ViewModels
             FolderPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             FolderPlugin.OnLoad(ServiceProvider, _parentWindow);
 
-            OnPropertyChanged(nameof(FolderPlugin));
-
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentFolderPropertiesPlugin = FolderPlugin;
         }
     }
