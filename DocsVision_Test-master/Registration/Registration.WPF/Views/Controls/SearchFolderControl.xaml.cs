@@ -61,10 +61,11 @@ namespace Registration.WPF.Views.Controls
         {
             set
             {
+                _searchFolderViewModel.FolderProperties = value;
             }
             get
             {
-                return null;
+                return _searchFolderViewModel.FolderProperties;
             }
         }
 

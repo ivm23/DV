@@ -48,6 +48,7 @@ namespace Registration.WPF.ViewModels
             folderPlugin.FolderType = SelectedType;
             folderPlugin.FolderName = NameFolder;
         }
+
         private string _selectedFolderName;
         public string SelectedFolderName
         {
@@ -58,6 +59,7 @@ namespace Registration.WPF.ViewModels
             }
             get { return _selectedFolderName; }
         }
+
         public string NameFolder
         {
             set
@@ -70,6 +72,7 @@ namespace Registration.WPF.ViewModels
                 return _folder.Name;
             }
         }
+
         public FolderType SelectedType
         {
             set

@@ -10,7 +10,7 @@
         <local:CreateFolderControl x:Name="createFolderControl" HorizontalAlignment="Left" Margin="0,0,-8,0" VerticalAlignment="Top" Width="334"/>
         <Label x:Name="label" Content="Which messages would you like to show in this folder?" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="Show in folder if Sender contains" HorizontalAlignment="Left" Margin="12,87,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" HorizontalAlignment="Left" Margin="201,87,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" HorizontalAlignment="Left" Margin="201,87,0,0" SelectedValue="{Binding Path=SelectedWorkerName}" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </UserControl>

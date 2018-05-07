@@ -32,7 +32,6 @@ namespace Registration.WPF.ViewModels
 
             WorkersNames = ((IClientRequests)provider.GetService(typeof(IClientRequests))).GetAllWorkers();
 
-
             SelectedType = ((ApplicationState)provider.GetService(typeof(ApplicationState))).SelectedFolderType;
             SelectedFolderName = SelectedType.Name;
         }
@@ -100,7 +99,7 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        private FolderProperties _folderProperties;
+        private FolderProperties _folderProperties = new FolderProperties();
         public FolderProperties FolderProperties
         {
             set
@@ -109,8 +108,21 @@ namespace Registration.WPF.ViewModels
             }
             get
             {
+                _folderProperties.Name = NameFolder;
+                _folderProperties.ExtendedProperty = SelectedWorkerName;
                 return _folderProperties;
             }
+        }
+
+        private string _selectedWorkerName;
+        public string SelectedWorkerName
+        {
+            set
+            {
+                _selectedWorkerName = value;
+                OnPropertyChanged(nameof(SelectedWorkerName));
+            }
+            get { return _selectedWorkerName; }
         }
 
         private IEnumerable<string> _workersNames;

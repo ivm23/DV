@@ -32,8 +32,8 @@ namespace Registration.WPF.ViewModels
         }
 
         private void CreateFolderMethod()
-        {
-            ClientRequests.CreateFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id, FolderPlugin.FolderName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType.Id, "");
+        {          
+            ClientRequests.CreateFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id, FolderPlugin.FolderName, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType.Id, FolderPlugin.FolderProperties.ExtendedProperty);
         }
 
         private IServiceProvider ServiceProvider
