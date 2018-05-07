@@ -53,6 +53,7 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 fullContentLetterControl.LetterView = value;
+
                 _importantLetterControlViewModel.StringSelectedImportanceDegree = value.ExtendedData;
             }
             get

@@ -8,11 +8,11 @@ using System.ComponentModel;
 
 namespace Registration.WPF.ViewModels
 {
-    class LetterWithResponseTimeControlViewModel : Notifier//, ILetterPropertiesUIPlugin
+    class LetterWithResponseTimeControlViewModel : Notifier
     {
 
         private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
-
+        private LetterView _letterView = new LetterView();
         public LetterWithResponseTimeControlViewModel()
         {
 
@@ -20,23 +20,8 @@ namespace Registration.WPF.ViewModels
 
         public void OnLoad(IServiceProvider serviceProvider)
         {
-            LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
         }
 
-        private LetterView _letterView;
-        public LetterView LetterView
-        {
-            set
-            {
-                _letterView = value;
-                OnPropertyChanged(nameof(LetterView));
-                ReminderLetterData = (_dataSerializer.DeserializeData<LetterWithReminderData>(value.ExtendedData)).ReminderData.ToString();
-            }
-            get
-            {
-                return _letterView;
-            }
-        }
 
         private string _reminderLetterData;
         public string ReminderLetterData
@@ -51,8 +36,6 @@ namespace Registration.WPF.ViewModels
                 return _reminderLetterData;
             }
         }
-
-        public event EventHandler AddedReceiver;
 
         private bool _readOnly;
         private bool _enable;

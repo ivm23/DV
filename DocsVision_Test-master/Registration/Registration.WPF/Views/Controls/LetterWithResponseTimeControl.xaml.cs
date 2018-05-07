@@ -41,7 +41,21 @@ namespace Registration.WPF.Views.Controls
             // LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
         }
 
-        public LetterView LetterView { set; get; }
+        public LetterView LetterView
+        {
+            set
+            {
+                fullContentLetterControl.LetterView = value;
+                
+               //_importantLetterControlViewModel.StringSelectedImportanceDegree = value.ExtendedData;
+            }
+            get
+            {
+                _letterView = fullContentLetterControl.LetterView;
+                _letterView.ExtendedData = _importantLetterControlViewModel.StringSelectedImportanceDegree;
+                return _letterView;
+            }
+        }
         public bool Enable { set; get; }
 
 
