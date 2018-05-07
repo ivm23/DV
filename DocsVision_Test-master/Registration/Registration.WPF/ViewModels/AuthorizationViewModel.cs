@@ -26,7 +26,6 @@ namespace Registration.WPF.ViewModels
         {
             get
             {
-
                 return _databasesNames;
             }
             set

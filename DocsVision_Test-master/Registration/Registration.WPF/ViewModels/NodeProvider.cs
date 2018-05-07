@@ -20,7 +20,7 @@ namespace Registration.WPF.ViewModels
                 if (folder.Id == f.ParentId )
                 {
                     Models.DirectoryNode newNode = new WPF.Models.DirectoryNode { Name = f.Name, Folder = f};
-                    MakeTree(f, folders, ref node);
+                    MakeTree(f, folders, ref newNode);
                     node.AddDirNode(newNode);
                 }
             }

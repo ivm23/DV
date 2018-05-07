@@ -50,7 +50,7 @@
                     <i:EventTrigger EventName="SelectedItemChanged">
                         <i:InvokeCommandAction
                            Command="{Binding SelectedItemChanged}"
-                           CommandParameter="{Binding SelectedValue, ElementName=TV}" />
+                           CommandParameter="{Binding SelectedItem, ElementName=TV}" />
                     </i:EventTrigger>
 
                     <!--    <i:EventTrigger EventName="MouseRightButtonDown">

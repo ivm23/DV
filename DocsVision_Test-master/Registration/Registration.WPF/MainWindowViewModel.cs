@@ -56,7 +56,7 @@ namespace Registration.WPF
         {
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = (LetterType)(arg);
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = new LetterView();
-            var window = new Views.MakeLetterWindow(ServiceProvider);          
+            var window = new Views.MakeLetterWindow(ServiceProvider);
             window.ShowDialog();
         }
 
@@ -83,15 +83,10 @@ namespace Registration.WPF
             ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
         }
 
-        bool f = false;
         private void SelectedItemChangedMethod(object arg)
         {
-            if (!f)
-            {
-                InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
+            InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
-               f = true;
-                }
         }
 
 
@@ -100,7 +95,7 @@ namespace Registration.WPF
         public IEnumerable<LetterType> ExistLettersTypes
         {
             set
-            {               
+            {
                 _existLettersTypes = value;
                 OnPropertyChanged(nameof(ExistLettersTypes));
             }
@@ -116,7 +111,7 @@ namespace Registration.WPF
         }
 
         private void OpenLetterViewWindowMethod(object arg)
-        {  
+        {
             var letterViewWindow = new Views.LetterViewWindow(ServiceProvider);
             letterViewWindow.ShowDialog();
         }
@@ -136,14 +131,14 @@ namespace Registration.WPF
         private IClientRequests ClientRequests
         {
             get { return _clientRequests; }
-        }        
+        }
 
         private void InitializeClientRequests()
         {
             _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
 
-        private IList<Folder> _folders = new ObservableCollection<Folder>();    
+        private IList<Folder> _folders = new ObservableCollection<Folder>();
 
         private ObservableCollection<LetterView> _lettersViews = new ObservableCollection<LetterView>();
         public ObservableCollection<LetterView> LettersViews
@@ -177,7 +172,7 @@ namespace Registration.WPF
 
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = _selectedLetter;
-                
+
                 OnPropertyChanged(nameof(SelectedLetter));
 
             }
@@ -193,7 +188,7 @@ namespace Registration.WPF
             {
                 _selectedNode = value;
                 OnPropertyChanged(nameof(SelectedNode));
-            }   
+            }
             get
             {
                 return _selectedNode;
@@ -214,7 +209,7 @@ namespace Registration.WPF
             }
             catch (Exception ex)
             {
-
+                Letters = new List<LetterView>();
             }
 
         }

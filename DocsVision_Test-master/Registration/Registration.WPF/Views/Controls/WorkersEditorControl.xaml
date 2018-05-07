@@ -34,6 +34,8 @@
             <ListBox.InputBindings>
                 <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
+                <KeyBinding Command="{Binding Path=ChangeEndOfNamesString}" Key="Backspace" 
+                          />
                 <KeyBinding Command="{Binding Path=FocusToListBox}" Key="Down" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
                 <MouseBinding Command="{Binding Path=AddWorker}" MouseAction="LeftDoubleClick"

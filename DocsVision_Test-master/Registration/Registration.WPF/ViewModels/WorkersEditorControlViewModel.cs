@@ -22,6 +22,7 @@ namespace Registration.WPF.ViewModels
             FocusToListBox = new ViewModels.Command(arg => FocusToListBoxMethod(arg));
             AddWorker = new ViewModels.Command(arg => AddWorkerMethod(arg));
             AddSeveralWorkers = new ViewModels.Command(arg => AddSeveralWorkersMethod());
+            //ChangeEndOfNamesString = new ViewModels.Command(arg => ChangeEndOfNamesStringMethod());
 
             Enable = Visibility.Collapsed;
         }
@@ -114,9 +115,19 @@ namespace Registration.WPF.ViewModels
 
         }
 
+        private void findNewIndex(string str)
+        {
+            stringEndIndex = str.LastIndexOf(SplitMarker);
+            if (stringEndIndex < 0)
+                stringEndIndex = 0;
+        }
+
         public ICommand ChangedText { set; get; }
         private void ChangedTextMethod(object arg)
         {
+            if (stringEndIndex > ((string)arg).Length - 1)
+                findNewIndex((string)arg);
+
             Enable = Visibility.Visible;
             var matchWorkerNames = new List<string>();
             foreach (string workerName in _allWorkers)
@@ -144,7 +155,6 @@ namespace Registration.WPF.ViewModels
         private void AddWorkerMethod(object arg)
         {
             selectedWorkers.Add((string)arg);
-
         }
 
         public ICommand AddSeveralWorkers { get; set; }
