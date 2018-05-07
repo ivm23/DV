@@ -39,6 +39,7 @@ namespace Registration.WPF
             MakeLetter = new ViewModels.Command(arg => MakeLetterMethod(arg));
             CreateFolder = new ViewModels.Command(arg => CreateFolderMethod());
             ShowBriefLetter = new ViewModels.Command(arg => ShowBriefLetterMethod(arg));
+            EditFolder = new ViewModels.Command(arg => EditFolderMethod(arg));
         }
 
         public ICommand SelectedItemChanged { get; set; }
@@ -48,12 +49,18 @@ namespace Registration.WPF
         public ICommand ShowBriefLetter { set; get; }
 
         public ICommand CreateFolder { set; get; }
+        public ICommand EditFolder { set; get; }
 
         private void MakeLetterMethod(object arg)
         {
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = (LetterType)(arg);
-           // ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = null;
+
             var window = new Views.MakeLetterWindow(ServiceProvider);          
+            window.ShowDialog();
+        }
+        private void EditFolderMethod(object arg)
+        {
+            var window = new Views.RenameFolderWindow(ServiceProvider);
             window.ShowDialog();
         }
 

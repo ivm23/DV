@@ -12,16 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Registration.WPF.Views.Controls
+namespace Registration.WPF.Views
 {
     /// <summary>
     /// Interaction logic for RenameFolderWindow.xaml
     /// </summary>
     public partial class RenameFolderWindow : Window
     {
-        public RenameFolderWindow()
+        public RenameFolderWindow( IServiceProvider provider)
         {
-            //InitializeComponent();
+            if (null == provider)
+                throw new ArgumentNullException();
+
+            InitializeComponent();
+            DataContext = new ViewModels.RenameFolderViewModel(provider);
         }
     }
 }

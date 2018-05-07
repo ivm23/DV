@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
+        xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
-        Title="RenameFolderWindow" Height="105" Width="252">
+        Title="RenameFolderWindow" Height="120" Width="257">
     <Grid>
         <Label x:Name="labelName" Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtNewName" HorizontalAlignment="Left" Height="23" Margin="64,13,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="170"/>
-        <Button x:Name="button" Content="Save" HorizontalAlignment="Left" Margin="75,44,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="button_Copy" Content="Cancel" HorizontalAlignment="Left" Margin="159,44,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="txtNewName" HorizontalAlignment="Left" Height="23" Margin="64,13,0,0" TextWrapping="Wrap" Text="{Binding Path=Name}" VerticalAlignment="Top" Width="170"/>
+        <Button x:Name="button" IsDefault="true" Content="Save" HorizontalAlignment="Left" Margin="75,44,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=RenameFolder}"/>
+        <Button x:Name="button_Copy" IsCancel="true" Content="Cancel" HorizontalAlignment="Left" Margin="159,44,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

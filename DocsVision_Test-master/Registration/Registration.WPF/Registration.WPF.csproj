@@ -83,6 +83,7 @@
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="ViewModels\InboxFolderViewModel.cs" />
+    <Compile Include="ViewModels\RenameFolderViewModel.cs" />
     <Compile Include="ViewModels\SearchFolderViewModel.cs" />
     <Compile Include="ViewModels\SentFolderViewModel.cs" />
     <Compile Include="ViewModels\StandartLetterControlViewModel.cs" />
@@ -138,14 +139,14 @@
     <Compile Include="Views\MakeFolderWindow.xaml.cs">
       <DependentUpon>MakeFolderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RenameFolderWindow.xaml.cs">
-      <DependentUpon>RenameFolderWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\LetterViewWindow.xaml.cs">
       <DependentUpon>LetterViewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MakeLetterWindow.xaml.cs">
       <DependentUpon>MakeLetterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RenameFolderWindow.xaml.cs">
+      <DependentUpon>RenameFolderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SingUpWindow.xaml.cs">
       <DependentUpon>SingUpWindow.xaml</DependentUpon>
@@ -218,15 +219,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RenameFolderWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\LetterViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MakeLetterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RenameFolderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
