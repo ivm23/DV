@@ -31,8 +31,8 @@ namespace Registration.WPF.Views.Controls
             _workersEditorControlViewModel = new ViewModels.WorkersEditorControlViewModel(allWorkers);
 
             DataContext = _workersEditorControlViewModel;
-            //    _workersEditorControlViewModel.NamesWorkers = allWorkers();
         }
+
         public bool ReadOnly
         {
             set
@@ -47,6 +47,7 @@ namespace Registration.WPF.Views.Controls
                 return txtWorkers.IsReadOnly;
             }
         }
+
         private bool _enable;
         public bool Enable
         {

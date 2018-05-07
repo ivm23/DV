@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
-        Title="MakeFolderWindow" Height="192.329" Width="300">
+        Title="MakeFolderWindow" Height="206.302" Width="368.219">
     <Grid>
-        <Button x:Name="button" Content="Cancel" HorizontalAlignment="Left" Margin="210,139,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="button_Copy" Content="Create" HorizontalAlignment="Left" IsDefault="True" Margin="117,139,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=CreateFolder}"/>
-        <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="114" VerticalAlignment="Top" Width="292" />
+        <Button x:Name="button" Content="Cancel" HorizontalAlignment="Left" Margin="275,131,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button_Copy" Content="Create" HorizontalAlignment="Left" IsDefault="True" Margin="182,131,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=CreateFolder}"/>
+        <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="114" VerticalAlignment="Top" Width="350" />
     </Grid>
 </Window>

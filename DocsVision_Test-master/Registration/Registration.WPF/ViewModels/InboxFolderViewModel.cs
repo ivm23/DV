@@ -19,7 +19,6 @@ namespace Registration.WPF.ViewModels
 
         public InboxFolderViewModel(IServiceProvider provider, IEnumerable<FolderType> folderTypes, Models.IMakeFolderWindow parent)
         {
-
             if (null == folderTypes || null == provider)
                 throw new ArgumentNullException();
                       
@@ -39,8 +38,9 @@ namespace Registration.WPF.ViewModels
 
             var f = ViewModels.ViewPluginCreater.Create(((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)_serviceProvider.GetService(typeof(PluginService))));
             f.OnLoad(_serviceProvider, _parentWindow);
-
+                        
             _parentWindow.ChangeFolderPlugin((Control)(f));
+            ((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).CurrentFolderPropertiesPlugin = f;
         }
 
         public string NameFolder

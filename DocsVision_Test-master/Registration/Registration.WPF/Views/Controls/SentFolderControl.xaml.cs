@@ -26,6 +26,7 @@ namespace Registration.WPF.Views.Controls
         public SentFolderControl()
         {
             InitializeComponent();
+            createFolderControl.DataContext = _sentFolderViewModel;
         }
 
         private IServiceProvider _serviceProvider;

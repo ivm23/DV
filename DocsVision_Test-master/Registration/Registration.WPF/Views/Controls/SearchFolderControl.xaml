@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="127" d:DesignWidth="326">
     <Grid>
-        <local:CreateFolderControl HorizontalAlignment="Left" Margin="-8,0,0,0" VerticalAlignment="Top" Width="334"/>
+        <local:CreateFolderControl x:Name="createFolderControl" HorizontalAlignment="Left" Margin="-8,0,0,0" VerticalAlignment="Top" Width="334"/>
         <Label x:Name="label" Content="Which messages would you like to show in this folder?" HorizontalAlignment="Left" Margin="4,59,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="Show in folder if Sender contains" HorizontalAlignment="Left" Margin="5,87,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="comboSelectedWorkers" HorizontalAlignment="Left" Margin="194,87,0,0" VerticalAlignment="Top" Width="120"/>
