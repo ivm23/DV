@@ -17,7 +17,7 @@
          <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
-                               Command="{Binding DataContextChange}"
+                               Command="{Binding FolderTypeChanged}"
                     CommandParameter="{Binding ElementName=comboType, Path=SelectedValue}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>

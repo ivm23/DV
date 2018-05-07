@@ -19,7 +19,7 @@ namespace Registration.WPF.Views
     /// <summary>
     /// Interaction logic for MakeFolderWindow.xaml
     /// </summary>
-    public partial class MakeFolderWindow : Window
+    public partial class MakeFolderWindow :  Window, Models.IMakeFolderWindow
     {
         ViewModels.MakeFolderViewModel _makeFolderViewModel;
         public MakeFolderWindow(IServiceProvider provider)
@@ -29,11 +29,18 @@ namespace Registration.WPF.Views
 
             InitializeComponent();
 
-            _makeFolderViewModel = new ViewModels.MakeFolderViewModel(provider);
+            _makeFolderViewModel = new ViewModels.MakeFolderViewModel(provider, this);
             DataContext = _makeFolderViewModel;
 
             _makeFolderViewModel.InitializeFolderPlugin();
+
             stackPanel.Children.Add((Control)(_makeFolderViewModel.FolderPlugin));
+        }
+
+        public void ChangeFolderPlugin(Control userControl)
+        {
+            stackPanel.Children.Clear();
+            stackPanel.Children.Add(userControl);
         }
     }
 }

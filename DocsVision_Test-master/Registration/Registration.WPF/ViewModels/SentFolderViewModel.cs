@@ -7,9 +7,10 @@ using Registration.Model;
 using System.Windows.Input;
 using System.Windows.Controls;
 
+
 namespace Registration.WPF.ViewModels
 {
-    class InboxFolderViewModel : Notifier
+    class SentFolderViewModel : Notifier
     {
         private readonly Folder _folder;
         private FolderType _folderType;
@@ -17,12 +18,12 @@ namespace Registration.WPF.ViewModels
         private readonly IServiceProvider _serviceProvider;
         private readonly Models.IMakeFolderWindow _parentWindow;
 
-        public InboxFolderViewModel(IServiceProvider provider, IEnumerable<FolderType> folderTypes, Models.IMakeFolderWindow parent)
+        public SentFolderViewModel(IServiceProvider provider, IEnumerable<FolderType> folderTypes, Models.IMakeFolderWindow parent)
         {
 
             if (null == folderTypes || null == provider)
                 throw new ArgumentNullException();
-                      
+
             _folder = new Folder();
             FoldersTypes = folderTypes;
             _serviceProvider = provider;
@@ -81,5 +82,6 @@ namespace Registration.WPF.ViewModels
                 return _folderTypes;
             }
         }
+
     }
 }

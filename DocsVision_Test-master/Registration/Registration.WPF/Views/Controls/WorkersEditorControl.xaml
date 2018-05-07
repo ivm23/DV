@@ -8,7 +8,7 @@
              
              mc:Ignorable="d" 
              d:DesignHeight="52" d:DesignWidth="211">
-    <Grid>
+    <Grid Margin="0,0,-80,0">
         <TextBox x:Name="txtWorkers" HorizontalAlignment="Left" TextWrapping="Wrap" Width="292" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Names}" Margin="0,0,-81,29">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="TextChanged">
@@ -33,8 +33,8 @@
             </i:Interaction.Triggers>-->
             <ListBox.InputBindings>
                 <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
-                        CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
-                <MouseBinding Command="{Binding Path=AddWorker}"  MouseAction="LeftDoubleClick"
+                            CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
+                <MouseBinding Command="{Binding Path=AddWorker}" MouseAction="LeftDoubleClick"
                               CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
             </ListBox.InputBindings>
         </ListBox>

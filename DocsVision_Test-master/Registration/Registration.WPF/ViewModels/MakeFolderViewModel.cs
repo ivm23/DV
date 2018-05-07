@@ -18,15 +18,17 @@ namespace Registration.WPF.ViewModels
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
         private Worker _worker;
+        private readonly Models.IMakeFolderWindow _parentWindow;
         public ICommand CreateFolder { get; set; }
         
-        public MakeFolderViewModel(IServiceProvider provider)
+        public MakeFolderViewModel(IServiceProvider provider, Models.IMakeFolderWindow parent)
         {
             if (null == provider)
                 throw new ArgumentNullException();
 
             _serviceProvider = provider;
             CreateFolder = new ViewModels.Command(arg => CreateFolderMethod());
+            _parentWindow = parent;
         }
 
         private void CreateFolderMethod()
@@ -73,7 +75,8 @@ namespace Registration.WPF.ViewModels
             InitializeWorker();
 
             FolderPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
-            FolderPlugin.OnLoad(ServiceProvider);
+            FolderPlugin.OnLoad(ServiceProvider, _parentWindow);
+
             OnPropertyChanged(nameof(FolderPlugin));
 
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).CurrentFolderPropertiesPlugin = FolderPlugin;

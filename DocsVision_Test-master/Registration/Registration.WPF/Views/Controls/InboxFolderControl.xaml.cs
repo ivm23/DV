@@ -28,12 +28,12 @@ namespace Registration.WPF.Views.Controls
             InitializeComponent();
         }
 
-        public void OnLoad(IServiceProvider serviceProvider)
+        public void OnLoad(IServiceProvider serviceProvider, Models.IMakeFolderWindow parent)
         {
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
-            _inboxFolderViewModel = new ViewModels.InboxFolderViewModel(serviceProvider, ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllFolderTypes());
+            _inboxFolderViewModel = new ViewModels.InboxFolderViewModel(serviceProvider, ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllFolderTypes(), parent);
             DataContext = _inboxFolderViewModel;
         }
 

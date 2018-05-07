@@ -22,6 +22,7 @@ namespace Registration.WPF.Views.Controls
     /// </summary>
     public partial class SentFolderControl : UserControl, IFolderPropertiesUIPlugin
     {
+        private ViewModels.SentFolderViewModel _sentFolderViewModel;
         public SentFolderControl()
         {
             InitializeComponent();
@@ -39,72 +40,50 @@ namespace Registration.WPF.Views.Controls
             _clientRequests = (IClientRequests)_serviceProvider.GetService(typeof(IClientRequests));
         }
 
-        public void OnLoad(IServiceProvider serviceProvider)
+        public void OnLoad(IServiceProvider serviceProvider, Models.IMakeFolderWindow parent)
         {
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
-            _serviceProvider = serviceProvider;
-            InitializeClientRequests();
-            InitializeFolderTypes();
-            CurrentFolerPropertiesPlugin = this;
+            _sentFolderViewModel = new ViewModels.SentFolderViewModel(serviceProvider, ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllFolderTypes(), parent);
+            DataContext = _sentFolderViewModel;
         }
-        
-        private string _folderName;
-        public string FolderName {
-        set
-            {
-                _folderName = value;
-            }
-            get
-            {
-                return _folderName;
-            }
-        }
-
-
-        private void InitializeFolderTypes()
-        {
-            FoldersTypes = ClientRequests.GetAllFolderTypes();
-        }
-
-        public IEnumerable<FolderType> FoldersTypes { get; set; }
 
         public FolderType FolderType
         {
             set
             {
-                // createFolderControl1.FolderType = value;
+                _sentFolderViewModel.SelectedType = value;
             }
             get
             {
-                return null;// createFolderControl1.FolderType;
+                return _sentFolderViewModel.SelectedType;
             }
-        }
-
-        private void createFolderControl_ChangedFolderType(object sender, EventArgs e)
-        {
-            // ChangedFolderTypePlugin(this, e);
         }
 
         public FolderProperties FolderProperties
         {
             set
             {
-                //   _info = value;
             }
             get
             {
-                //    _info.Properties.Clear();
-                //    if (_info == null)
-                //        _info = new global::Registration.Model.FolderProperties();
-                //      _info.Name = createFolderControl1.NameF;
-
-                return null;//_info;
+                return null;
             }
         }
-        public IFolderPropertiesUIPlugin CurrentFolerPropertiesPlugin { get; set; }
 
-        
+        public string FolderName
+        {
+            set
+            {
+                _sentFolderViewModel.NameFolder = value;
+            }
+
+            get
+            {
+                return _sentFolderViewModel.NameFolder;
+            }
+        }
+
     }
 }

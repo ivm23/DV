@@ -8,14 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="64" d:DesignWidth="232">
     <Grid>
-        <local:CreateFolderControl x:Name="A"  DataContext="{Binding Path=CurrentFolerPropertiesPlugin}" HorizontalAlignment="Left" VerticalAlignment="Top" >
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="DataContextChange">
-                    <i:InvokeCommandAction
-                           Command="{Binding Path=DataContextChange}"
-                CommandParameter="{Binding ElementName=A, Path=SelectedValue}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+        <local:CreateFolderControl x:Name="A" HorizontalAlignment="Left" VerticalAlignment="Top" >
         </local:CreateFolderControl>
 
     </Grid>
