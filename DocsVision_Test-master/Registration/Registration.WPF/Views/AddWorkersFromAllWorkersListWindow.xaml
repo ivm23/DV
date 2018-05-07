@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
-        Title="AddWorkersFromAllWorkersListWindow" Height="296" Width="522">
-    <Grid Margin="0,0,2,0">
+        Title="AddWorkersFromAllWorkersListWindow" Height="304.869" Width="540.846">
+    <Grid Margin="0,0,-8,-2">
         <ListBox x:Name="listOtherWorkers" HorizontalAlignment="Left" ItemsSource="{Binding Path=NonSelectedWorkers}" SelectedItem="{Binding Path=ReceiverForAdd}" Height="199" Margin="10,34,0,0" VerticalAlignment="Top" Width="225"/>
         <ListBox x:Name="listReceivers" HorizontalAlignment="Left" ItemsSource="{Binding Path=SelectedWorkers}" SelectedItem="{Binding Path=ReceiverForDelete}" Height="199" Margin="281,34,0,0" VerticalAlignment="Top" Width="225"/>
         <Label x:Name="labelOtherWorkers" Content="Other workers" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>

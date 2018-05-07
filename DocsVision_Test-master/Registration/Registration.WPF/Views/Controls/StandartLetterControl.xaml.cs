@@ -42,6 +42,8 @@ namespace Registration.WPF.Views.Controls
 
             workersEditorControl.DataContext = new ViewModels.WorkersEditorControlViewModel(((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllWorkers());
             workersEditorControl.InitializeWorkersEditorControl(((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllWorkers());
+
+            LetterView = _letterView;
         }
 
         public bool ReadOnly

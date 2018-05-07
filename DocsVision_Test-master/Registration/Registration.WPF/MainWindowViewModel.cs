@@ -55,7 +55,7 @@ namespace Registration.WPF
         private void MakeLetterMethod(object arg)
         {
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = (LetterType)(arg);
-
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = new LetterView();
             var window = new Views.MakeLetterWindow(ServiceProvider);          
             window.ShowDialog();
         }

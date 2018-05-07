@@ -8,7 +8,7 @@ using Registration.Model;
 namespace Registration
 {
 
-    public interface IFolderPropertiesUIPlugin //: IPropertiesUIPlugin
+    public interface IFolderPropertiesUIPlugin 
     {
         void OnLoad(IServiceProvider serviceProvider, WPF.Models.IMakeFolderWindow parent);
         FolderProperties FolderProperties { set; get; }
