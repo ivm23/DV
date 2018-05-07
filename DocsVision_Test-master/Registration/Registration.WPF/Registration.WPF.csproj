@@ -83,6 +83,7 @@
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />
     <Compile Include="ViewModels\Command.cs" />
     <Compile Include="ViewModels\InboxFolderViewModel.cs" />
+    <Compile Include="ViewModels\SearchFolderViewModel.cs" />
     <Compile Include="ViewModels\SentFolderViewModel.cs" />
     <Compile Include="ViewModels\StandartLetterControlViewModel.cs" />
     <Compile Include="ViewModels\LetterViewModel.cs" />
