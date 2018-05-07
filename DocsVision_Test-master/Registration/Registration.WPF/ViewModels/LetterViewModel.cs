@@ -20,6 +20,8 @@ namespace Registration.WPF.ViewModels
                 throw new ArgumentNullException();
 
             _serviceProvider = provider;
+
+            DeleteLetter = new ViewModels.Command(arg => DeleteLetterMethod());
         }
 
         private IServiceProvider ServiceProvider
@@ -49,6 +51,13 @@ namespace Registration.WPF.ViewModels
             LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             LetterPlugin.OnLoad(ServiceProvider);
             LetterPlugin.ReadOnly = true;
+        }
+        
+        public ICommand DeleteLetter { set; get; }
+
+        private void DeleteLetterMethod()
+        {
+            ClientRequests.DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
         }
     }
 }
