@@ -91,32 +91,25 @@ namespace Registration.WPF.ViewModels
                 {
                     _importantLetterData = _dataSerializer.DeserializeData<ImportantLetterData>(value);
 
-                    SelectedImportanceDegree = _importantLetterData.DegreeImportance;
+                    _selectedImportance = _importantLetterData.DegreeImportance;
                     NameSelectedDegree = Resource.ResourceManager.GetString(Convert.ToString((int)_importantLetterData.DegreeImportance));
-
                 }
             }
             get
             {
-                _importantLetterData.DegreeImportance = _selectedImportance;
+                foreach(KeyValuePair<Model.ImportanceDegree, string> pair in ImportanceDegrees)
+                {
+                    if (pair.Value == NameSelectedDegree)
+                    {
+                        _importantLetterData.DegreeImportance = pair.Key;
+                    }
+                }
+               
                 return _dataSerializer.SerializeData(_importantLetterData);
             }
         }
 
-        public Model.ImportanceDegree SelectedImportanceDegree
-        {
-            set
-            {
-                _selectedImportance = value;
-
-                OnPropertyChanged(nameof(SelectedImportanceDegree));
-            }
-            get
-            {
-                return _selectedImportance;
-            }
-        }
-
+ 
         private string _nameSelectedDegree;
         public string NameSelectedDegree
         {

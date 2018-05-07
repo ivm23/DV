@@ -11,6 +11,7 @@ namespace Registration.WPF.ViewModels
 {
     class WorkersEditorControlViewModel : Notifier
     {
+        private int stringEndIndex = 0;
         public WorkersEditorControlViewModel(IEnumerable<string> allWorkers)
         {
             _allWorkers = allWorkers;
@@ -48,6 +49,7 @@ namespace Registration.WPF.ViewModels
                 return workers.AsQueryable().Where(str => !string.IsNullOrEmpty(str) && _allWorkers.Contains(str));
             }
         }
+
         private string _names;
         public string Names
         {
@@ -119,7 +121,7 @@ namespace Registration.WPF.ViewModels
             var matchWorkerNames = new List<string>();
             foreach (string workerName in _allWorkers)
             {
-                if (workerName.Contains((string)arg))
+                if (workerName.Contains(((string)arg).Substring(stringEndIndex)))
                 {
                     matchWorkerNames.Add(workerName);
                 }
@@ -142,6 +144,7 @@ namespace Registration.WPF.ViewModels
         private void AddWorkerMethod(object arg)
         {
             selectedWorkers.Add((string)arg);
+
         }
 
         public ICommand AddSeveralWorkers { get; set; }
@@ -157,6 +160,7 @@ namespace Registration.WPF.ViewModels
             {
                 selectedWorkers = window.GetSelectedWorkers().ToList();
                 NamesWorkers = selectedWorkers;
+                stringEndIndex = Names.Length;
             }
         }
     }

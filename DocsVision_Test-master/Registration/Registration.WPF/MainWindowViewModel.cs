@@ -59,6 +59,7 @@ namespace Registration.WPF
             var window = new Views.MakeLetterWindow(ServiceProvider);          
             window.ShowDialog();
         }
+
         private void EditFolderMethod(object arg)
         {
             var window = new Views.RenameFolderWindow(ServiceProvider);
