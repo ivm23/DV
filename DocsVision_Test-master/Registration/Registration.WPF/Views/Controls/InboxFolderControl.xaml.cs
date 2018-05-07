@@ -37,6 +37,9 @@ namespace Registration.WPF.Views.Controls
             DataContext = _inboxFolderViewModel;
             FolderType = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType;
             createFolderControl.DataContext = _inboxFolderViewModel;
+
+            _inboxFolderViewModel.SelectedType = FolderType;
+
         }
 
         public FolderType FolderType

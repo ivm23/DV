@@ -12,13 +12,13 @@
         <Label x:Name="labelName" Content="Name" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
         <Label x:Name="labelType" Content="Type" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Text="{Binding Path=NameFolder, Mode=TwoWay}" Margin="65,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-        <ComboBox x:Name="comboType" HorizontalAlignment="Left" Height="21" Margin="65,33,0,0" VerticalAlignment="Top" Width="155" DisplayMemberPath="Name" ItemsSource="{Binding Path=FoldersTypes}" SelectedValue="{Binding DataContext.SelectedType, Mode=TwoWay}">
+        <ComboBox x:Name="comboType" HorizontalAlignment="Left" Height="21" Margin="65,33,0,0" VerticalAlignment="Top" Width="155" DisplayMemberPath="Name" ItemsSource="{Binding Path=FoldersTypes}" SelectedItem="{Binding Path=SelectedType, Mode=TwoWay}">
 
          <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
                                Command="{Binding FolderTypeChanged}"
-                    CommandParameter="{Binding ElementName=comboType, Path=SelectedValue}" />
+                    CommandParameter="{Binding ElementName=comboType, Path=SelectedItem}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
            

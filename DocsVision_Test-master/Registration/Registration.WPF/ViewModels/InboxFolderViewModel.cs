@@ -35,12 +35,12 @@ namespace Registration.WPF.ViewModels
         private void FolderTypeChangedMethod(object arg)
         {
             ((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType = (FolderType)arg;
-
-            var f = ViewModels.ViewPluginCreater.Create(((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)_serviceProvider.GetService(typeof(PluginService))));
-            f.OnLoad(_serviceProvider, _parentWindow);
+            
+            IFolderPropertiesUIPlugin folderPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)_serviceProvider.GetService(typeof(PluginService))));
+            folderPlugin.OnLoad(_serviceProvider, _parentWindow);
                         
-            _parentWindow.ChangeFolderPlugin((Control)(f));
-            ((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).CurrentFolderPropertiesPlugin = f;
+            _parentWindow.ChangeFolderPlugin((Control)(folderPlugin));
+            ((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).CurrentFolderPropertiesPlugin = folderPlugin;
         }
 
         public string NameFolder
@@ -55,6 +55,7 @@ namespace Registration.WPF.ViewModels
                 return _folder.Name;
             }
         }
+
         public FolderType SelectedType
         {
             set

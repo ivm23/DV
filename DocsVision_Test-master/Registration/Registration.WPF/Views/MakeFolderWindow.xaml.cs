@@ -44,5 +44,10 @@ namespace Registration.WPF.Views
             _makeFolderViewModel.FolderPlugin = (IFolderPropertiesUIPlugin)userControl;
             stackPanel.Children.Add(userControl);
         }
+
+        private void CreateButton_click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
     }
 }

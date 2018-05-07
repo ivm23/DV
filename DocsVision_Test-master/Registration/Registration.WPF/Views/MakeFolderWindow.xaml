@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MakeFolderWindow" Height="206.302" Width="368.219">
     <Grid>
-        <Button x:Name="button" Content="Cancel" HorizontalAlignment="Left" Margin="275,131,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="button_Copy" Content="Create" HorizontalAlignment="Left" IsDefault="True" Margin="182,131,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=CreateFolder}"/>
+        <Button x:Name="button" IsCancel="true" Content="Cancel" HorizontalAlignment="Left" Margin="275,131,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button_Copy" IsDefault="True" Content="Create" HorizontalAlignment="Left" Margin="182,131,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=CreateFolder}" Click="CreateButton_click"/>
         <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="114" VerticalAlignment="Top" Width="350" />
     </Grid>
 </Window>
