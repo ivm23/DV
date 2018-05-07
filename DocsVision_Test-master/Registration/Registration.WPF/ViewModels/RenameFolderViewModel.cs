@@ -45,7 +45,5 @@ namespace Registration.WPF.ViewModels
                 return _name;
             }
         }
-
-
     }
 }

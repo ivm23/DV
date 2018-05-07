@@ -27,5 +27,10 @@ namespace Registration.WPF.Views
             InitializeComponent();
             DataContext = new ViewModels.RenameFolderViewModel(provider);
         }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = true;
+        }
     }
 }
