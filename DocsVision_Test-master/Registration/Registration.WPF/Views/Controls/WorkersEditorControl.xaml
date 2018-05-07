@@ -32,9 +32,9 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>-->
             <ListBox.InputBindings>
-     <!--           <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
-                            CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>-->
-                <KeyBinding Command="{Binding Path=FocusToListBox}" Key="Enter" 
+                <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
+                            CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
+                <KeyBinding Command="{Binding Path=FocusToListBox}" Key="Down" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
                 <MouseBinding Command="{Binding Path=AddWorker}" MouseAction="LeftDoubleClick"
                               CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>

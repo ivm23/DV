@@ -23,7 +23,7 @@ namespace Registration.WPF.Views.Controls
     public partial class ImportantLetterControlView : UserControl, ILetterPropertiesUIPlugin
     {
 
-        private ViewModels.ImportantLetterControlViewModel importantLetterControlViewModel;
+        private ViewModels.ImportantLetterControlViewModel _importantLetterControlViewModel;
         private LetterView _letterView = new LetterView();
 
         public ImportantLetterControlView()
@@ -39,11 +39,12 @@ namespace Registration.WPF.Views.Controls
             fullContentLetterControl.OnLoad(serviceProvider);
 
             _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
-            importantLetterControlViewModel = new ViewModels.ImportantLetterControlViewModel(_letterView);
+            _importantLetterControlViewModel = new ViewModels.ImportantLetterControlViewModel(_letterView);
 
-            DataContext = importantLetterControlViewModel;
+            DataContext = _importantLetterControlViewModel;
 
-            importantLetterControlViewModel.InitializeImportanceDegreeControl();
+            _importantLetterControlViewModel.InitializeImportanceDegreeControl();
+            importanceDegreeEditorControl.DataContext = _importantLetterControlViewModel;
         }
 
 
@@ -52,12 +53,12 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 fullContentLetterControl.LetterView = value;
-                importantLetterControlViewModel.StringSelectedImportanceDegree = value.ExtendedData;
+                _importantLetterControlViewModel.StringSelectedImportanceDegree = value.ExtendedData;
             }
             get
             {
                 _letterView = fullContentLetterControl.LetterView;
-                _letterView.ExtendedData = importantLetterControlViewModel.StringSelectedImportanceDegree;
+                _letterView.ExtendedData = _importantLetterControlViewModel.StringSelectedImportanceDegree;
                 return _letterView;
             }
         }
@@ -67,7 +68,7 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 fullContentLetterControl.ReadOnly = value;
-                importantLetterControlViewModel.ReadOnly = value;
+                _importantLetterControlViewModel.ReadOnly = value;
             }
             get
             {

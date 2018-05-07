@@ -13,7 +13,7 @@ namespace Registration.WPF.ViewModels
         private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
 
         private LetterView _letterView = new LetterView();
-
+        private ImportantLetterData _importantLetterData = new ImportantLetterData();
         public ImportantLetterControlViewModel(LetterView letterView)
         {
             if (null == letterView)
@@ -89,16 +89,20 @@ namespace Registration.WPF.ViewModels
             {
                 if (null != value)
                 {
-                    ImportantLetterData importantLetterData = _dataSerializer.DeserializeData<ImportantLetterData>(value);
+                    _importantLetterData = _dataSerializer.DeserializeData<ImportantLetterData>(value);
 
-                    SelectedImportanceDegree = importantLetterData.DegreeImportance;
+                    SelectedImportanceDegree = _importantLetterData.DegreeImportance;
+                    NameSelectedDegree = Resource.ResourceManager.GetString(Convert.ToString((int)_importantLetterData.DegreeImportance));
+
                 }
             }
             get
             {
-                return _dataSerializer.SerializeData(_selectedImportance);
+                _importantLetterData.DegreeImportance = _selectedImportance;
+                return _dataSerializer.SerializeData(_importantLetterData);
             }
         }
+
         public Model.ImportanceDegree SelectedImportanceDegree
         {
             set
@@ -107,10 +111,23 @@ namespace Registration.WPF.ViewModels
 
                 OnPropertyChanged(nameof(SelectedImportanceDegree));
             }
-
             get
             {
                 return _selectedImportance;
+            }
+        }
+
+        private string _nameSelectedDegree;
+        public string NameSelectedDegree
+        {
+            set
+            {
+                _nameSelectedDegree = value;
+                OnPropertyChanged(nameof(NameSelectedDegree));
+            }
+            get
+            {
+                return _nameSelectedDegree;
             }
         }
     }

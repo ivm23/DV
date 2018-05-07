@@ -15,7 +15,7 @@
         <TextBox x:Name="title" Height="25" Margin="10,36,197,430" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Title, Mode=TwoWay}"  Width="294" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left"/>
         <TextBox x:Name="sender" HorizontalAlignment="Left" Height="25" Margin="10,87,0,0" TextWrapping="Wrap" IsReadOnly="True" Text="{Binding Path=SenderName, Mode=TwoWay}" VerticalAlignment="Top" Width="294"/>
         <TextBox x:Name="message" HorizontalAlignment="Left" Height="296" Margin="10,194,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Text, Mode=TwoWay}" VerticalAlignment="Top" Width="294"/>
-        <Label x:Name="label1" Content="Date" HorizontalAlignment="Left" Margin="373,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelDate" Content="Date" HorizontalAlignment="Left" Margin="373,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="date" HorizontalAlignment="Left" Height="25" Margin="373,36,0,0" TextWrapping="Wrap" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" VerticalAlignment="Top" Width="128"/>
         <local:WorkersEditorControl x:Name="workersEditorControl" HorizontalAlignment="Left" Margin="10,137,0,0" VerticalAlignment="Top" Width="294" RenderTransformOrigin="0.497,0.617" Height="52"/>
 

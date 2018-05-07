@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace Registration.WPF.ViewModels
 {
-    class LetterWithResponseTimeControlViewModel : ViewModelBase//, ILetterPropertiesUIPlugin
+    class LetterWithResponseTimeControlViewModel : Notifier//, ILetterPropertiesUIPlugin
     {
 
         private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();

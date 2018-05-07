@@ -209,6 +209,11 @@
     <Compile Include="Forms\AuthorizationForm.Designer.cs">
       <DependentUpon>AuthorizationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IFolderPropertiesUIPlugin.cs" />
+    <Compile Include="ILetterPropertiesUIPlugin.cs" />
+    <Compile Include="IPluginService.cs" />
+    <Compile Include="IPropertiesUIPlugin.cs" />
+    <Compile Include="PluginService.cs" />
     <Compile Include="Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -61,7 +61,7 @@ namespace Registration.WPF {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Low.
+        ///   Looks up a localized string similar to low.
         /// </summary>
         internal static string _1 {
             get {

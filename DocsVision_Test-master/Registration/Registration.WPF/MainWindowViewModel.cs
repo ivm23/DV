@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace Registration.WPF
 {
-    class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
+    class MainWindowViewModel : Notifier
     {
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
@@ -207,7 +207,15 @@ namespace Registration.WPF
 
         public void InitializeDataGrid(Guid folderId)
         {
-            Letters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+            try
+            {
+                Letters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
 
         private object _selectedValue;

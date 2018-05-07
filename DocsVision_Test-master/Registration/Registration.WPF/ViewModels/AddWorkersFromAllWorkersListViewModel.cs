@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Registration.WPF.ViewModels
 {
@@ -15,6 +16,32 @@ namespace Registration.WPF.ViewModels
         {
             SelectedWorkers = selectedWorkers;
             NonSelectedWorkers = nonSelectedWorkers;
+
+            AddReceivers = new ViewModels.Command(arg => AddReceiversMethod());
+            DeleteReceivers = new ViewModels.Command(arg => DeleteReceiversMethod());
+        }
+
+        private void AddReceiversMethod()
+        {
+            IList<string> receivers = SelectedWorkers.ToList();
+            IList<string> nonSelectedWorkers = NonSelectedWorkers.ToList();
+
+            receivers.Add(ReceiverForAdd);
+            SelectedWorkers = receivers;
+            nonSelectedWorkers.Remove(ReceiverForAdd);
+            NonSelectedWorkers = nonSelectedWorkers;
+        }
+
+        private void DeleteReceiversMethod()
+        {
+            IList<string> receivers = SelectedWorkers.ToList();
+            IList<string> nonSelectedWorkers = NonSelectedWorkers.ToList();
+
+            nonSelectedWorkers.Add(ReceiverForDelete);
+            NonSelectedWorkers = nonSelectedWorkers;
+
+            receivers.Remove(ReceiverForDelete);
+            SelectedWorkers = receivers;        
         }
 
         public IEnumerable<string> SelectedWorkers
@@ -29,7 +56,6 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-
         public IEnumerable<string> NonSelectedWorkers
         {
             set
@@ -42,5 +68,35 @@ namespace Registration.WPF.ViewModels
                 return _nonSelectedWorkers;
             }
         }
+
+
+        private string _receiverForAdd;
+        private string _receiverForDelete;
+
+        public string ReceiverForAdd
+        {
+            set
+            {
+                _receiverForAdd = value;
+                OnPropertyChanged(nameof(ReceiverForAdd));
+            }
+            get
+            {
+                return _receiverForAdd;
+            }
+        }
+
+        public string ReceiverForDelete
+        {
+            set
+            {
+                _receiverForDelete = value;
+                OnPropertyChanged(nameof(ReceiverForDelete));
+            }
+            get { return _receiverForDelete; }
+        }
+
+        public ICommand AddReceivers { set; get; }
+        public ICommand DeleteReceivers { set; get; }
     }
 }

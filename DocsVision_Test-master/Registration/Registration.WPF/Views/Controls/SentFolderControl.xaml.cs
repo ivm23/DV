@@ -66,14 +66,16 @@ namespace Registration.WPF.Views.Controls
             }
         }
 
+        private FolderProperties _folderProperties = new FolderProperties();
         public FolderProperties FolderProperties
         {
             set
             {
+                _folderProperties = value;
             }
             get
             {
-                return null;
+                return _folderProperties;
             }
         }
 

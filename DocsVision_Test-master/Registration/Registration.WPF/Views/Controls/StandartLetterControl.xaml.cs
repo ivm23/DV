@@ -50,7 +50,18 @@ namespace Registration.WPF.Views.Controls
             {
                 standartLetterControlViewModel.ReadOnly = value;
                 workersEditorControl.ReadOnly = value;
+                if (!value)
+                {
+                    date.Visibility = Visibility.Collapsed;
+                    labelDate.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    date.Visibility = Visibility.Visible;
+                    labelDate.Visibility = Visibility.Visible;
+                }
             }
+
             get
             {
                 return standartLetterControlViewModel.ReadOnly;

@@ -16,6 +16,7 @@ namespace Registration.WPF.ViewModels
             _allWorkers = allWorkers;
             AllWorkers = allWorkers;
             Focus = true;
+
             ChangedText = new ViewModels.Command(arg => ChangedTextMethod(arg));
             FocusToListBox = new ViewModels.Command(arg => FocusToListBoxMethod(arg));
             AddWorker = new ViewModels.Command(arg => AddWorkerMethod(arg));
@@ -74,7 +75,7 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        
+
         public void InitializeAllWorkers(IEnumerable<string> allWorkers)
         {
             NamesWorkers = allWorkers;
@@ -97,24 +98,26 @@ namespace Registration.WPF.ViewModels
         public string SelectedNameWorker { get; set; }
 
         private bool _focus;
-        public bool Focus {
+        public bool Focus
+        {
             get
             {
                 return _focus;
             }
-            set {
+            set
+            {
                 _focus = value;
                 OnPropertyChanged(nameof(Focus));
             }
 
-            }
+        }
 
         public ICommand ChangedText { set; get; }
         private void ChangedTextMethod(object arg)
         {
             Enable = Visibility.Visible;
             var matchWorkerNames = new List<string>();
-            foreach(string workerName in _allWorkers)
+            foreach (string workerName in _allWorkers)
             {
                 if (workerName.Contains((string)arg))
                 {
@@ -143,16 +146,17 @@ namespace Registration.WPF.ViewModels
 
         public ICommand AddSeveralWorkers { get; set; }
         private void AddSeveralWorkersMethod()
-        {   
+        {
             IEnumerable<string> nonSelectedWorkers = new List<string>();
             nonSelectedWorkers = _allWorkers.Where(str => !selectedWorkers.Contains(str));
-       
+
             var window = new Views.AddWorkersFromAllWorkersListWindow(selectedWorkers, nonSelectedWorkers);
 
 
             if (window.ShowDialog() == true)
             {
-                NamesWorkers = window.GetSelectedWorkers();
+                selectedWorkers = window.GetSelectedWorkers().ToList();
+                NamesWorkers = selectedWorkers;
             }
         }
     }
