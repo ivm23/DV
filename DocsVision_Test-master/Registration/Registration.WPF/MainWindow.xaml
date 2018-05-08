@@ -6,13 +6,13 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:local="clr-namespace:Registration.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="597" Width="1300" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="597" Width="1300" WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartWindow}"
         Initialized="Window_Initialized" MinWidth="600" MinHeight="300">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300*" MinWidth="200"/>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="400*" MinWidth="300"/>
+            <ColumnDefinition Width="400*" MinWidth="400"/>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="500*" MinWidth="300" />
             <ColumnDefinition Width="0*"/>
@@ -52,13 +52,8 @@
                            Command="{Binding SelectedFolderNodeChanged}"
                            CommandParameter="{Binding SelectedItem, ElementName=TV}" />
                     </i:EventTrigger>
-
-                    <!--    <i:EventTrigger EventName="MouseRightButtonDown">
-                        <i:InvokeCommandAction
-                           Command="{Binding OpenMakeFolderWindow}"
-                           CommandParameter="{Binding SelectedValue, ElementName=TV}" />
-                    </i:EventTrigger>-->
                 </i:Interaction.Triggers>
+                
                 <TreeView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Create" Command="{Binding CreateFolder}" />
@@ -86,16 +81,7 @@
                         <Setter Property="CommandParameter" Value="{Binding}" />
                     </Style>
                 </MenuItem.ItemContainerStyle>
-                <!-- <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction
-                           Command="{Binding Path=A}"
-                       />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>-->
-                
-            </MenuItem>
-                
+            </MenuItem>                
 
             <MenuItem Header="Delete Letter" Command="{Binding Path=DeleteLetterClick}">
                 <MenuItem.Icon>

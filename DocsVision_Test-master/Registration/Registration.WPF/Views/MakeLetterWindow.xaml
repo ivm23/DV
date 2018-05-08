@@ -5,11 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
-        Title="MakeLetterWindow" Height="600" Width="559" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,-50,-4">
-        <Button x:Name="button" IsCancel="true" Content="Cancel" HorizontalAlignment="Left" Margin="426,534,0,0" VerticalAlignment="Top" Width="76"/>
-        <Button x:Name="button_Copy" Content="Send" HorizontalAlignment="Left" Margin="332,534,0,0" Command="{Binding Path=SendLetterClick}" VerticalAlignment="Top" Width="76" RenderTransformOrigin="1.921,0.875" Click="SendButton_Click"/>
-        <StackPanel x:Name="stackPanel"  HorizontalAlignment="Left" Width="549" Margin="0,0,0,54"/>
+        Title="MakeLetterWindow" Height="600" Width="559" WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartWindow}">
+    <Window.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource standartButton}"/>
+    </Window.Resources>
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="531*"/>
+            <RowDefinition Height="38*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button x:Name="buttonSend" Content="Send" Command="{Binding Path=SendLetterClick}" Click="SendButton_Click" Grid.Row="1"/>
+            <Button x:Name="buttonCancel" IsCancel="true" Content="Cancel" />           
+        </StackPanel>
+
+        <StackPanel x:Name="stackPanel" Grid.Row="0" />
 
     </Grid>
 </Window>
