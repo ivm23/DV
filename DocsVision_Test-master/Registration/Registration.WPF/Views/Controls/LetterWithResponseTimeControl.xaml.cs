@@ -23,9 +23,6 @@ namespace Registration.WPF.Views.Controls
     {
         private ViewModels.LetterWithResponseTimeControlViewModel _letterWithResponseTimeViewModel;
         private LetterView _letterView = new LetterView();
-        private LetterWithReminderData _reminderLetterData = new LetterWithReminderData();
-
-        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
 
         public LetterWithResponseTimeControl()
         {
@@ -37,15 +34,12 @@ namespace Registration.WPF.Views.Controls
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
-            _letterWithResponseTimeViewModel = new ViewModels.LetterWithResponseTimeControlViewModel();
-
             fullContentLetterControl.OnLoad(serviceProvider);
 
             _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+            _letterWithResponseTimeViewModel = new ViewModels.LetterWithResponseTimeControlViewModel(_letterView.ExtendedData);
 
             DataContext = _letterWithResponseTimeViewModel;
-
-         //   LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
         }
 
         public LetterView LetterView
@@ -53,14 +47,12 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 fullContentLetterControl.LetterView = value;
-                _reminderLetterData = _dataSerializer.DeserializeData<LetterWithReminderData>(value.ExtendedData);
-                _letterWithResponseTimeViewModel.ReminderLetterData = _reminderLetterData.ReminderData;               
+                _letterWithResponseTimeViewModel.LetterWithReminderData = value.ExtendedData;     
             }
             get
             {
                 _letterView = fullContentLetterControl.LetterView;
-                _reminderLetterData.ReminderData = _letterWithResponseTimeViewModel.ReminderLetterData;
-                _letterView.ExtendedData = _dataSerializer.SerializeData(_reminderLetterData);
+                _letterView.ExtendedData = _letterWithResponseTimeViewModel.LetterWithReminderData;
                 return _letterView;
             }
         }

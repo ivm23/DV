@@ -9,6 +9,6 @@ namespace Registration.Model
     [Serializable]
     public class LetterWithReminderData
     {
-        public DateTime ReminderData { get; set; }
+        public DateTime ReminderData { get; set; } = DateTime.MinValue;
     }
 }

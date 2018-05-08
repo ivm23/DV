@@ -36,5 +36,10 @@ namespace Registration.WPF.Views
 
             stackPanel.Children.Add((Control)(_makeLetterViewModel.LetterPlugin));
         }
+
+        private void SendButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
     }
 }

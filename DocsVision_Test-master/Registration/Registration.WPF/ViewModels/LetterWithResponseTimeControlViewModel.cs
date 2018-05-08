@@ -13,8 +13,10 @@ namespace Registration.WPF.ViewModels
 
         private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
         private LetterView _letterView = new LetterView();
-        public LetterWithResponseTimeControlViewModel()
+        public LetterWithResponseTimeControlViewModel(string ExtendedData)
         {
+            if (null != ExtendedData)
+                LetterWithReminderData = ExtendedData;
         }
 
 
@@ -29,6 +31,21 @@ namespace Registration.WPF.ViewModels
             get
             {
                 return _reminderLetterData;
+            }
+        }
+
+        private LetterWithReminderData _letterWithReminderDate = new LetterWithReminderData();
+        public string LetterWithReminderData
+        {
+            set
+            {
+                _letterWithReminderDate = _dataSerializer.DeserializeData<LetterWithReminderData>(value);
+                ReminderLetterData = _letterWithReminderDate.ReminderData;
+            }
+            get
+            {
+                _letterWithReminderDate.ReminderData = ReminderLetterData;
+                return _dataSerializer.SerializeData(_letterWithReminderDate);
             }
         }
 
