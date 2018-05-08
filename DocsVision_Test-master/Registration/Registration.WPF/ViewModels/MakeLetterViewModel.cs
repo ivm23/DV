@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Registration.ClientInterface;
 using Registration.Model;
+using System.Windows;
 
 namespace Registration.WPF.ViewModels
 {
@@ -48,8 +49,14 @@ namespace Registration.WPF.ViewModels
         private void SendLetterClickMethod()
         {
             var letterView = LetterPlugin.LetterView;
-           
-            ClientRequests.CreateLetter(letterView.Name, _worker.Id, letterView.ReceiversName, letterView.Text, letterView.ExtendedData, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType.Id);
+            if (string.IsNullOrEmpty(letterView.Name) || string.IsNullOrEmpty(letterView.Text) || letterView.ReceiversName.Count == 0)
+            {
+                MessageBox.Show("Name or Text or Receivers are empty");
+            }
+            else
+            {
+                ClientRequests.CreateLetter(letterView.Name, _worker.Id, letterView.ReceiversName, letterView.Text, letterView.ExtendedData, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType.Id);
+            }
         }
 
         public ILetterPropertiesUIPlugin LetterPlugin { get; set; }

@@ -22,7 +22,6 @@ namespace Registration.WPF.ViewModels
             FocusToListBox = new ViewModels.Command(arg => FocusToListBoxMethod(arg));
             AddWorker = new ViewModels.Command(arg => AddWorkerMethod(arg));
             AddSeveralWorkers = new ViewModels.Command(arg => AddSeveralWorkersMethod());
-            //ChangeEndOfNamesString = new ViewModels.Command(arg => ChangeEndOfNamesStringMethod());
 
             Enable = Visibility.Collapsed;
         }
@@ -172,7 +171,8 @@ namespace Registration.WPF.ViewModels
         {
             selectedWorkers.Add((string)arg);
         
-            NamesWorkers = selectedWorkers;    
+            NamesWorkers = selectedWorkers;
+            MessageBox.Show("add");
         }
 
         public ICommand AddSeveralWorkers { get; set; }

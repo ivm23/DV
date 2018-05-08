@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Registration.ClientInterface;
 using Registration.Model;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace Registration.WPF.ViewModels
 {
@@ -21,7 +23,7 @@ namespace Registration.WPF.ViewModels
 
             _serviceProvider = provider;
 
-            DeleteLetter = new ViewModels.Command(arg => DeleteLetterMethod());
+            DeleteLetter = new ViewModels.Command(arg => DeleteLetterMethod(arg));
         }
 
         private IServiceProvider ServiceProvider
@@ -55,9 +57,10 @@ namespace Registration.WPF.ViewModels
         
         public ICommand DeleteLetter { set; get; }
 
-        private void DeleteLetterMethod()
+        private void DeleteLetterMethod(object arg)
         {
             ClientRequests.DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+            ((Window)arg).Close();
         }
     }
 }

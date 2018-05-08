@@ -8,7 +8,7 @@
              d:DesignHeight="500" d:DesignWidth="544">
     <Grid>
         <local:StandartLetterControl x:Name="fullContentLetterControl" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl" HorizontalAlignment="Left" Margin="372,88,0,0" VerticalAlignment="Top" Width="128" Height="42"/>
+        <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl" HorizontalAlignment="Left" Margin="372,86,0,0" VerticalAlignment="Top" Width="128" Height="42"/>
         <Label x:Name="lblImportanceDegree" Content="Degree of importance" HorizontalAlignment="Left" Margin="369,63,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

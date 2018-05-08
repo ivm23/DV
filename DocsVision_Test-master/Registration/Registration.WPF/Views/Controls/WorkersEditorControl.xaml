@@ -22,7 +22,7 @@
             </TextBox.InputBindings>
         </TextBox>
         <Button x:Name="btnAllWorkers" Content="..." HorizontalAlignment="Left" Height="22" Margin="265,1,-81,0" VerticalAlignment="Top" Width="27" Visibility="{Binding Path=Enable}" Command="{Binding Path=AddSeveralWorkers}"/>
-        <ListBox x:Name="listWorkers" HorizontalAlignment="Left" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}" Margin="0,23,-81,0" Width="292" SelectedItem="{Binding Path=SelectedWorker}">
+        <ListBox x:Name="listWorkers" HorizontalAlignment="Left" Focusable="{Binding Focus}" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}" Margin="0,23,-81,0" Width="292" SelectedItem="{Binding Path=SelectedWorker}">
             <!-- <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
@@ -34,8 +34,6 @@
             <ListBox.InputBindings>
                 <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
-                <KeyBinding Command="{Binding Path=ChangeEndOfNamesString}" Key="Backspace" 
-                          />
                 <MouseBinding Command="{Binding Path=AddWorker}" MouseAction="LeftDoubleClick"
                               CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
             </ListBox.InputBindings>

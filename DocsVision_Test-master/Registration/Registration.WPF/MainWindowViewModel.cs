@@ -33,7 +33,7 @@ namespace Registration.WPF
 
             InitializeClientRequests();
 
-            SelectedItemChanged = new ViewModels.Command(arg => SelectedItemChangedMethod(arg));
+            SelectedFolderNodeChanged = new ViewModels.Command(arg => SelectedFolderNodeChangedMethod(arg));
             OpenLetterViewWindow = new ViewModels.Command(args => OpenLetterViewWindowMethod(args));
             DeleteLetterClick = new ViewModels.Command(args => DeleteLetterClickMethod());
             MakeLetter = new ViewModels.Command(arg => MakeLetterMethod(arg));
@@ -43,7 +43,7 @@ namespace Registration.WPF
             DeleteFolder = new ViewModels.Command(arg => DeleteFolderMethod(arg));
         }
 
-        public ICommand SelectedItemChanged { get; set; }
+        public ICommand SelectedFolderNodeChanged { get; set; }
         public ICommand OpenLetterViewWindow { set; get; }
         public ICommand DeleteLetterClick { set; get; }
         public ICommand MakeLetter { set; get; }
@@ -60,6 +60,7 @@ namespace Registration.WPF
             window.ShowDialog();
 
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+            //   LetterPlugin = null;
         }
 
         private void EditFolderMethod(object arg)
@@ -79,57 +80,40 @@ namespace Registration.WPF
 
             makeFolderWindow.ShowDialog();
         }
-
-        private LetterView getNextLetter(LetterView letter)
+        private int _index = -1;
+        private void getNextLetter(LetterView letter)
         {
-
             int index = Letters.IndexOf(letter);
 
             if (0 < index && index == Letters.Count - 1)
-                return Letters[index - 1];
+                _index = index - 1;
             else
                 if (index > 0)
-                return Letters[index + 1];
+                _index = index;
             else
                 throw new IndexOutOfRangeException();
         }
 
-
         private void DeleteLetterClickMethod()
         {
 
-            LetterView newSelectedLetter = null;
-            var cur = SelectedLetter;
-
-            try
-            {
-                newSelectedLetter = getNextLetter(SelectedLetter);
-            }
-            catch (IndexOutOfRangeException ex)
-            {
-
-            }
-
-            //MessageBox.Show(newSelectedLetter.Name);
             ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-
 
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
 
-            if (null != newSelectedLetter)
-                SelectedLetter = newSelectedLetter;
-
-
+            if (_index != -1)
+                SelectedLetter = Letters[_index];
         }
 
+
         bool f = false;
-        private void SelectedItemChangedMethod(object arg)
+        private void SelectedFolderNodeChangedMethod(object arg)
         {
-            if (!f)
+            //    if (!f)
             {
                 InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
-                f = true;
+                //    f = true;
             }
         }
 
