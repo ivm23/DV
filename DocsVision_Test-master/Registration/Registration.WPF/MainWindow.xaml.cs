@@ -52,7 +52,7 @@ namespace Registration.WPF
             _serviceContainer.AddService(typeof(IClientRequests), clientRequests);
             _serviceContainer.AddService(typeof(PluginService), new PluginService(_serviceContainer));
             _serviceContainer.AddService(typeof(ApplicationState), new ApplicationState());
-            _serviceContainer.AddService(typeof(WinForms.Message.IMessageService), new WinForms.Message.MessageService());
+        //    _serviceContainer.AddService(typeof(WinForms.Message.IMessageService), new WinForms.Message.MessageService());
         }
 
         private void Window_Initialized(object sender, EventArgs e)

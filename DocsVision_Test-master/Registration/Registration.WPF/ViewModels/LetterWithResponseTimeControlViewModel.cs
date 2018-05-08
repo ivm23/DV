@@ -15,16 +15,11 @@ namespace Registration.WPF.ViewModels
         private LetterView _letterView = new LetterView();
         public LetterWithResponseTimeControlViewModel()
         {
-
-        }
-
-        public void OnLoad(IServiceProvider serviceProvider)
-        {
         }
 
 
-        private string _reminderLetterData;
-        public string ReminderLetterData
+        private DateTime _reminderLetterData;
+        public DateTime ReminderLetterData
         {
             set
             {
@@ -44,6 +39,7 @@ namespace Registration.WPF.ViewModels
             set
             {
                 _readOnly = value;
+                Enable = !value;
                 OnPropertyChanged(nameof(ReadOnly));
             }
             get

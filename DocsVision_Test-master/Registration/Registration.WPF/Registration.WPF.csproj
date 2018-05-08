@@ -281,10 +281,6 @@
       <Project>{8c0a1308-ae5a-4d36-ac6c-5e808a9c929e}</Project>
       <Name>Registration.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Registrstion.WinForms\Registration.WinForms.csproj">
-      <Project>{140b793f-cdd4-44cd-a557-67644d1cd6ef}</Project>
-      <Name>Registration.WinForms</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

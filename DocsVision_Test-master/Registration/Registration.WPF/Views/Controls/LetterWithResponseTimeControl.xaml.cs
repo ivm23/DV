@@ -19,10 +19,14 @@ namespace Registration.WPF.Views.Controls
     /// <summary>
     /// Interaction logic for LetterWithResponseTimeControl.xaml
     /// </summary>
-    public partial class LetterWithResponseTimeControl : UserControl//, ILetterPropertiesUIPlugin
+    public partial class LetterWithResponseTimeControl : UserControl, ILetterPropertiesUIPlugin
     {
         private ViewModels.LetterWithResponseTimeControlViewModel _letterWithResponseTimeViewModel;
         private LetterView _letterView = new LetterView();
+        private LetterWithReminderData _reminderLetterData = new LetterWithReminderData();
+
+        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
+
         public LetterWithResponseTimeControl()
         {
             InitializeComponent();
@@ -33,12 +37,15 @@ namespace Registration.WPF.Views.Controls
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
+            _letterWithResponseTimeViewModel = new ViewModels.LetterWithResponseTimeControlViewModel();
+
             fullContentLetterControl.OnLoad(serviceProvider);
 
             _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
 
             DataContext = _letterWithResponseTimeViewModel;
-            // LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+
+         //   LetterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
         }
 
         public LetterView LetterView
@@ -46,35 +53,28 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 fullContentLetterControl.LetterView = value;
-                
-               //_importantLetterControlViewModel.StringSelectedImportanceDegree = value.ExtendedData;
+                _reminderLetterData = _dataSerializer.DeserializeData<LetterWithReminderData>(value.ExtendedData);
+                _letterWithResponseTimeViewModel.ReminderLetterData = _reminderLetterData.ReminderData;               
             }
             get
             {
                 _letterView = fullContentLetterControl.LetterView;
-                _letterView.ExtendedData = _importantLetterControlViewModel.StringSelectedImportanceDegree;
+                _reminderLetterData.ReminderData = _letterWithResponseTimeViewModel.ReminderLetterData;
+                _letterView.ExtendedData = _dataSerializer.SerializeData(_reminderLetterData);
                 return _letterView;
             }
         }
-        public bool Enable { set; get; }
-
-
-        public event EventHandler AddedReceiver;
-
-        private bool _readOnly;
         public bool ReadOnly
         {
             set
             {
-                _readOnly = value;
-                Enable = !value;
+                fullContentLetterControl.ReadOnly = value;
+                _letterWithResponseTimeViewModel.ReadOnly = value;
             }
             get
             {
-                return _readOnly;
+                return fullContentLetterControl.ReadOnly;
             }
         }
-
-        
     }
 }

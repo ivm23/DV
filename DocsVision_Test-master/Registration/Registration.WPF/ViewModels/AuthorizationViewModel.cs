@@ -17,7 +17,7 @@ namespace Registration.WPF.ViewModels
         private Worker _worker = new Worker();
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
-        private WinForms.Message.IMessageService _messageService;
+   //     private WinForms.Message.IMessageService _messageService;
         public string _selectedDatabaseName { get; set; }
         public int _selectedDatabaseIndex { get; set; } = 0;
 
@@ -35,7 +35,7 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        private WinForms.Message.IMessageService MessageService
+      /*  private WinForms.Message.IMessageService MessageService
         {
             get
             {
@@ -43,7 +43,7 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        private IServiceProvider ServiceProvider
+*/        private IServiceProvider ServiceProvider
         {
             get
             {
@@ -108,7 +108,7 @@ namespace Registration.WPF.ViewModels
 
         private void InitializeMessageService()
         {
-            _messageService = (WinForms.Message.IMessageService)ServiceProvider.GetService(typeof(WinForms.Message.IMessageService));
+      //      _messageService = (WinForms.Message.IMessageService)ServiceProvider.GetService(typeof(WinForms.Message.IMessageService));
         }
 
         public AuthorizationViewModel(IServiceProvider provider)
