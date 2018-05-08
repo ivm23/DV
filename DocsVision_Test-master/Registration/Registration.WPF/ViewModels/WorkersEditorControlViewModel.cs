@@ -78,6 +78,19 @@ namespace Registration.WPF.ViewModels
             }
         }
 
+        private string _selectedWorker;
+        public string SelectedWorker
+        {
+            set
+            {
+                _selectedWorker = value;
+                OnPropertyChanged(nameof(SelectedWorker));
+            }
+            get
+            {
+                return _selectedWorker;
+            }
+        }
 
         public void InitializeAllWorkers(IEnumerable<string> allWorkers)
         {
@@ -111,6 +124,7 @@ namespace Registration.WPF.ViewModels
             {
                 _focus = value;
                 OnPropertyChanged(nameof(Focus));
+                SelectedWorker = AllWorkers.First();
             }
 
         }
@@ -125,6 +139,8 @@ namespace Registration.WPF.ViewModels
         public ICommand ChangedText { set; get; }
         private void ChangedTextMethod(object arg)
         {
+            SelectedWorker = null;
+
             if (stringEndIndex > ((string)arg).Length - 1)
                 findNewIndex((string)arg);
 
@@ -155,6 +171,8 @@ namespace Registration.WPF.ViewModels
         private void AddWorkerMethod(object arg)
         {
             selectedWorkers.Add((string)arg);
+        
+            NamesWorkers = selectedWorkers;    
         }
 
         public ICommand AddSeveralWorkers { get; set; }

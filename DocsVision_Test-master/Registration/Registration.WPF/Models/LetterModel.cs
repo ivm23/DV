@@ -10,7 +10,6 @@ namespace Registration.WPF.Models
     {
         public string Title { get; set; }
         public string SenderName { get; set; }
-
         public DateTime Date { get; set; }
     }
 }
