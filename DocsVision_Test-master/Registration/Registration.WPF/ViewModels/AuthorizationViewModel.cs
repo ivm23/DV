@@ -97,13 +97,13 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        public ICommand SingInCommand { get; set; }
-        public ICommand SingUpCommand { get; set; }
+        public ICommand SignInCommand { get; set; }
+        public ICommand SignUpCommand { get; set; }
 
         private void InitializeCommands()
         {
-            SingInCommand = new ViewModels.Command(arg => SingInMethod(arg));
-            SingUpCommand = new ViewModels.Command(arg => SingUpMethod(arg));
+            SignInCommand = new ViewModels.Command(arg => SignInMethod(arg));
+            SignUpCommand = new ViewModels.Command(arg => SignUpMethod(arg));
         }
 
         private void InitializeMessageService()
@@ -124,7 +124,7 @@ namespace Registration.WPF.ViewModels
             InitializeCommands();
         }
 
-        private void SingInMethod(object arg)
+        private void SignInMethod(object arg)
         {
 
             ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).DatabaseName = _selectedDatabaseName;
@@ -143,7 +143,7 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        private void SingUpMethod(object arg)
+        private void SignUpMethod(object arg)
         {
             ((Window)(arg)).Hide();
 

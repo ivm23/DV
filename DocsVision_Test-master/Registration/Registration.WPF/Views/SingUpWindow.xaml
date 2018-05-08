@@ -6,13 +6,39 @@
         xmlns:local="clr-namespace:Registration.WPF.Views"
         xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls" x:Class="Registration.WPF.Views.SingUpWindow"
         mc:Ignorable="d"
-        Title="SingUpWindow" Height="198.113" Width="216.711" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,4,0">
-        <Label x:Name="labelName" Content="Name:&#xD;&#xA;" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="23" Margin="68,9,0,0" TextWrapping="Wrap" Text="{Binding Path=NameW, Mode=TwoWay}" VerticalAlignment="Top" Width="120" TabIndex="0"/>
-        <Button x:Name="btnSingUp" Content="SingUp" HorizontalAlignment="Left" Margin="33,129,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingUpCommand}" TabIndex="3"/>
-        <Button x:Name="btnCancel" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="113,129,0,0" VerticalAlignment="Top" Width="75" TabIndex="4"/>
-        <Controls:AuthorizationControl HorizontalAlignment="Left" Margin="-2,35,-4,0" VerticalAlignment="Top" Height="93" Width="203" TabIndex="2"/>
+        Title="SingUpWindow" Height="195" Width="220"  WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartNoResize}">
+
+    <Window.Resources>
+
+        <Style TargetType="Button" BasedOn="{StaticResource standartButton}"/>
+        <Style TargetType="Label" BasedOn="{StaticResource standartLabel}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}"/>
+
+    </Window.Resources>
+
+    <Grid >
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="68*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
+
+
+        <Label x:Name="labName" Content="Name:" Grid.Row="0" Grid.Column="0" />
+        <TextBox x:Name="txtName" Text="{Binding NameW, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" TabIndex="0" />
+
+        <Controls:AuthorizationControl Grid.Row="1" TabIndex="2" Grid.Column="0"  Grid.ColumnSpan="2"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal"  Grid.ColumnSpan="2">
+            <Button x:Name="btnSingUp" Content="SingUp" Command="{Binding SignUpCommand}" TabIndex="3" />
+            <Button x:Name="btnCancel" IsCancel="True" Content="Cancel" TabIndex="4"/>
+        </StackPanel>
 
     </Grid>
 </Window>

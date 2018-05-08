@@ -7,12 +7,26 @@
         xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls" x:Class="Registration.WPF.Views.AuthorizationWindow"
         mc:Ignorable="d"
         x:Name="AuthorizationWindowName"    
-        Title="AuthorizationWindow" Height="170" Width="220" MinWidth="220" MinHeight="170" MaxWidth="220" MaxHeight="170" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" HorizontalAlignment="Center" VerticalAlignment="Center"
-        >
+        Title="AuthorizationWindow" Height="160" Width="215" WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartNoResize}">
+    
+    <Window.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource standartButton}"/>
+    </Window.Resources>
+
     <Grid>
-        <Button x:Name="btnSingIn" IsDefault="True" Content="SingIn" HorizontalAlignment="Left" Margin="31,102,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingInCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=AuthorizationWindowName}" TabIndex="2"/>
-        <Button x:Name="btnSingUp" Content="SingUp" HorizontalAlignment="Left" Margin="111,102,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SingUpCommand}" CommandParameter="{Binding ElementName=AuthorizationWindowName}" TabIndex="3"/>
-        <Controls:AuthorizationControl HorizontalAlignment="Left" Margin="-4,8,0,0" VerticalAlignment="Top" Height="93" Width="203" TabIndex="1"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="87*"/>
+            <RowDefinition Height="34*"/>
+        </Grid.RowDefinitions>
+
+        <Controls:AuthorizationControl HorizontalAlignment="Left" TabIndex="1" Grid.Row="0" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button x:Name="btnSignIn" IsDefault="True" Content="SignIn" Command="{Binding SignInCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=AuthorizationWindowName}" TabIndex="2"/>
+            <Button x:Name="btnSignUp" Content="SignUp" Command="{Binding SignUpCommand}" CommandParameter="{Binding ElementName=AuthorizationWindowName}" TabIndex="3"/>
+        </StackPanel>
+
     </Grid>
 
 </Window>

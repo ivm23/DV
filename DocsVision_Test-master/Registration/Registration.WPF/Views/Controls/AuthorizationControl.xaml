@@ -5,43 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
              mc:Ignorable="d" Height="100" Width="200">
-    
+
     <UserControl.Resources>
-        
-        <Style  TargetType="ComboBox">
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Width" Value="120"/>
-        </Style>
-
-        <Style TargetType="Label">
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Height" Value="26"/>
-            <Setter Property="Width" Value="80"/>
-        </Style>
-
-        <Style TargetType="TextBox">
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Margin" Value="3"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-        </Style>
-
+        <Style TargetType="Label" BasedOn="{StaticResource standartLabel}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource standartComboBox}"/>
     </UserControl.Resources>
-
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="63*" />
-            <ColumnDefinition Width="137*" />
+            <ColumnDefinition Width="73*" />
+            <ColumnDefinition Width="127*" />
         </Grid.ColumnDefinitions>
-        
+
         <StackPanel Grid.Column="0">
             <Label x:Name="labelPassword" Content="Password:"/>
             <Label x:Name="labelLogin" Content="Login:" />
@@ -54,7 +30,7 @@
 
             <ComboBox x:Name="comboDatabases" ItemsSource="{Binding Path=DatabasesNames, Mode=TwoWay}" SelectedItem="{Binding _selectedDatabaseName, Mode=TwoWay}" SelectedIndex="{Binding _selectedDatabaseIndex, Mode=TwoWay}" />
         </StackPanel>
-        
+
     </Grid>
 
 </UserControl>
