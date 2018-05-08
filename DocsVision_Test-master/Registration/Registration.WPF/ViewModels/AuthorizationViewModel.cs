@@ -147,7 +147,7 @@ namespace Registration.WPF.ViewModels
         {
             ((Window)(arg)).Hide();
 
-            var singUpWindow = new Views.SingUpWindow(ServiceProvider);
+            var singUpWindow = new Views.SignUpWindow(ServiceProvider);
             if (singUpWindow.ShowDialog() == true)
             {
                 ((Window)(arg)).Close();

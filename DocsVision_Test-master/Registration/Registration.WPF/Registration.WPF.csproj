@@ -148,8 +148,8 @@
     <Compile Include="Views\RenameFolderWindow.xaml.cs">
       <DependentUpon>RenameFolderWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SingUpWindow.xaml.cs">
-      <DependentUpon>SingUpWindow.xaml</DependentUpon>
+    <Compile Include="Views\SignUpWindow.xaml.cs">
+      <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -235,7 +235,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SingUpWindow.xaml">
+    <Page Include="Views\SignUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

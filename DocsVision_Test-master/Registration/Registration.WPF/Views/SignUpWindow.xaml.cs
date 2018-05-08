@@ -17,15 +17,15 @@ namespace Registration.WPF.Views
     /// <summary>
     /// Interaction logic for SingUpWindow.xaml
     /// </summary>
-    public partial class SingUpWindow : Window
+    public partial class SignUpWindow : Window
     {
-        public SingUpWindow(IServiceProvider provider)
+        public SignUpWindow(IServiceProvider provider)
         {
             if (null == provider)
                 throw new ArgumentNullException(); 
 
             InitializeComponent();
-            DataContext = new ViewModels.SingUpViewModel(provider);
+            DataContext = new ViewModels.SignUpViewModel(provider);
         }
     }
 }

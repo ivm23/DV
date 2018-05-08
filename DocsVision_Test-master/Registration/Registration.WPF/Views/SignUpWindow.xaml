@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
-        xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls" x:Class="Registration.WPF.Views.SingUpWindow"
+        xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls" x:Class="Registration.WPF.Views.SignUpWindow"
         mc:Ignorable="d"
-        Title="SingUpWindow" Height="195" Width="220"  WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartNoResize}">
+        Title="SignUpWindow" Height="195" Width="220"  WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartNoResize}">
 
     <Window.Resources>
 

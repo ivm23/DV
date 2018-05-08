@@ -8,7 +8,7 @@ using Registration.Model;
 
 namespace Registration.WPF.ViewModels
 {
-    class SingUpViewModel : Notifier
+    class SignUpViewModel : Notifier
     {
         private Worker _worker = new Worker();
         private readonly IServiceProvider _serviceProvider;
@@ -119,7 +119,7 @@ namespace Registration.WPF.ViewModels
         //    _messageService = (WinForms.Message.IMessageService)ServiceProvider.GetService(typeof(WinForms.Message.IMessageService));
         }
 
-        public SingUpViewModel(IServiceProvider provider)
+        public SignUpViewModel(IServiceProvider provider)
         {
             if (null == provider)
                 throw new ArgumentNullException();
