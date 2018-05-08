@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
-        Title="RenameFolderWindow" Height="120" Width="257">
+        Title="RenameFolderWindow" Height="120" Width="257" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label x:Name="labelName" Content="Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtNewName" HorizontalAlignment="Left" Height="23" Margin="64,13,0,0" TextWrapping="Wrap" Text="{Binding Path=Name}" VerticalAlignment="Top" Width="170"/>

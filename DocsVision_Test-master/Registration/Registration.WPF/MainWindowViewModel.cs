@@ -20,7 +20,7 @@ namespace Registration.WPF
         private List<Models.Node> _dirItems;
         private LetterView _selectedLetter;
         private Models.Node _selectedNode;
-        private IEnumerable<LetterView> _letters;
+        private IList<LetterView> _letters;
 
         public MainWindowViewModel() { }
 
@@ -58,6 +58,8 @@ namespace Registration.WPF
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = new LetterView();
             var window = new Views.MakeLetterWindow(ServiceProvider);
             window.ShowDialog();
+
+            InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
         }
 
         private void EditFolderMethod(object arg)
@@ -78,15 +80,57 @@ namespace Registration.WPF
             makeFolderWindow.ShowDialog();
         }
 
-        private void DeleteLetterClickMethod()
+        private LetterView getNextLetter(LetterView letter)
         {
-            ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+
+            int index = Letters.IndexOf(letter);
+
+            if (0 < index && index == Letters.Count - 1)
+                return Letters[index - 1];
+            else
+                if (index > 0)
+                return Letters[index + 1];
+            else
+                throw new IndexOutOfRangeException();
         }
 
+
+        private void DeleteLetterClickMethod()
+        {
+
+            LetterView newSelectedLetter = null;
+            var cur = SelectedLetter;
+
+            try
+            {
+                newSelectedLetter = getNextLetter(SelectedLetter);
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+
+            }
+
+            //MessageBox.Show(newSelectedLetter.Name);
+            ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+
+
+            InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+
+            if (null != newSelectedLetter)
+                SelectedLetter = newSelectedLetter;
+
+
+        }
+
+        bool f = false;
         private void SelectedItemChangedMethod(object arg)
         {
-            InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
-            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
+            if (!f)
+            {
+                InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
+                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
+                f = true;
+            }
         }
 
 
@@ -114,6 +158,8 @@ namespace Registration.WPF
         {
             var letterViewWindow = new Views.LetterViewWindow(ServiceProvider);
             letterViewWindow.ShowDialog();
+
+            InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
         }
 
         private void ShowBriefLetterMethod(object arg)
@@ -140,20 +186,6 @@ namespace Registration.WPF
 
         private IList<Folder> _folders = new ObservableCollection<Folder>();
 
-        private ObservableCollection<LetterView> _lettersViews = new ObservableCollection<LetterView>();
-        public ObservableCollection<LetterView> LettersViews
-        {
-            get
-            {
-                return _lettersViews;
-            }
-            set
-            {
-                _lettersViews = value;
-                OnPropertyChanged(nameof(LettersViews));
-            }
-        }
-
         public List<Models.Node> DirItems
         {
             get { return _dirItems; }
@@ -169,12 +201,13 @@ namespace Registration.WPF
             set
             {
                 _selectedLetter = value;
-
-                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
-                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = _selectedLetter;
+                if (null != value)
+                {
+                    ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
+                    ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView = _selectedLetter;
+                }
 
                 OnPropertyChanged(nameof(SelectedLetter));
-
             }
             get
             {
@@ -205,32 +238,15 @@ namespace Registration.WPF
         {
             try
             {
-                Letters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+                Letters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id).ToList();
             }
             catch (Exception ex)
             {
                 Letters = new List<LetterView>();
             }
-
         }
 
-        private object _selectedValue;
-
-        public object SelectedValue
-        {
-            set
-            {
-                _selectedValue = value;
-                OnPropertyChanged(nameof(SelectedValue));
-            }
-
-            get
-            {
-                return _selectedValue;
-            }
-        }
-
-        public IEnumerable<LetterView> Letters
+        public IList<LetterView> Letters
         {
             set
             {
@@ -242,8 +258,8 @@ namespace Registration.WPF
                 return _letters;
             }
         }
-        private ILetterPropertiesUIPlugin _letterPlugin;
 
+        private ILetterPropertiesUIPlugin _letterPlugin;
         public ILetterPropertiesUIPlugin LetterPlugin
         {
             set

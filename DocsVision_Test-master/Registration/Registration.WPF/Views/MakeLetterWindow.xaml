@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
-        Title="MakeLetterWindow" Height="600" Width="559" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+        Title="MakeLetterWindow" Height="600" Width="559" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,-50,-4">
         <Button x:Name="button" IsCancel="true" Content="Cancel" HorizontalAlignment="Left" Margin="426,534,0,0" VerticalAlignment="Top" Width="76"/>
         <Button x:Name="button_Copy" Content="Send" HorizontalAlignment="Left" Margin="332,534,0,0" Command="{Binding Path=SendLetterClick}" VerticalAlignment="Top" Width="76" RenderTransformOrigin="1.921,0.875" Click="SendButton_Click"/>

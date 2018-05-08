@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
-        Title="MakeFolderWindow" Height="206.302" Width="368.219">
+        Title="MakeFolderWindow" Height="206.302" Width="368.219" WindowStartupLocation="CenterScreen">
     <Grid>
         <Button x:Name="button" IsCancel="true" Content="Cancel" HorizontalAlignment="Left" Margin="275,131,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="button_Copy" IsDefault="True" Content="Create" HorizontalAlignment="Left" Margin="182,131,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Path=CreateFolder}" Click="CreateButton_click"/>

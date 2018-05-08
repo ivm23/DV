@@ -57,7 +57,6 @@ namespace Registration.WPF
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-
             var form = new Views.AuthorizationWindow(_serviceContainer);
             form.ShowDialog();
             _mainWindowViewModel.InitializeTreeView();
