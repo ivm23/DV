@@ -25,6 +25,17 @@
         <Setter Property="TextBox.Width" Value="120"/>
         <Setter Property="TextBox.Margin" Value="3"/>
         <Setter Property="TextBox.TextWrapping" Value="Wrap"/>
+        <Setter Property="TextBox.HorizontalContentAlignment" Value="Stretch"/>
+    </Style>
+
+
+    <Style x:Key="standartListBox">
+        <Setter Property="ListBox.HorizontalAlignment" Value="Left"/>
+        <Setter Property="ListBox.HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="ListBox.VerticalAlignment" Value="Top"/>
+        <Setter Property="ListBox.Height" Value="25"/>
+        <Setter Property="ListBox.Width" Value="210"/>
+        <Setter Property="ListBox.Margin" Value="3,0,3,0"/>
     </Style>
 
     <Style x:Key="standartButton">
