@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="470" d:DesignWidth="544">
+             d:DesignHeight="400" d:DesignWidth="544">
 
     <UserControl.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
@@ -31,10 +31,10 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="319*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="300*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0">
@@ -47,10 +47,6 @@
             <TextBox x:Name="sender" IsReadOnly="True" Text="{Binding Path=SenderName, Mode=TwoWay}" />
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="2">
-            <Label x:Name="labelReceiversNames" Content="Receivers"/>
-            <local:WorkersEditorControl x:Name="workersEditorControl" />
-        </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="3">
             <Label x:Name="labelMessage" Content="Message"/>
@@ -62,5 +58,11 @@
             <TextBox x:Name="date" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" Style="{StaticResource standartTextBox}" />
         </StackPanel>
 
+
+        <StackPanel Grid.Column="0" Grid.Row="2" Grid.RowSpan="4">
+            <Label x:Name="labelReceiversNames" Content="Receivers"/>
+            <local:WorkersEditorControl x:Name="workersEditorControl" />
+        </StackPanel>
+        
     </Grid>
 </UserControl>

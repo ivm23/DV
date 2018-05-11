@@ -33,6 +33,7 @@ namespace Registration.WPF.Views
             DataContext = _fullContentLetterViewModel;
             _fullContentLetterViewModel.InitializeLetterPlugin();
             stackPanel.Children.Add((Control)(_fullContentLetterViewModel.LetterPlugin));
+            this.SizeToContent = SizeToContent.WidthAndHeight;
         }
     }
 }

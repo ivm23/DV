@@ -26,6 +26,7 @@ namespace Registration.WPF.Views
 
             InitializeComponent();
             DataContext = new ViewModels.RenameFolderViewModel(provider);
+            this.SizeToContent = SizeToContent.WidthAndHeight;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)

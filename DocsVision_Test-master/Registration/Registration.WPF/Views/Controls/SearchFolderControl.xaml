@@ -16,16 +16,17 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="57*"/>
-            <RowDefinition Height="29*"/>
-            <RowDefinition Height="41*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="181*"/>
+            <ColumnDefinition Width="181"/>
             <ColumnDefinition Width="145*"/>
         </Grid.ColumnDefinitions>
 
-        <local:CreateFolderControl x:Name="createFolderControl" Grid.Row="0" Grid.ColumnSpan="2" />
+        <local:CreateFolderControl x:Name="createFolderControl" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource standartControl}" Height="56"/>
 
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Label x:Name="labelQuestion" Content="Which messages would you like to show in this folder?" />
@@ -33,7 +34,6 @@
         </StackPanel>
 
         <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" Grid.Column="1" Grid.Row="2" />
-
 
     </Grid>
 </UserControl>

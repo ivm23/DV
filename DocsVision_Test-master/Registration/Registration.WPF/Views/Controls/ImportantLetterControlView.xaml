@@ -20,15 +20,15 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="221*"/>
+            <RowDefinition Height="70*"/>
         </Grid.RowDefinitions>
 
-        <local:StandartLetterControl x:Name="fullContentLetterControl"  Style="{StaticResource standartControl}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2"/>
+        <local:StandartLetterControl x:Name="fullContentLetterControl" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2"/>
 
         <StackPanel Grid.Column="1" Grid.Row="1">
             <Label x:Name="lblImportanceDegree" Content="Degree of importance" />
-            <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl" Style="{StaticResource standartControl}" />
+            <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl"/>
         </StackPanel>
-        
+
     </Grid>
 </UserControl>

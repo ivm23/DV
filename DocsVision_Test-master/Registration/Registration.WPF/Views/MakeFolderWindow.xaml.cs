@@ -35,6 +35,8 @@ namespace Registration.WPF.Views
             _makeFolderViewModel.InitializeFolderPlugin();
 
             stackPanel.Children.Add((Control)(_makeFolderViewModel.FolderPlugin));
+
+            this.SizeToContent = SizeToContent.WidthAndHeight;
         }
 
         public void ChangeFolderPlugin(Control userControl)

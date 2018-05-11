@@ -16,16 +16,16 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="58*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="48*"/>
+            <ColumnDefinition Width="48"/>
             <ColumnDefinition Width="203*"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="labelName" Content="Name" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Height="Auto" Margin="0,0,0,11" VerticalAlignment="Stretch"/>
-        <TextBox x:Name="txtNewName" TextWrapping="Wrap" Text="{Binding Path=Name}" Grid.Column="1" Grid.Row="0" Margin="3,3,0,0"  />
+        <Label x:Name="labelName" Content="Name" Grid.Column="0" Grid.Row="0" />
+        <TextBox x:Name="txtNewName" Text="{Binding Path=Name}" Grid.Column="1" Grid.Row="0"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Button x:Name="button" IsDefault="true" Content="Save" Click="SaveButton_Click" Command="{Binding Path=RenameFolder}" />

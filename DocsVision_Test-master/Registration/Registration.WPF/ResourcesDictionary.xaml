@@ -56,6 +56,8 @@
 
     <Style x:Key="standartControl">
         <Setter Property="UserControl.Margin" Value="0"/>
+        <Setter Property="UserControl.HorizontalAlignment" Value="Left"/>
+        <Setter Property="UserControl.VerticalAlignment" Value="Top"/>
     </Style>
 
     <Style x:Key="standartMenu">

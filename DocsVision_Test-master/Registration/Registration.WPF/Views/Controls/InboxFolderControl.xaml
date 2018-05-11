@@ -9,7 +9,7 @@
              d:DesignHeight="64" d:DesignWidth="232">
 
     <Grid>
-        <local:CreateFolderControl x:Name="createFolderControl" />
+        <local:CreateFolderControl x:Name="createFolderControl" Style="{StaticResource standartControl}" />
 
     </Grid>
 </UserControl>
