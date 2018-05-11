@@ -6,9 +6,29 @@
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="544">
+    <UserControl.Resources>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource standartComboBox}"/>
+        <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
+            <Setter Property="MinWidth" Value="150"/>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <local:StandartLetterControl x:Name="fullContentLetterControl" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl" HorizontalAlignment="Left" Margin="372,86,0,0" VerticalAlignment="Top" Width="128" Height="42"/>
-        <Label x:Name="lblImportanceDegree" Content="Degree of importance" HorizontalAlignment="Left" Margin="369,63,0,0" VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="245"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="221*"/>
+        </Grid.RowDefinitions>
+
+        <local:StandartLetterControl x:Name="fullContentLetterControl"  Style="{StaticResource standartControl}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Label x:Name="lblImportanceDegree" Content="Degree of importance" />
+            <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl" Style="{StaticResource standartControl}" />
+        </StackPanel>
+        
     </Grid>
 </UserControl>

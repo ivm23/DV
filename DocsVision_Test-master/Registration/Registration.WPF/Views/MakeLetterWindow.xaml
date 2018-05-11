@@ -12,16 +12,18 @@
 
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="531*"/>
-            <RowDefinition Height="38*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="38"/>
         </Grid.RowDefinitions>
 
+
+        <StackPanel x:Name="stackPanel" Grid.Row="0" />
+        
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button x:Name="buttonSend" Content="Send" Command="{Binding Path=SendLetterClick}" Click="SendButton_Click" Grid.Row="1"/>
             <Button x:Name="buttonCancel" IsCancel="true" Content="Cancel" />           
         </StackPanel>
 
-        <StackPanel x:Name="stackPanel" Grid.Row="0" />
 
     </Grid>
 </Window>

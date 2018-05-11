@@ -11,8 +11,12 @@
     <Window.Resources>
 
         <Style TargetType="Button" BasedOn="{StaticResource standartButton}"/>
-        <Style TargetType="Label" BasedOn="{StaticResource standartLabel}"/>
-        <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}"/>
+        <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
+            <Setter Property="Margin" Value="3,3,0,3"/>
+        </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}">
+            <Setter Property="Margin" Value="0,3,6,3"/>
+        </Style>
 
     </Window.Resources>
 
@@ -20,7 +24,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="68*"/>
+            <ColumnDefinition Width="67*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -33,7 +37,7 @@
         <Label x:Name="labName" Content="Name:" Grid.Row="0" Grid.Column="0" />
         <TextBox x:Name="txtName" Text="{Binding NameW, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" TabIndex="0" />
 
-        <Controls:AuthorizationControl Grid.Row="1" TabIndex="2" Grid.Column="0"  Grid.ColumnSpan="2"/>
+        <Controls:AuthorizationControl Grid.Row="1" TabIndex="2" Grid.Column="0"  Grid.ColumnSpan="2" Style="{StaticResource standartControl}"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal"  Grid.ColumnSpan="2">
             <Button x:Name="btnSingUp" Content="SingUp" Command="{Binding SignUpCommand}" TabIndex="3" />

@@ -6,10 +6,27 @@
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="544">
-    <Grid>
-        <local:StandartLetterControl x:Name="fullContentLetterControl" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Label x:Name="lblDataOfResponseReq" Content="Date of response required" HorizontalAlignment="Left" Margin="369,63,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,-2.038"/>
-        <DatePicker x:Name="dataPickerLetter" HorizontalAlignment="Left" Margin="373,86,0,0" IsEnabled="{Binding Path=Enable}" SelectedDate="{Binding Path=ReminderLetterData}" VerticalAlignment="Top" Width="128" Height="25"/>
 
+    <UserControl.Resources>
+        <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="245"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="221*"/>
+        </Grid.RowDefinitions>
+
+        <local:StandartLetterControl x:Name="fullContentLetterControl" Style="{StaticResource standartControl}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Label x:Name="lblDataOfResponseReq" Content="Date of response required"/>
+            <DatePicker x:Name="dataPickerLetter" IsEnabled="{Binding Path=Enable}" SelectedDate="{Binding Path=ReminderLetterData}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

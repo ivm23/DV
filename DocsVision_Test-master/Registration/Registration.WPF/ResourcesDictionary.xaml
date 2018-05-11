@@ -4,10 +4,10 @@
 
     <Style  x:Key="standartComboBox">
         <Setter Property="ComboBox.Margin" Value="3"/>
-        <Setter Property="ComboBox.VerticalAlignment" Value="Top"/>
-        <Setter Property="ComboBox.HorizontalAlignment" Value="Left"/>
-        <Setter Property="ComboBox.Height" Value="22"/>
-        <Setter Property="ComboBox.Width" Value="120"/>
+        <Setter Property="ComboBox.VerticalAlignment" Value="Stretch"/>
+        <Setter Property="ComboBox.HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="ComboBox.MinHeight" Value="22"/>
+        <Setter Property="ComboBox.MinWidth" Value="120"/>
     </Style>
 
     <Style x:Key="standartLabel">
@@ -19,20 +19,19 @@
     </Style>
 
     <Style x:Key="standartTextBox">
-      <Setter Property="TextBox.HorizontalAlignment" Value="Left"/>
-        <Setter Property="TextBox.VerticalAlignment" Value="Top"/>
-        <Setter Property="TextBox.Height" Value="22"/>
-        <Setter Property="TextBox.Width" Value="120"/>
+        <Setter Property="TextBox.HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="TextBox.VerticalAlignment" Value="Stretch"/>
         <Setter Property="TextBox.Margin" Value="3"/>
         <Setter Property="TextBox.TextWrapping" Value="Wrap"/>
+        <Setter Property="TextBox.MinWidth" Value="50" />
+        <Setter Property="TextBox.MinHeight" Value="22" />
     </Style>
 
     <Style x:Key="standartListBox">
-        <Setter Property="ListBox.HorizontalAlignment" Value="Left"/>
-        <Setter Property="ListBox.HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="ListBox.VerticalAlignment" Value="Top"/>
-        <Setter Property="ListBox.Height" Value="25"/>
-        <Setter Property="ListBox.Width" Value="292"/>
+        <Setter Property="ListBox.HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="ListBox.VerticalAlignment" Value="Stretch"/>
+        <Setter Property="ListBox.MinHeight" Value="25"/>
+        <Setter Property="ListBox.MinWidth" Value="290"/>
         <Setter Property="ListBox.Margin" Value="3,0,3,0"/>
     </Style>
 
@@ -63,5 +62,12 @@
         <Setter Property="ContextMenu.Height" Value="20"/>
         <Setter Property="ContextMenu.VerticalAlignment" Value="Top"/>
     </Style>
-    
+
+
+    <Style x:Key="standartDatePicker">
+        <Setter Property="DatePicker.MinWidth" Value="128"/>
+        <Setter Property="DatePicker.MinHeight" Value="22"/>
+        <Setter Property="DatePicker.Margin" Value="3"/>
+    </Style>
+
 </ResourceDictionary>

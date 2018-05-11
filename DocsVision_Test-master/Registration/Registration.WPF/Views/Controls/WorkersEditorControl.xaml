@@ -18,15 +18,15 @@
         </Style>
 
         <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}">
-            <Setter Property="TextBox.Width" Value="292"/>
+            <Setter Property="TextBox.MinWidth" Value="292"/>
             <Setter Property="Margin" Value="3,3,3,0"/>
         </Style>
     </UserControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="64*"/>
-            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="35"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
@@ -50,6 +50,6 @@
 
         </StackPanel>
 
-        <Button x:Name="btnAllWorkers" Content="..." Visibility="{Binding Path=Enable}" Command="{Binding Path=AddSeveralWorkers}" Grid.Column="1" />
+        <Button x:Name="btnAllWorkers" Content="..." Visibility="{Binding Path=Enable}" Command="{Binding Path=AddSeveralWorkers}" Grid.Column="1"  />
     </Grid>
 </UserControl>

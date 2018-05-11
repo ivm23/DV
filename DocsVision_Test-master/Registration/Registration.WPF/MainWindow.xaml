@@ -8,6 +8,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="597" Width="1300" WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartWindow}"
         Initialized="Window_Initialized" MinWidth="600" MinHeight="300">
+    <Window.Resources>
+
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300*" MinWidth="200"/>
@@ -38,6 +42,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </DataGrid>
+        
         <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="529" Margin="8,27,0,0" VerticalAlignment="Top" Width="385">
             <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="tv_dep_PreviewMouseRightButtonDown" Height="546" >
                 <TreeView.ItemTemplate>

@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using Registration.ClientInterface;
 using Registration.WPF.ViewModels;
 using System.Windows.Input;
-using System.Windows;
+using System.Windows.Threading;
 
 namespace Registration.WPF
 {
@@ -256,5 +256,34 @@ namespace Registration.WPF
                 return _letterPlugin;
             }
         }
+
+        private DispatcherTimer timer;
+        private double currentTime;
+
+        public double CurrentTime
+        {
+            get
+            {
+                return currentTime;
+            }
+            set
+            {
+                currentTime = value;
+                OnPropertyChanged("CurrentTime");
+            }
+        }
+
+        private void StartTimer()
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Tick += new EventHandler(timer_Tick);
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+        }
+
     }
 }
