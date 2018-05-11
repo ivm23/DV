@@ -19,13 +19,12 @@
     </Style>
 
     <Style x:Key="standartTextBox">
-        <Setter Property="TextBox.HorizontalAlignment" Value="Left"/>
+      <Setter Property="TextBox.HorizontalAlignment" Value="Left"/>
         <Setter Property="TextBox.VerticalAlignment" Value="Top"/>
         <Setter Property="TextBox.Height" Value="22"/>
         <Setter Property="TextBox.Width" Value="120"/>
         <Setter Property="TextBox.Margin" Value="3"/>
         <Setter Property="TextBox.TextWrapping" Value="Wrap"/>
-        <Setter Property="TextBox.HorizontalContentAlignment" Value="Stretch"/>
     </Style>
 
 
@@ -34,7 +33,7 @@
         <Setter Property="ListBox.HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="ListBox.VerticalAlignment" Value="Top"/>
         <Setter Property="ListBox.Height" Value="25"/>
-        <Setter Property="ListBox.Width" Value="210"/>
+        <Setter Property="ListBox.Width" Value="292"/>
         <Setter Property="ListBox.Margin" Value="3,0,3,0"/>
     </Style>
 

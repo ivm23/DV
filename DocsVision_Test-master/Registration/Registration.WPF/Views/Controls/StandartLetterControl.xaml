@@ -5,23 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="544">
+             d:DesignHeight="470" d:DesignWidth="544">
     <UserControl.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource standartLabel}"/>
 
         <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}">
             <Setter Property="Width" Value="292"/>
         </Style>
-        <Style x:Key="standartTextBox" BasedOn="{StaticResource standartTextBox}"/>
         <Style x:Key="standartUSerControl">
             <Setter Property="UserControl.Margin" Value="1"/>
+        </Style>
+
+        <Style x:Key="messageTextBox" BasedOn="{StaticResource standartTextBox}">
+            <Setter Property="TextBox.Height" Value="250"/>
+            <Setter Property="TextBox.Width" Value="292"/>
         </Style>
 
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="193*"/>
-            <ColumnDefinition Width="79*"/>
+            <ColumnDefinition Width="299*"/>
+            <ColumnDefinition Width="245*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
@@ -35,7 +39,7 @@
             <local:WorkersEditorControl x:Name="workersEditorControl" />
 
             <Label x:Name="labelMessage" Content="Message"/>
-            <TextBox x:Name="message" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Text, Mode=TwoWay}"/>
+            <TextBox x:Name="message" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Text, Mode=TwoWay}" Style="{StaticResource messageTextBox}"/>
 
         </StackPanel>
 

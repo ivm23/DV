@@ -7,7 +7,7 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              
              mc:Ignorable="d" 
-             d:DesignHeight="52" d:DesignWidth="211">
+             d:DesignHeight="52" d:DesignWidth="292">
 
     <UserControl.Resources>
         <Style TargetType="ListBox" BasedOn="{StaticResource standartListBox}"/>
@@ -18,20 +18,20 @@
         </Style>
 
         <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}">
-            <Setter Property="TextBox.Width" Value="210"/>
+            <Setter Property="TextBox.Width" Value="292"/>
             <Setter Property="Margin" Value="3,3,3,0"/>
         </Style>
     </UserControl.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="179*"/>
-            <ColumnDefinition Width="32*"/>
+            <ColumnDefinition Width="129*"/>
+            <ColumnDefinition Width="17*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
 
-            <TextBox x:Name="txtWorkers"  IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Names}">
+            <TextBox x:Name="txtWorkers"  IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Names}" Keyboard.PreviewKeyDown="FocusToListOfWorker">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction
@@ -39,22 +39,17 @@
                 CommandParameter="{Binding ElementName=txtWorkers, Path=Text}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding Path=FocusToListBox}" Key="Down" />
-                </TextBox.InputBindings>
             </TextBox>
 
-            <ListBox x:Name="listWorkers" Focusable="{Binding Focus}" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}"  SelectedItem="{Binding Path=SelectedWorker}" >
+            <ListBox x:Name="listWorkers" Focusable="{Binding Focus}" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}"  SelectedItem="{Binding Path=SelectedWorker}" Keyboard.PreviewKeyDown="FocusToNamesReceiversString">
                 <ListBox.InputBindings>
                     <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
-                    <MouseBinding Command="{Binding Path=AddWorker}" MouseAction="LeftDoubleClick"
-                              CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
                 </ListBox.InputBindings>
             </ListBox>
 
         </StackPanel>
 
-        <Button x:Name="btnAllWorkers" Content="..." Visibility="{Binding Path=Enable}" Command="{Binding Path=AddSeveralWorkers}" Grid.Column="1"/>
+        <Button x:Name="btnAllWorkers" Content="..." Visibility="{Binding Path=Enable}" Command="{Binding Path=AddSeveralWorkers}" Grid.Column="1" Margin="4,4,0,0"/>
     </Grid>
 </UserControl>

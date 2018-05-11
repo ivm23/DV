@@ -57,5 +57,22 @@ namespace Registration.WPF.Views.Controls
                 return _workersEditorControlViewModel.NamesWorkers;
             }
         }
+
+        public void FocusToListOfWorker(object sender, KeyEventArgs e)
+       {
+            if (Key.Down == e.Key)
+            {
+                listWorkers.Focus();
+            }
+        }
+
+        public void FocusToNamesReceiversString(object sender, KeyEventArgs e)
+        {
+            if (Key.Up != e.Key && Key.Down != e.Key && Key.Enter != e.Key)
+            {
+                txtWorkers.Focus();
+                txtWorkers.SelectionStart = txtWorkers.Text.Length;
+            }
+        }
     }
 }

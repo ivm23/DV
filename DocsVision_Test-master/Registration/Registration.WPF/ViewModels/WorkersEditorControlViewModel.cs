@@ -19,7 +19,7 @@ namespace Registration.WPF.ViewModels
             Focus = true;
 
             ChangedText = new ViewModels.Command(arg => ChangedTextMethod(arg));
-            FocusToListBox = new ViewModels.Command(arg => FocusToListBoxMethod(arg));
+        //    FocusToListBox = new ViewModels.Command(arg => FocusToListBoxMethod(arg));
             AddWorker = new ViewModels.Command(arg => AddWorkerMethod(arg));
             AddSeveralWorkers = new ViewModels.Command(arg => AddSeveralWorkersMethod());
 
@@ -160,10 +160,10 @@ namespace Registration.WPF.ViewModels
         }
 
         public ICommand FocusToListBox { get; set; }
-        private void FocusToListBoxMethod(object arg)
-        {
-            Focus = true;
-        }
+        //private void FocusToListBoxMethod(object arg)
+        //{
+        //    Focus = true;
+        //}
 
         private IList<string> selectedWorkers = new List<string>();
         public ICommand AddWorker { get; set; }
