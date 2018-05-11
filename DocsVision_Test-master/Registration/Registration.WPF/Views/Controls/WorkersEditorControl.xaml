@@ -25,8 +25,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="129*"/>
-            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="64*"/>
+            <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
@@ -50,6 +50,6 @@
 
         </StackPanel>
 
-        <Button x:Name="btnAllWorkers" Content="..." Visibility="{Binding Path=Enable}" Command="{Binding Path=AddSeveralWorkers}" Grid.Column="1" Margin="4,4,0,0"/>
+        <Button x:Name="btnAllWorkers" Content="..." Visibility="{Binding Path=Enable}" Command="{Binding Path=AddSeveralWorkers}" Grid.Column="1" />
     </Grid>
 </UserControl>

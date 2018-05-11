@@ -14,8 +14,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="73*" />
-            <ColumnDefinition Width="127*" />
+            <ColumnDefinition Width="71*" />
+            <ColumnDefinition Width="129*" />
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">

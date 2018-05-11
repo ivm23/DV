@@ -19,7 +19,6 @@ namespace Registration.WPF.ViewModels
             Focus = true;
 
             ChangedText = new ViewModels.Command(arg => ChangedTextMethod(arg));
-        //    FocusToListBox = new ViewModels.Command(arg => FocusToListBoxMethod(arg));
             AddWorker = new ViewModels.Command(arg => AddWorkerMethod(arg));
             AddSeveralWorkers = new ViewModels.Command(arg => AddSeveralWorkersMethod());
 
@@ -46,7 +45,7 @@ namespace Registration.WPF.ViewModels
             {
                 IEnumerable<string> workers = new List<string>();
                 workers = workersString.ToString().Trim().Split(SplitMarker);
-                return workers.AsQueryable().Where(str => !string.IsNullOrEmpty(str) && _allWorkers.Contains(str));
+                return workers.AsQueryable().Where(str => !string.IsNullOrEmpty(str) && _allWorkers.Contains(str.Trim()));
             }
         }
 
@@ -133,15 +132,27 @@ namespace Registration.WPF.ViewModels
             stringEndIndex = str.LastIndexOf(SplitMarker);
             if (stringEndIndex < 0)
                 stringEndIndex = 0;
+            else
+            {
+                ++stringEndIndex;
+                if (stringEndIndex < str.Length)
+                {
+                    while (str[stringEndIndex] == ' ' && stringEndIndex < str.Length - 1) ++stringEndIndex;
+                    ++stringEndIndex;
+                }
+              
+            }
         }
 
         public ICommand ChangedText { set; get; }
         private void ChangedTextMethod(object arg)
-        {
+      {
             SelectedWorker = null;
 
             if (stringEndIndex > ((string)arg).Length - 1)
+            {
                 findNewIndex((string)arg);
+            }
 
             Enable = Visibility.Visible;
             var matchWorkerNames = new List<string>();
@@ -159,12 +170,6 @@ namespace Registration.WPF.ViewModels
             else Enable = Visibility.Collapsed;
         }
 
-        public ICommand FocusToListBox { get; set; }
-        //private void FocusToListBoxMethod(object arg)
-        //{
-        //    Focus = true;
-        //}
-
         private IList<string> selectedWorkers = new List<string>();
         public ICommand AddWorker { get; set; }
         private void AddWorkerMethod(object arg)
@@ -172,7 +177,7 @@ namespace Registration.WPF.ViewModels
             selectedWorkers.Add((string)arg);
         
             NamesWorkers = selectedWorkers;
-            MessageBox.Show("add");
+            stringEndIndex = Names.Length;
         }
 
         public ICommand AddSeveralWorkers { get; set; }
@@ -182,7 +187,6 @@ namespace Registration.WPF.ViewModels
             nonSelectedWorkers = _allWorkers.Where(str => !selectedWorkers.Contains(str));
 
             var window = new Views.AddWorkersFromAllWorkersListWindow(selectedWorkers, nonSelectedWorkers);
-
 
             if (window.ShowDialog() == true)
             {

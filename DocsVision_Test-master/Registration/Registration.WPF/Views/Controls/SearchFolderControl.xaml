@@ -6,11 +6,34 @@
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="127" d:DesignWidth="326">
+    <UserControl.Resources>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource standartComboBox}"/>
+        <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
+            <Setter Property="Width" Value="300"/>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <local:CreateFolderControl x:Name="createFolderControl" HorizontalAlignment="Left" Margin="0,0,-8,0" VerticalAlignment="Top" Width="334"/>
-        <Label x:Name="label" Content="Which messages would you like to show in this folder?" HorizontalAlignment="Left" Margin="11,59,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label1" Content="Show in folder if Sender contains" HorizontalAlignment="Left" Margin="12,87,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" HorizontalAlignment="Left" Margin="201,87,0,0" SelectedValue="{Binding Path=SelectedWorkerName}" VerticalAlignment="Top" Width="120"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="57*"/>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="41*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="181*"/>
+            <ColumnDefinition Width="145*"/>
+        </Grid.ColumnDefinitions>
+
+        <local:CreateFolderControl x:Name="createFolderControl" Grid.Row="0" Grid.ColumnSpan="2" />
+
+        <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label x:Name="labelQuestion" Content="Which messages would you like to show in this folder?" />
+            <Label x:Name="labelCondition" Content="Show in folder if Sender contains" />
+        </StackPanel>
+
+        <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" Grid.Column="1" Grid.Row="2" />
+
 
     </Grid>
 </UserControl>

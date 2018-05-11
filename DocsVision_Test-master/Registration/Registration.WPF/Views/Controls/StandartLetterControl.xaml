@@ -16,16 +16,16 @@
             <Setter Property="UserControl.Margin" Value="1"/>
         </Style>
 
-        <Style x:Key="messageTextBox" BasedOn="{StaticResource standartTextBox}">
-            <Setter Property="TextBox.Height" Value="250"/>
-            <Setter Property="TextBox.Width" Value="292"/>
+        <Style x:Key="messageTextBox">
+            <Setter Property="TextBox.MinHeight" Value="250"/>
+            <Setter Property="TextBox.MinWidth" Value="150"/>
         </Style>
 
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="299*"/>
-            <ColumnDefinition Width="245*"/>
+            <ColumnDefinition Width="19*"/>
+            <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
