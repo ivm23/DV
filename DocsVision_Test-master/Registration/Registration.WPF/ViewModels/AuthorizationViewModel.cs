@@ -132,6 +132,7 @@ namespace Registration.WPF.ViewModels
             _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(Login, Password);
             if (Guid.Empty != _worker.Id)
             {
+
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = _worker.Id;
                 MessageBox.Show("Welcome!");
 

@@ -24,7 +24,7 @@
         <Setter Property="TextBox.Margin" Value="3"/>
         <Setter Property="TextBox.TextWrapping" Value="Wrap"/>
         <Setter Property="TextBox.MinWidth" Value="50" />
-        <Setter Property="TextBox.MinHeight" Value="22" />
+        <Setter Property="TextBox.MinHeight" Value="23" />
     </Style>
 
     <Style x:Key="standartListBox">
@@ -56,8 +56,7 @@
 
     <Style x:Key="standartControl">
         <Setter Property="UserControl.Margin" Value="0"/>
-        <Setter Property="UserControl.HorizontalAlignment" Value="Left"/>
-        <Setter Property="UserControl.VerticalAlignment" Value="Top"/>
+        <Setter Property="UserControl.HorizontalAlignment" Value="Stretch"/>
     </Style>
 
     <Style x:Key="standartMenu">
@@ -68,7 +67,7 @@
 
     <Style x:Key="standartDatePicker">
         <Setter Property="DatePicker.MinWidth" Value="128"/>
-        <Setter Property="DatePicker.MinHeight" Value="22"/>
+        <Setter Property="DatePicker.Height" Value="23"/>
         <Setter Property="DatePicker.Margin" Value="3"/>
     </Style>
 

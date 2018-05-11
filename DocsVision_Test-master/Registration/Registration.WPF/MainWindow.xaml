@@ -44,7 +44,7 @@
         </DataGrid>
         
         <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="529" Margin="8,27,0,0" VerticalAlignment="Top" Width="385">
-            <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="tv_dep_PreviewMouseRightButtonDown" Height="546" >
+            <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="tv_dep_PreviewMouseRightButtonDown" Height="546"  >
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                         <TextBlock Text="{Binding Name}" />
@@ -52,7 +52,7 @@
                 </TreeView.ItemTemplate>
 
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectedItemChanged">
+                    <i:EventTrigger EventName="MouseUp">
                         <i:InvokeCommandAction
                            Command="{Binding SelectedFolderNodeChanged}"
                            CommandParameter="{Binding SelectedItem, ElementName=TV}" />
@@ -66,6 +66,14 @@
                         <MenuItem Header="Delete" Command="{Binding DeleteFolder}"/>
                     </ContextMenu>
                 </TreeView.ContextMenu>
+
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="True"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+
             </TreeView>
 
         </StackPanel>

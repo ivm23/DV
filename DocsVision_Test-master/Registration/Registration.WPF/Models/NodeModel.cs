@@ -7,12 +7,24 @@ using Registration.Model;
 
 namespace Registration.WPF.Models
 {
-    public class Node
+    public class Node : ViewModels.Notifier
     {
         public string Name { get; set; }
         public Folder Folder { get; set; }
 
-        public bool IsSelected { get; set; }
+        private bool _isSelected { get; set; }
+
+        public Boolean IsSelected
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
+        }
+
+       
     }
 
     public class DirectoryNode : Node
@@ -41,6 +53,7 @@ namespace Registration.WPF.Models
 
             return nodes;
         }
+
 
     }
 }

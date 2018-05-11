@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel.Design;
 using Registration.ClientInterface;
+using System.Windows.Threading;
 using System.Collections.ObjectModel;
 
 namespace Registration.WPF
@@ -29,6 +30,10 @@ namespace Registration.WPF
         private readonly MainWindowViewModel _mainWindowViewModel;
 
         private readonly IServiceContainer _serviceContainer = new ServiceContainer();
+        private IServiceContainer ServiceContainer
+        {
+            get { return _serviceContainer; }
+        }
 
         public MainWindow()
         {
@@ -48,7 +53,6 @@ namespace Registration.WPF
             _serviceContainer.AddService(typeof(IClientRequests), clientRequests);
             _serviceContainer.AddService(typeof(PluginService), new PluginService(_serviceContainer));
             _serviceContainer.AddService(typeof(ApplicationState), new ApplicationState());
-        //    _serviceContainer.AddService(typeof(WinForms.Message.IMessageService), new WinForms.Message.MessageService());
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -57,6 +61,8 @@ namespace Registration.WPF
             form.ShowDialog();
             _mainWindowViewModel.InitializeTreeView();
             _mainWindowViewModel.InitializeMenu();
+
+            StartTimer();
         }
 
         private void tv_dep_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -76,5 +82,23 @@ namespace Registration.WPF
 
             return source;
         }
+
+        private DispatcherTimer timer;
+        private void StartTimer()
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            var a = TV.SelectedItem;
+            //   _mainWindowViewModel.InitializeDataGrid(((ApplicationState)ServiceContainer.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+            _mainWindowViewModel.InitializeTreeView();
+
+        }
+
     }
 }

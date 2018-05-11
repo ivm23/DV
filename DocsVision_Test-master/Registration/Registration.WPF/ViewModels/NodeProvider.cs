@@ -13,40 +13,52 @@ namespace Registration.WPF.ViewModels
 
         private IList<Guid> _existFoldersInTree = new List<Guid>();
 
-        private void MakeTree(Folder folder, IEnumerable<Folder> folders, ref Models.DirectoryNode node)
+        private void MakeTree(Folder folder, IEnumerable<Folder> folders, ref Models.DirectoryNode node, Folder selectedFolder)
         {
-            foreach(var f in folders)
+            foreach (var f in folders)
             {
-                if (folder.Id == f.ParentId )
+                if (folder.Id == f.ParentId)
                 {
-                    Models.DirectoryNode newNode = new WPF.Models.DirectoryNode { Name = f.Name, Folder = f};
-                    MakeTree(f, folders, ref newNode);
+                    Models.DirectoryNode newNode;
+                    if (null != selectedFolder && selectedFolder.Id == f.Id)
+                        newNode = new WPF.Models.DirectoryNode { Name = f.Name, Folder = f, IsSelected = true };
+                    else
+                        newNode = new WPF.Models.DirectoryNode { Name = f.Name, Folder = f, IsSelected = false };
+
+
+                    MakeTree(f, folders, ref newNode, selectedFolder);
                     node.AddDirNode(newNode);
                 }
             }
 
         }
 
-        private void InitialiseMakeTree(IEnumerable<Folder> folders)
+        private void InitialiseMakeTree(IEnumerable<Folder> folders, Folder selectedFolder)
         {
             foreach (var folder in folders)
             {
                 if (!_existFoldersInTree.Contains(folder.Id) && folder.ParentId == Guid.Empty)
                 {
-                    Models.DirectoryNode node = new WPF.Models.DirectoryNode { Name = folder.Name, Folder = folder};
-                    MakeTree(folder, folders, ref node);
+                    Models.DirectoryNode node;
+                    if (null != selectedFolder && selectedFolder.Id == folder.Id)
+                        node = new WPF.Models.DirectoryNode { Name = folder.Name, Folder = folder, IsSelected = true };
+                    else
+                        node = new WPF.Models.DirectoryNode { Name = folder.Name, Folder = folder, IsSelected = false};
+
+                    MakeTree(folder, folders, ref node, selectedFolder);
                     _rootDirectoryNode.AddDirNode(node);
                     _existFoldersInTree.Add(folder.Id);
                 }
             }
         }
 
-        public NodeProvider(IEnumerable<Folder> privateFolders, IEnumerable<Folder> sharedFolders)
+        public NodeProvider(IEnumerable<Folder> privateFolders, IEnumerable<Folder> sharedFolders, Folder selectedFolder)
         {
-            _rootDirectoryNode = new WPF.Models.DirectoryNode { Name = string.Empty };
-            InitialiseMakeTree(privateFolders);
-            InitialiseMakeTree(sharedFolders);
-            _rootDirectoryNode.IsSelected = true;
+            _rootDirectoryNode = new WPF.Models.DirectoryNode { Name = string.Empty, IsSelected = false };
+            InitialiseMakeTree(privateFolders, selectedFolder);
+            InitialiseMakeTree(sharedFolders, selectedFolder);
+            if (null == selectedFolder)
+                _rootDirectoryNode.IsSelected = true;
         }
 
         public List<WPF.Models.Node> DirItems => _rootDirectoryNode.Traverse(_rootDirectoryNode);

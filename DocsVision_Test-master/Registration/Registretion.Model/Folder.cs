@@ -20,6 +20,17 @@ namespace Registration.Model
         {
             return Id == Guid.Empty;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (null == obj)
+                return false;
+            Folder folder = (Folder)obj;
+            if (Id == folder.Id && ParentId == folder.ParentId && Name.Equals(folder.Name) && Type == folder.Type && OwnerId == folder.OwnerId && Data.Equals(folder.Data))
+                return true;
+
+            return false;
+        }
     }
     public class FolderType
     {

@@ -11,6 +11,7 @@
         <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
             <Setter Property="MinWidth" Value="200"/>
         </Style>
+        <Style TargetType="DatePicker" BasedOn="{StaticResource standartDatePicker}"/>
     </UserControl.Resources>
 
     <Grid>
@@ -19,11 +20,13 @@
             <ColumnDefinition Width="245"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="221*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="600*"/>
         </Grid.RowDefinitions>
 
-        <local:StandartLetterControl x:Name="fullContentLetterControl" Style="{StaticResource standartControl}" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <local:StandartLetterControl x:Name="fullContentLetterControl" Style="{StaticResource standartControl}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="3"/>
+        
         <StackPanel Grid.Row="1" Grid.Column="1">
             <Label x:Name="lblDataOfResponseReq" Content="Date of response required"/>
             <DatePicker x:Name="dataPickerLetter" IsEnabled="{Binding Path=Enable}" SelectedDate="{Binding Path=ReminderLetterData}"/>

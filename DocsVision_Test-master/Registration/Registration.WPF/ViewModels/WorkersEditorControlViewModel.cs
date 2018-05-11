@@ -155,17 +155,23 @@ namespace Registration.WPF.ViewModels
             }
 
             Enable = Visibility.Visible;
-            var matchWorkerNames = new List<string>();
-            foreach (string workerName in _allWorkers)
+            string newName = ((string)arg).Substring(stringEndIndex);
+            if (!string.IsNullOrEmpty(newName.Trim()))
             {
-                if (workerName.Contains(((string)arg).Substring(stringEndIndex)))
+                var matchWorkerNames = new List<string>();
+
+                foreach (string workerName in _allWorkers)
                 {
-                    matchWorkerNames.Add(workerName);
+                    if (workerName.Contains(newName))
+                    {
+                        matchWorkerNames.Add(workerName);
+                    }
                 }
-            }
-            if (matchWorkerNames.Count != 0)
-            {
-                AllWorkers = matchWorkerNames;
+                if (matchWorkerNames.Count != 0)
+                {
+                    AllWorkers = matchWorkerNames;
+                }
+                else Enable = Visibility.Collapsed;
             }
             else Enable = Visibility.Collapsed;
         }

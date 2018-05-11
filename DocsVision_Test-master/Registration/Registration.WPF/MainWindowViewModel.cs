@@ -11,6 +11,9 @@ using Registration.WPF.ViewModels;
 using System.Windows.Input;
 using System.Windows.Threading;
 
+
+using System.Windows;
+
 namespace Registration.WPF
 {
     class MainWindowViewModel : Notifier
@@ -22,7 +25,8 @@ namespace Registration.WPF
         private Models.Node _selectedNode;
         private IList<LetterView> _letters;
 
-        public MainWindowViewModel() { }
+        public MainWindowViewModel() {
+        }
 
         public MainWindowViewModel(IServiceProvider provider)
         {
@@ -60,7 +64,6 @@ namespace Registration.WPF
             window.ShowDialog();
 
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
-            //   LetterPlugin = null;
         }
 
         private void EditFolderMethod(object arg)
@@ -106,15 +109,11 @@ namespace Registration.WPF
         }
 
 
-        bool f = false;
         private void SelectedFolderNodeChangedMethod(object arg)
         {
-            //    if (!f)
-            {
+               // SelectedFolder = ((Models.DirectoryNode)arg).Folder;
                 InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
-                //    f = true;
-            }
         }
 
 
@@ -214,7 +213,7 @@ namespace Registration.WPF
 
         public void InitializeTreeView()
         {
-            var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty));
+            var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty), ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder);
             DirItems = itemProvider.DirItems;
         }
 
@@ -257,33 +256,20 @@ namespace Registration.WPF
             }
         }
 
-        private DispatcherTimer timer;
-        private double currentTime;
+        private Folder _selectedFolder;
 
-        public double CurrentTime
+        public Folder SelectedFolder
         {
-            get
-            {
-                return currentTime;
-            }
             set
             {
-                currentTime = value;
-                OnPropertyChanged("CurrentTime");
+                _selectedFolder = value;
+            }
+            get
+            {
+                return _selectedFolder;
             }
         }
 
-        private void StartTimer()
-        {
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
-            timer.Tick += new EventHandler(timer_Tick);
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
-        }
-
+       
     }
 }

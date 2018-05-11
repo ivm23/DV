@@ -37,7 +37,8 @@ namespace Registration.WPF.Views.Controls
                 throw new ArgumentNullException();
 
             _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
-            standartLetterControlViewModel = new ViewModels.StandartLetterControlViewModel(_letterView);
+            string workerName = ((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetWorkerName(((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+            standartLetterControlViewModel = new ViewModels.StandartLetterControlViewModel(_letterView, workerName);
             DataContext = standartLetterControlViewModel;
 
             workersEditorControl.DataContext = new ViewModels.WorkersEditorControlViewModel(((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllWorkers());
@@ -79,22 +80,22 @@ namespace Registration.WPF.Views.Controls
                 standartLetterControlViewModel.Text = value.Text;
                 standartLetterControlViewModel.Date = value.Date;
                 standartLetterControlViewModel.SenderName = value.SenderName;
-                workersEditorControl.NamesWorkers = value.ReceiversName;        
+                workersEditorControl.NamesWorkers = value.ReceiversName;
             }
             get
             {
-                var letter = new LetterView() {
+                var letter = new LetterView()
+                {
                     Name = standartLetterControlViewModel.Title,
                     Text = standartLetterControlViewModel.Text,
                     Date = standartLetterControlViewModel.Date,
                     SenderName = standartLetterControlViewModel.SenderName
                 };
-                    letter.ReceiversName.AddRange(workersEditorControl.NamesWorkers);
+                letter.ReceiversName.AddRange(workersEditorControl.NamesWorkers);
                 return letter;
             }
         }
-        
-      
+
     }
 }
 

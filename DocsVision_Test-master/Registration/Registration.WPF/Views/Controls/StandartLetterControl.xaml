@@ -18,7 +18,7 @@
         <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}"/>
 
         <Style x:Key="messageTextBox" BasedOn="{StaticResource standartTextBox}">
-            <Setter Property="TextBox.MinHeight" Value="250"/>
+            <Setter Property="TextBox.MinHeight" Value="300"/>
             <Setter Property="TextBox.MinWidth" Value="150"/>
         </Style>
 
@@ -31,10 +31,10 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="42*"/>
-            <RowDefinition Height="42*"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="300*"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0">
@@ -43,8 +43,8 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="1">
-            <Label x:Name="labelSenderName" Content="Sender"/>
-            <TextBox x:Name="sender" IsReadOnly="True" Text="{Binding Path=SenderName, Mode=TwoWay}" />
+            <Label x:Name="labelSenderName" Content="Sender" Visibility="{Binding Path=Visibility}"/>
+            <TextBox x:Name="sender" IsReadOnly="True" Text="{Binding Path=SenderName, Mode=TwoWay}" Visibility="{Binding Path=Visibility}" />
         </StackPanel>
 
 
@@ -57,7 +57,6 @@
             <Label x:Name="labelDate" Content="Date" />
             <TextBox x:Name="date" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" Style="{StaticResource standartTextBox}" />
         </StackPanel>
-
 
         <StackPanel Grid.Column="0" Grid.Row="2" Grid.RowSpan="4">
             <Label x:Name="labelReceiversNames" Content="Receivers"/>

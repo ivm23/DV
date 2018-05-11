@@ -270,7 +270,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Views\Controls\App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Registration.ClientInterface\Registration.ClientInterface.csproj">

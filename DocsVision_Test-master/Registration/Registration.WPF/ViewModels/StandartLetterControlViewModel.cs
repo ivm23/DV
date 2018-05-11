@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Registration.Model;
 using System.ComponentModel;
+using System.Windows;
 
 namespace Registration.WPF.ViewModels
 {
@@ -12,14 +13,14 @@ namespace Registration.WPF.ViewModels
     {
         private LetterView _letterView = new LetterView();
 
-        public StandartLetterControlViewModel(LetterView letterView)
+        public StandartLetterControlViewModel(LetterView letterView, string senderName)
         {
+
             if (null == letterView)
                 throw new ArgumentNullException();
 
             Title = letterView.Name;
             Text = letterView.Text;
-            SenderName = letterView.SenderName;
             Date = letterView.Date;
         }
 
@@ -80,11 +81,27 @@ namespace Registration.WPF.ViewModels
             set
             {
                 _readOnly = value;
+                Visibility = (value ? Visibility.Visible : Visibility.Collapsed);
                 OnPropertyChanged(nameof(ReadOnly));
             }
             get
             {
                 return _readOnly;
+            }
+        }
+
+        private Visibility _visibility;
+
+        public Visibility Visibility
+        {
+            set
+            {
+                _visibility = value;
+                OnPropertyChanged(nameof(Visibility));
+            }
+            get
+            {
+                return _visibility;
             }
         }
     }
