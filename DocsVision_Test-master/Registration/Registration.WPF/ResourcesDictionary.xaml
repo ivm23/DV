@@ -57,6 +57,7 @@
     <Style x:Key="standartControl">
         <Setter Property="UserControl.Margin" Value="0"/>
         <Setter Property="UserControl.HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="UserControl.VerticalAlignment" Value="Stretch"/>
     </Style>
 
     <Style x:Key="standartMenu">
@@ -69,6 +70,8 @@
         <Setter Property="DatePicker.MinWidth" Value="128"/>
         <Setter Property="DatePicker.Height" Value="23"/>
         <Setter Property="DatePicker.Margin" Value="3"/>
+        <Setter Property="DatePicker.HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="DatePicker.VerticalAlignment" Value="Stretch"/>
     </Style>
 
 </ResourceDictionary>

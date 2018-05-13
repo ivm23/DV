@@ -22,6 +22,7 @@ namespace Registration.WPF.ViewModels
             Title = letterView.Name;
             Text = letterView.Text;
             Date = letterView.Date;
+            SenderName = senderName;
         }
 
         public string Title

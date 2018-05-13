@@ -112,9 +112,12 @@ namespace Registration.WPF
 
         private void SelectedFolderNodeChangedMethod(object arg)
         {
-            InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
-            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
-            LetterPlugin = null;
+            if (null != arg)
+            {
+                InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
+                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
+                //LetterPlugin = null;
+            }
         }
 
 

@@ -19,7 +19,17 @@ namespace Registration.WPF.ViewModels
             if (null == letterView)
                 throw new ArgumentNullException();
 
-            StringSelectedImportanceDegree = letterView.ExtendedData;
+            if (null != letterView.ExtendedData)
+                StringSelectedImportanceDegree = letterView.ExtendedData;
+            else
+            {
+                foreach (int value in Enum.GetValues(typeof(Model.ImportanceDegree)))
+                {
+                    NameSelectedDegree = (string)Resource.ResourceManager.GetObject(value.ToString());
+                    break;
+                }
+
+            }
         }
 
 
@@ -97,19 +107,19 @@ namespace Registration.WPF.ViewModels
             }
             get
             {
-                foreach(KeyValuePair<Model.ImportanceDegree, string> pair in ImportanceDegrees)
+                foreach (KeyValuePair<Model.ImportanceDegree, string> pair in ImportanceDegrees)
                 {
                     if (pair.Value == NameSelectedDegree)
                     {
                         _importantLetterData.DegreeImportance = pair.Key;
                     }
                 }
-               
+
                 return _dataSerializer.SerializeData(_importantLetterData);
             }
         }
 
- 
+
         private string _nameSelectedDegree;
         public string NameSelectedDegree
         {

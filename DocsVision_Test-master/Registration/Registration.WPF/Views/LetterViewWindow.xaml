@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <Menu Name="Menu" Grid.Row="0" Grid.RowSpan="2">
-            <MenuItem Header="Delete Letter" Command="{Binding Path=DeleteLetter}"  CommandParameter="{Binding ElementName=letterViewWindow}">
+            <MenuItem Header="Delete Letter" Command="{Binding Path=DeleteLetter}" CommandParameter="{Binding ElementName=letterViewWindow}">
                 <MenuItem.Icon>
                     <Image Source="C:\Users\Ivanova.M\Downloads\DeleteLetter.png"/>
                 </MenuItem.Icon>
