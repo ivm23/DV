@@ -24,7 +24,6 @@ namespace Registration.WPF
         private LetterView _selectedLetter;
         private ObservableCollection<LetterView> _letters = new ObservableCollection<LetterView>();
 
-        Color A;
         public MainWindowViewModel()
         {
         }
@@ -93,7 +92,7 @@ namespace Registration.WPF
             if (0 < index && index == Letters.Count - 1)
                 _index = index - 1;
             else
-                if (index > 0)
+                if (index >= 0)
                 _index = index;
             else
                 throw new IndexOutOfRangeException();

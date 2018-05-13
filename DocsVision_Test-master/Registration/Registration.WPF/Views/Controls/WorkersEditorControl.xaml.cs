@@ -46,6 +46,7 @@ namespace Registration.WPF.Views.Controls
                 return txtWorkers.IsReadOnly;
             }
         }
+
         public IEnumerable<string> NamesWorkers
         {
             set

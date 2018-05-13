@@ -29,12 +29,17 @@
                 <DataGridHyperlinkColumn Header="SenderName" Binding="{Binding Path=SenderName}" Width="150" />
                 <DataGridTextColumn Header="Date" Binding="{Binding Path=Date}" Width="150" />
             </DataGrid.Columns>
+            <DataGrid.InputBindings>
+                <KeyBinding Command="{Binding Path=OpenLetterViewWindow}" Key="Enter" 
+                            CommandParameter="{Binding ElementName=BriefContentLetters, Path=SelectedValue}"/>
+            </DataGrid.InputBindings>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction
                            Command="{Binding Path=OpenLetterViewWindow}"
                 CommandParameter="{Binding ElementName=BriefContentLetters, Path=SelectedValue}" />
                 </i:EventTrigger>
+               
                 <i:EventTrigger EventName="SelectedCellsChanged">
                     <i:InvokeCommandAction
                            Command="{Binding Path=ShowBriefLetter}"
