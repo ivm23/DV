@@ -31,7 +31,7 @@
 
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
 
-            <TextBox x:Name="txtWorkers"  IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Names}" Keyboard.PreviewKeyDown="FocusToListOfWorker">
+            <TextBox x:Name="txtWorkers" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Names}" Keyboard.PreviewKeyDown="FocusToListOfWorker">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction
@@ -41,7 +41,7 @@
                 </i:Interaction.Triggers>
             </TextBox>
 
-            <ListBox x:Name="listWorkers" Focusable="{Binding Focus}" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}"  SelectedItem="{Binding Path=SelectedWorker}" Keyboard.PreviewKeyDown="FocusToNamesReceiversString">
+            <ListBox x:Name="listWorkers" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}" SelectedItem="{Binding Path=SelectedWorker}" Keyboard.PreviewKeyDown="FocusToNamesReceiversString">
                 <ListBox.InputBindings>
                     <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>

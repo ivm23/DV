@@ -16,7 +16,6 @@ namespace Registration.WPF.ViewModels
         {
             _allWorkers = allWorkers;
             AllWorkers = allWorkers;
-            Focus = true;
 
             ChangedText = new ViewModels.Command(arg => ChangedTextMethod(arg));
             AddWorker = new ViewModels.Command(arg => AddWorkerMethod(arg));
@@ -111,24 +110,12 @@ namespace Registration.WPF.ViewModels
 
         public string SelectedNameWorker { get; set; }
 
-        private bool _focus;
-        public bool Focus
-        {
-            get
-            {
-                return _focus;
-            }
-            set
-            {
-                _focus = value;
-                OnPropertyChanged(nameof(Focus));
-                SelectedWorker = AllWorkers.First();
-            }
-
-        }
-
         private void findNewIndex(string str)
         {
+            int i = str.LastIndexOf(SplitMarker);
+
+            str = str.Substring(0, i - 1);
+
             stringEndIndex = str.LastIndexOf(SplitMarker);
             if (stringEndIndex < 0)
                 stringEndIndex = 0;
@@ -140,22 +127,24 @@ namespace Registration.WPF.ViewModels
                     while (str[stringEndIndex] == ' ' && stringEndIndex < str.Length - 1) ++stringEndIndex;
                     ++stringEndIndex;
                 }
-              
             }
         }
 
         public ICommand ChangedText { set; get; }
         private void ChangedTextMethod(object arg)
-      {
+        {
             SelectedWorker = null;
+            string currentString = (string)arg;
 
-            if (stringEndIndex > ((string)arg).Length - 1)
+            if (stringEndIndex > (currentString).Length )
             {
-                findNewIndex((string)arg);
+                findNewIndex(currentString.Trim());
+                Names = currentString;
+                selectedWorkers.RemoveAt(selectedWorkers.Count() - 1);
             }
 
             Enable = Visibility.Visible;
-            string newName = ((string)arg).Substring(stringEndIndex);
+            string newName = currentString.Substring(stringEndIndex);
             if (!string.IsNullOrEmpty(newName.Trim()))
             {
                 var matchWorkerNames = new List<string>();
@@ -177,13 +166,16 @@ namespace Registration.WPF.ViewModels
         }
 
         private IList<string> selectedWorkers = new List<string>();
+
         public ICommand AddWorker { get; set; }
         private void AddWorkerMethod(object arg)
         {
-            selectedWorkers.Add((string)arg);
-        
-            NamesWorkers = selectedWorkers;
+              selectedWorkers.Add((string)arg);
+
+                NamesWorkers = selectedWorkers;
+            
             stringEndIndex = Names.Length;
+            //Enable = Visibility.Collapsed;
         }
 
         public ICommand AddSeveralWorkers { get; set; }

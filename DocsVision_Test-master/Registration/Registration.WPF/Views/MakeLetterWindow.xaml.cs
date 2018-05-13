@@ -35,7 +35,7 @@ namespace Registration.WPF.Views
             _makeLetterViewModel.InitializeLetterPlugin();
 
             stackPanel.Children.Add((Control)(_makeLetterViewModel.LetterPlugin));
-            this.SizeToContent = SizeToContent.WidthAndHeight;
+            this.SizeToContent = SizeToContent.Manual;
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)

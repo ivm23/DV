@@ -73,6 +73,6 @@ namespace Registration.WPF.Views.Controls
                 txtWorkers.Focus();
                 txtWorkers.SelectionStart = txtWorkers.Text.Length;
             }
-        }
+        }        
     }
 }

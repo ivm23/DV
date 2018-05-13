@@ -31,7 +31,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="55"/>
+            <RowDefinition Height="55*"/>
             <RowDefinition Height="55*"/>
             <RowDefinition Height="55"/>
             <RowDefinition Height="400*"/>
@@ -43,8 +43,8 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="1">
-            <Label x:Name="labelSenderName" Content="Sender" Visibility="{Binding Path=Visibility}"/>
-            <TextBox x:Name="sender" IsReadOnly="True" Text="{Binding Path=SenderName, Mode=TwoWay}" Visibility="{Binding Path=Visibility}" />
+            <Label x:Name="labelSenderName" Content="Sender"/>
+            <TextBox x:Name="sender" IsReadOnly="True" Text="{Binding Path=SenderName, Mode=TwoWay}"/>
         </StackPanel>
 
 

@@ -37,6 +37,8 @@ namespace Registration.WPF
 
         public MainWindow()
         {
+            
+
             InitializeServiceContainer();
 
             _mainWindowViewModel = new MainWindowViewModel(_serviceContainer);

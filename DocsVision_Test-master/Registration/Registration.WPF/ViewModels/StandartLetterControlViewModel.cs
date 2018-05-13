@@ -87,6 +87,7 @@ namespace Registration.WPF.ViewModels
             get
             {
                 return _readOnly;
+
             }
         }
 

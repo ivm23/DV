@@ -9,9 +9,9 @@ using System.Collections.ObjectModel;
 using Registration.ClientInterface;
 using Registration.WPF.ViewModels;
 using System.Windows.Input;
+using System.Windows.Controls;
 using System.Windows.Threading;
-
-
+using System.Windows.Media;
 using System.Windows;
 
 namespace Registration.WPF
@@ -22,10 +22,11 @@ namespace Registration.WPF
         private IClientRequests _clientRequests;
         private List<Models.Node> _dirItems;
         private LetterView _selectedLetter;
-        private Models.Node _selectedNode;
-        private IList<LetterView> _letters;
+        private ObservableCollection<LetterView> _letters = new ObservableCollection<LetterView>();
 
-        public MainWindowViewModel() {
+        Color A;
+        public MainWindowViewModel()
+        {
         }
 
         public MainWindowViewModel(IServiceProvider provider)
@@ -83,7 +84,8 @@ namespace Registration.WPF
 
             makeFolderWindow.ShowDialog();
         }
-        private int _index = -1;
+        private int _index;
+
         private void getNextLetter(LetterView letter)
         {
             int index = Letters.IndexOf(letter);
@@ -100,20 +102,19 @@ namespace Registration.WPF
         private void DeleteLetterClickMethod()
         {
 
+            getNextLetter(SelectedLetter);
             ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+            Letters.Remove(SelectedLetter);
 
-            InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
-
-            if (_index != -1)
-                SelectedLetter = Letters[_index];
+            restoreSelectedLetter();
         }
 
 
         private void SelectedFolderNodeChangedMethod(object arg)
         {
-               // SelectedFolder = ((Models.DirectoryNode)arg).Folder;
-                InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
-                ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
+            InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
+            LetterPlugin = null;
         }
 
 
@@ -137,12 +138,22 @@ namespace Registration.WPF
             ExistLettersTypes = ClientRequests.GetAllLetterTypes();
         }
 
+        private void restoreSelectedLetter()
+        {
+            if (_index != -1)
+                SelectedLetter = Letters[_index];
+        }
+
         private void OpenLetterViewWindowMethod(object arg)
         {
+            getNextLetter(SelectedLetter);
+
             var letterViewWindow = new Views.LetterViewWindow(ServiceProvider);
             letterViewWindow.ShowDialog();
 
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+
+            restoreSelectedLetter();
         }
 
         private void ShowBriefLetterMethod(object arg)
@@ -198,38 +209,31 @@ namespace Registration.WPF
             }
         }
 
-        public Models.Node SelectedNode
-        {
-            set
-            {
-                _selectedNode = value;
-                OnPropertyChanged(nameof(SelectedNode));
-            }
-            get
-            {
-                return _selectedNode;
-            }
-        }
-
         public void InitializeTreeView()
         {
             var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty), ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder);
             DirItems = itemProvider.DirItems;
         }
 
+        
         public void InitializeDataGrid(Guid folderId)
         {
             try
             {
-                Letters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id).ToList();
+                Letters.Clear();
+                var letters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id).ToList();
+                foreach (LetterView letterView in letters)
+                {
+                    Letters.Add(letterView);
+                }
             }
             catch (Exception ex)
             {
-                Letters = new List<LetterView>();
+                Letters = new ObservableCollection<LetterView>();
             }
         }
 
-        public IList<LetterView> Letters
+        public ObservableCollection<LetterView> Letters
         {
             set
             {
@@ -270,6 +274,6 @@ namespace Registration.WPF
             }
         }
 
-       
+
     }
 }

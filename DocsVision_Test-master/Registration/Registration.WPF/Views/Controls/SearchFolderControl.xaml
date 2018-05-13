@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="127" d:DesignWidth="326">
     <UserControl.Resources>
-        <Style TargetType="ComboBox" BasedOn="{StaticResource standartComboBox}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource standartComboBox}">
+            <Setter Property="Height" Value="23"/>
+        </Style>
         <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
             <Setter Property="Width" Value="300"/>
         </Style>
@@ -16,24 +18,24 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="57*"/>
-            <RowDefinition Height="42*"/>
-            <RowDefinition Height="8"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="14*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="181"/>
-            <ColumnDefinition Width="145*"/>
+            <ColumnDefinition Width="186"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <local:CreateFolderControl x:Name="createFolderControl" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource standartControl}" Height="56"/>
+        <local:CreateFolderControl x:Name="createFolderControl" Grid.Row="0" Grid.Column="0"  Style="{StaticResource standartControl}" Grid.ColumnSpan="2" Margin="0,0,138,0" Width="Auto"/>
 
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Label x:Name="labelQuestion" Content="Which messages would you like to show in this folder?" />
             <Label x:Name="labelCondition" Content="Show in folder if Sender contains" />
         </StackPanel>
 
-        <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" Grid.Column="1" Grid.Row="2" />
+        <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" SelectedItem="{Binding Path=SelectedWorkerName}" Grid.Column="1" Grid.Row="2" />
 
     </Grid>
 </UserControl>
