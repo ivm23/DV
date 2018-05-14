@@ -65,11 +65,7 @@ namespace Registration.WPF.Views.Controls
                     labelDate.Visibility = Visibility.Visible;
                 }
             }
-
-            get
-            {
-                return standartLetterControlViewModel.ReadOnly;
-            }
+            get { return standartLetterControlViewModel.ReadOnly; }
         }
 
         public LetterView LetterView
@@ -98,5 +94,6 @@ namespace Registration.WPF.Views.Controls
         }
 
     }
+
 }
 

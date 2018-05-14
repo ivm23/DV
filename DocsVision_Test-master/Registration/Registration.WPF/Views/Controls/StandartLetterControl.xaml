@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Registration.WPF.Views.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="544">
+             d:DesignHeight="550" d:DesignWidth="400">
 
     <UserControl.Resources>
         <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
@@ -18,49 +18,52 @@
         <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}"/>
 
         <Style x:Key="messageTextBox" BasedOn="{StaticResource standartTextBox}">
-            <Setter Property="TextBox.MinHeight" Value="300"/>
+            <Setter Property="TextBox.MinHeight" Value="200"/>
             <Setter Property="TextBox.MinWidth" Value="150"/>
+            <Setter Property="TextBox.MaxHeight" Value="750"/>
+            <Setter Property="TextBox.AcceptsReturn" Value="True"/>
+            <Setter Property="TextBox.VerticalScrollBarVisibility" Value="Visible"/>
         </Style>
 
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="0,0,0,-161">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="245"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="400*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="57"/>
+            <RowDefinition Height="57"/>
+            <RowDefinition Height="57"/>
+            <RowDefinition Height="500*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="0">
+        <StackPanel Grid.Row="0">
+            <Label x:Name="labelDate" Content="Date" Visibility="Visible"/>
+            <TextBox x:Name="date" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" Style="{StaticResource standartTextBox}" TabIndex="4"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
             <Label x:Name="labelTitle" Content="Title" />
             <TextBox x:Name="title" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Title, Mode=TwoWay}" TabIndex="0"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="1">
+        <StackPanel Grid.Row="2">
             <Label x:Name="labelSenderName" Content="Sender"/>
             <TextBox x:Name="sender" IsReadOnly="True" Text="{Binding SenderName, Mode=TwoWay}" TabIndex="1"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="0" Grid.Row="3">
-            <Label x:Name="labelMessage" Content="Message"/>
-            <TextBox x:Name="message" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Text, Mode=TwoWay}" Style="{StaticResource messageTextBox}" TabIndex="3"/>
-        </StackPanel>
-
-        <StackPanel Grid.Column="1">
-            <Label x:Name="labelDate" Content="Date" />
-            <TextBox x:Name="date" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" Style="{StaticResource standartTextBox}" TabIndex="4"/>
-        </StackPanel>
-
-        <StackPanel Grid.Column="0" Grid.Row="2" Grid.RowSpan="4">
+        <StackPanel Grid.Row="3" Grid.RowSpan="2">
             <Label x:Name="labelReceiversNames" Content="Receivers"/>
             <local:WorkersEditorControl x:Name="workersEditorControl" TabIndex="2"/>
         </StackPanel>
         
+        <StackPanel Grid.Row="4">
+            <Label x:Name="labelMessage" Content="Message"/>
+            <TextBox x:Name="message" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Text, Mode=TwoWay}" Style="{StaticResource messageTextBox}" TabIndex="3"/>
+        </StackPanel>
+
     </Grid>
 </UserControl>

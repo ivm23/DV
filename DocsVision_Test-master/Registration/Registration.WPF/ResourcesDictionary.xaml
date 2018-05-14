@@ -23,7 +23,7 @@
         <Setter Property="TextBox.VerticalAlignment" Value="Stretch"/>
         <Setter Property="TextBox.Margin" Value="3"/>
         <Setter Property="TextBox.TextWrapping" Value="Wrap"/>
-        <Setter Property="TextBox.MinWidth" Value="50" />
+        <Setter Property="TextBox.MinWidth" Value="25" />
         <Setter Property="TextBox.MinHeight" Value="23" />
     </Style>
 

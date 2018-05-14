@@ -96,8 +96,6 @@ namespace Registration.WPF.ViewModels
             get { return _enable; }
         }
 
-        //    public string SelectedNameWorker { get; set; }
-
         private void findNewIndex(string str)
         {
             int i = str.LastIndexOf(SplitMarker);
