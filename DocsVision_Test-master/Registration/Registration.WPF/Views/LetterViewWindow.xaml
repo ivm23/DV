@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         x:Name="letterViewWindow"
         xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls"
-        Title="FullContentLetterWindow" Height="600" Width="557" WindowStartupLocation="{StaticResource standartWindowStartupLocation}">
+        Title="FullContentLetterWindow" MinHeight="500" MinWidth="500" Height="580" Width="560" WindowStartupLocation="{StaticResource standartWindowStartupLocation}">
     <Window.Resources>
         <Style TargetType="Menu" BasedOn="{StaticResource standartMenu}"/>
     </Window.Resources>

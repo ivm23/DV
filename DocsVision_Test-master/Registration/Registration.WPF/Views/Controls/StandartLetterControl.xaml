@@ -27,7 +27,7 @@
 
     </UserControl.Resources>
 
-    <Grid Margin="0,0,0,-161">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>

@@ -47,9 +47,13 @@ namespace Registration.WPF.Views
             stackPanel.Children.Add(userControl);
         }
 
+        private void ChangeDialogResult(bool dialogResult)
+        {
+            this.DialogResult = dialogResult;
+        }
         private void CreateButton_click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            ChangeDialogResult(true);
         }
     }
 }

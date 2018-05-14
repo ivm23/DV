@@ -27,9 +27,14 @@ namespace Registration.WPF.Views
             DataContext = _addWorkersFromAllWorkersListViewModel;
         }
 
+        private void ChangeDialogResult(bool dialogResult)
+        {
+            this.DialogResult = dialogResult;
+        }
+
         void createButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            ChangeDialogResult(true);
         }
         
         public IEnumerable<string> GetSelectedWorkers()

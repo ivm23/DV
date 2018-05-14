@@ -47,7 +47,6 @@ namespace Registration.WPF.Views.Controls
             importanceDegreeEditorControl.DataContext = _importantLetterControlViewModel;
         }
 
-
         public LetterView LetterView
         {
             set
@@ -71,10 +70,8 @@ namespace Registration.WPF.Views.Controls
                 fullContentLetterControl.ReadOnly = value;
                 _importantLetterControlViewModel.ReadOnly = value;
             }
-            get
-            {
-                return fullContentLetterControl.ReadOnly;
-            }
+            get { return fullContentLetterControl.ReadOnly; }
         }
     }
+
 }

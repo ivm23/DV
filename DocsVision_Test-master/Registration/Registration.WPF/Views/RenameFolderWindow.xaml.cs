@@ -30,9 +30,14 @@ namespace Registration.WPF.Views
             txtNewName.SelectionStart = txtNewName.Text.Length;
         }
 
+        private void ChangeDialogResult(bool dialogResult)
+        {
+            this.DialogResult = dialogResult;
+        }
+
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = true;
+            ChangeDialogResult(true);
         }
     }
 }

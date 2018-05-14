@@ -8,14 +8,14 @@
              d:DesignHeight="540" d:DesignWidth="544">
     <UserControl.Resources>
         <Style TargetType="ComboBox" BasedOn="{StaticResource standartComboBox}">
-            <Setter Property="Margin" Value="10,0,10,0"/>
+            <Setter Property="Margin" Value="0"/>
         </Style>
         <Style TargetType="Label" BasedOn="{StaticResource standartLabel}">
             <Setter Property="MinWidth" Value="150"/>
-            <Setter Property="Margin" Value="8,0,8,0"/>
+            <Setter Property="Margin" Value="0"/>
         </Style>
         <Style TargetType="local:StandartLetterControl" BasedOn="{StaticResource standartControl}">
-            <Setter Property="Margin" Value="6,0,6,0"/>
+            <Setter Property="Margin" Value="0"/>
         </Style>
     </UserControl.Resources>
 
@@ -29,7 +29,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <local:StandartLetterControl x:Name="fullContentLetterControl"  Style="{StaticResource standartControl}" Grid.Row="1" TabIndex="0"/>
+        <local:StandartLetterControl x:Name="fullContentLetterControl" Grid.Row="1" TabIndex="0"/>
 
         <StackPanel Grid.Row="0" >
             <Label x:Name="lblImportanceDegree" Content="Degree of importance" />

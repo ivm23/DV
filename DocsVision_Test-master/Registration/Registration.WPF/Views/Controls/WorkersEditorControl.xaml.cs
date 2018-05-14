@@ -41,26 +41,17 @@ namespace Registration.WPF.Views.Controls
                 btnAllWorkers.Visibility = (value ? Visibility.Collapsed : Visibility.Visible);
             }
 
-            get
-            {
-                return txtWorkers.IsReadOnly;
-            }
+            get { return txtWorkers.IsReadOnly; }
         }
 
         public IEnumerable<string> NamesWorkers
         {
-            set
-            {
-                _workersEditorControlViewModel.NamesWorkers = value;
-            }
-            get
-            {
-                return _workersEditorControlViewModel.NamesWorkers;
-            }
+            set { _workersEditorControlViewModel.NamesWorkers = value; }
+            get { return _workersEditorControlViewModel.NamesWorkers; }
         }
 
         public void FocusToListOfWorker(object sender, KeyEventArgs e)
-       {
+        {
             if (Key.Down == e.Key)
             {
                 listWorkers.Focus();

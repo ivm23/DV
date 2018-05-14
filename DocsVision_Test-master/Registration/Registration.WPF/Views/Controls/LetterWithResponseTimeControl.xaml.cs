@@ -47,7 +47,7 @@ namespace Registration.WPF.Views.Controls
             set
             {
                 fullContentLetterControl.LetterView = value;
-                _letterWithResponseTimeViewModel.LetterWithReminderData = value.ExtendedData;     
+                _letterWithResponseTimeViewModel.LetterWithReminderData = value.ExtendedData;
             }
             get
             {
@@ -56,6 +56,7 @@ namespace Registration.WPF.Views.Controls
                 return _letterView;
             }
         }
+
         public bool ReadOnly
         {
             set
@@ -63,10 +64,8 @@ namespace Registration.WPF.Views.Controls
                 fullContentLetterControl.ReadOnly = value;
                 _letterWithResponseTimeViewModel.ReadOnly = value;
             }
-            get
-            {
-                return fullContentLetterControl.ReadOnly;
-            }
+            get { return fullContentLetterControl.ReadOnly; }
         }
     }
+
 }

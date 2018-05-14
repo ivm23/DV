@@ -72,12 +72,13 @@
         <Setter Property="DatePicker.Margin" Value="3"/>
         <Setter Property="DatePicker.HorizontalAlignment" Value="Stretch"/>
         <Setter Property="DatePicker.VerticalAlignment" Value="Stretch"/>
+        <Setter Property="DatePicker.Margin" Value="3"/>
     </Style>
 
     <Style x:Key="standartPasswordBox">
         <Setter Property="PasswordBox.MinWidth" Value="120"/>
         <Setter Property="PasswordBox.Height" Value="23"/>
-        <Setter Property="PasswordBox.Margin" Value="3"/>
+        <Setter Property="PasswordBox.Margin" Value="4,3,4,3"/>
         <Setter Property="PasswordBox.PasswordChar" Value="*"/>
     </Style>
 

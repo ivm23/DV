@@ -44,7 +44,9 @@ namespace Registration.WPF.Views.Controls
             workersEditorControl.DataContext = new ViewModels.WorkersEditorControlViewModel(((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllWorkers());
             workersEditorControl.InitializeWorkersEditorControl(((IClientRequests)serviceProvider.GetService(typeof(IClientRequests))).GetAllWorkers());
 
-            _letterView.SenderName = workerName.Substring(0, workerName.LastIndexOf('('));
+            if (string.IsNullOrEmpty(_letterView.SenderName))
+                _letterView.SenderName = workerName.Substring(0, workerName.LastIndexOf('('));
+
             LetterView = _letterView;
         }
 

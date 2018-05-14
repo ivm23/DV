@@ -9,6 +9,9 @@
 
     <Window.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource standartButton}"/>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -17,7 +20,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="stackPanel" Grid.Row="0" />
+        <StackPanel x:Name="stackPanel" Grid.Row="0"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button x:Name="buttonCreate" IsDefault="True" Content="Create" Command="{Binding Path=CreateFolder}" Click="CreateButton_click" TabIndex="0"/>

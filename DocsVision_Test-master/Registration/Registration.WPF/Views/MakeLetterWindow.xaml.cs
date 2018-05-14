@@ -39,9 +39,14 @@ namespace Registration.WPF.Views
             this.SizeToContent = SizeToContent.Manual;
         }
 
+        private void ChangeDialogResult(bool dialogResult)
+        {
+            this.DialogResult = dialogResult;
+        }
+
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            ChangeDialogResult(true);
         }
     }
 }
