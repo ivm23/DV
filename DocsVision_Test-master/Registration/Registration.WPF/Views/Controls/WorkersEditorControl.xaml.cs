@@ -74,6 +74,12 @@ namespace Registration.WPF.Views.Controls
                 txtWorkers.Focus();
                 txtWorkers.SelectionStart = txtWorkers.Text.Length;
             }
-        }        
+        }
+
+        private void FocusToTextBox(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            txtWorkers.SelectionStart = txtWorkers.Text.Length;
+            txtWorkers.Focus();
+        }
     }
 }

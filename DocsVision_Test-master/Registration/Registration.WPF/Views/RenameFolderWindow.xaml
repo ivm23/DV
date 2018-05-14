@@ -25,7 +25,7 @@
         </Grid.ColumnDefinitions>
 
         <Label x:Name="labelName" Content="Name" Grid.Column="0" Grid.Row="0" />
-        <TextBox x:Name="txtNewName" Text="{Binding Path=Name}" Grid.Column="1" Grid.Row="0" TabIndex="0"/>
+        <TextBox x:Name="txtNewName" Text="{Binding Path=Name}" Grid.Column="1" Grid.Row="0" TabIndex="0" />
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <Button x:Name="button" IsDefault="true" Content="Save" Click="SaveButton_Click" Command="{Binding Path=RenameFolder}" TabIndex="1"/>

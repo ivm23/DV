@@ -41,7 +41,7 @@
                 </i:Interaction.Triggers>
             </TextBox>
 
-            <ListBox x:Name="listWorkers" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}" SelectedItem="{Binding Path=SelectedWorker}" Keyboard.PreviewKeyDown="FocusToNamesReceiversString">
+            <ListBox x:Name="listWorkers" ItemsSource="{Binding AllWorkers}" Visibility="{Binding Path=Enable}" SelectedItem="{Binding Path=SelectedWorker}" Keyboard.PreviewKeyDown="FocusToNamesReceiversString" IsVisibleChanged="FocusToTextBox">
                 <ListBox.InputBindings>
                     <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>

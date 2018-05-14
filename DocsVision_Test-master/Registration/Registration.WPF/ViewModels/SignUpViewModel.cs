@@ -106,12 +106,12 @@ namespace Registration.WPF.ViewModels
         }
 
         public ICommand CancelCommand { get; set; }
-        public ICommand SingUpCommand { get; set; }
+        public ICommand SignUpCommand { get; set; }
 
         private void InitializeCommands()
         {
             CancelCommand = new ViewModels.Command(arg => CancelMethod());
-            SingUpCommand = new ViewModels.Command(arg => SingUpMethod());
+            SignUpCommand = new ViewModels.Command(arg => SignUpMethod());
         }
 
         private void InitializeMessageService()
@@ -132,7 +132,7 @@ namespace Registration.WPF.ViewModels
             InitializeCommands();
         }
 
-        private void SingUpMethod()
+        private void SignUpMethod()
         {
             Guid workerId = Guid.Empty;
 

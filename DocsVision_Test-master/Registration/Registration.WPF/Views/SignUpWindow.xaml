@@ -40,7 +40,7 @@
         <Controls:AuthorizationControl Grid.Row="1" TabIndex="1" Grid.Column="0"  Grid.ColumnSpan="2" Style="{StaticResource standartControl}"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal"  Grid.ColumnSpan="2">
-            <Button x:Name="btnSingUp" Content="SingUp" Command="{Binding SignUpCommand}" TabIndex="2" />
+            <Button x:Name="btnSignUp" Content="SignUp" Command="{Binding SignUpCommand}" TabIndex="2" />
             <Button x:Name="btnCancel" IsCancel="True" Content="Cancel" TabIndex="3"/>
         </StackPanel>
 
