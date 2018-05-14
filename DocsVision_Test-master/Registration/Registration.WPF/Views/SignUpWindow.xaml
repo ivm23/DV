@@ -37,11 +37,11 @@
         <Label x:Name="labName" Content="Name:" Grid.Row="0" Grid.Column="0" />
         <TextBox x:Name="txtName" Text="{Binding NameW, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" TabIndex="0" />
 
-        <Controls:AuthorizationControl Grid.Row="1" TabIndex="2" Grid.Column="0"  Grid.ColumnSpan="2" Style="{StaticResource standartControl}"/>
+        <Controls:AuthorizationControl Grid.Row="1" TabIndex="1" Grid.Column="0"  Grid.ColumnSpan="2" Style="{StaticResource standartControl}"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal"  Grid.ColumnSpan="2">
-            <Button x:Name="btnSingUp" Content="SingUp" Command="{Binding SignUpCommand}" TabIndex="3" />
-            <Button x:Name="btnCancel" IsCancel="True" Content="Cancel" TabIndex="4"/>
+            <Button x:Name="btnSingUp" Content="SingUp" Command="{Binding SignUpCommand}" TabIndex="2" />
+            <Button x:Name="btnCancel" IsCancel="True" Content="Cancel" TabIndex="3"/>
         </StackPanel>
 
     </Grid>

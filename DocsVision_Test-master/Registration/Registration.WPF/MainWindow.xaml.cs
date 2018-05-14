@@ -96,7 +96,7 @@ namespace Registration.WPF
         }
 
         private void timer_Tick(object sender, EventArgs e)
-        {
+            {
             var a = TV.SelectedItem;
             //   _mainWindowViewModel.InitializeDataGrid(((ApplicationState)ServiceContainer.GetService(typeof(ApplicationState))).SelectedFolder.Id);
             _mainWindowViewModel.InitializeTreeView();

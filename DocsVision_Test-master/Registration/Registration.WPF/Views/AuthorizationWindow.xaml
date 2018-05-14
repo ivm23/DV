@@ -20,11 +20,11 @@
             <RowDefinition Height="34*"/>
         </Grid.RowDefinitions>
 
-        <Controls:AuthorizationControl HorizontalAlignment="Left" TabIndex="1" Grid.Row="0" />
+        <Controls:AuthorizationControl HorizontalAlignment="Left" TabIndex="0" Grid.Row="0" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button x:Name="btnSignIn" IsDefault="True" Content="SignIn" Command="{Binding SignInCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=AuthorizationWindowName}" TabIndex="2"/>
-            <Button x:Name="btnSignUp" Content="SignUp" Command="{Binding SignUpCommand}" CommandParameter="{Binding ElementName=AuthorizationWindowName}" TabIndex="3"/>
+            <Button x:Name="btnSignIn" IsDefault="True" Content="SignIn" Command="{Binding SignInCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=AuthorizationWindowName}" TabIndex="4"/>
+            <Button x:Name="btnSignUp" Content="SignUp" Command="{Binding SignUpCommand}" CommandParameter="{Binding ElementName=AuthorizationWindowName}" TabIndex="5"/>
         </StackPanel>
 
     </Grid>

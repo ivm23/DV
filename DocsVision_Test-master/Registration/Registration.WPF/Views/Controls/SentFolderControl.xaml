@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="64" d:DesignWidth="232">
     <Grid>
-        <local:CreateFolderControl x:Name="createFolderControl" Style="{StaticResource standartControl}" />
+        <local:CreateFolderControl x:Name="createFolderControl" Style="{StaticResource standartControl}" TabIndex="0"/>
 
     </Grid>
 </UserControl>

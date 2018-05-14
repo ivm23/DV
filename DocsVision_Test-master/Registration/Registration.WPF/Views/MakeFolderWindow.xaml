@@ -17,11 +17,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="stackPanel" Grid.Row="0"/>
+        <StackPanel x:Name="stackPanel" Grid.Row="0" />
 
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button x:Name="buttonCreate" IsDefault="True" Content="Create" Command="{Binding Path=CreateFolder}" Click="CreateButton_click" />
-            <Button x:Name="buttonCancel" IsCancel="true" Content="Cancel" />
+            <Button x:Name="buttonCreate" IsDefault="True" Content="Create" Command="{Binding Path=CreateFolder}" Click="CreateButton_click" TabIndex="0"/>
+            <Button x:Name="buttonCancel" IsCancel="true" Content="Cancel" TabIndex="1"/>
         </StackPanel>
 
     </Grid>

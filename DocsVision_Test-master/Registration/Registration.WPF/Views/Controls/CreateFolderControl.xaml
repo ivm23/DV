@@ -27,8 +27,8 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <TextBox x:Name="txtName" Text="{Binding Path=NameFolder, Mode=TwoWay}"/>
-            <ComboBox x:Name="comboType" DisplayMemberPath="Name" ItemsSource="{Binding Path=FoldersTypes}" SelectedItem="{Binding Path=SelectedType, Mode=TwoWay}" SelectedValue="{Binding Path=SelectedFolderName}" SelectedValuePath="Name">
+            <TextBox x:Name="txtName" Text="{Binding Path=NameFolder, Mode=TwoWay}" TabIndex="0"/>
+            <ComboBox x:Name="comboType" DisplayMemberPath="Name" ItemsSource="{Binding Path=FoldersTypes}" SelectedItem="{Binding Path=SelectedType, Mode=TwoWay}" SelectedValue="{Binding Path=SelectedFolderName}" SelectedValuePath="Name" TabIndex="1">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">

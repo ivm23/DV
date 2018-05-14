@@ -20,8 +20,8 @@
         <StackPanel x:Name="stackPanel" Grid.Row="0" />
         
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button x:Name="buttonSend" Content="Send" Command="{Binding Path=SendLetterClick}" Click="SendButton_Click" Grid.Row="1"/>
-            <Button x:Name="buttonCancel" IsCancel="true" Content="Cancel" />           
+            <Button x:Name="buttonSend" Content="Send" Command="{Binding Path=SendLetterClick}" Click="SendButton_Click" Grid.Row="1" TabIndex="6"/>
+            <Button x:Name="buttonCancel" IsCancel="true" Content="Cancel" TabIndex="7" />           
         </StackPanel>
 
 

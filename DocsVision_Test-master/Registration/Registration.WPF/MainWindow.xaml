@@ -101,7 +101,7 @@
                 </MenuItem.ItemContainerStyle>
             </MenuItem>                
 
-            <MenuItem Header="Delete Letter" Command="{Binding Path=DeleteLetterClick}">
+            <MenuItem Header="Delete Letter" Command="{Binding Path=DeleteLetterClick}" IsEnabled="{Binding Path=DeleteEnable}">
                 <MenuItem.Icon>
                     <Image Source="C:\Users\Ivanova.M\Downloads\DeleteLetter.png"/>
                 </MenuItem.Icon>

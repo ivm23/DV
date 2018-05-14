@@ -70,6 +70,7 @@ namespace Registration.WPF
             window.ShowDialog();
 
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+            DeleteEnable = false;
         }
 
         private void EditFolderMethod(object arg)
@@ -121,6 +122,7 @@ namespace Registration.WPF
         {
             if (null != arg)
             {
+                DeleteEnable = false;
                 InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
                 //LetterPlugin = null;
@@ -167,7 +169,7 @@ namespace Registration.WPF
             letterViewWindow.ShowDialog();
             ClientRequests.LetterIsRead(((LetterView)(arg)).Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
-
+                
             restoreSelectedLetter();
            
         }
@@ -177,6 +179,8 @@ namespace Registration.WPF
             LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             LetterPlugin.OnLoad(ServiceProvider);
             LetterPlugin.ReadOnly = true;
+            if (null != arg)
+                DeleteEnable = true;
         }
 
         private IServiceProvider ServiceProvider
@@ -290,6 +294,21 @@ namespace Registration.WPF
             }
         }
 
+
+        private bool _deleteEnable = false;
+
+        public bool DeleteEnable
+        {
+            set
+            {
+                _deleteEnable = value;
+                OnPropertyChanged(nameof(DeleteEnable));
+            }
+            get
+            {
+                return _deleteEnable;
+            }
+        }
 
     }
 }

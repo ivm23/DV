@@ -28,14 +28,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <local:CreateFolderControl x:Name="createFolderControl" Grid.Row="0" Grid.Column="0"  Style="{StaticResource standartControl}" Grid.ColumnSpan="2" Margin="0,0,138,0" Width="Auto"/>
+        <local:CreateFolderControl x:Name="createFolderControl" Grid.Row="0" Grid.Column="0"  Style="{StaticResource standartControl}" Grid.ColumnSpan="2" Margin="0,0,138,0" Width="Auto" TabIndex="0"/>
 
         <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
             <Label x:Name="labelQuestion" Content="Which messages would you like to show in this folder?" />
             <Label x:Name="labelCondition" Content="Show in folder if Sender contains" />
         </StackPanel>
 
-        <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" SelectedItem="{Binding Path=SelectedWorkerName}" Grid.Column="1" Grid.Row="2" />
+        <ComboBox x:Name="comboSelectedWorkers" ItemsSource="{Binding Path=WorkersNames}" SelectedItem="{Binding Path=SelectedWorkerName}" Grid.Column="1" Grid.Row="2" TabIndex="1" />
 
     </Grid>
 </UserControl>

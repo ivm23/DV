@@ -27,6 +27,7 @@ namespace Registration.WPF.Views
             InitializeComponent();
             DataContext = new ViewModels.RenameFolderViewModel(provider);
             this.SizeToContent = SizeToContent.WidthAndHeight;
+            txtNewName.SelectionStart = txtNewName.Text.Length;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)

@@ -10,7 +10,7 @@ namespace Registration.WPF.ViewModels
     class RenameFolderViewModel : Notifier
     {
         private readonly IServiceProvider _serviceProvider;
-        private string _name;    
+        private string _name;
         public RenameFolderViewModel(IServiceProvider provider)
         {
             if (null == provider)
@@ -31,7 +31,7 @@ namespace Registration.WPF.ViewModels
 
         private IServiceProvider ServiceProvider
         {
-            get { return _serviceProvider;  }
+            get { return _serviceProvider; }
         }
         public string Name
         {
@@ -45,5 +45,6 @@ namespace Registration.WPF.ViewModels
                 return _name;
             }
         }
+        
     }
 }

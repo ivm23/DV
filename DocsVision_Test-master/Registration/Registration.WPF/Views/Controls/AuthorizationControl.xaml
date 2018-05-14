@@ -26,9 +26,9 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <TextBox x:Name="txtLogin" Text="{Binding Login, Mode=TwoWay}" />
-            <PasswordBox x:Name="passwordBox"/>
-            <ComboBox x:Name="comboDatabases" ItemsSource="{Binding Path=DatabasesNames, Mode=TwoWay}" SelectedItem="{Binding _selectedDatabaseName, Mode=TwoWay}" SelectedIndex="{Binding _selectedDatabaseIndex, Mode=TwoWay}" />
+            <TextBox x:Name="txtLogin" Text="{Binding Login, Mode=TwoWay}" TabIndex="0" />
+            <PasswordBox x:Name="passwordBox" TabIndex="1"/>
+            <ComboBox x:Name="comboDatabases" ItemsSource="{Binding Path=DatabasesNames, Mode=TwoWay}" SelectedItem="{Binding _selectedDatabaseName, Mode=TwoWay}" SelectedIndex="{Binding _selectedDatabaseIndex, Mode=TwoWay}" TabIndex="2" />
 
         </StackPanel>
 

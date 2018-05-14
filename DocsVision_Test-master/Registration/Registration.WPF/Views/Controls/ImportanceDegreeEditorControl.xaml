@@ -12,7 +12,7 @@
     </UserControl.Resources>
     
     <Grid>
-        <ComboBox x:Name="comboImportanceDegree" ItemsSource="{Binding ImportanceDegrees.Values}" SelectedItem="{Binding Path=NameSelectedDegree}" IsEnabled="{Binding Path=Enable}"/>
+        <ComboBox x:Name="comboImportanceDegree" ItemsSource="{Binding ImportanceDegrees.Values}" SelectedItem="{Binding Path=NameSelectedDegree}" IsEnabled="{Binding Path=Enable}" TabIndex="0"/>
     </Grid>
     
 </UserControl>
