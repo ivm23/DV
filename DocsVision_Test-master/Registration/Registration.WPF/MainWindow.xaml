@@ -9,7 +9,15 @@
         Title="MainWindow" Height="597" Width="1300" WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartWindow}"
         Initialized="Window_Initialized" MinWidth="900" MinHeight="500">
     <Window.Resources>
-
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="0,20,0,0"/>
+        </Style>
+        <Style TargetType="TreeView">
+            <Setter Property="Margin" Value="0,20,0,0"/>
+        </Style>
+        <Style TargetType="ContentControl">
+            <Setter Property="Margin" Value="0,20,0,0"/>
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -19,11 +27,10 @@
             <ColumnDefinition Width="600*" MinWidth="600"/>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="800*" MinWidth="600" />
-            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
        
         <ContentPresenter Content="{Binding }" />
-        <DataGrid Name="BriefContentLetters" AutoGenerateColumns="False" SelectionMode="Single" Grid.Column="2" Margin="0,20,0,0" ItemsSource="{Binding Letters}" SelectedItem="{Binding SelectedLetter}" IsReadOnly="True" MinWidth="700" MinHeight="300" TabIndex="0">
+        <DataGrid Name="BriefContentLetters" AutoGenerateColumns="False" SelectionMode="Single" Grid.Column="2"  ItemsSource="{Binding Letters}" SelectedItem="{Binding SelectedLetter}" IsReadOnly="True" MinWidth="700" MinHeight="300" TabIndex="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Binding="{Binding Path=Name}" Width="100" />
                 <DataGridHyperlinkColumn Header="SenderName" Binding="{Binding Path=SenderName}" Width="150" />
@@ -48,14 +55,14 @@
             </i:Interaction.Triggers>
         </DataGrid>
 
-        <StackPanel x:Name="stackPanel" HorizontalAlignment="Left"  Margin="8,27,0,0" VerticalAlignment="Top" MinHeight="1300" MinWidth="900">
-            <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="TV_PreviewMouseRightButtonDown" TabIndex="1" MinHeight="1300" MinWidth="900" >
+        <StackPanel x:Name="stackPanel" HorizontalAlignment="Left"  VerticalAlignment="Top" MinHeight="1300" MinWidth="900">
+            <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="TV_PreviewMouseRightButtonDown" TabIndex="1" MinHeight="1300" MinWidth="900">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                         <TextBlock Text="{Binding Name}" />
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
-
+                
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseUp">
                         <i:InvokeCommandAction

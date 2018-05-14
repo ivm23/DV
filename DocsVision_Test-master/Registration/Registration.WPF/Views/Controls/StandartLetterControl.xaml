@@ -20,7 +20,7 @@
         <Style x:Key="messageTextBox" BasedOn="{StaticResource standartTextBox}">
             <Setter Property="TextBox.MinHeight" Value="200"/>
             <Setter Property="TextBox.MinWidth" Value="150"/>
-            <Setter Property="TextBox.MaxHeight" Value="750"/>
+            <Setter Property="TextBox.MaxHeight" Value="600"/>
             <Setter Property="TextBox.AcceptsReturn" Value="True"/>
             <Setter Property="TextBox.VerticalScrollBarVisibility" Value="Visible"/>
         </Style>
@@ -42,7 +42,7 @@
 
         <StackPanel Grid.Row="0">
             <Label x:Name="labelDate" Content="Date" Visibility="Visible"/>
-            <TextBox x:Name="date" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" Style="{StaticResource standartTextBox}" TabIndex="4"/>
+            <TextBox x:Name="date" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" TabIndex="4"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1">
@@ -59,7 +59,7 @@
             <Label x:Name="labelReceiversNames" Content="Receivers"/>
             <local:WorkersEditorControl x:Name="workersEditorControl" TabIndex="2"/>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="4">
             <Label x:Name="labelMessage" Content="Message"/>
             <TextBox x:Name="message" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Text, Mode=TwoWay}" Style="{StaticResource messageTextBox}" TabIndex="3"/>

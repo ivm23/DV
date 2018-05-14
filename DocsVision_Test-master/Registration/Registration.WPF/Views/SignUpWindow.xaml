@@ -37,7 +37,7 @@
         <Label x:Name="labName" Content="Name:" Grid.Row="0" Grid.Column="0" />
         <TextBox x:Name="txtName" Text="{Binding NameW, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" TabIndex="0" />
 
-        <Controls:AuthorizationControl Grid.Row="1" TabIndex="1" Grid.Column="0"  Grid.ColumnSpan="2" Style="{StaticResource standartControl}"/>
+        <Controls:AuthorizationControl x:Name="authorizationControl" Grid.Row="1" TabIndex="1" Grid.Column="0"  Grid.ColumnSpan="2" Style="{StaticResource standartControl}"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal"  Grid.ColumnSpan="2">
             <Button x:Name="btnSignUp" Content="SignUp" Command="{Binding SignUpCommand}" TabIndex="2" />

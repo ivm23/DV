@@ -24,5 +24,14 @@ namespace Registration.WPF.Views.Controls
         {
             InitializeComponent();
         }
+
+        private void RetranslateToTextBox(string password)
+        {
+            passwordTextBox.Text = password;
+        }
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            RetranslateToTextBox(passwordBox.Password);
+        }
     }
 }

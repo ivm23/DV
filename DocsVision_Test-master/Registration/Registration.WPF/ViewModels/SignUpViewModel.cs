@@ -68,6 +68,7 @@ namespace Registration.WPF.ViewModels
             get { return _worker.Login; }
         }
 
+
         public string Password
         {
             set

@@ -27,8 +27,10 @@
 
         <StackPanel Grid.Column="1">
             <TextBox x:Name="txtLogin" Text="{Binding Login, Mode=TwoWay}" TabIndex="0" />
-            <PasswordBox x:Name="passwordBox" TabIndex="1"/>
+            
+            <PasswordBox x:Name="passwordBox" TabIndex="1" PasswordChanged="passwordBox_PasswordChanged" />
             <ComboBox x:Name="comboDatabases" ItemsSource="{Binding Path=DatabasesNames, Mode=TwoWay}" SelectedItem="{Binding _selectedDatabaseName, Mode=TwoWay}" SelectedIndex="{Binding _selectedDatabaseIndex, Mode=TwoWay}" TabIndex="2" />
+            <TextBox x:Name="passwordTextBox" Visibility="Collapsed" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
         </StackPanel>
 

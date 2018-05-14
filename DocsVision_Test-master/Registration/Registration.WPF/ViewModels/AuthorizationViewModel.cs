@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
+using System.Security;
 using System.ComponentModel;
 
 using Registration.Model;
@@ -74,7 +75,7 @@ namespace Registration.WPF.ViewModels
             set
             {
                 _worker.Password = value;
-                OnPropertyChanged("_worker.Password");
+                OnPropertyChanged(nameof(Password));
             }
             get { return _worker.Password; }
         }
@@ -152,6 +153,19 @@ namespace Registration.WPF.ViewModels
             {
                 ((Window)(arg)).Close();
             }
+        }
+
+
+        private SecureString p;
+
+        public SecureString P
+        {
+            set
+            {
+                p = value;
+                OnPropertyChanged(nameof(P));
+            }
+            get { return p; }
         }
 
     }
