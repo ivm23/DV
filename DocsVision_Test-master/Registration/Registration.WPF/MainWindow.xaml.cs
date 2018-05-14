@@ -55,6 +55,7 @@ namespace Registration.WPF
             _serviceContainer.AddService(typeof(IClientRequests), clientRequests);
             _serviceContainer.AddService(typeof(PluginService), new PluginService(_serviceContainer));
             _serviceContainer.AddService(typeof(ApplicationState), new ApplicationState());
+            _serviceContainer.AddService(typeof(IMessageService), new MessageService());
         }
 
         private void Window_Initialized(object sender, EventArgs e)
@@ -89,7 +90,7 @@ namespace Registration.WPF
         private void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Interval = TimeSpan.FromMilliseconds(5000);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
@@ -99,7 +100,6 @@ namespace Registration.WPF
             var a = TV.SelectedItem;
             //   _mainWindowViewModel.InitializeDataGrid(((ApplicationState)ServiceContainer.GetService(typeof(ApplicationState))).SelectedFolder.Id);
             _mainWindowViewModel.InitializeTreeView();
-
         }
 
     }

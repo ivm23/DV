@@ -10,6 +10,7 @@
         <Style TargetType="Label" BasedOn="{StaticResource standartLabel}"/>
         <Style TargetType="TextBox" BasedOn="{StaticResource standartTextBox}"/>
         <Style TargetType="ComboBox" BasedOn="{StaticResource standartComboBox}"/>
+        <Style TargetType="PasswordBox" BasedOn="{StaticResource standartPasswordBox}"/>
     </UserControl.Resources>
 
     <Grid>
@@ -19,16 +20,16 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
-            <Label x:Name="labelPassword" Content="Password:"/>
             <Label x:Name="labelLogin" Content="Login:" />
+            <Label x:Name="labelPassword" Content="Password:"/>
             <Label x:Name="labelDatabase" Content="Database:"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1">
             <TextBox x:Name="txtLogin" Text="{Binding Login, Mode=TwoWay}" />
-            <TextBox x:Name="txtPassword" Text="{Binding Password, Mode=TwoWay}"/>
-
+            <PasswordBox x:Name="passwordBox"/>
             <ComboBox x:Name="comboDatabases" ItemsSource="{Binding Path=DatabasesNames, Mode=TwoWay}" SelectedItem="{Binding _selectedDatabaseName, Mode=TwoWay}" SelectedIndex="{Binding _selectedDatabaseIndex, Mode=TwoWay}" />
+
         </StackPanel>
 
     </Grid>

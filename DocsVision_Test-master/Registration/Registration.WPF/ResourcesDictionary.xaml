@@ -74,4 +74,11 @@
         <Setter Property="DatePicker.VerticalAlignment" Value="Stretch"/>
     </Style>
 
+    <Style x:Key="standartPasswordBox">
+        <Setter Property="PasswordBox.MinWidth" Value="120"/>
+        <Setter Property="PasswordBox.Height" Value="23"/>
+        <Setter Property="PasswordBox.Margin" Value="3"/>
+        <Setter Property="PasswordBox.PasswordChar" Value="*"/>
+    </Style>
+
 </ResourceDictionary>

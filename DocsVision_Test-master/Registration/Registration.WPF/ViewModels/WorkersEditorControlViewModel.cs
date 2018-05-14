@@ -175,7 +175,6 @@ namespace Registration.WPF.ViewModels
                 NamesWorkers = selectedWorkers;
             
             stringEndIndex = Names.Length;
-            //Enable = Visibility.Collapsed;
         }
 
         public ICommand AddSeveralWorkers { get; set; }

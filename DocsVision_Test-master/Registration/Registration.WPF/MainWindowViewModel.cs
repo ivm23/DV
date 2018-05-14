@@ -19,6 +19,7 @@ namespace Registration.WPF
     class MainWindowViewModel : Notifier
     {
         private readonly IServiceProvider _serviceProvider;
+        private IMessageService _messageService;
         private IClientRequests _clientRequests;
         private List<Models.Node> _dirItems;
         private LetterView _selectedLetter;
@@ -36,6 +37,7 @@ namespace Registration.WPF
             _serviceProvider = provider;
 
             InitializeClientRequests();
+            InitializeMessageService();
 
             SelectedFolderNodeChanged = new ViewModels.Command(arg => SelectedFolderNodeChangedMethod(arg));
             OpenLetterViewWindow = new ViewModels.Command(args => OpenLetterViewWindowMethod(args));
@@ -47,6 +49,10 @@ namespace Registration.WPF
             DeleteFolder = new ViewModels.Command(arg => DeleteFolderMethod(arg));
         }
 
+        private IMessageService MessageService
+        {
+            get { return _messageService; }
+        }
         public ICommand SelectedFolderNodeChanged { get; set; }
         public ICommand OpenLetterViewWindow { set; get; }
         public ICommand DeleteLetterClick { set; get; }
@@ -100,12 +106,14 @@ namespace Registration.WPF
 
         private void DeleteLetterClickMethod()
         {
+            if (MessageService.QuestionMessage(MessageResources.DeleteLetter) == MessageBoxResult.Yes)
+            {
+                getNextLetter(SelectedLetter);
+                ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+                Letters.Remove(SelectedLetter);
 
-            getNextLetter(SelectedLetter);
-            ClientRequests.DeleteLetter(SelectedLetter, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-            Letters.Remove(SelectedLetter);
-
-            restoreSelectedLetter();
+                restoreSelectedLetter();
+            }
         }
 
 
@@ -140,9 +148,14 @@ namespace Registration.WPF
             ExistLettersTypes = ClientRequests.GetAllLetterTypes();
         }
 
+        private void InitializeMessageService()
+        {
+            _messageService = (IMessageService)ServiceProvider.GetService(typeof(IMessageService));
+        }
+
         private void restoreSelectedLetter()
         {
-            if (_index != -1)
+            if (_index != -1 && Letters.Count() > 0)
                 SelectedLetter = Letters[_index];
         }
 
@@ -152,10 +165,11 @@ namespace Registration.WPF
 
             var letterViewWindow = new Views.LetterViewWindow(ServiceProvider);
             letterViewWindow.ShowDialog();
-
+            ClientRequests.LetterIsRead(((LetterView)(arg)).Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
 
             restoreSelectedLetter();
+           
         }
 
         private void ShowBriefLetterMethod(object arg)

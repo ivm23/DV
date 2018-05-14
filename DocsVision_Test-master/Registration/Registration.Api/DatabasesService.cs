@@ -12,7 +12,7 @@ namespace Registration.Api
 
         const string ConnectionStringKey = "connectionString";
 
-        private string GetConnectionString(string databaseName) => $"Data Source = MARINA-ПК\\SQLEXPRESS; Initial Catalog = {databaseName}; Integrated Security = True";
+        private string GetConnectionString(string databaseName) => $"Data Source = 109PC0047; Initial Catalog = {databaseName}; Integrated Security = True";
 
         public void InitializeDatabasesService()
         {
@@ -25,7 +25,6 @@ namespace Registration.Api
                     _databaseServices.Add(connectionInfo.ConnectionString, DatabaseFactory.DatabaseFactory.InitializeDatabase(GetConnectionString(connectionInfo.ConnectionString)));
                 }
             }
-
         }
 
         public IDictionary<string, DatabaseService> GetDatabasesService()
