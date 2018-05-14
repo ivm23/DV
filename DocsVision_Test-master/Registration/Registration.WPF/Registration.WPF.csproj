@@ -39,6 +39,10 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -291,6 +295,10 @@
     <ProjectReference Include="..\Registration.DataSerialization\Registration.DataSerialization.csproj">
       <Project>{852cb496-37e5-4364-8782-9743fa3b4de5}</Project>
       <Name>Registration.DataSerialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Registration.Logger\Registration.Logger.csproj">
+      <Project>{2eb8e0cb-1fac-4185-8315-96a50d92db69}</Project>
+      <Name>Registration.Logger</Name>
     </ProjectReference>
     <ProjectReference Include="..\Registretion.Model\Registration.Model.csproj">
       <Project>{8c0a1308-ae5a-4d36-ac6c-5e808a9c929e}</Project>

@@ -1,21 +1,25 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.ComponentModel.Design;
+using System.Windows.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.ComponentModel.Design;
-using Registration.ClientInterface;
-using System.Windows.Threading;
 using System.Collections.ObjectModel;
+
+
+using Registration.ClientInterface;
+using Registration.Logger;
+
 
 namespace Registration.WPF
 {
@@ -37,8 +41,6 @@ namespace Registration.WPF
 
         public MainWindow()
         {
-            
-
             InitializeServiceContainer();
 
             _mainWindowViewModel = new MainWindowViewModel(_serviceContainer);
@@ -50,15 +52,13 @@ namespace Registration.WPF
 
         private void InitializeServiceContainer()
         {
-            IClientRequests clientRequests = new ClientRequests();
-
-            _serviceContainer.AddService(typeof(IClientRequests), clientRequests);
-            _serviceContainer.AddService(typeof(PluginService), new PluginService(_serviceContainer));
-            _serviceContainer.AddService(typeof(ApplicationState), new ApplicationState());
-            _serviceContainer.AddService(typeof(IMessageService), new MessageService());
+            ServiceContainer.AddService(typeof(IClientRequests), new ClientRequests());
+            ServiceContainer.AddService(typeof(PluginService), new PluginService(_serviceContainer));
+            ServiceContainer.AddService(typeof(ApplicationState), new ApplicationState());
+            ServiceContainer.AddService(typeof(IMessageService), new MessageService());
         }
 
-        private void Window_Initialized(object sender, EventArgs e)
+        private void InitializeMainWindow()
         {
             var form = new Views.AuthorizationWindow(_serviceContainer);
             form.ShowDialog();
@@ -68,7 +68,24 @@ namespace Registration.WPF
             StartTimer();
         }
 
-        private void tv_dep_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+            try
+            {
+                InitializeMainWindow();
+            }
+            catch (Exception ex)
+            {
+                 NLogger.Logger.Trace(ex.ToString());
+            }
+        }
+
+        private void TV_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SelectTreeViewItem(e);
+        }
+
+        private void SelectTreeViewItem(MouseButtonEventArgs e)
         {
             TreeViewItem treeViewItem = VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
 
@@ -96,9 +113,12 @@ namespace Registration.WPF
         }
 
         private void timer_Tick(object sender, EventArgs e)
-            {
-            var a = TV.SelectedItem;
-            //   _mainWindowViewModel.InitializeDataGrid(((ApplicationState)ServiceContainer.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+        {
+            RefreshWindow();
+        }
+
+        private void RefreshWindow()
+        {
             _mainWindowViewModel.InitializeTreeView();
         }
 

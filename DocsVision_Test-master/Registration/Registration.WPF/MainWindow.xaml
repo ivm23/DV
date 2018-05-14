@@ -49,7 +49,7 @@
         </DataGrid>
         
         <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="529" Margin="8,27,0,0" VerticalAlignment="Top" Width="385">
-            <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="tv_dep_PreviewMouseRightButtonDown" Height="546" TabIndex="1"  >
+            <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="TV_PreviewMouseRightButtonDown" Height="546" TabIndex="1"  >
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                         <TextBlock Text="{Binding Name}" />
