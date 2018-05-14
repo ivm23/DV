@@ -90,7 +90,7 @@ namespace Registration.WPF
         private void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(5000);
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }

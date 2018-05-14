@@ -25,10 +25,6 @@ namespace Registration.WPF
         private LetterView _selectedLetter;
         private ObservableCollection<LetterView> _letters = new ObservableCollection<LetterView>();
 
-        public MainWindowViewModel()
-        {
-        }
-
         public MainWindowViewModel(IServiceProvider provider)
         {
             if (null == provider)
@@ -171,7 +167,6 @@ namespace Registration.WPF
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
                 
             restoreSelectedLetter();
-           
         }
 
         private void ShowBriefLetterMethod(object arg)
@@ -179,6 +174,7 @@ namespace Registration.WPF
             LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             LetterPlugin.OnLoad(ServiceProvider);
             LetterPlugin.ReadOnly = true;
+
             if (null != arg)
                 DeleteEnable = true;
         }
@@ -215,6 +211,7 @@ namespace Registration.WPF
             set
             {
                 _selectedLetter = value;
+
                 if (null != value)
                 {
                     ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType = ClientRequests.GetLetterType(_selectedLetter.Type);
@@ -234,8 +231,7 @@ namespace Registration.WPF
             var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty), ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder);
             DirItems = itemProvider.DirItems;
         }
-
-        
+                
         public void InitializeDataGrid(Guid folderId)
         {
             try
