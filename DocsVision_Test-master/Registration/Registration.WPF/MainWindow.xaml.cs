@@ -60,12 +60,31 @@ namespace Registration.WPF
 
         private void InitializeMainWindow()
         {
-            var form = new Views.AuthorizationWindow(_serviceContainer);
-            form.ShowDialog();
-            _mainWindowViewModel.InitializeTreeView();
-            _mainWindowViewModel.InitializeMenu();
+            try
+            {
+                var form = new Views.AuthorizationWindow(_serviceContainer);
 
-            StartTimer();
+                var dialogResult = form.ShowDialog();
+                if (dialogResult == true)
+                {
+                    _mainWindowViewModel.InitializeTreeView();
+                    _mainWindowViewModel.InitializeMenu();
+
+                    StartTimer();
+                }
+                else
+                {
+                    if (dialogResult == false)
+                    {
+                        this.Close();
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                NLogger.Logger.Trace(ex.ToString());
+            }
         }
 
         private void Window_Initialized(object sender, EventArgs e)

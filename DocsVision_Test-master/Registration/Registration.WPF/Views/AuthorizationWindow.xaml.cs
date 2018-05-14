@@ -24,5 +24,15 @@ namespace Registration.WPF.Views
             InitializeComponent();
             DataContext = new ViewModels.AuthorizationViewModel(provider);
         }
+
+        private void AuthorizationWindowName_Closed(object sender, EventArgs e)
+        {
+            if (this.DialogResult != true)
+                this.DialogResult = false;
+        }
+
+        private void btnSignIn_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

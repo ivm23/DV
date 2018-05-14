@@ -127,7 +127,6 @@ namespace Registration.WPF.ViewModels
 
         private void SignInMethod(object arg)
         {
-
             ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).DatabaseName = _selectedDatabaseName;
 
             _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(Login, Password);
@@ -135,37 +134,31 @@ namespace Registration.WPF.ViewModels
             {
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = _worker.Id;
                 MessageService.InfoMessage(MessageResources.Welcome);
-
+                ((Window)arg).DialogResult = true;
                 ((Window)(arg)).Close();
             }
             else
             {
                 MessageService.InfoMessage(MessageResources.WrongLoginOrPassword);
+                ((Window)arg).DialogResult = null;
             }
         }
 
         private void SignUpMethod(object arg)
         {
-            ((Window)(arg)).Hide();
-
-            var singUpWindow = new Views.SignUpWindow(ServiceProvider);
-            if (singUpWindow.ShowDialog() == true)
+           
+            
+            var signUpWindow = new Views.SignUpWindow(ServiceProvider);
+            var dialogResultSignUpWindow = signUpWindow.ShowDialog();
+            if (dialogResultSignUpWindow == true)
             {
+                ((Window)arg).DialogResult = true;
                 ((Window)(arg)).Close();
-            }
-        }
-
-
-        private SecureString p;
-
-        public SecureString P
-        {
-            set
+            } else
+            if (dialogResultSignUpWindow == false)
             {
-                p = value;
-                OnPropertyChanged(nameof(P));
+                ((Window)arg).DialogResult = null;
             }
-            get { return p; }
         }
 
     }

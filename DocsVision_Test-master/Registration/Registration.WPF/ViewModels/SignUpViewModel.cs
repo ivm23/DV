@@ -94,8 +94,8 @@ namespace Registration.WPF.ViewModels
 
         private void InitializeCommands()
         {
-            CancelCommand = new ViewModels.Command(arg => CancelMethod());
-            SignUpCommand = new ViewModels.Command(arg => SignUpMethod());
+            CancelCommand = new ViewModels.Command(arg => CancelMethod(arg));
+            SignUpCommand = new ViewModels.Command(arg => SignUpMethod(arg));
         }
 
         private void InitializeMessageService()
@@ -116,8 +116,10 @@ namespace Registration.WPF.ViewModels
             InitializeCommands();
         }
 
-        private void SignUpMethod()
+        private void SignUpMethod(object arg)
         {
+            var window = (Window)arg;
+
             Guid workerId = Guid.Empty;
 
             ClientRequests.DatabaseName = _selectedDatabaseName;
@@ -127,13 +129,15 @@ namespace Registration.WPF.ViewModels
                 try
                 {
                     ClientRequests.WorkerIsExist(Login);
+                        MessageService.InfoMessage(MessageResources.ExistWorker);
+                        window.DialogResult = null;
                 }
                 catch (Exception ex)
                 {
                     workerId = ClientRequests.CreateWorker(NameW, Login, Password);
                     ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = workerId;
 
-                    var window = Application.Current.Windows[2];
+
                     if (window != null)
                     {
                         window.DialogResult = true;
@@ -143,16 +147,33 @@ namespace Registration.WPF.ViewModels
             }
             else
             {
-                if (string.IsNullOrEmpty(NameW)) MessageService.ErrorMessage(MessageResources.EmptyName);
+                if (string.IsNullOrEmpty(NameW))
+                {
+                    MessageService.ErrorMessage(MessageResources.EmptyName);
+                    window.DialogResult = null;
+                }
+
                 else
-                    if (string.IsNullOrEmpty(Login)) MessageService.ErrorMessage(MessageResources.EmptyLogin);
+                    if (string.IsNullOrEmpty(Login))
+                {
+                    MessageService.ErrorMessage(MessageResources.EmptyLogin);
+                    window.DialogResult = null;
+                }
                 else
-                    if (string.IsNullOrEmpty(Password)) MessageService.ErrorMessage(MessageResources.EmptyPassword);
+                    if (string.IsNullOrEmpty(Password))
+                {
+                    MessageService.ErrorMessage(MessageResources.EmptyPassword);
+                    window.DialogResult = null;
+                }
+
             }
         }
 
-        private void CancelMethod()
+        private void CancelMethod(object arg)
         {
+            ((Window)arg).DialogResult = null;
+            ((Window)arg).Close();
+            
         }
     }
 }

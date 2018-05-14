@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Registration.WPF.Views"
         xmlns:Controls="clr-namespace:Registration.WPF.Views.Controls" x:Class="Registration.WPF.Views.SignUpWindow"
         mc:Ignorable="d"
-        Title="SignUpWindow" Height="195" Width="220"  WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartNoResize}">
+    x:Name="SignUpWindowName"    
+        Title="SignUpWindow" Height="195" Width="220"  WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartNoResize}" >
 
     <Window.Resources>
 
@@ -40,8 +41,8 @@
         <Controls:AuthorizationControl x:Name="authorizationControl" Grid.Row="1" TabIndex="1" Grid.Column="0"  Grid.ColumnSpan="2" Style="{StaticResource standartControl}"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal"  Grid.ColumnSpan="2">
-            <Button x:Name="btnSignUp" Content="SignUp" Command="{Binding SignUpCommand}" TabIndex="2" />
-            <Button x:Name="btnCancel" IsCancel="True" Content="Cancel" TabIndex="3"/>
+            <Button x:Name="btnSignUp" Content="SignUp" Command="{Binding SignUpCommand}" CommandParameter="{Binding ElementName=SignUpWindowName}" TabIndex="2" />
+            <Button x:Name="btnCancel" Content="Cancel" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=SignUpWindowName}" TabIndex="3"/>
         </StackPanel>
 
     </Grid>
