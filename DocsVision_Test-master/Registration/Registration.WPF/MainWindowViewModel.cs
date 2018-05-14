@@ -71,6 +71,7 @@ namespace Registration.WPF
 
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
             DeleteEnable = false;
+            LetterPlugin = null;
         }
 
         private void EditFolderMethod(object arg)
@@ -90,8 +91,8 @@ namespace Registration.WPF
 
             makeFolderWindow.ShowDialog();
         }
-        private int _index;
 
+        private int _index;
         private void getNextLetter(LetterView letter)
         {
             int index = Letters.IndexOf(letter);
@@ -117,7 +118,6 @@ namespace Registration.WPF
             }
         }
 
-
         private void SelectedFolderNodeChangedMethod(object arg)
         {
             if (null != arg)
@@ -125,7 +125,7 @@ namespace Registration.WPF
                 DeleteEnable = false;
                 InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
-                //LetterPlugin = null;
+                
             }
         }
 

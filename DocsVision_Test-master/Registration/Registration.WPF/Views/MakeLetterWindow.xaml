@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Registration.WPF.Views"
         mc:Ignorable="d"
-        Title="MakeLetterWindow" Height="550" Width="559" WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartWindow}">
+        Title="MakeLetterWindow" Height="580" Width="559" WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartWindow}">
     <Window.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource standartButton}"/>
     </Window.Resources>
@@ -15,7 +15,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="38"/>
         </Grid.RowDefinitions>
-
 
         <StackPanel x:Name="stackPanel" Grid.Row="0" />
         

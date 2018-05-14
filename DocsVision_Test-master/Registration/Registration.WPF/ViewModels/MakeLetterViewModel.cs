@@ -39,6 +39,17 @@ namespace Registration.WPF.ViewModels
             _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
 
+        private IMessageService _messageService;
+
+        private IMessageService MessageService
+        {
+            get { return _messageService; }
+        }
+        private void InitializeMessageService()
+        {
+            _messageService = (IMessageService)ServiceProvider.GetService(typeof(IMessageService));            
+        }
+
         private void InitializeWorker()
         {
             _worker = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker;
@@ -51,7 +62,7 @@ namespace Registration.WPF.ViewModels
             var letterView = LetterPlugin.LetterView;
             if (string.IsNullOrEmpty(letterView.Name) || string.IsNullOrEmpty(letterView.Text) || letterView.ReceiversName.Count == 0)
             {
-                MessageBox.Show("Name or Text or Receivers are empty");
+                MessageService.InfoMessage(MessageResources.EmptyListRecipient);
             }
             else
             {
@@ -65,6 +76,7 @@ namespace Registration.WPF.ViewModels
         {
             InitializeClientRequests();
             InitializeWorker();
+            InitializeMessageService();
 
             LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             LetterPlugin.OnLoad(ServiceProvider);
