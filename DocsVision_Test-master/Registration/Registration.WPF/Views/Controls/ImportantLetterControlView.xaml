@@ -29,11 +29,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <local:StandartLetterControl x:Name="fullContentLetterControl" Grid.Row="1" TabIndex="0"/>
+        <local:StandartLetterControl x:Name="fullContentLetterControl" Grid.Row="1" TabIndex="1"/>
 
         <StackPanel Grid.Row="0" >
             <Label x:Name="lblImportanceDegree" Content="Degree of importance" />
-            <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl" TabIndex="5"/>
+            <local:ImportanceDegreeEditorControl x:Name="importanceDegreeEditorControl" TabIndex="0"/>
         </StackPanel>
 
     </Grid>

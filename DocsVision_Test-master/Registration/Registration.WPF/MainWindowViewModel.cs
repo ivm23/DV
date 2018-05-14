@@ -162,9 +162,11 @@ namespace Registration.WPF
         {
             getNextLetter(SelectedLetter);
 
+            ClientRequests.LetterIsRead(((LetterView)(arg)).Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+
             var letterViewWindow = new Views.LetterViewWindow(ServiceProvider);
             letterViewWindow.ShowDialog();
-            ClientRequests.LetterIsRead(((LetterView)(arg)).Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+         
             InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
                 
             restoreSelectedLetter();

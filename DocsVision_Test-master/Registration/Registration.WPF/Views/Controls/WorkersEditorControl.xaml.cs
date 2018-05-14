@@ -24,6 +24,7 @@ namespace Registration.WPF.Views.Controls
         public WorkersEditorControl()
         {
             InitializeComponent();
+
         }
 
         public void InitializeWorkersEditorControl(IEnumerable<string> allWorkers)
@@ -62,12 +63,16 @@ namespace Registration.WPF.Views.Controls
         {
             if (Key.Up != e.Key && Key.Down != e.Key && Key.Enter != e.Key)
             {
-                txtWorkers.Focus();
-                txtWorkers.SelectionStart = txtWorkers.Text.Length;
+                FocusToTextBox();
             }
         }
 
         private void FocusToTextBox(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            FocusToTextBox();
+        }
+
+        private void FocusToTextBox()
         {
             txtWorkers.SelectionStart = txtWorkers.Text.Length;
             txtWorkers.Focus();

@@ -42,27 +42,26 @@
 
         <StackPanel Grid.Row="0">
             <Label x:Name="labelDate" Content="Date" Visibility="Visible"/>
-            <TextBox x:Name="date" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" TabIndex="4"/>
+            <TextBox x:Name="date" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Date, Mode=TwoWay}" TabIndex="0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1">
             <Label x:Name="labelTitle" Content="Title" />
-            <TextBox x:Name="title" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Title, Mode=TwoWay}" TabIndex="0"/>
+            <TextBox x:Name="title" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Title, Mode=TwoWay}" TabIndex="1"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2">
             <Label x:Name="labelSenderName" Content="Sender"/>
-            <TextBox x:Name="sender" IsReadOnly="True" Text="{Binding SenderName, Mode=TwoWay}" TabIndex="1"/>
+            <TextBox x:Name="sender" IsReadOnly="True" Text="{Binding SenderName, Mode=TwoWay}" TabIndex="2"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4">
+            <Label x:Name="labelMessage" Content="Message"/>
+            <TextBox x:Name="message" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Text, Mode=TwoWay}" Style="{StaticResource messageTextBox}" TabIndex="4"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.RowSpan="2">
             <Label x:Name="labelReceiversNames" Content="Receivers"/>
-            <local:WorkersEditorControl x:Name="workersEditorControl" TabIndex="2"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="4">
-            <Label x:Name="labelMessage" Content="Message"/>
-            <TextBox x:Name="message" IsReadOnly="{Binding Path=ReadOnly}" Text="{Binding Path=Text, Mode=TwoWay}" Style="{StaticResource messageTextBox}" TabIndex="3"/>
+            <local:WorkersEditorControl x:Name="workersEditorControl" TabIndex="3"/>
         </StackPanel>
 
     </Grid>

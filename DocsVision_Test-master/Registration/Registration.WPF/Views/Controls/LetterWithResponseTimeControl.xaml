@@ -30,7 +30,15 @@
 
         <StackPanel Grid.Row="0" >
             <Label x:Name="lblDataOfResponseReq" Content="Date of response required"/>
-            <DatePicker x:Name="dataPickerLetter" IsEnabled="{Binding Path=Enable}" SelectedDate="{Binding Path=ReminderLetterData}" TabIndex="0"/>
+            <DatePicker x:Name="dataPickerLetter" IsEnabled="{Binding Path=Enable}" SelectedDate="{Binding Path=ReminderLetterData}" TabIndex="0">
+                
+                <DatePicker.Resources>
+                    <Style TargetType="DatePickerTextBox">
+                        <Setter Property="IsReadOnly" Value="True"/>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+            
         </StackPanel>
     </Grid>
 </UserControl>

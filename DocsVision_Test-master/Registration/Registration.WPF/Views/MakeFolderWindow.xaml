@@ -10,7 +10,6 @@
     <Window.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource standartButton}"/>
         <Style TargetType="StackPanel">
-            <Setter Property="Margin" Value="10"/>
         </Style>
     </Window.Resources>
 

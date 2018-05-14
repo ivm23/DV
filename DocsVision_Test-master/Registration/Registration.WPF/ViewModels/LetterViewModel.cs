@@ -12,6 +12,7 @@ namespace Registration.WPF.ViewModels
     class LetterViewModel
     {
         private readonly IServiceProvider _serviceProvider;
+        private IMessageService _messageService;
         private IClientRequests _clientRequests;
         private Worker _worker;
         public ILetterPropertiesUIPlugin LetterPlugin { get; set; }
@@ -30,7 +31,10 @@ namespace Registration.WPF.ViewModels
         {
             get { return _serviceProvider; }
         }
-
+        private IMessageService MessageService
+        {
+            get { return _messageService; }
+        }
         private IClientRequests ClientRequests
         {
             get { return _clientRequests; }
@@ -46,9 +50,15 @@ namespace Registration.WPF.ViewModels
             _worker = ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker;
         }
 
+        private void InitializeMessageService()
+        {
+            _messageService = (IMessageService)ServiceProvider.GetService(typeof(IMessageService));
+        }
+
         public void InitializeLetterPlugin()
         {
             InitializeClientRequests();
+            InitializeMessageService();
 
             LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             LetterPlugin.OnLoad(ServiceProvider);
@@ -59,8 +69,11 @@ namespace Registration.WPF.ViewModels
 
         private void DeleteLetterMethod(object arg)
         {
-            ClientRequests.DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
-            ((Window)arg).Close();
+            if (MessageService.QuestionMessage(MessageResources.DeleteLetter) == MessageBoxResult.Yes)
+            {
+                ClientRequests.DeleteLetter(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterView, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+                ((Window)arg).Close();
+            }
         }
     }
 }

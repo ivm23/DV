@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Registration.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="597" Width="1300" WindowStartupLocation="{StaticResource standartWindowStartupLocation}" Style="{StaticResource standartWindow}"
-        Initialized="Window_Initialized" MinWidth="900" MinHeight="500">
+        Initialized="Window_Initialized" MinWidth="1200" MinHeight="500">
     <Window.Resources>
         <Style TargetType="DataGrid">
             <Setter Property="Margin" Value="0,20,0,0"/>
@@ -24,7 +24,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*" MinWidth="200"/>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="600*" MinWidth="600"/>
+            <ColumnDefinition Width="400*" MinWidth="200"/>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="800*" MinWidth="600" />
         </Grid.ColumnDefinitions>
@@ -55,8 +55,8 @@
             </i:Interaction.Triggers>
         </DataGrid>
 
-        <StackPanel x:Name="stackPanel" HorizontalAlignment="Left"  VerticalAlignment="Top" MinHeight="1300" MinWidth="900">
-            <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="TV_PreviewMouseRightButtonDown" TabIndex="1" MinHeight="1300" MinWidth="900">
+        <StackPanel x:Name="stackPanel" HorizontalAlignment="Left"  VerticalAlignment="Top" MinHeight="1300" MinWidth="2000">
+            <TreeView  x:Name="TV" ItemsSource="{Binding DirItems}" PreviewMouseRightButtonDown="TV_PreviewMouseRightButtonDown" TabIndex="1" MinHeight="2000" MinWidth="1000">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                         <TextBlock Text="{Binding Name}" />
@@ -117,7 +117,7 @@
             
         </Menu>
 
-        <ContentControl  Grid.Column="4" Content="{Binding Path=LetterPlugin}" MinWidth="500"/>
+        <ContentControl  Grid.Column="4" Content="{Binding Path=LetterPlugin}" MinWidth="400" />
         
     </Grid>
 
