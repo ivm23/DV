@@ -10,7 +10,7 @@ namespace Registration.WPF.ViewModels
 {
     class ImportantLetterControlViewModel : Notifier
     {
-        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
+        private readonly DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
 
         private LetterView _letterView = new LetterView();
         private ImportantLetterData _importantLetterData = new ImportantLetterData();
@@ -28,7 +28,6 @@ namespace Registration.WPF.ViewModels
                     NameSelectedDegree = (string)Resource.ResourceManager.GetObject(value.ToString());
                     break;
                 }
-
             }
         }
 
@@ -37,14 +36,8 @@ namespace Registration.WPF.ViewModels
 
         public IDictionary<Model.ImportanceDegree, string> ImportanceDegrees
         {
-            set
-            {
-                _importanceDegrees = value;
-            }
-            get
-            {
-                return _importanceDegrees;
-            }
+            set { _importanceDegrees = value; }
+            get { return _importanceDegrees; }
         }
 
         private bool _readOnly;
@@ -58,10 +51,7 @@ namespace Registration.WPF.ViewModels
                 Enable = !value;
                 OnPropertyChanged(nameof(ReadOnly));
             }
-            get
-            {
-                return _readOnly;
-            }
+            get { return _readOnly; }
         }
 
         public bool Enable
@@ -71,10 +61,7 @@ namespace Registration.WPF.ViewModels
                 _enable = value;
                 OnPropertyChanged(nameof(Enable));
             }
-            get
-            {
-                return _enable;
-            }
+            get { return _enable; }
         }
 
         public void InitializeImportanceDegreeControl()
@@ -128,10 +115,7 @@ namespace Registration.WPF.ViewModels
                 _nameSelectedDegree = value;
                 OnPropertyChanged(nameof(NameSelectedDegree));
             }
-            get
-            {
-                return _nameSelectedDegree;
-            }
+            get { return _nameSelectedDegree; }
         }
     }
 

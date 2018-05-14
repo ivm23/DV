@@ -11,14 +11,13 @@ namespace Registration.WPF.ViewModels
     class LetterWithResponseTimeControlViewModel : Notifier
     {
 
-        private DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
+        private readonly DataSerialization.IDataSerializationService _dataSerializer = DataSerialization.DataSerializationServiceFactory.InitializeDataSerializationService();
         private LetterView _letterView = new LetterView();
         public LetterWithResponseTimeControlViewModel(string ExtendedData)
         {
             if (null != ExtendedData)
                 LetterWithReminderData = ExtendedData;
         }
-
 
         private DateTime _reminderLetterData;
         public DateTime ReminderLetterData
@@ -28,10 +27,7 @@ namespace Registration.WPF.ViewModels
                 _reminderLetterData = value;
                 OnPropertyChanged(nameof(ReminderLetterData));
             }
-            get
-            {
-                return _reminderLetterData;
-            }
+            get { return _reminderLetterData; }
         }
 
         private LetterWithReminderData _letterWithReminderDate = new LetterWithReminderData();
@@ -59,10 +55,7 @@ namespace Registration.WPF.ViewModels
                 Enable = !value;
                 OnPropertyChanged(nameof(ReadOnly));
             }
-            get
-            {
-                return _readOnly;
-            }
+            get { return _readOnly; }
         }
 
         public bool Enable
@@ -72,10 +65,8 @@ namespace Registration.WPF.ViewModels
                 _enable = value;
                 OnPropertyChanged(nameof(Enable));
             }
-            get
-            {
-                return _enable;
-            }
+            get { return _enable; }
         }
     }
+
 }

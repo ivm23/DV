@@ -50,6 +50,7 @@ namespace Registration.WPF.ViewModels
         }
 
         private string _selectedFolderName;
+
         public string SelectedFolderName
         {
             set
@@ -67,10 +68,7 @@ namespace Registration.WPF.ViewModels
                 _folder.Name = value;
                 OnPropertyChanged(nameof(NameFolder));
             }
-            get
-            {
-                return _folder.Name;
-            }
+            get { return _folder.Name; }
         }
 
         public FolderType SelectedType
@@ -81,10 +79,7 @@ namespace Registration.WPF.ViewModels
                 _folder.Type = value.Id;
                 OnPropertyChanged(nameof(SelectedType));
             }
-            get
-            {
-                return _folderType;
-            }
+            get { return _folderType; }
         }
 
         public IEnumerable<FolderType> FoldersTypes
@@ -94,11 +89,8 @@ namespace Registration.WPF.ViewModels
                 _folderTypes = value;
                 OnPropertyChanged(nameof(FoldersTypes));
             }
-            get
-            {
-                return _folderTypes;
-            }
+            get { return _folderTypes; }
         }
-
     }
+
 }

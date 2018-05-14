@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Windows;
 using System.ComponentModel;
+
 using Registration.Model;
 using Registration.ClientInterface;
-using System.Windows;
+using Registration.Logger;
 
 namespace Registration.WPF.ViewModels
 {
@@ -24,10 +26,7 @@ namespace Registration.WPF.ViewModels
         private ObservableCollection<string> _databasesNames = new ObservableCollection<string>();
         public ObservableCollection<string> DatabasesNames
         {
-            get
-            {
-                return _databasesNames;
-            }
+            get { return _databasesNames; }
             set
             {
                 _databasesNames = value;
@@ -37,10 +36,7 @@ namespace Registration.WPF.ViewModels
 
         private IMessageService MessageService
         {
-            get
-            {
-                return _messageService;
-            }
+            get { return _messageService; }
         }
 
         private void InitializeMessageService()
@@ -50,10 +46,7 @@ namespace Registration.WPF.ViewModels
 
         private IServiceProvider ServiceProvider
         {
-            get
-            {
-                return _serviceProvider;
-            }
+            get { return _serviceProvider; }
         }
 
         private IClientRequests ClientRequests
@@ -73,10 +66,7 @@ namespace Registration.WPF.ViewModels
                 _worker.Login = value;
                 OnPropertyChanged("_worker.Login");
             }
-            get
-            {
-                return _worker.Login;
-            }
+            get { return _worker.Login; }
         }
 
         public string Password
@@ -86,10 +76,7 @@ namespace Registration.WPF.ViewModels
                 _worker.Password = value;
                 OnPropertyChanged("_worker.Password");
             }
-            get
-            {
-                return _worker.Password;
-            }
+            get { return _worker.Password; }
         }
 
         private void InitializeDatabasesNames()
@@ -111,6 +98,13 @@ namespace Registration.WPF.ViewModels
             SignUpCommand = new ViewModels.Command(arg => SignUpMethod(arg));
         }
 
+        private void InitializeAuthorizationViewModel()
+        {
+            InitializeClientRequests();
+            InitializeMessageService();
+            InitializeDatabasesNames();
+            InitializeCommands();
+        }
 
         public AuthorizationViewModel(IServiceProvider provider)
         {
@@ -119,10 +113,15 @@ namespace Registration.WPF.ViewModels
 
             _serviceProvider = provider;
 
-            InitializeClientRequests();
-            InitializeMessageService();
-            InitializeDatabasesNames();
-            InitializeCommands();
+            try
+            {
+                InitializeAuthorizationViewModel();
+            }
+            catch (Exception ex)
+            {
+                NLogger.Logger.Trace(ex.ToString());
+            }
+
         }
 
         private void SignInMethod(object arg)
@@ -133,7 +132,6 @@ namespace Registration.WPF.ViewModels
             _worker.Id = ((IClientRequests)ServiceProvider.GetService(typeof(IClientRequests))).AcceptAuthorisation(Login, Password);
             if (Guid.Empty != _worker.Id)
             {
-
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id = _worker.Id;
                 MessageService.InfoMessage(MessageResources.Welcome);
 
@@ -155,6 +153,8 @@ namespace Registration.WPF.ViewModels
                 ((Window)(arg)).Close();
             }
         }
+
     }
+
 }
 

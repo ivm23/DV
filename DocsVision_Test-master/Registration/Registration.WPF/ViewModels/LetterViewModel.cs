@@ -54,7 +54,7 @@ namespace Registration.WPF.ViewModels
             LetterPlugin.OnLoad(ServiceProvider);
             LetterPlugin.ReadOnly = true;
         }
-        
+
         public ICommand DeleteLetter { set; get; }
 
         private void DeleteLetterMethod(object arg)

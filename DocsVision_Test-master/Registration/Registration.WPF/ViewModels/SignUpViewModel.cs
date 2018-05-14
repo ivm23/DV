@@ -13,18 +13,14 @@ namespace Registration.WPF.ViewModels
         private Worker _worker = new Worker();
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
-    //    private WinForms.Message.IMessageService _messageService;
+        private IMessageService _messageService;
         public string _selectedDatabaseName { get; set; }
         public int _selectedDatabaseIndex { get; set; } = 0;
 
         private ObservableCollection<string> _databasesNames = new ObservableCollection<string>();
         public ObservableCollection<string> DatabasesNames
         {
-            get
-            {
-
-                return _databasesNames;
-            }
+            get { return _databasesNames; }
             set
             {
                 _databasesNames = value;
@@ -32,20 +28,14 @@ namespace Registration.WPF.ViewModels
             }
         }
 
-        //private WinForms.Message.IMessageService MessageService
-        //{
-        //    get
-        //    {
-        //        return _messageService;
-        //    }
-        //}
+        private IMessageService MessageService
+        {
+            get { return _messageService; }
+        }
 
         private IServiceProvider ServiceProvider
         {
-            get
-            {
-                return _serviceProvider;
-            }
+            get { return _serviceProvider; }
         }
 
         private IClientRequests ClientRequests
@@ -57,6 +47,7 @@ namespace Registration.WPF.ViewModels
         {
             _clientRequests = (IClientRequests)ServiceProvider.GetService(typeof(IClientRequests));
         }
+
         public string NameW
         {
             set
@@ -64,11 +55,9 @@ namespace Registration.WPF.ViewModels
                 _worker.Name = value;
                 OnPropertyChanged(nameof(NameW));
             }
-            get
-            {
-                return _worker.Name;
-            }
+            get { return _worker.Name; }
         }
+
         public string Login
         {
             set
@@ -76,10 +65,7 @@ namespace Registration.WPF.ViewModels
                 _worker.Login = value;
                 OnPropertyChanged(nameof(Login));
             }
-            get
-            {
-                return _worker.Login;
-            }
+            get { return _worker.Login; }
         }
 
         public string Password
@@ -89,10 +75,7 @@ namespace Registration.WPF.ViewModels
                 _worker.Password = value;
                 OnPropertyChanged(nameof(Password));
             }
-            get
-            {
-                return _worker.Password;
-            }
+            get { return _worker.Password; }
         }
 
         private void InitializeDatabasesNames()
@@ -116,7 +99,7 @@ namespace Registration.WPF.ViewModels
 
         private void InitializeMessageService()
         {
-        //    _messageService = (WinForms.Message.IMessageService)ServiceProvider.GetService(typeof(WinForms.Message.IMessageService));
+            _messageService = (IMessageService)ServiceProvider.GetService(typeof(IMessageService));
         }
 
         public SignUpViewModel(IServiceProvider provider)
@@ -159,17 +142,16 @@ namespace Registration.WPF.ViewModels
             }
             else
             {
-               // if (string.IsNullOrEmpty(NameW)) MessageService.ErrorMessage();
-               // else
-               //     if (string.IsNullOrEmpty(Login)) MessageService.ErrorMessage(Message.MessageResource.EmptyLogin);
-               // else
-               //     if (string.IsNullOrEmpty(Password)) MessageService.ErrorMessage(Message.MessageResource.EmptyPassword);
+                if (string.IsNullOrEmpty(NameW)) MessageService.ErrorMessage(MessageResources.EmptyName);
+                else
+                    if (string.IsNullOrEmpty(Login)) MessageService.ErrorMessage(MessageResources.EmptyLogin);
+                else
+                    if (string.IsNullOrEmpty(Password)) MessageService.ErrorMessage(MessageResources.EmptyPassword);
             }
         }
 
         private void CancelMethod()
         {
-            
         }
     }
 }

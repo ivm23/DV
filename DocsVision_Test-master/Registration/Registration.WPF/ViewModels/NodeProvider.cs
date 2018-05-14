@@ -43,7 +43,7 @@ namespace Registration.WPF.ViewModels
                     if (null != selectedFolder && selectedFolder.Id == folder.Id)
                         node = new WPF.Models.DirectoryNode { Name = folder.Name, Folder = folder, IsSelected = true };
                     else
-                        node = new WPF.Models.DirectoryNode { Name = folder.Name, Folder = folder, IsSelected = false};
+                        node = new WPF.Models.DirectoryNode { Name = folder.Name, Folder = folder, IsSelected = false };
 
                     MakeTree(folder, folders, ref node, selectedFolder);
                     _rootDirectoryNode.AddDirNode(node);

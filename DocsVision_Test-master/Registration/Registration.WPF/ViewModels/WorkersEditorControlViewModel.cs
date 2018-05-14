@@ -51,10 +51,7 @@ namespace Registration.WPF.ViewModels
         private string _names;
         public string Names
         {
-            get
-            {
-                return _names;
-            }
+            get { return _names; }
             set
             {
                 _names = value;
@@ -69,10 +66,7 @@ namespace Registration.WPF.ViewModels
                 _receivers = value;
                 OnPropertyChanged(nameof(AllWorkers));
             }
-            get
-            {
-                return _receivers;
-            }
+            get { return _receivers; }
         }
 
         private string _selectedWorker;
@@ -83,10 +77,7 @@ namespace Registration.WPF.ViewModels
                 _selectedWorker = value;
                 OnPropertyChanged(nameof(SelectedWorker));
             }
-            get
-            {
-                return _selectedWorker;
-            }
+            get { return _selectedWorker; }
         }
 
         public void InitializeAllWorkers(IEnumerable<string> allWorkers)
@@ -102,13 +93,10 @@ namespace Registration.WPF.ViewModels
                 _enable = value;
                 OnPropertyChanged(nameof(Enable));
             }
-            get
-            {
-                return _enable;
-            }
+            get { return _enable; }
         }
 
-        public string SelectedNameWorker { get; set; }
+        //    public string SelectedNameWorker { get; set; }
 
         private void findNewIndex(string str)
         {
@@ -136,7 +124,7 @@ namespace Registration.WPF.ViewModels
             SelectedWorker = null;
             string currentString = (string)arg;
 
-            if (stringEndIndex > (currentString).Length )
+            if (stringEndIndex > (currentString).Length)
             {
                 findNewIndex(currentString.Trim());
                 Names = currentString;
@@ -170,10 +158,10 @@ namespace Registration.WPF.ViewModels
         public ICommand AddWorker { get; set; }
         private void AddWorkerMethod(object arg)
         {
-              selectedWorkers.Add((string)arg);
+            selectedWorkers.Add((string)arg);
 
-                NamesWorkers = selectedWorkers;
-            
+            NamesWorkers = selectedWorkers;
+
             stringEndIndex = Names.Length;
             Enable = Visibility.Hidden;
         }

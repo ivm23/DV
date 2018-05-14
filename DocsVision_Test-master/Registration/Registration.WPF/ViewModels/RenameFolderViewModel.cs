@@ -40,11 +40,8 @@ namespace Registration.WPF.ViewModels
                 _name = value;
                 OnPropertyChanged(nameof(Name));
             }
-            get
-            {
-                return _name;
-            }
+            get { return _name; }
         }
-        
     }
+
 }

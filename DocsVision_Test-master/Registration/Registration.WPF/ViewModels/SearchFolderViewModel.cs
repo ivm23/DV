@@ -36,16 +36,26 @@ namespace Registration.WPF.ViewModels
             SelectedFolderName = SelectedType.Name;
         }
 
+        private Models.IMakeFolderWindow ParentWindow
+        {
+            get { return _parentWindow; }
+        }
+
+        private IServiceProvider ServiceProvider
+        {
+            get { return _serviceProvider; }
+        }
 
         public ICommand FolderTypeChanged { get; set; }
+
         private void FolderTypeChangedMethod(object arg)
         {
-            ((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType = (FolderType)arg;
+            ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType = (FolderType)arg;
 
-            IFolderPropertiesUIPlugin folderPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)_serviceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)_serviceProvider.GetService(typeof(PluginService))));
-            folderPlugin.OnLoad(_serviceProvider, _parentWindow);
+            IFolderPropertiesUIPlugin folderPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
+            folderPlugin.OnLoad(ServiceProvider, ParentWindow);
 
-            _parentWindow.ChangeFolderPlugin((Control)(folderPlugin));
+            ParentWindow.ChangeFolderPlugin((Control)(folderPlugin));
             folderPlugin.FolderType = SelectedType;
             folderPlugin.FolderName = NameFolder;
         }
@@ -57,10 +67,7 @@ namespace Registration.WPF.ViewModels
                 _folder.Name = value;
                 OnPropertyChanged(nameof(NameFolder));
             }
-            get
-            {
-                return _folder.Name;
-            }
+            get { return _folder.Name; }
         }
         public FolderType SelectedType
         {
@@ -70,11 +77,9 @@ namespace Registration.WPF.ViewModels
                 _folder.Type = value.Id;
                 OnPropertyChanged(nameof(SelectedType));
             }
-            get
-            {
-                return _folderType;
-            }
+            get { return _folderType; }
         }
+
         private string _selectedFolderName;
         public string SelectedFolderName
         {
@@ -93,19 +98,13 @@ namespace Registration.WPF.ViewModels
                 _folderTypes = value;
                 OnPropertyChanged(nameof(FoldersTypes));
             }
-            get
-            {
-                return _folderTypes;
-            }
+            get { return _folderTypes; }
         }
 
         private FolderProperties _folderProperties = new FolderProperties();
         public FolderProperties FolderProperties
         {
-            set
-            {
-                _folderProperties = value;
-            }
+            set { _folderProperties = value; }
             get
             {
                 _folderProperties.Name = NameFolder;
@@ -133,10 +132,8 @@ namespace Registration.WPF.ViewModels
                 _workersNames = value;
                 OnPropertyChanged(nameof(WorkersNames));
             }
-            get
-            {
-                return _workersNames;
-            }
+            get { return _workersNames; }
         }
     }
+
 }

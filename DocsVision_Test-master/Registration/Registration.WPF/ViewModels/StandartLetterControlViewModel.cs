@@ -15,7 +15,6 @@ namespace Registration.WPF.ViewModels
 
         public StandartLetterControlViewModel(LetterView letterView, string senderName)
         {
-
             if (null == letterView)
                 throw new ArgumentNullException();
 
@@ -32,10 +31,7 @@ namespace Registration.WPF.ViewModels
                 _letterView.Name = value;
                 OnPropertyChanged(nameof(Title));
             }
-            get
-            {
-                return _letterView.Name;
-            }
+            get { return _letterView.Name; }
         }
 
         public string Text
@@ -45,10 +41,7 @@ namespace Registration.WPF.ViewModels
                 _letterView.Text = value;
                 OnPropertyChanged(nameof(Text));
             }
-            get
-            {
-                return _letterView.Text;
-            }
+            get { return _letterView.Text; }
         }
 
         public string SenderName
@@ -58,10 +51,7 @@ namespace Registration.WPF.ViewModels
                 _letterView.SenderName = value;
                 OnPropertyChanged(nameof(SenderName));
             }
-            get
-            {
-                return _letterView.SenderName;
-            }
+            get { return _letterView.SenderName; }
         }
 
         public DateTime Date
@@ -71,10 +61,7 @@ namespace Registration.WPF.ViewModels
                 _letterView.Date = value;
                 OnPropertyChanged(nameof(Date));
             }
-            get
-            {
-                return _letterView.Date;
-            }
+            get { return _letterView.Date; }
         }
         private bool _readOnly;
         public bool ReadOnly
@@ -85,11 +72,7 @@ namespace Registration.WPF.ViewModels
                 Visibility = (value ? Visibility.Visible : Visibility.Collapsed);
                 OnPropertyChanged(nameof(ReadOnly));
             }
-            get
-            {
-                return _readOnly;
-
-            }
+            get { return _readOnly; }
         }
 
         private Visibility _visibility;
@@ -101,10 +84,8 @@ namespace Registration.WPF.ViewModels
                 _visibility = value;
                 OnPropertyChanged(nameof(Visibility));
             }
-            get
-            {
-                return _visibility;
-            }
+            get { return _visibility; }
         }
     }
+
 }
