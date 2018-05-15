@@ -76,16 +76,20 @@ namespace Registration.WPF
 
         private void EditFolderMethod(object arg)
         {
-            var window = new Views.RenameFolderWindow(ServiceProvider);
-            window.ShowDialog();
+            if (null != arg)
+            {
+                var window = new Views.RenameFolderWindow(ServiceProvider);
+                window.ShowDialog();
+            }
         }
 
         private void DeleteFolderMethod(object arg)
         {
-            ClientRequests.DeleteFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+            if (null != arg)
+                ClientRequests.DeleteFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
         }
         private void CreateFolderMethod()
-        {
+        {            
             ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolderType = ClientRequests.GetFolderType(2);
             var makeFolderWindow = new Views.MakeFolderWindow(ServiceProvider);
 
@@ -126,10 +130,9 @@ namespace Registration.WPF
                 InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
                 LetterPlugin = null;
-                
+
             }
         }
-
 
         private IEnumerable<LetterType> _existLettersTypes;
 
@@ -164,16 +167,19 @@ namespace Registration.WPF
 
         private void OpenLetterViewWindowMethod(object arg)
         {
-            getNextLetter(SelectedLetter);
+            if (null != arg)
+            {
+                getNextLetter(SelectedLetter);
 
-            ClientRequests.LetterIsRead(((LetterView)(arg)).Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
+                ClientRequests.LetterIsRead(((LetterView)(arg)).Id, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id);
 
-            var letterViewWindow = new Views.LetterViewWindow(ServiceProvider);
-            letterViewWindow.ShowDialog();
-         
-            InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
-                
-            restoreSelectedLetter();
+                var letterViewWindow = new Views.LetterViewWindow(ServiceProvider);
+                letterViewWindow.ShowDialog();
+
+                InitializeDataGrid(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+
+                restoreSelectedLetter();
+            }
         }
 
         private void ShowBriefLetterMethod(object arg)
@@ -245,7 +251,7 @@ namespace Registration.WPF
             var itemProvider = new NodeProvider(ClientRequests.GetAllWorkerFolders(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id), ClientRequests.GetAllWorkerFolders(Guid.Empty), ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder);
             DirItems = itemProvider.DirItems;
         }
-                
+
         public void InitializeDataGrid(Guid folderId)
         {
             try
