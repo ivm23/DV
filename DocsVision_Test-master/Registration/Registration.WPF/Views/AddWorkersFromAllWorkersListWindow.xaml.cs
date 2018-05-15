@@ -41,5 +41,11 @@ namespace Registration.WPF.Views
         {
             return _addWorkersFromAllWorkersListViewModel.SelectedWorkers;
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            listOtherWorkers.Focus();
+            listOtherWorkers.SelectedIndex = 0;
+        }
     }
 }

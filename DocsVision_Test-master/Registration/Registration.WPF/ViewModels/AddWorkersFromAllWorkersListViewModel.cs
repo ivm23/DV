@@ -25,28 +25,38 @@ namespace Registration.WPF.ViewModels
         {
             IList<string> receivers = SelectedWorkers.ToList();
             IList<string> nonSelectedWorkers = NonSelectedWorkers.ToList();
+            int index = nonSelectedWorkers.IndexOf(ReceiverForAdd);
 
-            receivers.Add(ReceiverForAdd);
-            SelectedWorkers = receivers;
-            nonSelectedWorkers.Remove(ReceiverForAdd);
-            NonSelectedWorkers = nonSelectedWorkers;
+            if (!string.IsNullOrEmpty(ReceiverForAdd))
+            {
+                receivers.Add(ReceiverForAdd);
+                SelectedWorkers = receivers;
+                nonSelectedWorkers.Remove(ReceiverForAdd);
+                NonSelectedWorkers = nonSelectedWorkers;
+                if (0 <= index && index < NonSelectedWorkers.Count())
+                    ReceiverForAdd = NonSelectedWorkers.ElementAt(index);
+            }
         }
 
         private void DeleteReceiversMethod()
         {
+
             IList<string> receivers = SelectedWorkers.ToList();
             IList<string> nonSelectedWorkers = NonSelectedWorkers.ToList();
+            if (!string.IsNullOrEmpty(ReceiverForDelete))
+            {
+                nonSelectedWorkers.Add(ReceiverForDelete);
+                NonSelectedWorkers = nonSelectedWorkers;
 
-            nonSelectedWorkers.Add(ReceiverForDelete);
-            NonSelectedWorkers = nonSelectedWorkers;
-
-            receivers.Remove(ReceiverForDelete);
-            SelectedWorkers = receivers;        
+                receivers.Remove(ReceiverForDelete);
+                SelectedWorkers = receivers;
+            }
         }
 
         public IEnumerable<string> SelectedWorkers
         {
-            set {
+            set
+            {
                 _selectedWorkers = value;
                 OnPropertyChanged(nameof(SelectedWorkers));
             }

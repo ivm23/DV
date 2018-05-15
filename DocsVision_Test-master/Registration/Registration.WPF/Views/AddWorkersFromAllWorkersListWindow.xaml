@@ -39,7 +39,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
-            <Button x:Name="btnAdd" Content="→" Command="{Binding Path=AddReceivers}" TabIndex="1" />
+            <Button x:Name="btnAdd" Content="→" Command="{Binding Path=AddReceivers}" TabIndex="1" Click="btnAdd_Click" />
             <Button x:Name="btnDelete" Content="←" Command="{Binding Path=DeleteReceivers}" TabIndex="3"/>
         </StackPanel>
 
