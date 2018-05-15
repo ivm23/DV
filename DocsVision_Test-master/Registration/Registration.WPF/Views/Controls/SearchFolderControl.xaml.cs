@@ -26,7 +26,6 @@ namespace Registration.WPF.Views.Controls
         public SearchFolderControl()
         {
             InitializeComponent();
-         //   createFolderControl.DataContext = _searchFolderViewModel;
         }
 
         public void OnLoad(IServiceProvider serviceProvider, Models.IMakeFolderWindow parent)

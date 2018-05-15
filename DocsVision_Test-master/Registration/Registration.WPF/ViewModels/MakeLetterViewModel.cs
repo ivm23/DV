@@ -15,13 +15,14 @@ namespace Registration.WPF.ViewModels
         private readonly IServiceProvider _serviceProvider;
         private IClientRequests _clientRequests;
         private Worker _worker;
+        public bool LetterSent { set; get; } = false;
         public MakeLetterViewModel(IServiceProvider provider)
         {
             if (null == provider)
                 throw new ArgumentNullException();
 
             _serviceProvider = provider;
-            SendLetterClick = new ViewModels.Command(arg => SendLetterClickMethod());
+            SendLetterClick = new ViewModels.Command(arg => SendLetterClickMethod(arg));
         }
 
         private IServiceProvider ServiceProvider
@@ -47,7 +48,7 @@ namespace Registration.WPF.ViewModels
         }
         private void InitializeMessageService()
         {
-            _messageService = (IMessageService)ServiceProvider.GetService(typeof(IMessageService));            
+            _messageService = (IMessageService)ServiceProvider.GetService(typeof(IMessageService));
         }
 
         private void InitializeWorker()
@@ -57,18 +58,37 @@ namespace Registration.WPF.ViewModels
 
         public ICommand SendLetterClick { get; set; }
 
-        private void SendLetterClickMethod()
+        private void SendLetterClickMethod(object arg)
         {
             var letterView = LetterPlugin.LetterView;
-            if (string.IsNullOrEmpty(letterView.Name) || string.IsNullOrEmpty(letterView.Text) || letterView.ReceiversName.Count == 0)
+            if (string.IsNullOrEmpty(letterView.Name))
+            {
+                MessageService.InfoMessage(MessageResources.EmptyNameInLetter);
+            }
+            else
+                if (string.IsNullOrEmpty(letterView.Text))
+            {
+                MessageService.InfoMessage(MessageResources.EmptyMessage);
+            }
+            else
+            if (letterView.ReceiversName.Count == 0)
             {
                 MessageService.InfoMessage(MessageResources.EmptyListRecipient);
             }
             else
             {
-                ClientRequests.CreateLetter(letterView.Name, _worker.Id, letterView.ReceiversName, letterView.Text, letterView.ExtendedData, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType.Id);
+                List<string> receivers = new List<string>();
+                foreach (string name in letterView.ReceiversName)
+                {
+                    if (!receivers.Contains(name.Trim()))
+                        receivers.Add(name.Trim());
+                }
+
+                ClientRequests.CreateLetter(letterView.Name, _worker.Id, receivers, letterView.Text, letterView.ExtendedData, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType.Id);
+                ((Window)arg).Close();
             }
         }
+
 
         public ILetterPropertiesUIPlugin LetterPlugin { get; set; }
 
@@ -80,7 +100,7 @@ namespace Registration.WPF.ViewModels
 
             LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
             LetterPlugin.OnLoad(ServiceProvider);
-            LetterPlugin.ReadOnly = false;           
+            LetterPlugin.ReadOnly = false;
         }
     }
 

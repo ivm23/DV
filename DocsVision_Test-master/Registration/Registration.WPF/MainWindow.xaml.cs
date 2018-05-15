@@ -60,30 +60,23 @@ namespace Registration.WPF
 
         private void InitializeMainWindow()
         {
-            try
+
+            var form = new Views.AuthorizationWindow(_serviceContainer);
+
+            var dialogResult = form.ShowDialog();
+            if (dialogResult == true)
             {
-                var form = new Views.AuthorizationWindow(_serviceContainer);
+                _mainWindowViewModel.InitializeTreeView();
+                _mainWindowViewModel.InitializeMenu();
 
-                var dialogResult = form.ShowDialog();
-                if (dialogResult == true)
-                {
-                    _mainWindowViewModel.InitializeTreeView();
-                    _mainWindowViewModel.InitializeMenu();
-
-                    StartTimer();
-                }
-                else
-                {
-                    if (dialogResult == false)
-                    {
-                        this.Close();
-                    }
-                }
-                
+                StartTimer();
             }
-            catch (Exception ex)
+            else
             {
-                NLogger.Logger.Trace(ex.ToString());
+                if (dialogResult == false)
+                {
+                    this.Close();
+                }
             }
         }
 
@@ -95,7 +88,7 @@ namespace Registration.WPF
             }
             catch (Exception ex)
             {
-                 NLogger.Logger.Trace(ex.ToString());
+                NLogger.Logger.Trace(ex.ToString());
             }
         }
 

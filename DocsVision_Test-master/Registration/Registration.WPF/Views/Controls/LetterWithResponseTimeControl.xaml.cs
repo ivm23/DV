@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Registration.Model;
+using Registration.Logger;
 
 namespace Registration.WPF.Views.Controls
 {
@@ -34,12 +35,19 @@ namespace Registration.WPF.Views.Controls
             if (null == serviceProvider)
                 throw new ArgumentNullException();
 
-            fullContentLetterControl.OnLoad(serviceProvider);
+            try
+            {
+                fullContentLetterControl.OnLoad(serviceProvider);
 
-            _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
-            _letterWithResponseTimeViewModel = new ViewModels.LetterWithResponseTimeControlViewModel(_letterView.ExtendedData);
+                _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+                _letterWithResponseTimeViewModel = new ViewModels.LetterWithResponseTimeControlViewModel(_letterView.ExtendedData);
 
-            DataContext = _letterWithResponseTimeViewModel;
+                DataContext = _letterWithResponseTimeViewModel;
+            }
+            catch (Exception ex)
+            {
+                NLogger.Logger.Trace(ex.ToString()); 
+            }
         }
 
         public LetterView LetterView

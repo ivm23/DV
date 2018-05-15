@@ -132,6 +132,9 @@
   <data name="EmptyLoginOrPassword" xml:space="preserve">
     <value>Login or password is empty! | Authorization error </value>
   </data>
+  <data name="EmptyMessage" xml:space="preserve">
+    <value>Message is empty! | Make message error</value>
+  </data>
   <data name="EmptyName" xml:space="preserve">
     <value>The name must not be empty! | Registration error</value>
   </data>

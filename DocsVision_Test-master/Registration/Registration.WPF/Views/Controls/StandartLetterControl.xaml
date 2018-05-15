@@ -20,7 +20,7 @@
         <Style x:Key="messageTextBox" BasedOn="{StaticResource standartTextBox}">
             <Setter Property="TextBox.MinHeight" Value="200"/>
             <Setter Property="TextBox.MinWidth" Value="150"/>
-            <Setter Property="TextBox.MaxHeight" Value="600"/>
+            <Setter Property="TextBox.MaxHeight" Value="220"/>
             <Setter Property="TextBox.AcceptsReturn" Value="True"/>
             <Setter Property="TextBox.VerticalScrollBarVisibility" Value="Visible"/>
         </Style>

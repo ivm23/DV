@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Registration.Model;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
-using Registration.ClientInterface;
-using Registration.WPF.ViewModels;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Windows.Media;
 using System.Windows;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
 using System.Security;
+using System.Text;
+using System.Threading.Tasks;
+
+using Registration.Model;
+using Registration.ClientInterface;
+using Registration.WPF.ViewModels;
+using Registration.Logger;
+
 
 namespace Registration.WPF
 {
@@ -122,6 +125,7 @@ namespace Registration.WPF
                 DeleteEnable = false;
                 InitializeDataGrid(((Models.DirectoryNode)arg).Folder.Id);
                 ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder = ((Models.DirectoryNode)arg).Folder;
+                LetterPlugin = null;
                 
             }
         }
@@ -174,12 +178,19 @@ namespace Registration.WPF
 
         private void ShowBriefLetterMethod(object arg)
         {
-            LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
-            LetterPlugin.OnLoad(ServiceProvider);
-            LetterPlugin.ReadOnly = true;
+            try
+            {
+                LetterPlugin = ViewModels.ViewPluginCreater.Create(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedLetterType, ((PluginService)ServiceProvider.GetService(typeof(PluginService))));
+                LetterPlugin.OnLoad(ServiceProvider);
+                LetterPlugin.ReadOnly = true;
 
-            if (null != arg)
-                DeleteEnable = true;
+                if (null != arg)
+                    DeleteEnable = true;
+            }
+            catch (Exception ex)
+            {
+                NLogger.Logger.Trace(ex.ToString());
+            }
         }
 
         private IServiceProvider ServiceProvider

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Registration.Model;
+using Registration.Logger;
 
 
 namespace Registration.WPF.Views.Controls
@@ -35,16 +36,22 @@ namespace Registration.WPF.Views.Controls
         {
             if (null == serviceProvider)
                 throw new ArgumentNullException();
+            try
+            {
+                fullContentLetterControl.OnLoad(serviceProvider);
 
-            fullContentLetterControl.OnLoad(serviceProvider);
+                _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
+                _importantLetterControlViewModel = new ViewModels.ImportantLetterControlViewModel(_letterView);
 
-            _letterView = ((ApplicationState)serviceProvider.GetService(typeof(ApplicationState))).SelectedLetterView;
-            _importantLetterControlViewModel = new ViewModels.ImportantLetterControlViewModel(_letterView);
+                DataContext = _importantLetterControlViewModel;
 
-            DataContext = _importantLetterControlViewModel;
-
-            _importantLetterControlViewModel.InitializeImportanceDegreeControl();
-            importanceDegreeEditorControl.DataContext = _importantLetterControlViewModel;
+                _importantLetterControlViewModel.InitializeImportanceDegreeControl();
+                importanceDegreeEditorControl.DataContext = _importantLetterControlViewModel;
+            }
+            catch (Exception ex)
+            {
+                NLogger.Logger.Trace(ex.ToString());
+            }
         }
 
         public LetterView LetterView

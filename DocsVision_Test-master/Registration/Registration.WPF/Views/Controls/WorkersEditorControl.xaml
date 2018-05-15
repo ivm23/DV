@@ -46,6 +46,13 @@
                     <KeyBinding Command="{Binding Path=AddWorker}" Key="Enter" 
                             CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}"/>
                 </ListBox.InputBindings>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction
+                           Command="{Binding Path=AddWorker}"
+                CommandParameter="{Binding ElementName=listWorkers, Path=SelectedValue}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </ListBox>
 
         </StackPanel>

@@ -46,7 +46,8 @@ namespace Registration.WPF.Views
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeDialogResult(true);
+            if (_makeLetterViewModel.LetterSent)
+                ChangeDialogResult(true);
         }
     }
 }

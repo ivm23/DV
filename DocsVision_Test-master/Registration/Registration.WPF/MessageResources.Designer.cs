@@ -106,6 +106,15 @@ namespace Registration.WPF {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message is empty! | Make message error.
+        /// </summary>
+        internal static string EmptyMessage {
+            get {
+                return ResourceManager.GetString("EmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name must not be empty! | Registration error.
         /// </summary>
         internal static string EmptyName {

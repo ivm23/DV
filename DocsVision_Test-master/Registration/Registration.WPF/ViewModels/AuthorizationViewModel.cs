@@ -146,8 +146,6 @@ namespace Registration.WPF.ViewModels
 
         private void SignUpMethod(object arg)
         {
-           
-            
             var signUpWindow = new Views.SignUpWindow(ServiceProvider);
             var dialogResultSignUpWindow = signUpWindow.ShowDialog();
             if (dialogResultSignUpWindow == true)
