@@ -11,21 +11,20 @@ namespace Registration.DatabaseFactory
 {
     public class MsSqlDatabase : DatabaseService
     {
-        public override IDbConnection CreateConnection()
+        //   private IDbCommand _command;
+        public override IDatabaseConnection CreateConnection()
         {
-            return new SqlConnection(connectionString);
+            var connection = new SqlConnection(connectionString);
+            connection.Open();
+            return new SqlDatabaseConnection(connection);
         }
-        public override IDbCommand CreateCommand()
+
+        private IDbCommand CreateCommand()
         {
             return new SqlCommand();
         }
-        public override IDbConnection CreateOpenConnection()
-        {
-            SqlConnection connection = (SqlConnection)CreateConnection();
-            connection.Open();
-            return connection;
-        }
-        public override IDbCommand CreateCommand(string commandText, IDbConnection connection)
+
+        private IDbCommand CreateCommand(string commandText, IDbConnection connection)
         {
             SqlCommand command = (SqlCommand)CreateCommand();
             command.CommandText = commandText;
@@ -33,22 +32,24 @@ namespace Registration.DatabaseFactory
             command.CommandType = CommandType.Text;
             return command;
         }
-        public override IDbCommand CreateStoredProcCommand(string procName, IDbConnection connection)
+
+        public override IDatabaseCommand CreateStoredProcCommand(string procName, IDatabaseConnection connection)
         {
             SqlCommand command = (SqlCommand)CreateCommand();
             command.CommandText = procName;
-            command.Connection = (SqlConnection)connection;
+            command.Connection = ((SqlDatabaseConnection)connection).SqlConnection;
             command.CommandType = CommandType.StoredProcedure;
-            return command;
+            return (new SqlDatabaseCommand(command));
         }
-        public override IDataParameter CreateParameter(string parameterName, object parameterValue)
+
+        private IDataParameter CreateParameter(string parameterName, object parameterValue)
         {
             return new SqlParameter(parameterName, parameterValue);
         }
 
-        public override void AddParameterWithValue(string parameterName, object parameterValue, IDbCommand command)
+        public override void AddParameterWithValue(string parameterName, object parameterValue, IDatabaseCommand command)
         {
-            command.Parameters.Add(CreateParameter(parameterName, parameterValue));
+            ((SqlDatabaseCommand)command).SqlCommand.Parameters.Add(CreateParameter(parameterName, parameterValue));
         }
 
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Registration.Model;
 using System.ComponentModel.Design;
-using System.Data;
 using System.Text;
 using Registration.DatabaseFactory;
 
@@ -66,19 +65,18 @@ namespace Registration.DataInterface
                 return folder.OwnerId;
             }
 
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetFolderOwner, connection))
+
+               var command = DatabaseService.CreateStoredProcCommand(SpGetFolderOwner, connection);
+                DatabaseService.AddParameterWithValue(IdFolderColumn, parentId, command);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    DatabaseService.AddParameterWithValue(IdFolderColumn, parentId, command);
-                    using (IDataReader reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            return reader.GetGuid(reader.GetOrdinal(IdOwner));
-                        }
-                        return Guid.Empty;
+                        return reader.GetGuid(IdOwner);
                     }
+                    return Guid.Empty;
                 }
             }
         }
@@ -89,113 +87,102 @@ namespace Registration.DataInterface
 
             folder.Id = Guid.NewGuid();
 
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpCreateFolder, connection))
-                {
-                    DatabaseService.AddParameterWithValue(IdColumn, folder.Id, command);
-                    DatabaseService.AddParameterWithValue(IdParentColumn, folder.ParentId, command);
-                    DatabaseService.AddParameterWithValue(NameColumn, folder.Name, command);
-                    DatabaseService.AddParameterWithValue(TypeColumn, folder.Type, command);
-                    DatabaseService.AddParameterWithValue(IdOwnerColumn, folder.OwnerId, command);
-                    DatabaseService.AddParameterWithValue(DataColumn, folder.Data, command);
-                    command.ExecuteNonQuery();
-                    return folder;
-                }
+                var command = DatabaseService.CreateStoredProcCommand(SpCreateFolder, connection);
+                DatabaseService.AddParameterWithValue(IdColumn, folder.Id, command);
+                DatabaseService.AddParameterWithValue(IdParentColumn, folder.ParentId, command);
+                DatabaseService.AddParameterWithValue(NameColumn, folder.Name, command);
+                DatabaseService.AddParameterWithValue(TypeColumn, folder.Type, command);
+                DatabaseService.AddParameterWithValue(IdOwnerColumn, folder.OwnerId, command);
+                DatabaseService.AddParameterWithValue(DataColumn, folder.Data, command);
+                command.ExecuteNonQuery();
+                return folder;
             }
         }
 
         public void Delete(Guid folderId)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpDeleteFolder, connection))
-                {
-                    DatabaseService.AddParameterWithValue(IdFolderColumn, folderId, command);
-
-                    command.ExecuteNonQuery();
-                }
+                var command = DatabaseService.CreateStoredProcCommand(SpDeleteFolder, connection);
+                DatabaseService.AddParameterWithValue(IdFolderColumn, folderId, command);
+                command.ExecuteNonQuery();
             }
         }
 
         public Folder Update(Folder folder)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpUpdateFolder, connection))
-                {
-                    DatabaseService.AddParameterWithValue(IdFolderColumn, folder.Id, command);
-                    DatabaseService.AddParameterWithValue(NewNameColumn, folder.Name, command);
+                var command = DatabaseService.CreateStoredProcCommand(SpUpdateFolder, connection);
+                DatabaseService.AddParameterWithValue(IdFolderColumn, folder.Id, command);
+                DatabaseService.AddParameterWithValue(NewNameColumn, folder.Name, command);
 
-                    using (IDataReader reader = command.ExecuteReader())
+                using (IDatabaseReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        return new Folder()
                         {
-                            return new Folder()
-                            {
-                                Id = reader.GetGuid(reader.GetOrdinal(Id)),
-                                Name = reader.GetString(reader.GetOrdinal(Name)),
-                                ParentId = reader.GetGuid(reader.GetOrdinal(IdParent)),
-                                Type = reader.GetInt32(reader.GetOrdinal(FolderType)),
-                                OwnerId = reader.GetGuid(reader.GetOrdinal(IdOwner)),
-                                Data = reader.GetString(reader.GetOrdinal(Data))
-                            };
-                        }
-                        throw new Exception($"Such folder {folder.Name} isn't exist!");
+                            Id = reader.GetGuid(Id),
+                            Name = reader.GetString(Name),
+                            ParentId = reader.GetGuid(IdParent),
+                            Type = reader.GetInt(FolderType),
+                            OwnerId = reader.GetGuid(IdOwner),
+                            Data = reader.GetString(Data)
+                        };
                     }
+                    throw new Exception($"Such folder {folder.Name} isn't exist!");
                 }
             }
         }
 
         public string GetAllFolders()
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetAllFolders, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetAllFolders, connection);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    using (IDataReader reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            var name = reader.GetString(reader.GetOrdinal(Name));
-                            return name;
-                        }
-                        return string.Empty;
+                        var name = reader.GetString(Name);
+                        return name;
                     }
+                    return string.Empty;
                 }
             }
         }
 
         public IEnumerable<Folder> GetAllWorkerFolders(Guid workerId)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetFolders, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetFolders, connection);
+                DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
-                    using (IDataReader reader = command.ExecuteReader())
+                    List<Folder> allFolders = new List<Folder>();
+                    while (reader.Read())
                     {
-                        List<Folder> allFolders = new List<Folder>();
-                        while (reader.Read())
-                        {
-                                allFolders.Add(
-                               new Folder()
-                               {
-                                   Id = reader.GetGuid(reader.GetOrdinal(Id)),
-                                   Name = reader.GetString(reader.GetOrdinal(Name)),
-                                   Type = reader.GetInt32(reader.GetOrdinal(FolderType)),
-                                   ParentId = reader.GetGuid(reader.GetOrdinal(IdParent)),
-                                   OwnerId = reader.GetGuid(reader.GetOrdinal(IdOwner)),
-                                   Data = reader.GetString(reader.GetOrdinal(Data))
-                               });
-                        }
-
-                        if (allFolders.Count == 0)
-                        {
-                            throw new Exception("Folders are not exist");
-                        }
-                        return allFolders;
+                        allFolders.Add(
+                       new Folder()
+                       {
+                           Id = reader.GetGuid(Id),
+                           Name = reader.GetString(Name),
+                           Type = reader.GetInt(FolderType),
+                           ParentId = reader.GetGuid(IdParent),
+                           OwnerId = reader.GetGuid(IdOwner),
+                           Data = reader.GetString(Data)
+                       });
                     }
+
+                    if (allFolders.Count == 0)
+                    {
+                        throw new Exception("Folders are not exist");
+                    }
+                    return allFolders;
                 }
             }
         }
@@ -203,60 +190,56 @@ namespace Registration.DataInterface
 
         public IEnumerable<FolderType> GetAllFolderTypes()
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetAllFoldersType, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetAllFoldersType, connection);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    using (IDataReader reader = command.ExecuteReader())
+                    List<FolderType> allTypes = new List<FolderType>();
+                    while (reader.Read())
                     {
-                        List<FolderType> allTypes = new List<FolderType>();
-                        while (reader.Read())
+                        var type = new FolderType()
                         {
-                            var type = new FolderType()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal(Id)),
-                                TypeClientUI = reader.GetString(reader.GetOrdinal(TypeClientUI)),
-                                TypeFolderService = reader.GetString(reader.GetOrdinal(TypeFolderService)),
-                                Name = reader.GetString(reader.GetOrdinal(Name))
-                            };
-                            if (!string.IsNullOrEmpty(type.TypeClientUI) && !string.IsNullOrEmpty(type.TypeFolderService))
-                            {
-                                allTypes.Add(type);
-                            }
-                        }
-                        if (allTypes.Count == 0)
+                            Id = reader.GetInt(Id),
+                            TypeClientUI = reader.GetString(TypeClientUI),
+                            TypeFolderService = reader.GetString(TypeFolderService),
+                            Name = reader.GetString(Name)
+                        };
+                        if (!string.IsNullOrEmpty(type.TypeClientUI) && !string.IsNullOrEmpty(type.TypeFolderService))
                         {
-                            throw new Exception("No types");
+                            allTypes.Add(type);
                         }
-                        return allTypes;
                     }
+                    if (allTypes.Count == 0)
+                    {
+                        throw new Exception("No types");
+                    }
+                    return allTypes;
                 }
             }
         }
 
         public FolderType GetFolderType(int folderId)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetFolderType, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetFolderType, connection);
+                DatabaseService.AddParameterWithValue(IdColumn, folderId, command);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    DatabaseService.AddParameterWithValue(IdColumn, folderId, command);
-                    using (IDataReader reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        return new FolderType()
                         {
-                            return new FolderType()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal(Id)),
-                                Name = reader.GetString(reader.GetOrdinal(Name)),
-                                TypeClientUI = reader.GetString(reader.GetOrdinal(TypeClientUI)),
-                                TypeFolderService = reader.GetString(reader.GetOrdinal(TypeFolderService))
-                            };
-                        }
-                        else
-                        {
-                            throw new Exception("Such type isn't exist!");
-                        }
+                            Id = reader.GetInt(Id),
+                            Name = reader.GetString(Name),
+                            TypeClientUI = reader.GetString(TypeClientUI),
+                            TypeFolderService = reader.GetString(TypeFolderService)
+                        };
+                    }
+                    else
+                    {
+                        throw new Exception("Such type isn't exist!");
                     }
                 }
             }
@@ -264,19 +247,17 @@ namespace Registration.DataInterface
 
         private int GetFolderTypeId(Guid folderId)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetFolderTypeId, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetFolderTypeId, connection);
+                DatabaseService.AddParameterWithValue(IdColumn, folderId, command);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    DatabaseService.AddParameterWithValue(IdColumn, folderId, command);
-                    using (IDataReader reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            return reader.GetInt32(reader.GetOrdinal(Id));
-                        }
-                        throw new Exception($"Such folderType {folderId} isn't exist!");
+                        return reader.GetInt(Id);
                     }
+                    throw new Exception($"Such folderType {folderId} isn't exist!");
                 }
             }
         }
@@ -287,10 +268,9 @@ namespace Registration.DataInterface
             try
             {
                 FolderType folderType = GetFolderType(folderTypeId);
-
                 return (IFolderService)Activator.CreateInstance(Type.GetType(folderType.TypeFolderService), DatabaseService);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw;
             }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Registration.Model;
-using System.Data.SqlClient;
 using Registration.DatabaseFactory;
-using System.Data;
 
 namespace Registration.DataInterface.Sql
 {
@@ -40,34 +38,32 @@ namespace Registration.DataInterface.Sql
 
         public Worker AuthorizationWorker(string loginW, string passwordW)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetWorker, connection))
-                {
-                    DatabaseService.AddParameterWithValue(LoginColumn, loginW, command);
-                    DatabaseService.AddParameterWithValue(PasswordColumn, passwordW, command);
+                var command = DatabaseService.CreateStoredProcCommand(SpGetWorker, connection);
+                DatabaseService.AddParameterWithValue(LoginColumn, loginW, command);
+                DatabaseService.AddParameterWithValue(PasswordColumn, passwordW, command);
 
-                    using (IDataReader reader = command.ExecuteReader())
+                using (IDatabaseReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        return new Worker
                         {
-                            return new Worker
-                            {
-                                Id = reader.GetGuid(reader.GetOrdinal(Id)),
-                                Name = reader.GetString(reader.GetOrdinal(Name)),
-                                Login = loginW,
-                                Password = passwordW
-                            };
-                        }
-                        throw new Exception($"Such worker {loginW} {passwordW} isn't exist!");
+                            Id = reader.GetGuid(Id),
+                            Name = reader.GetString(Name),
+                            Login = loginW,
+                            Password = passwordW
+                        };
                     }
+                    throw new Exception($"Such worker {loginW} {passwordW} isn't exist!");
                 }
             }
         }
 
         public Worker Create(Worker worker)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
                 Worker userExist = new Worker();
                 worker.Id = Guid.NewGuid();
@@ -77,8 +73,6 @@ namespace Registration.DataInterface.Sql
                 }
                 catch (Exception ex)
                 {
-
-
                     FolderTreeService folderTreeService = new FolderTreeService(_databaseService);
                     folderTreeService.Create(new Folder()
                     {
@@ -89,89 +83,82 @@ namespace Registration.DataInterface.Sql
                         Data = string.Empty
                     }
                     );
-                    using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpCreateWorker, connection))
-                    {
-                        DatabaseService.AddParameterWithValue(IdColumn, worker.Id, command);
-                        DatabaseService.AddParameterWithValue(NameColumn, worker.Name, command);
-                        DatabaseService.AddParameterWithValue(LoginColumn, worker.Login, command);
-                        DatabaseService.AddParameterWithValue(PasswordColumn, worker.Password, command);
 
-                        command.ExecuteNonQuery();
-                        return worker;
-                    }
+                    var command = DatabaseService.CreateStoredProcCommand(SpCreateWorker, connection);
+                    DatabaseService.AddParameterWithValue(IdColumn, worker.Id, command);
+                    DatabaseService.AddParameterWithValue(NameColumn, worker.Name, command);
+                    DatabaseService.AddParameterWithValue(LoginColumn, worker.Login, command);
+                    DatabaseService.AddParameterWithValue(PasswordColumn, worker.Password, command);
+
+                    command.ExecuteNonQuery();
+                    return worker;
                 }
             }
         }
 
         public Worker Get(string loginW)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetWorkerIdName, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetWorkerIdName, connection);
+                DatabaseService.AddParameterWithValue(Login, loginW, command);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    DatabaseService.AddParameterWithValue(Login, loginW, command);
-                    using (IDataReader reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        return new Worker
                         {
-                            return new Worker
-                            {
-                                Id = reader.GetGuid(reader.GetOrdinal(Id)),
-                                Name = reader.GetString(reader.GetOrdinal(Name)),
-                                Login = loginW
-                            };
-                        }
-                        throw new Exception($"Such worker {loginW} isn't exist!");
+                            Id = reader.GetGuid(Id),
+                            Name = reader.GetString(Name),
+                            Login = loginW
+                        };
                     }
+                    throw new Exception($"Such worker {loginW} isn't exist!");
                 }
             }
         }
 
         public IEnumerable<Worker> GetAllWorkers()
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetAllWorkers, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetAllWorkers, connection);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    using (IDataReader reader = command.ExecuteReader())
+                    List<Worker> users = new List<Worker>();
+                    while (reader.Read())
                     {
-                        List<Worker> users = new List<Worker>();
-                        while (reader.Read())
+                        users.Add(new Worker
                         {
-                            users.Add(new Worker
-                            {
-                                Id = reader.GetGuid(reader.GetOrdinal(Id)),
-                                Name = reader.GetString(reader.GetOrdinal(Name)),
-                                Login = reader.GetString(reader.GetOrdinal(Login))
-                            }
-                            );
+                            Id = reader.GetGuid(Id),
+                            Name = reader.GetString(Name),
+                            Login = reader.GetString(Login)
                         }
-                        return users;
+                        );
                     }
+                    return users;
                 }
             }
         }
 
         public string GetWorkerName(Guid workerId)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetWorkerById, connection))
-                {
-                    DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
+                var command = DatabaseService.CreateStoredProcCommand(SpGetWorkerById, connection);
+                DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
 
-                    using (IDataReader reader = command.ExecuteReader())
+                using (IDatabaseReader reader = command.ExecuteReader())
+                {
+                    Worker worker = new Worker();
+                    if (reader.Read())
                     {
-                        Worker worker = new Worker();
-                        if (reader.Read())
-                        {
-                            worker.Name = reader.GetString(reader.GetOrdinal(Name));
-                            worker.Login = reader.GetString(reader.GetOrdinal(Login));
-                            worker.Password = reader.GetString(reader.GetOrdinal(Password));
-                            worker.Id = workerId;
-                        }
-                        return worker.ToString();
+                        worker.Name = reader.GetString(Name);
+                        worker.Login = reader.GetString(Login);
+                        worker.Password = reader.GetString(Password);
+                        worker.Id = workerId;
                     }
+                    return worker.ToString();
                 }
             }
         }

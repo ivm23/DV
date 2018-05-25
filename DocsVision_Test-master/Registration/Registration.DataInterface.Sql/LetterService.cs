@@ -46,10 +46,10 @@ namespace Registration.DataInterface.Sql
         const string LetterTypeId = "type";
         const string Id = "id";
         const string TypeClientUI = "typeClientUI";
-        
+
 
         private DatabaseService _databaseService;
-     
+
         public LetterService(DatabaseService _databaseService)
         {
             this._databaseService = _databaseService;
@@ -62,7 +62,7 @@ namespace Registration.DataInterface.Sql
 
         public Letter Create(LetterView letter)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
                 letter.Id = Guid.NewGuid();
                 letter.Date = DateTime.Now;
@@ -70,99 +70,93 @@ namespace Registration.DataInterface.Sql
 
                 if (string.IsNullOrEmpty(letter.ExtendedData)) letter.ExtendedData = string.Empty;
 
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpCreateLetter, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpCreateLetter, connection);
+                DatabaseService.AddParameterWithValue(IdLetterColumn, letter.Id, command);
+                DatabaseService.AddParameterWithValue(NameColumn, letter.Name, command);
+                DatabaseService.AddParameterWithValue(IdSenderColumn, letter.IdSender, command);
+                DatabaseService.AddParameterWithValue(TextColumn, letter.Text, command);
+                DatabaseService.AddParameterWithValue(DateColumn, letter.Date, command);
+
+
+                DataTable data = new DataTable();
+                data.Columns.Add(IdLetter, typeof(Guid));
+                data.Columns.Add(IdWorker, typeof(Guid));
+                data.Columns.Add(IsRead, typeof(bool));
+
+                foreach (Guid receiverId in letter.IdReceivers)
                 {
-                    DatabaseService.AddParameterWithValue(IdLetterColumn, letter.Id, command);
-                    DatabaseService.AddParameterWithValue(NameColumn, letter.Name, command);
-                    DatabaseService.AddParameterWithValue(IdSenderColumn, letter.IdSender, command);
-                    DatabaseService.AddParameterWithValue(TextColumn, letter.Text, command);
-                    DatabaseService.AddParameterWithValue(DateColumn, letter.Date, command);
-          
-
-                    DataTable data = new DataTable();
-                    data.Columns.Add(IdLetter, typeof(Guid));
-                    data.Columns.Add(IdWorker, typeof(Guid));
-                    data.Columns.Add(IsRead, typeof(bool));
-
-                    foreach (Guid receiverId in letter.IdReceivers)
-                    {
-                        data.Rows.Add(letter.Id, receiverId, false);
-                    }
-
-                    DatabaseService.AddParameterWithValue(IdReceiversColumn, data, command);
-
-                    DatabaseService.AddParameterWithValue(ExtendedDataColumn, letter.ExtendedData, command);
-                    DatabaseService.AddParameterWithValue(LetterTypeIdColumn, letter.Type, command);
-                    DatabaseService.AddParameterWithValue(IsDeleteColumn, false, command);
-
-                    command.ExecuteNonQuery();
-                    return letter;
+                    data.Rows.Add(letter.Id, receiverId, false);
                 }
+
+                DatabaseService.AddParameterWithValue(IdReceiversColumn, data, command);
+                DatabaseService.AddParameterWithValue(ExtendedDataColumn, letter.ExtendedData, command);
+                DatabaseService.AddParameterWithValue(LetterTypeIdColumn, letter.Type, command);
+                DatabaseService.AddParameterWithValue(IsDeleteColumn, false, command);
+
+                command.ExecuteNonQuery();
+                return letter;
             }
         }
 
         public LetterView Get(Guid letterId, Guid workerId)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetLetter, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetLetter, connection);
+                DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
+
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
-
-                    using (IDataReader reader = command.ExecuteReader())
+                    if (!reader.Read())
                     {
-                        if (!reader.Read())
-                        {
-                            throw new ArgumentException($"Сообщения с таким id {letterId} нет!");
-                        }
-                        LetterView letter = new LetterView
-                        {
-                            Id = letterId,
-                            Name = reader.GetString(reader.GetOrdinal(Name)),
-                            IdSender = reader.GetGuid(reader.GetOrdinal(IdSender)),
-                            Text = reader.GetString(reader.GetOrdinal(Text)),
-                            Date = reader.GetDateTime(reader.GetOrdinal(Date)),
-                            ExtendedData = reader.GetString(reader.GetOrdinal(ExtendedData)),
-                            Type = reader.GetInt32(reader.GetOrdinal(LetterTypeId))
-                        };
-                        List<Guid> receiversId = new List<Guid>();
-                        List<string> receiversName = new List<string>();
-                        GetReceivers(letterId, ref receiversId, ref receiversName);
-
-                        foreach (Guid rec in receiversId)
-                        {
-                            letter.IdReceivers.Add(rec);
-                        }
-
-                        foreach (string name in receiversName)
-                        {
-                            letter.ReceiversName.Add(name);
-                        }
-                        return letter;
+                        throw new ArgumentException($"Сообщения с таким id {letterId} нет!");
                     }
+                    LetterView letter = new LetterView
+                    {
+                        Id = letterId,
+                        Name = reader.GetString(Name),
+                        IdSender = reader.GetGuid(IdSender),
+                        Text = reader.GetString(Text),
+                        Date = reader.GetDateTime(Date),
+                        ExtendedData = reader.GetString(ExtendedData),
+                        Type = reader.GetInt(LetterTypeId)
+                    };
+                    List<Guid> receiversId = new List<Guid>();
+                    List<string> receiversName = new List<string>();
+                    GetReceivers(letterId, ref receiversId, ref receiversName);
+
+                    foreach (Guid rec in receiversId)
+                    {
+                        letter.IdReceivers.Add(rec);
+                    }
+
+                    foreach (string name in receiversName)
+                    {
+                        letter.ReceiversName.Add(name);
+                    }
+                    return letter;
                 }
+
             }
         }
 
         public void GetReceivers(Guid letterId, ref List<Guid> idReceivers, ref List<String> nameReceivers)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetReceivers, connection))
-                {
-                    DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
+               var command = DatabaseService.CreateStoredProcCommand(SpGetReceivers, connection);
+                DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
 
-                    using (IDataReader reader = command.ExecuteReader())
+                using (IDatabaseReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            idReceivers.Add(reader.GetGuid(reader.GetOrdinal(IdWorker)));
-                            nameReceivers.Add(reader.GetString(reader.GetOrdinal(Name)));
-                        }
-                        if (idReceivers.Count == 0)
-                        {
-                            throw new ArgumentException($"Сообщения с таким id {letterId} нет!");
-                        }
+                        idReceivers.Add(reader.GetGuid(IdWorker));
+                        nameReceivers.Add(reader.GetString(Name));
+                    }
+                    if (idReceivers.Count == 0)
+                    {
+                        throw new ArgumentException($"Сообщения с таким id {letterId} нет!");
                     }
                 }
             }
@@ -170,9 +164,22 @@ namespace Registration.DataInterface.Sql
 
         public void Delete(Guid letterId, Guid workerId, Guid folderId)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpDeleteLetter, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpDeleteLetter, connection);
+                DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
+                DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void ChangeLetterIsRead(Guid letterId, Guid workerId)
+        {
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
+            {
+               var command = DatabaseService.CreateStoredProcCommand(SpUpdateLetterIsRead, connection);
+                Letter letter = Get(letterId, workerId);
+                if (!letter.IsRead)
                 {
                     DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
                     DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
@@ -181,76 +188,56 @@ namespace Registration.DataInterface.Sql
             }
         }
 
-        public void ChangeLetterIsRead(Guid letterId, Guid workerId)
-        {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
-            {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpUpdateLetterIsRead, connection))
-                {
-                    Letter letter = Get(letterId, workerId);
-                    if (!letter.IsRead)
-                    {
-                        DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
-                        DatabaseService.AddParameterWithValue(IdWorkerColumn, workerId, command);
-                        command.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-
         public IEnumerable<LetterType> GetAllLetterTypes()
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetAllLetterTypes, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetAllLetterTypes, connection);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    using (IDataReader reader = command.ExecuteReader())
+                    var allTypes = new List<LetterType>();
+                    while (reader.Read())
                     {
-                        var allTypes = new List<LetterType>();
-                        while (reader.Read())
+                        var type = new LetterType()
                         {
-                            var type = new LetterType()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal(Id)),
-                                TypeClientUI = reader.GetString(reader.GetOrdinal(TypeClientUI)),
-                                Name = reader.GetString(reader.GetOrdinal(Name))
-                            };
-                            if (!string.IsNullOrEmpty(type.TypeClientUI))
-                            {
-                                allTypes.Add(type);
-                            }
-                        }
-                        if (allTypes.Count == 0)
+                            Id = reader.GetInt(Id),
+                            TypeClientUI = reader.GetString(TypeClientUI),
+                            Name = reader.GetString(Name)
+                        };
+                        if (!string.IsNullOrEmpty(type.TypeClientUI))
                         {
-                            throw new Exception("No types");
+                            allTypes.Add(type);
                         }
-                        return allTypes;
                     }
+                    if (allTypes.Count == 0)
+                    {
+                        throw new Exception("No types");
+                    }
+                    return allTypes;
                 }
+
             }
         }
         public LetterType GetLetterType(int letterId)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetLetterType, connection))
+                var command = DatabaseService.CreateStoredProcCommand(SpGetLetterType, connection);
+                DatabaseService.AddParameterWithValue(IdColumn, letterId, command);
+                using (IDatabaseReader reader = command.ExecuteReader())
                 {
-                    DatabaseService.AddParameterWithValue(IdColumn, letterId, command);
-                    using (IDataReader reader = command.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        return new LetterType()
                         {
-                            return new LetterType()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal(Id)),
-                                Name = reader.GetString(reader.GetOrdinal(Name)),
-                                TypeClientUI = reader.GetString(reader.GetOrdinal(TypeClientUI))
-                            };
-                        }
-                        else
-                        {
-                            throw new Exception("Such type isn't exist!");
-                        }
+                            Id = reader.GetInt(Id),
+                            Name = reader.GetString(Name),
+                            TypeClientUI = reader.GetString(TypeClientUI)
+                        };
+                    }
+                    else
+                    {
+                        throw new Exception("Such type isn't exist!");
                     }
                 }
             }

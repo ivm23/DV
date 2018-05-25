@@ -10,13 +10,9 @@ namespace Registration.DatabaseFactory
     public abstract class DatabaseService
     {
         public string connectionString;
-        public abstract IDbConnection CreateConnection();
-        public abstract IDbCommand CreateCommand();
-        public abstract IDbConnection CreateOpenConnection();
-        public abstract IDbCommand CreateCommand(string commandText, IDbConnection connection);
-        public abstract IDbCommand CreateStoredProcCommand(string procName, IDbConnection connection);
-        public abstract IDataParameter CreateParameter(string parameterName, object parameterValue);
-        public abstract void AddParameterWithValue(string parameterName, object prameterValue, IDbCommand command);
-
+        public abstract IDatabaseConnection CreateConnection();
+      //  public abstract IDbCommand CreateCommand(string commandText, IDbConnection connection);
+        public abstract IDatabaseCommand CreateStoredProcCommand(string procName, IDatabaseConnection connection);
+        public abstract void AddParameterWithValue(string parameterName, object prameterValue, IDatabaseCommand command);
     }
 }

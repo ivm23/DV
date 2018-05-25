@@ -35,14 +35,17 @@ namespace Registration.WPF.ViewModels
                 NonSelectedWorkers = nonSelectedWorkers;
                 if (0 <= index && index < NonSelectedWorkers.Count())
                     ReceiverForAdd = NonSelectedWorkers.ElementAt(index);
+                if (0 < index && index == NonSelectedWorkers.Count())
+                    ReceiverForAdd = NonSelectedWorkers.ElementAt(index-1);
             }
         }
 
         private void DeleteReceiversMethod()
         {
-
             IList<string> receivers = SelectedWorkers.ToList();
             IList<string> nonSelectedWorkers = NonSelectedWorkers.ToList();
+            int index = receivers.IndexOf(ReceiverForDelete);
+
             if (!string.IsNullOrEmpty(ReceiverForDelete))
             {
                 nonSelectedWorkers.Add(ReceiverForDelete);
@@ -50,6 +53,11 @@ namespace Registration.WPF.ViewModels
 
                 receivers.Remove(ReceiverForDelete);
                 SelectedWorkers = receivers;
+
+                if (0 <= index && index < SelectedWorkers.Count())
+                    ReceiverForDelete = SelectedWorkers.ElementAt(index);
+                if (0 < index && index == SelectedWorkers.Count())
+                    ReceiverForDelete = SelectedWorkers.ElementAt(index - 1);
             }
         }
 

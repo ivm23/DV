@@ -119,7 +119,7 @@ namespace Registration.WPF
         private void StartTimer()
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(5000);
+            timer.Interval = TimeSpan.FromMilliseconds(2000);
             timer.Tick += new EventHandler(timer_Tick);
             timer.Start();
         }
@@ -132,7 +132,7 @@ namespace Registration.WPF
         private void RefreshWindow()
         {
             _mainWindowViewModel.InitializeTreeView();
-            _mainWindowViewModel.InitializeDataGrid(((ApplicationState)ServiceContainer.GetService(typeof(ApplicationState))).SelectedFolder.Id);
+          //  _mainWindowViewModel.InitializeDataGrid(((ApplicationState)ServiceContainer.GetService(typeof(ApplicationState))).SelectedFolder.Id);
         }
     }
 }

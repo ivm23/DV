@@ -45,8 +45,8 @@ namespace Registration.WPF
             MakeLetter = new ViewModels.Command(arg => MakeLetterMethod(arg));
             CreateFolder = new ViewModels.Command(arg => CreateFolderMethod());
             ShowBriefLetter = new ViewModels.Command(arg => ShowBriefLetterMethod(arg));
-            EditFolder = new ViewModels.Command(arg => EditFolderMethod(arg));
-            DeleteFolder = new ViewModels.Command(arg => DeleteFolderMethod(arg));
+            EditFolder = new ViewModels.Command(arg => EditFolderMethod());
+            DeleteFolder = new ViewModels.Command(arg => DeleteFolderMethod());
         }
 
         private IMessageService MessageService
@@ -74,18 +74,18 @@ namespace Registration.WPF
             LetterPlugin = null;
         }
 
-        private void EditFolderMethod(object arg)
+        private void EditFolderMethod()
         {
-            if (null != arg)
+            if (null != ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder)
             {
                 var window = new Views.RenameFolderWindow(ServiceProvider);
                 window.ShowDialog();
             }
         }
 
-        private void DeleteFolderMethod(object arg)
+        private void DeleteFolderMethod()
         {
-            if (null != arg)
+            if (((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder != null) 
                 ClientRequests.DeleteFolder(((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).SelectedFolder.Id);
         }
         private void CreateFolderMethod()
@@ -252,16 +252,30 @@ namespace Registration.WPF
             DirItems = itemProvider.DirItems;
         }
 
+        private int SelectedLetterIndex()
+        {
+            return Letters.IndexOf(SelectedLetter);
+        }
+
+        private void restoreSelectedLetter(int index)
+        {
+            if (0 <= index && index < Letters.Count())
+                SelectedLetter = Letters[index];
+            if (0 < index && index == Letters.Count())
+                SelectedLetter = Letters[index - 1];
+        }
         public void InitializeDataGrid(Guid folderId)
         {
             try
             {
+                int index = SelectedLetterIndex();
                 Letters.Clear();
                 var letters = ClientRequests.GetWorkerLettersInFolder(folderId, ((ApplicationState)ServiceProvider.GetService(typeof(ApplicationState))).Worker.Id).ToList();
                 foreach (LetterView letterView in letters)
                 {
                     Letters.Add(letterView);
                 }
+                restoreSelectedLetter(index);
             }
             catch (Exception ex)
             {

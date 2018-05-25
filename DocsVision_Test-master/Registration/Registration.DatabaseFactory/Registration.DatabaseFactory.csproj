@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocsVision.Platform.ObjectManager, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7148afe997f90519, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\DocsVision.Platform.ObjectManager\v4.0_5.0.0.0__7148afe997f90519\DocsVision.Platform.ObjectManager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -41,11 +45,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocsVisionDatabaseCommand.cs" />
+    <Compile Include="DocsVisionDatabaseConnection.cs" />
     <Compile Include="DatabaseService.cs" />
     <Compile Include="DatabaseFactory.cs" />
     <Compile Include="DatabaseFactorySectionHandler.cs" />
+    <Compile Include="DocsVisionDatabase.cs" />
+    <Compile Include="DocsVisionDatabaseReader.cs" />
+    <Compile Include="IDatabaseCommand.cs" />
+    <Compile Include="IDatabaseConnection.cs" />
+    <Compile Include="IDatabaseReader.cs" />
     <Compile Include="MsSqlDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlDatabaseCommand.cs" />
+    <Compile Include="SqlDatabaseConnection.cs" />
+    <Compile Include="SqlDatabaseReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,6 +1,5 @@
 ﻿using System;
 using Registration.DatabaseFactory;
-using System.Data;
 using Registration.Model;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -17,7 +16,6 @@ namespace Registration.DataInterface.Sql
 
         const string Name = "name";
         const string IdWorker = "idWorker";
-
         const string IdLetterColumn = "@idLetter";
 
         public FolderService(DatabaseService _databaseService)
@@ -36,22 +34,20 @@ namespace Registration.DataInterface.Sql
 
         public void GetReceivers(Guid letterId, ref IDictionary<Guid, string> receivers)
         {
-            using (IDbConnection connection = DatabaseService.CreateOpenConnection())
+            using (IDatabaseConnection connection = DatabaseService.CreateConnection())
             {
-                using (IDbCommand command = DatabaseService.CreateStoredProcCommand(SpGetReceivers, connection))
-                {
-                    DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
+             var command = DatabaseService.CreateStoredProcCommand(SpGetReceivers, connection);
+                DatabaseService.AddParameterWithValue(IdLetterColumn, letterId, command);
 
-                    using (IDataReader reader = command.ExecuteReader())
+                using (IDatabaseReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            receivers.Add(reader.GetGuid(reader.GetOrdinal(IdWorker)), reader.GetString(reader.GetOrdinal(Name)));
-                        }
-                        if (receivers.Count == 0)
-                        {
-                            throw new ArgumentException($"Сообщения с таким id {letterId} нет!");
-                        }
+                        receivers.Add(reader.GetGuid(IdWorker), reader.GetString(Name));
+                    }
+                    if (receivers.Count == 0)
+                    {
+                        throw new ArgumentException($"Сообщения с таким id {letterId} нет!");
                     }
                 }
             }

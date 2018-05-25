@@ -33,11 +33,7 @@ namespace Registration.WPF.Views
 
         private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
-
-
-
-
-
+            
         }
     }
 }

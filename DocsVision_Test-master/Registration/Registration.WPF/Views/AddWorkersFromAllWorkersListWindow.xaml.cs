@@ -45,7 +45,11 @@ namespace Registration.WPF.Views
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             listOtherWorkers.Focus();
-            listOtherWorkers.SelectedIndex = 0;
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            listReceivers.Focus();
         }
     }
 }
