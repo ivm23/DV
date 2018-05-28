@@ -96,47 +96,33 @@ namespace Registration.DataInterface.DocsVision
 
         public IEnumerable<IWorker> GetAllWorkers()
         {
-            //IList<Worker> allWorkers = new List<Worker>();
-
-            //RowDataCollection allRows = section.GetAllRows();
-
-            //foreach (var row in allRows)
-            //{
-            //    allWorkers.Add(new Worker()
-            //    {
-            //        Name = row.GetString(WorkerName),
-            //        Password = row.GetString(WorkerPassword),
-            //        Login = row.GetString(WorkerLogin),
-            //        Id = row.Id
-            //    }
-            //);
-            //}
-            //session.Close();
-            //return allWorkers;
-            return null;
-        }
-
-        public string GetWorkerName(Guid workerId)
-        {
-          
-            CardData cardDictionary = UserSession.CardManager.GetDictionaryData(WorkersDictionaryId, false);
+            IList<Worker> allWorkers = new List<Worker>();
+            CardData cardDictionary = _userSession.CardManager.GetDictionaryData(WorkersDictionaryId);
             SectionData section = cardDictionary.Sections[WorkersSectionId];
             RowDataCollection allRows = section.GetAllRows();
 
             foreach (var row in allRows)
             {
-                if (row.Id == workerId)
-                {
-
-                    return new Worker()
-                    {
-                        Name = row.GetString(WorkerName),
-                        Login = row.GetString(WorkerLogin),
-                        Password = row.GetString(WorkerPassword)
-                    }.ToString();
-                }
+                allWorkers.Add(new Worker(row));
             }
-          
+            return allWorkers;
+        }
+
+        public string GetWorkerName(Guid workerId)
+        {
+            CardData cardDictionary = UserSession.CardManager.GetDictionaryData(WorkersDictionaryId, false);
+            SectionData section = cardDictionary.Sections[WorkersSectionId];
+
+            SectionQuery sectionQuery = UserSession.CreateSectionQuery();
+            sectionQuery.SectionId = WorkersSectionId;
+
+            sectionQuery.ConditionGroup.Conditions.AddNew(WorkerLogin, FieldType.String, ConditionOperation.Equals, login);
+            var findRow = section.FindRows(sectionQuery.GetXml()).First();
+
+            if (findRow != null)
+            {
+                return new Worker(findRow).ToString();
+            }
             throw new Exception($"Worker with id {workerId} isn't exist!");
         }
     }
