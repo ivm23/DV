@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FolderService.cs" />
+    <Compile Include="Worker.cs" />
+    <Compile Include="WorkersDictionary.cs" />
     <Compile Include="WorkerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

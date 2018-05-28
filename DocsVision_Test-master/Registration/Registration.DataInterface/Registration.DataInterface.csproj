@@ -45,9 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IFolder.cs" />
     <Compile Include="IFolderService.cs" />
     <Compile Include="IFolderTreeService.cs" />
+    <Compile Include="IFolderType.cs" />
+    <Compile Include="ILetter.cs" />
     <Compile Include="ILetterService.cs" />
+    <Compile Include="ILetterType.cs" />
+    <Compile Include="ILetterView.cs" />
+    <Compile Include="IWorker.cs" />
     <Compile Include="IWorkerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -55,10 +61,6 @@
     <ProjectReference Include="..\Registration.DatabaseFactory\Registration.DatabaseFactory.csproj">
       <Project>{f6c926f1-8297-45c9-9472-cf105dd5a795}</Project>
       <Name>Registration.DatabaseFactory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Registretion.Model\Registration.Model.csproj">
-      <Project>{8c0a1308-ae5a-4d36-ac6c-5e808a9c929e}</Project>
-      <Name>Registration.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

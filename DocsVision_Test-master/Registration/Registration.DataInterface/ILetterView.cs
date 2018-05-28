@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Registration.DataInterface
 {
-    interface ILetterView
+    public interface ILetterView
     {
     }
 }

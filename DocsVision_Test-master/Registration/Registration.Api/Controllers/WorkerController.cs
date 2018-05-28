@@ -38,30 +38,30 @@ namespace Registration.Api.Controllers
 
         [HttpGet]
         [Route("api/{databaseName}/worker/{login}/{password}")]
-        public Worker AuthorizationWorker(string login, string password, string databaseName)
+        public Model.Worker AuthorizationWorker(string login, string password, string databaseName)
         {
-            return getWorkerService(databaseName).AuthorizationWorker(login, password);
+            return new Model.Worker(getWorkerService(databaseName).AuthorizationWorker(login, password));
         }
 
         [HttpPost]
         [Route("api/{databaseName}/worker")]
-        public Worker Create([FromBody] Worker worker, string databaseName)
+        public Model.Worker Create([FromBody] Model.Worker worker, string databaseName)
         {
-            return getWorkerService(databaseName).Create(worker);
+            return new Model.Worker(getWorkerService(databaseName).Create((IWorker)worker));
         }
 
         [HttpGet]
         [Route("api/{databaseName}/worker/{login}")]
-        public Worker Get(string login, string databaseName)
+        public Model.Worker Get(string login, string databaseName)
         {
-            return getWorkerService(databaseName).Get(login);
+            return new Model.Worker(getWorkerService(databaseName).Get(login));
         }
 
         [HttpGet]
         [Route("api/{databaseName}/workers")]
-        public IEnumerable<Worker> GetAllWorkers(string databaseName)
+        public IEnumerable<Model.Worker> GetAllWorkers(string databaseName)
         {
-            return getWorkerService(databaseName).GetAllWorkers();
+            return (IEnumerable<Model.Worker>)getWorkerService(databaseName).GetAllWorkers();
         }
 
         [HttpGet]

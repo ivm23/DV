@@ -1,5 +1,4 @@
 ﻿using System;
-using Registration.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +8,14 @@ namespace Registration.DataInterface
 {
     public interface IFolderTreeService
     {
-        Guid GetOwnerId(Folder folder);
-        Folder Create(Folder folder);
+        Guid GetOwnerId(IFolder folder);
+        IFolder Create(IFolder folder);
         void Delete(Guid folderId);
-        Folder Update(Folder folder);
+        IFolder Update(IFolder folder);
         string GetAllFolders();
-        IEnumerable<Folder> GetAllWorkerFolders(Guid workerId);
-        IEnumerable<FolderType> GetAllFolderTypes();
-        FolderType GetFolderType(int folderTypeId);
+        IEnumerable<IFolder> GetAllWorkerFolders(Guid workerId);
+        IEnumerable<IFolderType> GetAllFolderTypes();
+        IFolderType GetFolderType(int folderTypeId);
 
         IFolderService GetFolderService(Guid folderId);
     }

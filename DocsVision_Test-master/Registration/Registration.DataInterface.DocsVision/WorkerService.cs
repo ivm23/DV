@@ -110,19 +110,6 @@ namespace Registration.DataInterface.DocsVision
 
         public string GetWorkerName(Guid workerId)
         {
-            CardData cardDictionary = UserSession.CardManager.GetDictionaryData(WorkersDictionaryId, false);
-            SectionData section = cardDictionary.Sections[WorkersSectionId];
-
-            SectionQuery sectionQuery = UserSession.CreateSectionQuery();
-            sectionQuery.SectionId = WorkersSectionId;
-
-            sectionQuery.ConditionGroup.Conditions.AddNew(WorkerLogin, FieldType.String, ConditionOperation.Equals, login);
-            var findRow = section.FindRows(sectionQuery.GetXml()).First();
-
-            if (findRow != null)
-            {
-                return new Worker(findRow).ToString();
-            }
             throw new Exception($"Worker with id {workerId} isn't exist!");
         }
     }

@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Registration.DataInterface
 {
-    interface IWorker
+   public interface IWorker
     {
+        string Name { get; set; }
+        string Login { get; set; }
+        string Password { get; set; }
+
+        Guid Id { get; }
+
+        string ToString();
     }
 }

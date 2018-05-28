@@ -57,11 +57,16 @@
     <Compile Include="LetterWithReminderData.cs" />
     <Compile Include="Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WorkersDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Registration.DataInterface\Registration.DataInterface.csproj">
+      <Project>{944c171e-f955-48c7-974c-7ff5c21c7639}</Project>
+      <Name>Registration.DataInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

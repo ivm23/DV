@@ -1,13 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using Registration.DataInterface;
 namespace Registration.Model
 {
     public class Worker
     {
+        public Worker() {
+        }
+
+        public Worker(IWorker worker)
+        {
+            Login = worker.Login;
+            Name = worker.Name;
+            Password = worker.Password;
+            Id = worker.Id;
+        }
+
         public string Login
         {
             get; set;
