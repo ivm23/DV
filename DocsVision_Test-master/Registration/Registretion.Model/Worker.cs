@@ -8,7 +8,10 @@ namespace Registration.Model
 {
     public class Worker
     {
-        public string Login { get; set; }
+        public string Login
+        {
+            get; set;
+        }
         public string Name { get; set; }
         public Guid Id { get; set; }
         public string Password { get; set; }
@@ -27,5 +30,6 @@ namespace Registration.Model
         {
             return string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(Name) || Id == Guid.Empty;
         }
+
     }
 }

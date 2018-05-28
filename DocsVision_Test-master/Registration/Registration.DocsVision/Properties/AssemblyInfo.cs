@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SentFolderService")]
+[assembly: AssemblyTitle("Registration.DocsVision")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DocsVision")]
-[assembly: AssemblyProduct("SentFolderService")]
+[assembly: AssemblyProduct("Registration.DocsVision")]
 [assembly: AssemblyCopyright("Copyright © DocsVision 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0abf8051-becf-4930-9f19-03f458073c8a")]
+[assembly: Guid("ac6401de-f183-4b77-bc91-8f3815b031d8")]
 
 // Version information for an assembly consists of the following four values:
 //

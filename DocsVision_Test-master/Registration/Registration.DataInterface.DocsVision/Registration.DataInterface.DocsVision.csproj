@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2A342F68-523C-4F34-A207-9549A8B48931}</ProjectGuid>
+    <ProjectGuid>{A1504AD2-4042-4861-9426-1986069FFB10}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnreadFolderService</RootNamespace>
-    <AssemblyName>UnreadFolderService</AssemblyName>
+    <RootNamespace>Registration.DataInterface.DocsVision</RootNamespace>
+    <AssemblyName>Registration.DataInterface.DocsVision</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocsVision.Platform.ObjectManager, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7148afe997f90519, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\DocsVision.Platform.ObjectManager\v4.0_5.0.0.0__7148afe997f90519\DocsVision.Platform.ObjectManager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,17 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnreadFolderService.cs" />
+    <Compile Include="FolderService.cs" />
+    <Compile Include="WorkerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Registration.DatabaseFactory\Registration.DatabaseFactory.csproj">
       <Project>{f6c926f1-8297-45c9-9472-cf105dd5a795}</Project>
       <Name>Registration.DatabaseFactory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Registration.DataInterface.Sql\Registration.DataInterface.Sql.csproj">
-      <Project>{15072b56-0a0b-4117-8d31-eca9eca7fef3}</Project>
-      <Name>Registration.DataInterface.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\Registration.DataInterface\Registration.DataInterface.csproj">
       <Project>{944c171e-f955-48c7-974c-7ff5c21c7639}</Project>

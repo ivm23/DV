@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using Registration.DataInterface;
 using Registration.DataInterface.Sql;
+using Registration.DataInterface.DocsVision;
 using Registration.Model;
 using Registration.DatabaseFactory;
 using System.ComponentModel.Design;
@@ -26,9 +27,9 @@ namespace Registration.Api.Controllers
             IWorkerService workerService;
             if (!_existWorkerService.TryGetValue(databaseName, out workerService))
             {
-                var a = ((IDatabasesService)_serviceWorkerContainer.GetService(typeof(IDatabasesService))).GetDatabasesService();
+               var a = ((IDatabasesService)_serviceWorkerContainer.GetService(typeof(IDatabasesService))).GetDatabasesService();
                 DatabaseService _databaseService = ((IDatabasesService)_serviceWorkerContainer.GetService(typeof(IDatabasesService))).GetDatabasesService()[databaseName];
-                workerService = new WorkerService(_databaseService);
+                workerService = new Registration.DataInterface.DocsVision.WorkerService(_databaseService, databaseName);
                 _existWorkerService.Add(databaseName, workerService);
             }
             return workerService;

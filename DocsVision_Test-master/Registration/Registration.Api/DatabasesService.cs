@@ -12,7 +12,9 @@ namespace Registration.Api
 
         const string ConnectionStringKey = "connectionString";
 
-        private string GetConnectionString(string databaseName) => $"Data Source = 109PC0047; Initial Catalog = {databaseName}; Integrated Security = True";
+
+        //  private string GetConnectionString(string databaseName) => $"Data Source = 109PC0047; Initial Catalog = {databaseName}; Integrated Security = True";
+        private string GetConnectionString(string databaseName) => "http://localhost/dv/StorageServer/StorageServerService.asmx";
 
         public void InitializeDatabasesService()
         {

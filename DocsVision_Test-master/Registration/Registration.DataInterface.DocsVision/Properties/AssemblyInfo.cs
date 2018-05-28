@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UnreadFolderService")]
+[assembly: AssemblyTitle("Registration.DataInterface.DocsVision")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DocsVision")]
-[assembly: AssemblyProduct("UnreadFolderService")]
+[assembly: AssemblyProduct("Registration.DataInterface.DocsVision")]
 [assembly: AssemblyCopyright("Copyright © DocsVision 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2a342f68-523c-4f34-a207-9549a8b48931")]
+[assembly: Guid("a1504ad2-4042-4861-9426-1986069ffb10")]
 
 // Version information for an assembly consists of the following four values:
 //

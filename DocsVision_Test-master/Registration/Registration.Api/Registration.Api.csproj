@@ -193,6 +193,10 @@
       <Project>{f6c926f1-8297-45c9-9472-cf105dd5a795}</Project>
       <Name>Registration.DatabaseFactory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Registration.DataInterface.DocsVision\Registration.DataInterface.DocsVision.csproj">
+      <Project>{a1504ad2-4042-4861-9426-1986069ffb10}</Project>
+      <Name>Registration.DataInterface.DocsVision</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Registration.Logger\Registration.Logger.csproj">
       <Project>{2eb8e0cb-1fac-4185-8315-96a50d92db69}</Project>
       <Name>Registration.Logger</Name>

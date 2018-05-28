@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registration.WPF", "Registr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registration.Plugins", "Registration.Plugins\Registration.Plugins.csproj", "{3A1A1EE2-602C-4359-BB35-49203C2FB362}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registration.DataInterface.DocsVision", "Registration.DataInterface.DocsVision\Registration.DataInterface.DocsVision.csproj", "{A1504AD2-4042-4861-9426-1986069FFB10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{3A1A1EE2-602C-4359-BB35-49203C2FB362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A1A1EE2-602C-4359-BB35-49203C2FB362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A1A1EE2-602C-4359-BB35-49203C2FB362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1504AD2-4042-4861-9426-1986069FFB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1504AD2-4042-4861-9426-1986069FFB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1504AD2-4042-4861-9426-1986069FFB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1504AD2-4042-4861-9426-1986069FFB10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

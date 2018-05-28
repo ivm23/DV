@@ -9,17 +9,16 @@ namespace Registration.DatabaseFactory
 {
     public class DocsVisionDatabaseConnection : DocsVisionDatabase, IDatabaseConnection
     {
-        private readonly Guid _idUserSession;
-        private readonly SessionManager _manager;
-        public DocsVisionDatabaseConnection(SessionManager manager, Guid idUserSession)
+        private readonly UserSession _userSession;
+
+        public DocsVisionDatabaseConnection(UserSession userSession)
         {
-            _manager = manager;
-            _idUserSession = idUserSession;
+            _userSession = userSession;
         }
 
         public void Dispose()
         {
-            _manager.CloseSession(_idUserSession);
+            _userSession.Close();
         }
     }
 

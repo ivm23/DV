@@ -6,12 +6,12 @@ namespace Registration.DataInterface
 {
     public interface ILetterService
     {
-        Letter Create(LetterView letter);
-        LetterView Get(Guid folderId, Guid workerId);
+        ILetter Create(LetterView letter);
+        ILetterView Get(Guid folderId, Guid workerId);
         void Delete(Guid letterId, Guid workerId, Guid folderId);
         void ChangeLetterIsRead(Guid letterId, Guid workerId);
 
-        IEnumerable<LetterType> GetAllLetterTypes();
-        LetterType GetLetterType(int letterTypeId);
+        IEnumerable<ILetterType> GetAllLetterTypes();
+        ILetterType GetLetterType(int letterTypeId);
     }
 }
